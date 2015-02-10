@@ -1,0 +1,34 @@
+Navnerunde ?
+Problemformulering - LAMO
+Fast mødedag hver uge - LAMO
+
+Samarbejdsaftale - Ingen mødeindkaldelse !?
+	- Fremadrettet
+		- Mad under mødet - Frokost
+		- Snak og Larm
+	- Hvad med ingen mødeindkaldelse i dag - Afstemning ?
+Forventningsafstemning - Karakter & arbejdsindsats
+	- Fremadrettet
+	- Længde af sprint
+Fordeling af arbejde
+	- Database
+	- Funktionalitet
+	- GUI - Køleskab
+	- GUI - Web
+Opgaver til næste gang
+	- Brainstorm
+		- Use-cases
+			- Web
+			- KøleGUI
+		- Prioritering af tingene
+		- Hvad vi gerne vil lave
+		- Ekstra Tilføjelser
+	- Redmine - Kontakt IT
+	 - Kan vi få et Scrum Board på readmine
+	- Mødeindkaldelse
+	- Samarbejdsaftale
+Næste mødedag
+Mødeindkaldelse
+	- Næste Referant
+	- Næste Dirigent
+Eventuelt
