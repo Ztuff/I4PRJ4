@@ -41,7 +41,7 @@ Opgaver til næste gang
 				-Eventuelt fra database
 			-Alarm når noget er for gammelt
 			-Tilføj og fjern vare fra WEB
-			
+			-Scanner
 	- Redmine - Kontakt IT
 	 - Kan vi få et Scrum Board på readmine
 	- Mødeindkaldelse
