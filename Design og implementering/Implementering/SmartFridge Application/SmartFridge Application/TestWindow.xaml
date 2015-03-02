@@ -1,0 +1,9 @@
+﻿<Window x:Class="SmartFridge_Application.TestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:SmartFridge_Application"
+        Title="TestWindow" Height="720" Width="1280">
+    <Grid>
+        <controls:AddItem></controls:AddItem>
+    </Grid>
+</Window>
