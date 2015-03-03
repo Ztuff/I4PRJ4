@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using Interfaces_og_DTO_klasser;
 
 namespace AddItem
 {
@@ -21,6 +22,7 @@ namespace AddItem
 
         public AddItem()
         {
+            InitializeComponent();
             ListBoxItems.ItemsSource = newItems;
             TextBoxAntal.Text = amount.ToString();
             GetTypes();

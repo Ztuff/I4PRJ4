@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItemList;
+using AddItem;
+using AddItem = AddItem.AddItem;
 
 namespace FakeMainWindow
 {
@@ -28,7 +30,8 @@ namespace FakeMainWindow
 
         private void ItemListGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            CtrlShowListSelection slsc = new CtrlShowListSelection();
+            //var slsc = new global::AddItem.AddItem();
+            var slsc = new CtrlShowListSelection();
             ItemListGrid.Children.Add(slsc);
         }
     }
