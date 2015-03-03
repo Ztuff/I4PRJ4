@@ -7,9 +7,9 @@
              d:DesignHeight="720" d:DesignWidth="1280"
              FontSize="48">
     <Grid>
-        <Button x:Name="BtnInFridge" Content="I køleskab" HorizontalAlignment="Left" Margin="95,300,0,0" VerticalAlignment="Top" Width="300" Height="300"/>
-        <Button x:Name="BtnShoppingList" Content="Indkøbsliste" HorizontalAlignment="Left" Margin="490,300,0,0" VerticalAlignment="Top" Width="300" Height="300"/>
-        <Button x:Name="BtnStdContent" HorizontalAlignment="Left" Margin="885,300,0,0" VerticalAlignment="Top" Width="300" Height="300">
+        <Button x:Name="BtnInFridge" Content="I køleskab" HorizontalAlignment="Left" Margin="95,300,0,0" VerticalAlignment="Top" Width="300" Height="300" Click="BtnInFridge_Click"/>
+        <Button x:Name="BtnShoppingList" Content="Indkøbsliste" HorizontalAlignment="Left" Margin="490,300,0,0" VerticalAlignment="Top" Width="300" Height="300" Click="BtnShoppingList_Click"/>
+        <Button x:Name="BtnStdContent" HorizontalAlignment="Left" Margin="885,300,0,0" VerticalAlignment="Top" Width="300" Height="300" Click="BtnStdContent_Click">
             <TextBlock TextAlignment="Center"> Standard-<LineBreak/>beholdning</TextBlock>
         </Button>
         <TextBlock HorizontalAlignment="Left" Margin="95,120,0,0" TextWrapping="Wrap" Text="Vælg en liste" VerticalAlignment="Top"/>

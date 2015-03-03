@@ -5,5 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
-    <Grid/>
+    <Grid>
+        <Grid Margin="630,100,10,10">
+            <Border BorderBrush="Black" BorderThickness="2"/>
+            <Label x:Name="SelectedItemType" Content="Overskrift" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="28"/>
+            <TextBlock x:Name="SelectedAmount" Margin="20,70,0,0" TextWrapping="Wrap" Text="Antal:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20"/>
+            <TextBlock x:Name="SelectedSize" Margin="20,120,0,0" TextWrapping="Wrap" Text="Størrelse:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20"/>
+            <TextBlock x:Name="SelectedBestBefore" Margin="20,170,0,0" TextWrapping="Wrap" Text="Mindst holdbar til:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20"/>
+            <Button x:Name="BtnEdit" Content="Rediger" Margin="0,20,20,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" FontSize="20" Click="BtnEdit_Click"/>
+            <Button x:Name="ButtonInc" Margin="0,115,20,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" Click="ButtonInc_Click">
+                <TextBlock Text="+" FontSize="76" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Button>
+            <Button x:Name="BtnDec" Margin="0,210,20,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" Click="BtnDec_Click">
+                <TextBlock Text="-" FontSize="76" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Button>
+        </Grid>
+        <DataGrid x:Name="DataGridItems" HorizontalAlignment="Left" Margin="10,100,0,10" Width="412" FontSize="20" SelectionChanged="DataGridItems_SelectionChanged"/>
+        <Label x:Name="LabelItemList" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="48"/>
+    </Grid>
 </UserControl>
