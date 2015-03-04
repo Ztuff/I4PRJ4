@@ -94,6 +94,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AddItem\AddItem.csproj">
+      <Project>{e85fa79f-37a4-483b-9627-bd3a60d00527}</Project>
+      <Name>AddItem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ItemList\ItemList.csproj">
       <Project>{a687d3c8-9299-4131-b317-d1e743fffe66}</Project>
       <Name>ItemList</Name>
