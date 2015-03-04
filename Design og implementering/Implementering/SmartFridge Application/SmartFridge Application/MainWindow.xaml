@@ -2,7 +2,36 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" >
+            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                <Button Content="TurnOff"></Button>
+                <Button Content="Back"></Button>
+                <Button Content="Forward"></Button>
+                <Button Content="Settings"></Button>
+                
+            </StackPanel>
+            <Label Content="Label" HorizontalAlignment="Center" />
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Label Content="Time"></Label>
+                <Button Content="Sync"></Button>    
+            </StackPanel>
+            
+        </Grid>
+        <Grid DockPanel.Dock="Bottom" ></Grid>
+        <Grid DockPanel.Dock="Right" >
+            <StackPanel HorizontalAlignment="Right" Orientation="Vertical">
+                <Button Content="Wittler"></Button>
+                <Button Content="SiigHeiler"></Button>
+                <Button Content="Mat"></Button>
+                <Button Content="Stuffler"></Button>
+                <Button Content="Mikkler"></Button>
+                <Button Content="Mathisser"></Button>
+
+
+            </StackPanel>
+            
+
+        </Grid>
+    </DockPanel>
 </Window>
