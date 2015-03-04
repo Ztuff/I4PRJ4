@@ -20,9 +20,27 @@ namespace ItemList
     /// </summary>
     public partial class CtrlShowListSelection : UserControl
     {
-        public CtrlShowListSelection()
+        private CtrlTemplate _ctrlTemp;
+
+        public CtrlShowListSelection(CtrlTemplate ctrlTemp)
         {
             InitializeComponent();
+            _ctrlTemp = ctrlTemp;
+        }
+
+        private void BtnInFridge_Click(object sender, RoutedEventArgs e)
+        {
+            _ctrlTemp.ChangeGridContent(GridContent.InFridge);
+        }
+
+        private void BtnShoppingList_Click(object sender, RoutedEventArgs e)
+        {
+            _ctrlTemp.ChangeGridContent(GridContent.ShoppingList);
+        }
+
+        private void BtnStdContent_Click(object sender, RoutedEventArgs e)
+        {
+            _ctrlTemp.ChangeGridContent(GridContent.StdContent);
         }
     }
 }
