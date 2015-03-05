@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddItem", "AddItem\AddItem.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces og DTO-klasser", "Interfaces og DTO-klasser\Interfaces og DTO-klasser.csproj", "{32AEE5EC-30BC-435F-A54D-05A06A0BA2FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFridgeApplication", "SmartFridgeApplication\SmartFridgeApplication.csproj", "{7D8121C6-93F6-463B-BAAD-D395564F4E49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{32AEE5EC-30BC-435F-A54D-05A06A0BA2FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32AEE5EC-30BC-435F-A54D-05A06A0BA2FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32AEE5EC-30BC-435F-A54D-05A06A0BA2FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D8121C6-93F6-463B-BAAD-D395564F4E49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D8121C6-93F6-463B-BAAD-D395564F4E49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D8121C6-93F6-463B-BAAD-D395564F4E49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D8121C6-93F6-463B-BAAD-D395564F4E49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
