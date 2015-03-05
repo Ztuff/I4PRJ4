@@ -2,6 +2,7 @@
 
 namespace ItemList
 {
+    /* TO BE DELETED
     public class Item
     {
         public string ItemType { get; private set; }
@@ -17,4 +18,5 @@ namespace ItemList
             Unit = unit;
         }
     }
+     */
 }
