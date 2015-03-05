@@ -20,7 +20,7 @@ namespace AddItem
         public string CurrentList = "Køleskab";
         public IData dataLayer = new FakeData();
 
-        public AddItem()
+        public AddItem(string currentList, )
         {
             InitializeComponent();
             ListBoxItems.ItemsSource = newItems;
