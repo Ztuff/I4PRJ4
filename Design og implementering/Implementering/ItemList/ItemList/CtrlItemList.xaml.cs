@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using InterfacesAndDTO;
 
 namespace ItemList
 {
@@ -22,7 +23,7 @@ namespace ItemList
     public partial class CtrlItemList : UserControl
     {
         private CtrlTemplate _ctrlTemp;
-        private GridContent _listType;
+        public GridContent _listType;
         public CtrlTemplate CtrlTemp { get; set; }
         IItemData fakeItemData = new FakeItemData();        // Vi skal have fjernet fakes fra alt andet end tests - hurtigst muligt!
         ObservableCollection<Item> Items;
@@ -82,7 +83,7 @@ namespace ItemList
         private void DataGridItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Item selectedItem = (Item)DataGridItems.SelectedItem;
-            SelectedItemType.Content = selectedItem.ItemType;
+            SelectedItemType.Content = selectedItem.Type;
             SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
             SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
         }
@@ -100,6 +101,7 @@ namespace ItemList
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
             // Skal åbne User Control for den pågældende use case
+            _ctrlTemp.ChangeGridContent(GridContent.AddItem);
         }
     }
 }
