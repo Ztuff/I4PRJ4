@@ -1,21 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using SmartFridge;
+using InterfacesAndDTO;
+using ItemList;
 
-namespace SmartFridge_Application
+namespace AddItem
 {
     /// <summary>
     /// Interaction logic for AddItem.xaml
@@ -25,16 +15,24 @@ namespace SmartFridge_Application
         List<Item> newItems = new List<Item>();
         List<Item> types = new List<Item>();
         List<string> typeNames = new List<string>();
+        List<string> unitNames = new List<string>();
         private uint amount = 1;
         private string selectedType = "";
+        public GridContent CurrentList;
+        public IData dataLayer = new FakeData();
+        private CtrlTemplate _ctrlTemplate;
 
-        public AddItem()
+        public AddItem(CtrlTemplate ctrlTemplate, GridContent currentList )
         {
+            CurrentList = currentList;
+            _ctrlTemplate = ctrlTemplate;
             InitializeComponent();
             ListBoxItems.ItemsSource = newItems;
             TextBoxAntal.Text = amount.ToString();
             GetTypes();
+            GetUnitNames();
             ComboBoxVaretype.ItemsSource = typeNames;
+            ComboBoxUnit.ItemsSource = unitNames;
         }
 
         #region OtherMethods
@@ -63,6 +61,7 @@ namespace SmartFridge_Application
         private void GetTypes()
         {
             //Data-tier call
+            //Hent typer fra databasen
 
             //Tests:
             types.Add(new Item() { Type = "Mælk", Amount = 1, Size = 1, Unit = "L" });
@@ -79,6 +78,17 @@ namespace SmartFridge_Application
             {
                 typeNames.Add(VARIABLE.Type);
             }
+        }
+
+        private void GetUnitNames()
+        {
+
+            unitNames.Add("L");
+            unitNames.Add("DL");
+            unitNames.Add("CL");
+            unitNames.Add("ML");
+            unitNames.Add("KG");
+            unitNames.Add("G");
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -98,6 +108,15 @@ namespace SmartFridge_Application
 
         private void AddNewItem(Item item)
         {
+            foreach (var i in newItems)
+            {
+                if (i.Type.Equals(item.Type))
+                {
+                    i.Amount += item.Amount;
+                    ListBoxItems.Items.Refresh();
+                    return;
+                }
+            }
             newItems.Add(item);
 
             ListBoxItems.Items.Refresh();
@@ -121,6 +140,14 @@ namespace SmartFridge_Application
         private void AddExitButton_Click(object sender, RoutedEventArgs e)
         {
             AddNewItem(CreateNewItem());
+            Exit();
+
+        }
+
+        private void Exit()
+        {
+            dataLayer.AddItemsToTable(CurrentList.ToString(), newItems);
+            _ctrlTemplate.ChangeGridContent(CurrentList);
         }
 
         private void PlusButton_Click(object sender, RoutedEventArgs e)
@@ -156,7 +183,9 @@ namespace SmartFridge_Application
         private void TextBoxVareType_OnLostFocus(object sender, RoutedEventArgs e)
         {
             TextBoxVareType.Text = UppercaseFirst(TextBoxVareType.Text);
-            UpdateTextboxesFromType(GetTypeItemFromName(TextBoxVareType.Text));
+            var item = GetTypeItemFromName(TextBoxVareType.Text);
+            if (item.Type != null)
+                UpdateTextboxesFromType(item);
         }
 
         private void ComboBoxVaretype_OnDropDownClosed(object sender, EventArgs e)
@@ -169,6 +198,31 @@ namespace SmartFridge_Application
             }
         }
 
+        private void ComboBoxUnit_OnDropDownClosed(object sender, EventArgs e)
+        {
+            if (ComboBoxUnit.SelectedItem != null)
+            {
+                TextBoxVolumenEnhed.Text = ComboBoxUnit.SelectedItem.ToString();
+            }
+        }
+
         #endregion
+
+        private void TextBoxVolumen_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            uint volumen = 0;
+            try
+            {
+                volumen = Convert.ToUInt32(TextBoxVolumen.Text);
+            }
+            catch
+            {
+                volumen = 1;
+            }
+            finally
+            {
+                TextBoxVolumen.Text = volumen.ToString();
+            }
+        }
     }
 }
