@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Interfaces_og_DTO_klasser
+namespace InterfacesAndDTO
 {
     public class FakeData : IData
     {

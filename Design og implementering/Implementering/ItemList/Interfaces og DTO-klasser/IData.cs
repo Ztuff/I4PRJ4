@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interfaces_og_DTO_klasser
+namespace InterfacesAndDTO
 {
     public interface IData
     {

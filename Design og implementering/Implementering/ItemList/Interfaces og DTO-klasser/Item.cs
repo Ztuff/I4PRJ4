@@ -4,13 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interfaces_og_DTO_klasser
+namespace InterfacesAndDTO
 {
     public class Item
     {
         public Item()
         {
             Amount = 1;
+        }
+
+        public Item(string type, uint amount, uint size, string unit)
+        {
+            Type = type;
+            Amount = amount;
+            Size = size;
+            Unit = unit;
         }
 
         public string Type { get; set; }
