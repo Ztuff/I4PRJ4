@@ -54,15 +54,20 @@ namespace ItemList
                 case GridContent.ShoppingList:
                 case GridContent.StdContent:
                     CtrlTempGrid.Children.Clear();
-
                     CtrlItemList il = new CtrlItemList(content, this);
                     CtrlTempGrid.Children.Add(il);
 
                     break;
+
                 case GridContent.AddItem:
-                default:
-                    throw new Exception();
+                    var currentContent = (CtrlTempGrid.Children[0] as CtrlItemList)._listType; //Vi kommer altid (forhåbentligt) fra en CtrlItemList, så vi skal bare have at vide hvad den nuværende liste er.
+                    CtrlTempGrid.Children.Clear();
+                    var additem = new AddItem.AddItem(this, currentContent);
+                    CtrlTempGrid.Children.Add(additem);
                     break;
+                default:
+
+                    throw new Exception();
             }
         }
     }
