@@ -5,9 +5,9 @@
         WindowState="Maximized"
         WindowStyle="None">
     <Grid>
-        
-            <Grid x:Name="ItemListGrid" HorizontalAlignment="Center" Height="720" VerticalAlignment="Center" Width="1280" Loaded="ItemListGrid_Loaded">
-                <Border BorderBrush="Black" BorderThickness="2"/>
-            </Grid>
+
+        <Grid x:Name="ItemListGrid" HorizontalAlignment="Center" Height="720" VerticalAlignment="Center" Width="1280" Loaded="ItemListGrid_Loaded">
+            <Border BorderBrush="Black" BorderThickness="2"/>
+        </Grid>
     </Grid>
 </Window>

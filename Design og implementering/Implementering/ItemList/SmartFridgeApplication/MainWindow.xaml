@@ -4,10 +4,70 @@
         Title="MainWindow" Height="1080" Width="1920"
         WindowState="Maximized"
         WindowStyle="None">
-    <Grid>
 
-        <Grid x:Name="ItemListGrid" HorizontalAlignment="Center" Height="720" VerticalAlignment="Center" Width="1280" Loaded="ItemListGrid_Loaded">
-            <Border BorderBrush="Black" BorderThickness="2"/>
+    <DockPanel LastChildFill="False" Width="1920" Height="1080" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid DockPanel.Dock="Top" MinHeight="50">
+            <DockPanel HorizontalAlignment="Left" LastChildFill="False">
+                <Button Content="Close" DockPanel.Dock="Left"></Button>
+                <Button Content="Back" DockPanel.Dock="Left"></Button>
+                <Button Content="Forward" DockPanel.Dock="Left"></Button>
+                <Button Content="Settings" DockPanel.Dock="Left"></Button>
+            </DockPanel>
+            <Label Content="Title" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+            <DockPanel HorizontalAlignment="Right">
+                <Label Content="Date" VerticalContentAlignment="Center" HorizontalAlignment="Right"></Label>
+                <Button Content="Synchronize" HorizontalAlignment="Right" Margin="0,0,10,0"></Button>
+            </DockPanel>
         </Grid>
-    </Grid>
+
+        <Grid DockPanel.Dock="Bottom" Margin="0,0,10,10">
+            <Label Content="SmartFridge™" HorizontalAlignment="Left"></Label>
+            <TextBox Text="Number of notifications" HorizontalAlignment="Right"></TextBox>
+            <TextBox Text="Notification" HorizontalAlignment="Right"></TextBox>
+        </Grid>
+
+        <Grid DockPanel.Dock="Right" Margin="0,150,0,10">
+            <DockPanel HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button Content="Wittler" Margin="0,0,0,10" RenderTransformOrigin="0.5,0.5" DockPanel.Dock="Top">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Button Content="Mat" DockPanel.Dock="Top" Margin="0,0,0,10" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Button Content="Stuff" DockPanel.Dock="Top" Margin="0,0,0,10" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+
+            </DockPanel>
+        </Grid>
+
+        <Grid DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1920" Height="1080" Margin="-20,0,-19,0">
+            <Grid x:Name="ItemListGrid" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Height="720" VerticalAlignment="Center" Width="1280" Loaded="ItemListGrid_Loaded">
+                <Border BorderBrush="Black" BorderThickness="2"/>
+            </Grid>
+        </Grid>
+
+
+    </DockPanel>
 </Window>
