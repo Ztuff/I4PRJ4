@@ -55,9 +55,9 @@ namespace ItemList
 
         private void LoadItemData()
         {
-//            DataGridItems.ItemsSource = Items;
-//          Ovenstående indlæser data direkte fra Items, men
-//          titlerne på kolonnerne kan tilsyneladende ikke ændres
+            DataGridItems.AutoGenerateColumns = false;
+            DataGridItems.CanUserAddRows = false;
+            DataGridItems.ItemsSource = Items;
             DataGridTextColumn name = new DataGridTextColumn();
             name.Header = "Navn";
             name.Binding = new Binding("Type");
@@ -77,7 +77,7 @@ namespace ItemList
             // name.Width = DataGridItems.ActualWidth - amount.ActualWidth - size.ActualWidth - unit.ActualWidth;
             // Vi ser lige på at lave en dynamisk bredde på Navn
             // Midlertidig løsning:
-            name.Width = 200;
+            name.Width = 195;
 
             //LabelItemList.Content = Items[0].ItemType;
         }
