@@ -9,8 +9,9 @@
         <Grid DockPanel.Dock="Top" MinHeight="50">
             <DockPanel HorizontalAlignment="Left" LastChildFill="False">
                 <Button Content="Close" DockPanel.Dock="Left"></Button>
-                <Button Content="Back" DockPanel.Dock="Left"></Button>
-                <Button Content="Forward" DockPanel.Dock="Left"></Button>
+                <Button x:Name="BackwardsButton" Content="Back" DockPanel.Dock="Left" ></Button>
+                <Button x:Name="ForwardButton" Content="Forward" DockPanel.Dock="Left"></Button>
+                <Button x:Name="HomeButton" Content="Home" DockPanel.Dock="Left" Click="HomeClicked"></Button>
                 <Button Content="Settings" DockPanel.Dock="Left"></Button>
             </DockPanel>
             <Label Content="Title" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
@@ -66,6 +67,8 @@
             <Grid x:Name="ItemListGrid" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Height="720" VerticalAlignment="Center" Width="1280" Loaded="ItemListGrid_Loaded">
                 <Border BorderBrush="Black" BorderThickness="2"/>
             </Grid>
+            <Button Content="TestButton" HorizontalAlignment="Left" Margin="364,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButton_Clicked"/>
+            <Button Content="TestButton2" HorizontalAlignment="Left" Margin="488,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButtonForward_Clicked"/>
         </Grid>
 
 

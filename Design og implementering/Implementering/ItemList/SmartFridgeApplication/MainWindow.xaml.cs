@@ -21,6 +21,8 @@ namespace SmartFridgeApplication
     /// </summary>
     public partial class MainWindow : Window
     {
+        public CtrlTemplate Temp;
+       // public GridContent PrevUserControl;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,8 +30,36 @@ namespace SmartFridgeApplication
 
         private void ItemListGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            CtrlTemplate temp = new CtrlTemplate();
-            ItemListGrid.Children.Add(temp);
+            Temp = new CtrlTemplate();
+            ItemListGrid.Children.Add(Temp);
+        }
+
+        private void BackButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            
+           // Temp.ChangeGridContent(GridContent.InFridge);
+            //var currentContent = (ItemListGrid.Children[0] as CtrlItemList)._listType; //Vi kommer altid (forhåbentligt) fra en CtrlItemList, så vi skal bare have at vide hvad den nuværende liste er.
+            //ItemListGrid.Children.Clear();
+            //var additem = new AddItem.AddItem(this, currentContent);
+            //ItemListGrid.Children.Add(additem);
+            //Temp.ChangeGridContent(Temp.Parent);
+        }
+
+        private void TestButton_Clicked(object sender, RoutedEventArgs e)
+        {
+        //    PrevUserControl = (GridContent) Enum.Parse(typeof(GridContent), Temp.Name);
+            Temp.ChangeGridContent(GridContent.ListSelection);
+        }
+
+        private void TestButtonForward_Clicked(object sender, RoutedEventArgs e)
+        {
+          //  Temp.ChangeGridContent(PrevUserControl);
+        }
+
+        private void HomeClicked(object sender, RoutedEventArgs e)
+        {
+            Temp.ChangeGridContent(GridContent.ListSelection);
+
         }
     }
 }

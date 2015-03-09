@@ -21,6 +21,7 @@ namespace ItemList
     public partial class CtrlShowListSelection : UserControl
     {
         private CtrlTemplate _ctrlTemp;
+        
 
         public CtrlShowListSelection(CtrlTemplate ctrlTemp)
         {
