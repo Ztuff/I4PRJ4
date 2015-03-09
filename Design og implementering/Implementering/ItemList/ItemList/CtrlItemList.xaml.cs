@@ -34,7 +34,7 @@ namespace ItemList
             _ctrlTemp = ctrlTemp;
             _listType = content;
             Items = fakeData.GetItemsFromTable(content.ToString());
-
+            /*
             switch (_listType)
             {
                 case GridContent.InFridge:
@@ -49,7 +49,7 @@ namespace ItemList
                 default:
                     throw new Exception();
             }
-
+            */
             LoadItemData();
         }
 
