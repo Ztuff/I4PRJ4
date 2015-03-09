@@ -25,7 +25,7 @@ namespace ItemList
         private CtrlTemplate _ctrlTemp;
         public GridContent _listType;
         public CtrlTemplate CtrlTemp { get; set; }
-        IItemData fakeItemData = new FakeItemData();        // Vi skal have fjernet fakes fra alt andet end tests - hurtigst muligt!
+        IData fakeData = new FakeData();        // Vi skal have fjernet fakes fra alt andet end tests - hurtigst muligt!
         ObservableCollection<Item> Items;
 
         public CtrlItemList(GridContent content, CtrlTemplate ctrlTemp)
@@ -33,7 +33,7 @@ namespace ItemList
             InitializeComponent();
             _ctrlTemp = ctrlTemp;
             _listType = content;
-            Items = fakeItemData.GetData();
+            Items = fakeData.GetItemsFromTable(content.ToString());
 
             switch (_listType)
             {
@@ -55,10 +55,12 @@ namespace ItemList
 
         private void LoadItemData()
         {
-            DataGridItems.ItemsSource = Items;
+//            DataGridItems.ItemsSource = Items;
+//          Ovenstående indlæser data direkte fra Items, men
+//          titlerne på kolonnerne kan tilsyneladende ikke ændres
             DataGridTextColumn name = new DataGridTextColumn();
             name.Header = "Navn";
-            name.Binding = new Binding("ItemType");
+            name.Binding = new Binding("Type");
             DataGridItems.Columns.Add(name);
             DataGridTextColumn amount = new DataGridTextColumn();
             amount.Header = "Antal";
