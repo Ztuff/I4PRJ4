@@ -19,21 +19,31 @@
                         <GradientStop Color="White" Offset="1"/>
                     </LinearGradientBrush>
                 </Button.BorderBrush>
-                <Button.Background>
-                    <ImageBrush ImageSource="Resources/Edit.png"/>
-                </Button.Background>
+                <!--   <Button.Background>
+                   <ImageBrush ImageSource="Resources/Edit.png"/> 
+                </Button.Background> -->
             </Button>
             <Button x:Name="ButtonInc" Margin="0,115,20,0" VerticalAlignment="Top" Focusable="False"  HorizontalAlignment="Right" Width="75" Height="75" Click="ButtonInc_Click" Foreground="{x:Null}" BorderBrush="Black">
-                <Button.Background>
+                <!--   <Button.Background>
                     <ImageBrush ImageSource="Resources/Add.png"/>
-                </Button.Background>
-            </Button>
+                </Button.Background> -->
+            </Button> 
             <Button x:Name="BtnDec" Margin="0,210,20,0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" Click="BtnDec_Click" BorderThickness="1" BorderBrush="Black">
-                <Button.Background>
+               <!-- <Button.Background>
                     <ImageBrush ImageSource="Resources/Remove.png"/>
-                </Button.Background>
+                </Button.Background> -->
             </Button>
         </Grid>
-        <DataGrid x:Name="DataGridItems" HorizontalAlignment="Left" Margin="10,100,0,10" Width="412" FontSize="20" SelectionChanged="DataGridItems_SelectionChanged"/>
+        <DataGrid x:Name="DataGridItems" HorizontalAlignment="Left" Margin="10,100,0,10" Width="412" FontSize="20" SelectionChanged="DataGridItems_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
