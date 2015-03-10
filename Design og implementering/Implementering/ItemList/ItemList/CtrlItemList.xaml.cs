@@ -85,9 +85,12 @@ namespace ItemList
         private void DataGridItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Item selectedItem = (Item)DataGridItems.SelectedItem;
-            SelectedItemType.Content = selectedItem.Type;
-            SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
-            SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
+            if (selectedItem != null)
+            {
+                SelectedItemType.Content = selectedItem.Type;
+                SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
+                SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
+            }
         }
 
         private void ButtonInc_Click(object sender, RoutedEventArgs e)
@@ -104,6 +107,13 @@ namespace ItemList
         {
             // Skal åbne User Control for den pågældende use case
             _ctrlTemp.ChangeGridContent(GridContent.AddItem);
+        }
+
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Item itemDelete = DataGridItems.SelectedItem as Item;
+            Items.Remove(itemDelete);
+            DataGridItems.UnselectAllCells();
         }
     }
 }
