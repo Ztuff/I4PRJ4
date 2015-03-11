@@ -45,5 +45,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Label x:Name="LabelItemList" Content="Listetype" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="40"/>
     </Grid>
 </UserControl>

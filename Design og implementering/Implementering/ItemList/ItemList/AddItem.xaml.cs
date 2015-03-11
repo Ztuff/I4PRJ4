@@ -18,14 +18,14 @@ namespace AddItem
         List<string> unitNames = new List<string>();
         private uint amount = 1;
         private string selectedType = "";
-        public GridContent CurrentList;
+        public string _currentList;
         public IData dataLayer = new FakeData();
-        private CtrlTemplate _ctrlTemplate;
+        private CtrlTemplate _ctrlTemp;
 
-        public AddItem(CtrlTemplate ctrlTemplate, GridContent currentList )
+        public AddItem(string currentList, CtrlTemplate ctrlTemp)
         {
-            CurrentList = currentList;
-            _ctrlTemplate = ctrlTemplate;
+            _currentList = currentList;
+            _ctrlTemp = ctrlTemp;
             InitializeComponent();
             ListBoxItems.ItemsSource = newItems;
             TextBoxAntal.Text = amount.ToString();
@@ -146,8 +146,8 @@ namespace AddItem
 
         private void Exit()
         {
-            dataLayer.AddItemsToTable(CurrentList.ToString(), newItems);
-            _ctrlTemplate.ChangeGridContent(CurrentList);
+            dataLayer.AddItemsToTable(_currentList, newItems);
+            _ctrlTemp.ChangeGridContent(new CtrlItemList(_currentList, _ctrlTemp));
         }
 
         private void PlusButton_Click(object sender, RoutedEventArgs e)

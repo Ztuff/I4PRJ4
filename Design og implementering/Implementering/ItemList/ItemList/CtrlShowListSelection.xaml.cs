@@ -31,17 +31,17 @@ namespace ItemList
 
         private void BtnInFridge_Click(object sender, RoutedEventArgs e)
         {
-            _ctrlTemp.ChangeGridContent(GridContent.InFridge);
+            _ctrlTemp.ChangeGridContent(new CtrlItemList("I køleskab", _ctrlTemp));
         }
 
         private void BtnShoppingList_Click(object sender, RoutedEventArgs e)
         {
-            _ctrlTemp.ChangeGridContent(GridContent.ShoppingList);
+            _ctrlTemp.ChangeGridContent(new CtrlItemList("Indkøbsliste", _ctrlTemp));
         }
 
         private void BtnStdContent_Click(object sender, RoutedEventArgs e)
         {
-            _ctrlTemp.ChangeGridContent(GridContent.StdContent);
+            _ctrlTemp.ChangeGridContent(new CtrlItemList("Standard-beholdning", _ctrlTemp));
         }
     }
 }

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
-    <Grid x:Name="CtrlTempGrid" Loaded="Grid_Loaded">
+    <Grid x:Name="CtrlTempGrid">
             
     </Grid>
 </UserControl>

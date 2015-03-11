@@ -11,7 +11,7 @@ namespace InterfacesAndDTO
         {
             foreach (var VARIABLE in items)
             {
-                Debug.WriteLine(VARIABLE.ToString() + " added to " + table);
+                Debug.WriteLine(VARIABLE.ToString() + " added to list \"" + table + "\"");
             }
         }
 
