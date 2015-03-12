@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItemList;
+using WpfAnimatedGif;
 
 namespace SmartFridgeApplication
 {
@@ -21,6 +23,15 @@ namespace SmartFridgeApplication
     /// </summary>
     public partial class MainWindow : Window
     {
+        enum SyncStatus
+        {
+            Syncing,
+            Synced,
+            Desynced,
+        }
+
+        private SyncStatus syncStatus = SyncStatus.Synced;
+
         public CtrlTemplate _ctrlTemp = new CtrlTemplate();
        // public GridContent PrevUserControl;
         public MainWindow()
@@ -55,6 +66,54 @@ namespace SmartFridgeApplication
         {
             _ctrlTemp.ChangeGridContent(new CtrlShowListSelection(_ctrlTemp));
 
+        }
+
+        private void SyncButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            SyncTest();
+        }
+
+        private void SyncTest()
+        {
+            syncStatus = SyncStatus.Syncing;
+            ChangeSyncImage();
+            Thread thread = new Thread(WaitAndSetToDesynced);
+            thread.Start();
+        }
+
+        private void WaitAndSetToDesynced()
+        {
+            Thread.Sleep(2000);
+            syncStatus = SyncStatus.Desynced;
+            Dispatcher.Invoke(() => { ChangeSyncImage(); });
+        }
+
+        private void ChangeSyncImage()
+        {
+            switch (syncStatus)
+            {
+                case SyncStatus.Synced:
+                    var img1 = new BitmapImage();
+                    img1.BeginInit();
+                    img1.UriSource = new Uri("pack://application:,,,/SmartFridgeApplication;component/Images/Sync Succeeded.png");
+                    img1.EndInit();
+                    ImageBehavior.SetAnimatedSource(SyncImage, img1);
+                    break;
+                case SyncStatus.Desynced:
+                    var img2 = new BitmapImage();
+                    img2.BeginInit();
+                    img2.UriSource = new Uri("pack://application:,,,/SmartFridgeApplication;component/Images/Sync Failed.png");
+                    img2.EndInit();
+                    ImageBehavior.SetAnimatedSource(SyncImage, img2);
+                    break;
+                case SyncStatus.Syncing:
+                    var img3 = new BitmapImage();
+                    img3.BeginInit();
+                    img3.UriSource = new Uri("pack://application:,,,/SmartFridgeApplication;component/Images/Syncing-Small.gif");
+                    img3.EndInit();
+                    ImageBehavior.SetAnimatedSource(SyncImage, img3);
+                    break;
+            }
         }
     }
 }

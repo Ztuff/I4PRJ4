@@ -1,23 +1,50 @@
 ﻿<Window x:Class="SmartFridgeApplication.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         Title="MainWindow" Height="1080" Width="1920"
         WindowState="Maximized"
         WindowStyle="None">
+    <Window.Resources>
+        <Image x:Key="SyncAnimImage" gif:ImageBehavior.AnimatedSource="Images/Syncing-Small.gif"></Image>
+    </Window.Resources>
 
     <DockPanel LastChildFill="False" Width="1920" Height="1080" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Grid DockPanel.Dock="Top" MinHeight="50">
+        <Grid DockPanel.Dock="Top" MinHeight="96">
             <DockPanel HorizontalAlignment="Left" LastChildFill="False">
-                <Button Content="Close" DockPanel.Dock="Left"></Button>
-                <Button x:Name="BackwardsButton" Content="Back" DockPanel.Dock="Left" ></Button>
-                <Button x:Name="ForwardButton" Content="Forward" DockPanel.Dock="Left"></Button>
-                <Button x:Name="HomeButton" Content="Home" DockPanel.Dock="Left" Click="HomeClicked"></Button>
-                <Button Content="Settings" DockPanel.Dock="Left"></Button>
+
+                <Button x:Name="CloseButton" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Images/Cancel.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="BackButton" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}" >
+                    <Button.Background>
+                        <ImageBrush ImageSource="Images/Backward.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="ForwardButton" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Images/Forward.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="HomeButton" DockPanel.Dock="Left" Click="HomeClicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Images/Home.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="SettingsButton" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="Images/Settings.png"/>
+                    </Button.Background>
+                </Button>
             </DockPanel>
             <Label Content="Title" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
             <DockPanel HorizontalAlignment="Right">
                 <Label Content="Date" VerticalContentAlignment="Center" HorizontalAlignment="Right"></Label>
-                <Button Content="Synchronize" HorizontalAlignment="Right" Margin="0,0,10,0"></Button>
+                <Button x:Name="SyncButton" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="100" Width="100" Click="SyncButton_OnClick">
+                    <Image x:Name="SyncImage" gif:ImageBehavior.AnimatedSource="Images/Sync Succeeded.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100"/>
+                </Button>
             </DockPanel>
         </Grid>
 
@@ -63,7 +90,7 @@
             </DockPanel>
         </Grid>
 
-        <Grid DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1920" Height="1080" Margin="-20,0,-19,0">
+        <Grid DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1920" Height="1080" Margin="0">
             <Grid x:Name="ItemListGrid" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Height="720" VerticalAlignment="Center" Width="1280">
                 <Border BorderBrush="Black" BorderThickness="2"/>
             </Grid>
