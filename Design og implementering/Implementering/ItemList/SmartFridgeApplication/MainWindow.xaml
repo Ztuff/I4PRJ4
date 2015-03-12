@@ -5,35 +5,32 @@
         Title="MainWindow" Height="1080" Width="1920"
         WindowState="Maximized"
         WindowStyle="None">
-    <Window.Resources>
-        <Image x:Key="SyncAnimImage" gif:ImageBehavior.AnimatedSource="Images/Syncing-Small.gif"></Image>
-    </Window.Resources>
 
     <DockPanel LastChildFill="False" Width="1920" Height="1080" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid DockPanel.Dock="Top" MinHeight="96">
             <DockPanel HorizontalAlignment="Left" LastChildFill="False">
 
-                <Button x:Name="CloseButton" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                <Button x:Name="CloseButton" Focusable="False" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
                     <Button.Background>
                         <ImageBrush ImageSource="Images/Cancel.png"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="BackButton" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}" >
+                <Button x:Name="BackButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Back_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}" >
                     <Button.Background>
                         <ImageBrush ImageSource="Images/Backward.png"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="ForwardButton" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                <Button x:Name="ForwardButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Forward_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
                     <Button.Background>
                         <ImageBrush ImageSource="Images/Forward.png"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="HomeButton" DockPanel.Dock="Left" Click="HomeClicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                <Button x:Name="HomeButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Home_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
                     <Button.Background>
                         <ImageBrush ImageSource="Images/Home.png"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="SettingsButton" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                <Button x:Name="SettingsButton" Focusable="False" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
                     <Button.Background>
                         <ImageBrush ImageSource="Images/Settings.png"/>
                     </Button.Background>
@@ -42,7 +39,7 @@
             <Label Content="Title" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
             <DockPanel HorizontalAlignment="Right">
                 <Label Content="Date" VerticalContentAlignment="Center" HorizontalAlignment="Right"></Label>
-                <Button x:Name="SyncButton" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="100" Width="100" Click="SyncButton_OnClick">
+                <Button x:Name="SyncButton" Focusable="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="100" Width="100" Click="SyncButton_OnClick">
                     <Image x:Name="SyncImage" gif:ImageBehavior.AnimatedSource="Images/Sync Succeeded.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100"/>
                 </Button>
             </DockPanel>
@@ -94,8 +91,9 @@
             <Grid x:Name="ItemListGrid" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Height="720" VerticalAlignment="Center" Width="1280">
                 <Border BorderBrush="Black" BorderThickness="2"/>
             </Grid>
-            <Button Content="TestButton" HorizontalAlignment="Left" Margin="364,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButton_Clicked"/>
-            <Button Content="TestButton2" HorizontalAlignment="Left" Margin="488,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButtonForward_Clicked"/>
+            <Button Content="TestHome" HorizontalAlignment="Left" Margin="364,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButton_Home_Clicked"/>
+            <Button Content="TestBack" HorizontalAlignment="Left" Margin="488,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButton_Back_Clicked"/>
+            <Button Content="TestForward" HorizontalAlignment="Left" Margin="611,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButton_Forward_Clicked"/>
         </Grid>
 
 
