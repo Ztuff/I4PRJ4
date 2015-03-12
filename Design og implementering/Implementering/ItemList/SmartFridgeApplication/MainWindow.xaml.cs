@@ -21,12 +21,12 @@ namespace SmartFridgeApplication
     /// </summary>
     public partial class MainWindow : Window
     {
-        public CtrlTemplate _ctrlTemp = new CtrlTemplate();
+        public CtrlTemplate CtrlTemp = new CtrlTemplate();
        // public GridContent PrevUserControl;
         public MainWindow()
         {
             InitializeComponent();
-            ItemListGrid.Children.Add(_ctrlTemp);
+            ItemListGrid.Children.Add(CtrlTemp);
         }
 
         private void BackButton_Clicked(object sender, RoutedEventArgs e)
@@ -40,21 +40,20 @@ namespace SmartFridgeApplication
             //Temp.ChangeGridContent(Temp.Parent);
         }
 
-        private void TestButton_Clicked(object sender, RoutedEventArgs e)
+        private void TestButton_Home_Clicked(object sender, RoutedEventArgs e)
         {
         //    PrevUserControl = (GridContent) Enum.Parse(typeof(GridContent), Temp.Name);
-            _ctrlTemp.ChangeGridContent(new CtrlShowListSelection(_ctrlTemp));
+            CtrlTemp.ChangeGridContent(new CtrlShowListSelection(CtrlTemp));
         }
 
-        private void TestButtonForward_Clicked(object sender, RoutedEventArgs e)
+        private void TestButton_Back_Clicked(object sender, RoutedEventArgs e)
         {
-          //  Temp.ChangeGridContent(PrevUserControl);
+           CtrlTemp.NavigateBack();
         }
 
-        private void HomeClicked(object sender, RoutedEventArgs e)
+        private void TestButton_Forward_Clicked(object sender, RoutedEventArgs e)
         {
-            _ctrlTemp.ChangeGridContent(new CtrlShowListSelection(_ctrlTemp));
-
+            CtrlTemp.NavigateForward();
         }
     }
 }
