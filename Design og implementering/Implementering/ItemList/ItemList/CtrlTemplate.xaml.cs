@@ -47,6 +47,7 @@ namespace ItemList
             NavigationHistoryCollection = new UserControl[10]; //Opretter Navigation History list
             NavigationHistoryCollection[0] = _uc;
             NavigationHistoryCollectionPosition = 0; //Sæter navigationspilen til at pege på start-up siden
+            NavigationHistoryCollectionOriginalPosition = NavigationHistoryCollectionPosition;
         }
 
         public void ChangeGridContent(UserControl uc)
@@ -58,17 +59,16 @@ namespace ItemList
             if (NavigationHistoryCollection[NavigationHistoryCollectionPosition] != uc)
             {
                 if (NavigationHistoryCollectionPosition != 9)
-                {
-                    //NavigationHistoryCollection.Add(_uc);              
+                {            
                     NavigationHistoryCollectionPosition += 1;
-                    NavigationHistoryCollection[NavigationHistoryCollectionPosition] = _uc;              
-                    NavigationHistoryCollectionOriginalPosition = NavigationHistoryCollectionPosition;   
                 }
                 else
                 {
                     NavigationHistoryCollectionPosition = 0;
-                    NavigationHistoryCollection[NavigationHistoryCollectionPosition] = _uc;
                 }
+
+                NavigationHistoryCollection[NavigationHistoryCollectionPosition] = _uc;
+                NavigationHistoryCollectionOriginalPosition = NavigationHistoryCollectionPosition;   
             }
 
             #region Udkommenteret Kode - STUFF
