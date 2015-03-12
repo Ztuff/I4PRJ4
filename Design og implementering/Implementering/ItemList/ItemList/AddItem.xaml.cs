@@ -132,12 +132,6 @@ namespace AddItem
             }
         }
 
-        private void Exit()
-        {
-            dataLayer.AddItemsToTable(CurrentList.ToString(), newItems);
-            _ctrlTemplate.ChangeGridContent(CurrentList);
-        }
-
         #endregion
 
         #region ControlMethods
@@ -146,18 +140,14 @@ namespace AddItem
         {
             AddNewItem(CreateNewItem());
             Exit();
-
         }
 
-<<<<<<< HEAD
-=======
         private void Exit()
         {
             dataLayer.AddItemsToTable(_currentList, newItems);
             _ctrlTemp.ChangeGridContent(new CtrlItemList(_currentList, _ctrlTemp));
         }
 
->>>>>>> 4737cec80b439d210f3be1c64bcc3d45eb894299
         private void PlusButton_Click(object sender, RoutedEventArgs e)
         {
             amount++;
