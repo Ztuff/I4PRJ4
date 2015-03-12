@@ -29,46 +29,25 @@ namespace ItemList
     /// </summary>
     public partial class CtrlTemplate : UserControl
     {
-
+        private UserControl _uc;
         public CtrlTemplate()
         {
             InitializeComponent();
+            _uc = new CtrlShowListSelection(this);
+            CtrlTempGrid.Children.Add(_uc);
         }
 
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        public void ChangeGridContent(UserControl uc)
         {
-            ChangeGridContent(GridContent.ListSelection);
-        }
+            _uc = uc;
+            CtrlTempGrid.Children.Clear();
+            CtrlTempGrid.Children.Add(_uc);
 
-        public void ChangeGridContent(GridContent content)
-        {
-            switch (content)
-            {
-                case GridContent.ListSelection:
+
+                   /* var currentContent = (CtrlTempGrid.Children[0] as CtrlItemList).ListType; //Vi kommer altid (forhåbentligt) fra en CtrlItemList, så vi skal bare have at vide hvad den nuværende liste er.
                     CtrlTempGrid.Children.Clear();
-                    CtrlShowListSelection sls = new CtrlShowListSelection(this);
-                    CtrlTempGrid.Children.Add(sls);
-                    break;
-
-                case GridContent.InFridge:
-                case GridContent.ShoppingList:
-                case GridContent.StdContent:
-                    CtrlTempGrid.Children.Clear();
-                    CtrlItemList il = new CtrlItemList(content, this);
-                    CtrlTempGrid.Children.Add(il);
-
-                    break;
-
-                case GridContent.AddItem:
-                    var currentContent = (CtrlTempGrid.Children[0] as CtrlItemList)._listType; //Vi kommer altid (forhåbentligt) fra en CtrlItemList, så vi skal bare have at vide hvad den nuværende liste er.
-                    CtrlTempGrid.Children.Clear();
-                    var additem = new AddItem.AddItem(this, currentContent);
-                    CtrlTempGrid.Children.Add(additem);
-                    break;
-                default:
-
-                    throw new Exception();
-            }
+                    var additem = new AddItem.AddItem(currentContent, this);
+                    CtrlTempGrid.Children.Add(additem);*/
         }
     }
 }

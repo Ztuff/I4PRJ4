@@ -23,33 +23,18 @@ namespace ItemList
     public partial class CtrlItemList : UserControl
     {
         private CtrlTemplate _ctrlTemp;
-        public GridContent _listType;
+        public string ListType;
         public CtrlTemplate CtrlTemp { get; set; }
         IData fakeData = new FakeData();        // Vi skal have fjernet fakes fra alt andet end tests - hurtigst muligt!
         ObservableCollection<Item> Items;
 
-        public CtrlItemList(GridContent content, CtrlTemplate ctrlTemp)
+        public CtrlItemList(string listType, CtrlTemplate ctrlTemp)
         {
             InitializeComponent();
             _ctrlTemp = ctrlTemp;
-            _listType = content;
-            Items = fakeData.GetItemsFromTable(content.ToString());
-
-            switch (_listType)
-            {
-                case GridContent.InFridge:
-                    LabelItemList.Content = "I køleskab";
-                    break;
-                case GridContent.ShoppingList:
-                    LabelItemList.Content = "Indkøbsliste";
-                    break;
-                case GridContent.StdContent:
-                    LabelItemList.Content = "Standard-beholdning";
-                    break;
-                default:
-                    throw new Exception();
-            }
-
+            ListType = listType;
+            LabelItemList.Content = ListType;
+            Items = fakeData.GetItemsFromTable(ListType);
             LoadItemData();
         }
 
@@ -85,9 +70,12 @@ namespace ItemList
         private void DataGridItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Item selectedItem = (Item)DataGridItems.SelectedItem;
-            SelectedItemType.Content = selectedItem.Type;
-            SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
-            SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
+            if (selectedItem != null)
+            {
+                SelectedItemType.Content = selectedItem.Type;
+                SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
+                SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
+            }
         }
 
         private void ButtonInc_Click(object sender, RoutedEventArgs e)
@@ -103,7 +91,14 @@ namespace ItemList
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
             // Skal åbne User Control for den pågældende use case
-            _ctrlTemp.ChangeGridContent(GridContent.AddItem);
+            _ctrlTemp.ChangeGridContent(new AddItem.AddItem(ListType, _ctrlTemp));
+        }
+
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Item itemDelete = DataGridItems.SelectedItem as Item;
+            Items.Remove(itemDelete);
+            DataGridItems.UnselectAllCells();
         }
     }
 }
