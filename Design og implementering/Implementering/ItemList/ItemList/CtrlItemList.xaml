@@ -12,13 +12,7 @@
             <TextBlock x:Name="SelectedAmount" Margin="20,62,0,0" TextWrapping="Wrap" Text="Antal:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16"/>
             <TextBlock x:Name="SelectedSize" Margin="20,88,0,0" TextWrapping="Wrap" Text="Størrelse:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16"/>
             <TextBlock x:Name="SelectedBestBefore" Margin="20,114,0,0" TextWrapping="Wrap" Text="Mindst holdbar til:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16"/>
-            <Button x:Name="BtnEdit" Content="" Focusable="False" Margin="0,20,20,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" FontSize="20" Click="BtnEdit_Click">
-                <Button.BorderBrush>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black" Offset="0"/>
-                        <GradientStop Color="White" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.BorderBrush>
+            <Button x:Name="BtnEdit" Content="" Focusable="False" Margin="0,20,20,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" FontSize="20" Click="BtnEdit_Click" BorderBrush="Black">
                 <!--   <Button.Background>
                    <ImageBrush ImageSource="Resources/Edit.png"/> 
                 </Button.Background> -->
@@ -27,9 +21,9 @@
                 <!--   <Button.Background>
                     <ImageBrush ImageSource="Resources/Add.png"/>
                 </Button.Background> -->
-            </Button> 
+            </Button>
             <Button x:Name="BtnDec" Margin="0,210,20,0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" Click="BtnDec_Click" BorderThickness="1" BorderBrush="Black">
-               <!-- <Button.Background>
+                <!-- <Button.Background>
                     <ImageBrush ImageSource="Resources/Remove.png"/>
                 </Button.Background> -->
             </Button>
