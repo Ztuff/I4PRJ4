@@ -82,7 +82,6 @@ namespace AddItem
 
         private void GetUnitNames()
         {
-
             unitNames.Add("L");
             unitNames.Add("DL");
             unitNames.Add("CL");
@@ -133,6 +132,12 @@ namespace AddItem
             }
         }
 
+        private void Exit()
+        {
+            dataLayer.AddItemsToTable(CurrentList.ToString(), newItems);
+            _ctrlTemplate.ChangeGridContent(CurrentList);
+        }
+
         #endregion
 
         #region ControlMethods
@@ -142,12 +147,6 @@ namespace AddItem
             AddNewItem(CreateNewItem());
             Exit();
 
-        }
-
-        private void Exit()
-        {
-            dataLayer.AddItemsToTable(CurrentList.ToString(), newItems);
-            _ctrlTemplate.ChangeGridContent(CurrentList);
         }
 
         private void PlusButton_Click(object sender, RoutedEventArgs e)
