@@ -16,14 +16,6 @@ using System.Windows.Shapes;
 
 namespace ItemList
 {
-    public enum GridContent
-    {
-        ListSelection,
-        InFridge,
-        ShoppingList,
-        StdContent,
-        AddItem
-    };
 
     /// <summary>
     /// Interaction logic for CtrlTemplate.xaml
