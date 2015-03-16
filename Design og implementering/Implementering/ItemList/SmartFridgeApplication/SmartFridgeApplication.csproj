@@ -102,48 +102,10 @@
       <Project>{a687d3c8-9299-4131-b317-d1e743fffe66}</Project>
       <Name>ItemList</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Resources\Resources.csproj">
-      <Project>{b50cc68b-50e4-48dd-a9d6-66b1568b043b}</Project>
-      <Name>Resources</Name>
+    <ProjectReference Include="..\ResourceLibrary\ResourceLibrary.csproj">
+      <Project>{c2f87608-912b-473b-b234-58d6ccc29d62}</Project>
+      <Name>ResourceLibrary</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Add_And_Exit_Animation.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\AddAndExit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Cancel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Edit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\OK.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Remove.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Syncing-Small.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Home.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Backward.png" />
-    <Resource Include="Images\Forward.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Sync Failed.png" />
-    <Resource Include="Images\Sync Succeeded.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
