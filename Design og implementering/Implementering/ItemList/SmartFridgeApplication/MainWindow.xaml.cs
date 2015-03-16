@@ -104,5 +104,10 @@ namespace SmartFridgeApplication
                     break;
             }
         }
+
+        private void Close_Button_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
