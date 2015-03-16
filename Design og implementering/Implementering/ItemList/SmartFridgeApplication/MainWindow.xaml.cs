@@ -94,13 +94,25 @@ namespace SmartFridgeApplication
             switch (syncStatus)
             {
                 case SyncStatus.Synced:
-                    ImageBehavior.SetAnimatedSource(SyncImage, TryFindResource("ImgSyncSucceeded") as ImageSource);
+                    var img1 = new BitmapImage();
+                    img1.BeginInit();
+                    img1.UriSource = new Uri("pack://application:,,,/SmartFridgeApplication;component/Images/Sync Succeeded.png");
+                    img1.EndInit();
+                    ImageBehavior.SetAnimatedSource(SyncImage, img1);
                     break;
                 case SyncStatus.Desynced:
-                    ImageBehavior.SetAnimatedSource(SyncImage, TryFindResource("ImgSyncFailed") as ImageSource);
+                    var img2 = new BitmapImage();
+                    img2.BeginInit();
+                    img2.UriSource = new Uri("pack://application:,,,/SmartFridgeApplication;component/Images/Sync Failed.png");
+                    img2.EndInit();
+                    ImageBehavior.SetAnimatedSource(SyncImage, img2);
                     break;
                 case SyncStatus.Syncing:
-                    ImageBehavior.SetAnimatedSource(SyncImage, TryFindResource("ImgSyncing") as ImageSource);
+                    var img3 = new BitmapImage();
+                    img3.BeginInit();
+                    img3.UriSource = new Uri("pack://application:,,,/SmartFridgeApplication;component/Images/Syncing-Small.gif");
+                    img3.EndInit();
+                    ImageBehavior.SetAnimatedSource(SyncImage, img3);
                     break;
             }
         }

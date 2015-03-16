@@ -109,10 +109,6 @@
       <Project>{32aee5ec-30bc-435f-a54d-05a06a0ba2fd}</Project>
       <Name>InterfacesAndDTO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ResourcesDictionary\ResourcesDictionary.csproj">
-      <Project>{045c23f7-f376-4bea-9f7f-4cd490a09e90}</Project>
-      <Name>ResourcesDictionary</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
