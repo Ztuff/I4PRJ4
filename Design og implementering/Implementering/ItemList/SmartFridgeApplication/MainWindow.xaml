@@ -5,6 +5,9 @@
         Title="MainWindow" Height="1080" Width="1920"
         WindowState="Maximized"
         WindowStyle="None">
+    <Window.Resources>
+        <ResourceDictionary Source="pack://application:,,,/ResourceLibrary;component/Dictionary.xaml"/>
+    </Window.Resources>
 
     <DockPanel LastChildFill="False" Width="1920" Height="1080" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid DockPanel.Dock="Top" MinHeight="96">
@@ -12,27 +15,27 @@
 
                 <Button x:Name="CloseButton" Focusable="False" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
                     <Button.Background>
-                        <ImageBrush ImageSource="Images/Cancel.png"/>
+                        <ImageBrush ImageSource="{StaticResource ImgCancel}"/>
                     </Button.Background>
                 </Button>
                 <Button x:Name="BackButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Back_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}" >
                     <Button.Background>
-                        <ImageBrush ImageSource="Images/Backward.png"/>
+                        <ImageBrush ImageSource="{StaticResource ImgBackward}"/>
                     </Button.Background>
                 </Button>
                 <Button x:Name="ForwardButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Forward_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
                     <Button.Background>
-                        <ImageBrush ImageSource="Images/Forward.png"/>
+                        <ImageBrush ImageSource="{StaticResource ImgForward}"/>
                     </Button.Background>
                 </Button>
                 <Button x:Name="HomeButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Home_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
                     <Button.Background>
-                        <ImageBrush ImageSource="Images/Home.png"/>
+                        <ImageBrush ImageSource="{StaticResource ImgHome}"/>
                     </Button.Background>
                 </Button>
                 <Button x:Name="SettingsButton" Focusable="False" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
                     <Button.Background>
-                        <ImageBrush ImageSource="Images/Settings.png"/>
+                        <ImageBrush ImageSource="{StaticResource ImgSettings}"/>
                     </Button.Background>
                 </Button>
             </DockPanel>
@@ -40,7 +43,7 @@
             <DockPanel HorizontalAlignment="Right">
                 <Label Content="Date" VerticalContentAlignment="Center" HorizontalAlignment="Right"></Label>
                 <Button x:Name="SyncButton" Focusable="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="100" Width="100" Click="SyncButton_OnClick">
-                    <Image x:Name="SyncImage" gif:ImageBehavior.AnimatedSource="Images/Sync Succeeded.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100"/>
+                    <Image x:Name="SyncImage" gif:ImageBehavior.AnimatedSource="{StaticResource ImgSyncSucceeded}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100"/>
                 </Button>
             </DockPanel>
         </Grid>
