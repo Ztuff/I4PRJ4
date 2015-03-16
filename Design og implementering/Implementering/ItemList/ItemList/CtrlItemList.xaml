@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
     <UserControl.Resources>
-        <ResourceDictionary Source="pack://application:,,,/ResourceLibrary;component/Dictionary.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ResourcesDictionary;component/Dictionary.xaml"/>
     </UserControl.Resources>
     <Grid>
         <Grid Margin="630,100,10,10">

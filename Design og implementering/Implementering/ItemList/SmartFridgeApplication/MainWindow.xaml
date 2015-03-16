@@ -6,14 +6,14 @@
         WindowState="Maximized"
         WindowStyle="None">
     <Window.Resources>
-        <ResourceDictionary Source="pack://application:,,,/ResourceLibrary;component/Dictionary.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ResourcesDictionary;component/Dictionary.xaml"/>
     </Window.Resources>
 
     <DockPanel LastChildFill="False" Width="1920" Height="1080" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid DockPanel.Dock="Top" MinHeight="96">
             <DockPanel HorizontalAlignment="Left" LastChildFill="False">
 
-                <Button x:Name="CloseButton" Focusable="False" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                <Button x:Name="CloseButton" Focusable="False" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}" Foreground="{x:Null}">
                     <Button.Background>
                         <ImageBrush ImageSource="{StaticResource ImgCancel}"/>
                     </Button.Background>
