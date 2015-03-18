@@ -125,9 +125,7 @@ namespace ItemList
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            // Skal åbne User Control for den pågældende use case
-            //_ctrlTemp.ChangeGridContent(new AddItem.AddItem(ListType, _ctrlTemp)); Skal implementeres et andet sted!
-            /*Item*/
+
             selectedItem = (Item)DataGridItems.SelectedItem;
             if (selectedItem != null)
             {
@@ -245,6 +243,11 @@ namespace ItemList
             unitNames.Add("ML");
             unitNames.Add("KG");
             unitNames.Add("G");
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _ctrlTemp.ChangeGridContent(new AddItem.AddItem(ListType, _ctrlTemp));
         }
 
 
