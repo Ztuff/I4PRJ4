@@ -86,7 +86,7 @@ namespace SmartFridgeApplication
         {
             Thread.Sleep(2000);
             syncStatus = SyncStatus.Desynced;
-            Dispatcher.Invoke(() => { ChangeSyncImage(); });
+            Dispatcher.Invoke(ChangeSyncImage);
         }
 
         private void ChangeSyncImage()
