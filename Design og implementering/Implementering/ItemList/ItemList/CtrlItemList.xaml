@@ -33,17 +33,11 @@
                 <Button.Background>
                     <ImageBrush ImageSource="{StaticResource ImgAdd}"/>
                 </Button.Background>
-                <!--   <Button.Background>
-                    <ImageBrush ImageSource="Resources/Add.png"/>
-                </Button.Background> -->
             </Button>
             <Button x:Name="BtnDec" Margin="0,210,20,0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" Click="BtnDec_Click" BorderThickness="1" BorderBrush="{x:Null}">
                 <Button.Background>
                     <ImageBrush ImageSource="{StaticResource ImgRemove}"/>
                 </Button.Background>
-                <!-- <Button.Background>
-                    <ImageBrush ImageSource="Resources/Remove.png"/>
-                </Button.Background> -->
             </Button>
 
         </Grid>
@@ -71,7 +65,7 @@
         </Button>
         <Button Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="75" Width="75" Click="Button_Click" BorderBrush="{x:Null}">
             <Button.Background>
-                <ImageBrush ImageSource="{StaticResource ImgAdd}"/>
+                <ImageBrush ImageSource="{StaticResource ImgAddItem}"/>
             </Button.Background>
         </Button>
 

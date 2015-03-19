@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ImageSource x:Key="ImgAdd">Images/Add.png</ImageSource>
     <ImageSource x:Key="ImgAddAndExit">Images/AddAndExit.png</ImageSource>
+    <ImageSource x:Key="ImgAddItem">Images/AddItem.png</ImageSource>
     <ImageSource x:Key="ImgBackward">Images/Backward.png</ImageSource>
     <ImageSource x:Key="ImgCancel">Images/Cancel.png</ImageSource>
     <ImageSource x:Key="ImgEdit">Images/Edit.png</ImageSource>
