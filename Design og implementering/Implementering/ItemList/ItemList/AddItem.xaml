@@ -5,6 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/ResourcesDictionary;component/Dictionary.xaml"/>
+    </UserControl.Resources>
     <Grid Margin="0,0,0,0">
         <ComboBox x:Name="ComboBoxVaretype" HorizontalAlignment="Left" Margin="130,41,0,0" VerticalAlignment="Top" Width="23" Height="23" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="True" MaxDropDownHeight ="150" DropDownClosed="ComboBoxVaretype_OnDropDownClosed"/>
         <TextBox x:Name="TextBoxVareType" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" Text="Varetype" Width="120" VerticalAlignment="Top" MaxLines="1" TextAlignment="Right" LostFocus="TextBoxVareType_OnLostFocus"/>
@@ -16,8 +19,16 @@
         <TextBox x:Name="TextBoxVolumenEnhed" HorizontalAlignment="Left" Height="23" Margin="135,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" MaxLines="1" TextAlignment="Right"/>
         <Button x:Name="PlusButton" Content="+" HorizontalAlignment="Left" Margin="130,89,0,0" VerticalAlignment="Top" Width="23" Height="23" BorderThickness="1" Click="PlusButton_Click"/>
         <ListBox x:Name="ListBoxItems" HorizontalAlignment="Left" Height="669" Margin="364,41,0,0" VerticalAlignment="Top" Width="906"/>
-        <Button x:Name="AddButton" Content="Tilføj" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="AddButton_Click"/>
-        <Button x:Name="AddExitButton" Content="Tilføj &amp; Afslut" HorizontalAlignment="Left" Margin="120,187,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="AddExitButton_Click"/>
+        <Button x:Name="AddButton" Content="" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="AddButton_Click" BorderBrush="{x:Null}">
+            <Button.Background>
+                <ImageBrush ImageSource="{StaticResource ImgAdd}"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="AddExitButton" Content="" HorizontalAlignment="Left" Margin="120,187,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="AddExitButton_Click" BorderBrush="{x:Null}">
+            <Button.Background>
+                <ImageBrush ImageSource="{StaticResource ImgAddAndExit}"/>
+            </Button.Background>
+        </Button>
         <Button x:Name="MinusButton" Content="-" HorizontalAlignment="Left" Margin="130,112,0,0" VerticalAlignment="Top" Width="23" Height="23" BorderThickness="1" Click="MinusButton_Click"/>
         <Label Content="Nyligt Tilføjede Varer" HorizontalAlignment="Left" Margin="364,10,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="ComboBoxUnit" HorizontalAlignment="Left" Margin="177,159,0,0" VerticalAlignment="Top" Width="23" Height="23" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="True" MaxDropDownHeight ="150" DropDownClosed="ComboBoxUnit_OnDropDownClosed"/>
