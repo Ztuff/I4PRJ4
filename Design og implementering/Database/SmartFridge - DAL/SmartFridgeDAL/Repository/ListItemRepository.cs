@@ -93,7 +93,7 @@ namespace SmartFridgeDAL.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"SELECT * FROM List WHERE ListId = @ListId";
+                command.CommandText = @"SELECT * FROM ListItem WHERE ListId = @ListId";
                 var param = command.CreateParameter();
                 param.ParameterName = "@ListId";
                 param.Value = list.ListId;
@@ -104,8 +104,8 @@ namespace SmartFridgeDAL.Repository
 
         protected override void Map(IDataRecord record, ListItem listItem)
         {
-            listItem.List.ListId = (int)record["ListId"];
-            listItem.Item.ItemId = (int)record["ItemId"];
+            //listItem.List.ListId = (int)record["ListId"];
+            //listItem.Item.ItemId = (int)record["ItemId"];
             listItem.Amount = (int)record["Amount"];
             listItem.Volume = (int)record["Volume"];
             listItem.Unit = (string) record["Unit"];
