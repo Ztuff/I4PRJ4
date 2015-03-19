@@ -102,10 +102,6 @@
       <Project>{a687d3c8-9299-4131-b317-d1e743fffe66}</Project>
       <Name>ItemList</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Resources\Resources.csproj">
-      <Project>{b50cc68b-50e4-48dd-a9d6-66b1568b043b}</Project>
-      <Name>Resources</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Add.png" />
