@@ -107,7 +107,10 @@ namespace SmartFridgeApplication
 
         private void Close_Button_Clicked(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            var Closing = MessageBox.Show("Are you sure you want to close the program?", "Close", MessageBoxButton.YesNo);
+
+            if (Closing == MessageBoxResult.Yes)
+                Close();
         }
     }
 }
