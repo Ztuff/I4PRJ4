@@ -150,6 +150,11 @@ namespace ItemList
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
+            SelectedItemTB.Text = selectedItem.Type;
+            SelectedAmountTB.Text = selectedItem.Amount.ToString();
+            SelectedSizeTB.Text = selectedItem.Size.ToString();
+            SelectedUnitTB.Text = selectedItem.Unit;
+
             HideButtonsAndTextboxes();
         }
 
