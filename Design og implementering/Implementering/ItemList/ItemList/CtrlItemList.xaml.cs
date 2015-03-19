@@ -81,12 +81,8 @@ namespace ItemList
             if (selectedItem != null)
             {
                 SelectedItemType.Content = selectedItem.Type;
-                SelectedItemTB.Text = selectedItem.Type;
                 SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
-                SelectedAmountTB.Text = selectedItem.Amount.ToString();
                 SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
-                SelectedSizeTB.Text = selectedItem.Size.ToString();
-                SelectedUnitTB.Text = selectedItem.Unit;
                 HideButtonsAndTextboxes();
 
             }
@@ -129,12 +125,21 @@ namespace ItemList
             selectedItem = (Item)DataGridItems.SelectedItem;
             if (selectedItem != null)
             {
+                SelectedItemTB.Text = selectedItem.Type;
+                SelectedAmountTB.Text = selectedItem.Amount.ToString();
+                SelectedSizeTB.Text = selectedItem.Size.ToString();
+                SelectedUnitTB.Text = selectedItem.Unit;
                 ShowButtonsAndTextboxes();
                 SelectedItemTB.DataContext = selectedItem.Type;
                 SelectedAmountTB.DataContext = selectedItem.Amount;
                 SelectedSizeTB.DataContext = selectedItem.Size;
                 SelectedUnitTB.DataContext = selectedItem.Unit;
                 //SelectedBestBeforeTB.DataContext = selectedItem.BestBefore;
+
+                ButtonInc.Opacity = 50;
+                ButtonInc.IsEnabled = false;
+                BtnDec.Opacity = 50;
+                BtnDec.IsEnabled = false;
             }
         }
 
@@ -154,7 +159,10 @@ namespace ItemList
             SelectedAmountTB.Text = selectedItem.Amount.ToString();
             SelectedSizeTB.Text = selectedItem.Size.ToString();
             SelectedUnitTB.Text = selectedItem.Unit;
-
+            ButtonInc.Opacity = 100;
+            ButtonInc.IsEnabled = true;
+            BtnDec.Opacity = 100;
+            BtnDec.IsEnabled = true;
             HideButtonsAndTextboxes();
         }
 
@@ -185,7 +193,10 @@ namespace ItemList
             SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
             SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
             DataGridItems.Items.Refresh();
-
+            ButtonInc.Opacity = 100;
+            ButtonInc.IsEnabled = true;
+            BtnDec.Opacity = 100;
+            BtnDec.IsEnabled = true;
             HideButtonsAndTextboxes();
         }
 
