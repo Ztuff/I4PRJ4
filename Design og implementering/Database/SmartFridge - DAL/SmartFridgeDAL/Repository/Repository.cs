@@ -10,11 +10,11 @@ using SmartFridgeDAL.AdoNetUoW;
 
 namespace SmartFridgeDAL.Repository
 {
-    public abstract class Repository<T> where T : new()
+    public abstract class Repository<T> where T : new() 
     {
-        protected AdoNetContext Context { get; private set; }
+        protected IContext Context { get; private set; }
 
-        protected Repository(AdoNetContext context)
+        protected Repository(IContext context)
         {
             Context = context;
         }
@@ -35,5 +35,10 @@ namespace SmartFridgeDAL.Repository
         }
 
         protected abstract void Map(IDataRecord record, T list);
+        public abstract void Insert(T entity);
+        public abstract void Update(T entity);
+        public abstract void Delete(T entity);
+        public abstract IEnumerable<T> GetAll();
+
     }
 }

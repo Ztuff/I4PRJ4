@@ -12,11 +12,11 @@ namespace SmartFridgeDAL.Repository
     public class ListRepository : Repository<List>
     {
 
-        public ListRepository(AdoNetContext context) : base(context)
+        public ListRepository(IContext context) : base(context)
         {
         }
 
-        public void Insert(List list)
+        public override void Insert(List list)
         {
             using (var command = Context.CreateCommand())
             {
@@ -29,7 +29,7 @@ namespace SmartFridgeDAL.Repository
             }
         }
 
-        public void Update(List list)
+        public override void Update(List list)
         {
             using (var command = Context.CreateCommand())
             {
@@ -46,7 +46,7 @@ namespace SmartFridgeDAL.Repository
             }
         }
 
-        public void Delete(List list)
+        public override void Delete(List list)
         {
             using (var command = Context.CreateCommand())
             {
@@ -59,7 +59,7 @@ namespace SmartFridgeDAL.Repository
             }
         }
 
-        public IEnumerable<List> GetLists()
+        public override IEnumerable<List> GetAll()
         {
             using (var command = Context.CreateCommand())
             {

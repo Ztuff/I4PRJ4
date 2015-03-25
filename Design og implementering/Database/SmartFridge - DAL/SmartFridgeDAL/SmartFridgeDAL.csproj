@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AdoNetUoW\AdoNetContext.cs" />
     <Compile Include="AdoNetUoW\AdoNetUnitOfWork.cs" />
+    <Compile Include="AdoNetUoW\IContext.cs" />
     <Compile Include="AdoNetUoW\IUnitOfWork.cs" />
     <Compile Include="Connection\AppConnectionFactory.cs" />
     <Compile Include="Connection\IConnectionFactory.cs" />

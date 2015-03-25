@@ -10,11 +10,11 @@ namespace SmartFridgeDAL.Repository
 {
     public class ListItemRepository : Repository<ListItem>
     {
-        public ListItemRepository(AdoNetContext context) : base(context)
+        public ListItemRepository(IContext context) : base(context)
         {
         }
 
-        public void Insert(ListItem listItem)
+        public override void Insert(ListItem listItem)
         {
             using (var command = Context.CreateCommand())
             {
@@ -43,15 +43,13 @@ namespace SmartFridgeDAL.Repository
             }
         }
 
-        public void Update(ListItem item)
+        //No update of ListItem: Delete -> Add if needed.
+        public override void Update(ListItem item) 
         {
-            using (var command = Context.CreateCommand())
-            {
-
-            }
+            throw new NotImplementedException();
         }
 
-        public void Delete(ListItem listItem)
+        public override void Delete(ListItem listItem)
         {
             using (var command = Context.CreateCommand())
             {
@@ -80,7 +78,7 @@ namespace SmartFridgeDAL.Repository
             }
         }
 
-        public IEnumerable<ListItem> GetListItems()
+        public override IEnumerable<ListItem> GetAll()
         {
             using (var command = Context.CreateCommand())
             {

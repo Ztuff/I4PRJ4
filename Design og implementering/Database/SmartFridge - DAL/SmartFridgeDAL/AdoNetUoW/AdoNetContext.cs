@@ -5,7 +5,7 @@ using SmartFridgeDAL.Connection;
 
 namespace SmartFridgeDAL.AdoNetUoW
 {
-    public class AdoNetContext
+    public class AdoNetContext : IContext
     {
         private readonly IDbConnection _connection;
         private readonly IConnectionFactory _connectionFactory;
