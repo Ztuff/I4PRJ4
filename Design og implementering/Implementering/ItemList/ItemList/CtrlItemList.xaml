@@ -41,12 +41,16 @@
             </Button>
 
         </Grid>
-        <DataGrid x:Name="DataGridItems" HorizontalAlignment="Left" Margin="10,100,0,10" Width="412" FontSize="20" SelectionChanged="DataGridItems_SelectionChanged" IsReadOnly="True">
+        <DataGrid x:Name="DataGridItems" HorizontalAlignment="Left" Margin="10,100,0,10" Width="589" FontSize="20" SelectionChanged="DataGridItems_SelectionChanged" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete" Click="BtnDelete_Click"/>
+                            <Button Content="" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" Height="Auto" Width="Auto" Click="BtnDelete_Click" BorderBrush="{x:Null}" MinWidth="50" MinHeight="50">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="{StaticResource ImgDelete}"/>
+                                </Button.Background>
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

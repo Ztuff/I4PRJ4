@@ -8,6 +8,9 @@
     <Window.Resources>
         <ResourceDictionary Source="pack://application:,,,/ResourcesDictionary;component/Dictionary.xaml"/>
     </Window.Resources>
+    <Window.Background>
+        <SolidColorBrush Color="{StaticResource Primary}"></SolidColorBrush>
+    </Window.Background>
 
     <DockPanel LastChildFill="False" Width="1920" Height="1080" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid DockPanel.Dock="Top" MinHeight="96">
@@ -92,7 +95,11 @@
 
         <Grid DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1920" Height="1080" Margin="0">
             <Grid x:Name="ItemListGrid" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Height="720" VerticalAlignment="Center" Width="1280">
-                <Border BorderBrush="Black" BorderThickness="2"/>
+                <Border BorderThickness="2">
+                    <Border.Background>
+                        <SolidColorBrush Color="{StaticResource Secondary}"></SolidColorBrush>
+                    </Border.Background>
+                </Border>
             </Grid>
             <Button Content="TestHome" HorizontalAlignment="Left" Margin="364,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButton_Home_Clicked"/>
             <Button Content="TestBack" HorizontalAlignment="Left" Margin="488,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButton_Back_Clicked"/>

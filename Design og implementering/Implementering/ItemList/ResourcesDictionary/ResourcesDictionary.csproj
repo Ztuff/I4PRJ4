@@ -98,10 +98,13 @@
     <Resource Include="Images\AddItem.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Fridge.png" />
+    <Resource Include="Images\List.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\List.png" />
+    <Resource Include="Images\Bin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Fridge.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
