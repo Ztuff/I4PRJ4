@@ -20,5 +20,11 @@ namespace SmartFridge.Tests.Unit
         {
             Assert.AreEqual(1, 1);
         }
+
+        [Test]
+        public void DummyTest2()
+        {
+            Assert.AreEqual(0, 0);
+        }
     }
 }
