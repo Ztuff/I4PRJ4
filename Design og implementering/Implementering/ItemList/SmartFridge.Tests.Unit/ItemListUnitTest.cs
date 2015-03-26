@@ -17,4 +17,4 @@ namespace SmartFridge.Tests.Unit
             Assert.AreEqual(1, uut);
         }
     }
-}
+}   
