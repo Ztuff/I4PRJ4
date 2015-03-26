@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using SmartFridgeDAL.AdoNetUoW;
@@ -10,7 +13,8 @@ namespace SmartFridgeDAL.Repository
 {
     public class ListItemRepository : Repository<ListItem>
     {
-        public ListItemRepository(IContext context) : base(context)
+        public ListItemRepository(IContext context)
+            : base(context)
         {
         }
 
@@ -44,7 +48,7 @@ namespace SmartFridgeDAL.Repository
         }
 
         //No update of ListItem: Delete -> Add if needed.
-        public override void Update(ListItem item) 
+        public override void Update(ListItem item)
         {
             throw new NotImplementedException();
         }
@@ -106,7 +110,39 @@ namespace SmartFridgeDAL.Repository
             //listItem.Item.ItemId = (int)record["ItemId"];
             listItem.Amount = (int)record["Amount"];
             listItem.Volume = (int)record["Volume"];
-            listItem.Unit = (string) record["Unit"];
+            listItem.Unit = (string)record["Unit"];
+        }
+
+        public void Mapper(List<Item> items, List<List> lists, List<ListItem> listItems)
+        {
+            foreach (var listitem in listItems)
+            {
+                int listid = 0, itemid = 0;
+                using (var command = Context.CreateCommand())
+                {
+                    command.CommandText = @"SELECT ListId,ItemId FROM ListItem";
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            listid = (int) reader["ListId"];
+                            itemid = (int) reader["ItemId"];
+
+                            foreach (var item in items.Where(item => item.ItemId == itemid))
+                            {
+                                listitem.Item = item;
+                                break;
+                            }
+
+                            foreach (var list in lists.Where(list => list.ListId == listid))
+                            {
+                                listitem.List = list;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }      
         }
     }
 }

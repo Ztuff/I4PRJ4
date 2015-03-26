@@ -8,6 +8,7 @@ using SmartFridgeDAL.Connection;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 using SmartFridgeDAL.AdoNetUoW;
 using SmartFridgeDAL.Repository;
 
@@ -42,17 +43,25 @@ namespace SmartFridgeDALApp
             }
 
             List<ListItem> test;
-
-            using (var uow = context.CreateUnitOfWork())
-            {
-                var listitemRepos = new ListItemRepository(context);
-                test = listitemRepos.GetListItemsOnList(list).ToList();
-            }
+            var listitemRepostest = new ListItemRepository(context);
+            test = listitemRepostest.GetListItemsOnList(list).ToList();
 
             foreach (var i in test)
             {
                 Console.WriteLine("Amount: " + i.Amount + ". Volume: " + i.Volume + ". Unit: " + i.Unit);
             }
+
+            List<List> listtest = new List<List>();
+            listtest.Add(list);
+
+            List<Item> itemtest = new List<Item>();
+            itemtest.Add(item);
+            itemtest.Add(item);
+
+            listitemRepostest.Mapper(itemtest,listtest,test);
+
+            int dummy;
+
         }
     }
 }
