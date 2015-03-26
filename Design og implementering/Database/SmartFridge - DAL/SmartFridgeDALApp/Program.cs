@@ -26,6 +26,9 @@ namespace SmartFridgeDALApp
 
             var context = new AdoNetContext(factory);
 
+            var listRepostest = new ListRepository(context);
+            List<List> john = listRepostest.GetAll().ToList();
+
             ListItem listitem = new ListItem { List = list, Item = item, Amount = 2, Unit = "L", Volume = 1 };
             ListItem listitem2 = new ListItem { List = list, Item = item2, Amount = 3, Unit = "g", Volume = 500 };
 
