@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ImageSource x:Key="ImgAdd">Images/Add.png</ImageSource>
+    <ImageSource x:Key="ImgAddAndExit">Images/AddAndExit.png</ImageSource>
+    <ImageSource x:Key="ImgAddItem">Images/AddItem.png</ImageSource>
+    <ImageSource x:Key="ImgBackward">Images/Backward.png</ImageSource>
+    <ImageSource x:Key="ImgCancel">Images/Cancel.png</ImageSource>
+    <ImageSource x:Key="ImgEdit">Images/Edit.png</ImageSource>
+    <ImageSource x:Key="ImgForward">Images/Forward.png</ImageSource>
+    <ImageSource x:Key="ImgFridge">Images/Fridge.png</ImageSource>
+    <ImageSource x:Key="ImgHome">Images/Home.png</ImageSource>
+    <ImageSource x:Key="ImgList">Images/List.png</ImageSource>
+    <ImageSource x:Key="ImgOK">Images/OK.png</ImageSource>
+    <ImageSource x:Key="ImgRemove">Images/Remove.png</ImageSource>
+    <ImageSource x:Key="ImgSettings">Images/Settings.png</ImageSource>
+    <ImageSource x:Key="ImgSyncFailed">Images/Sync Failed.png</ImageSource>
+    <ImageSource x:Key="ImgSyncSucceeded">Images/Sync Succeeded.png</ImageSource>
+    <ImageSource x:Key="ImgSyncing">Images/Syncing-Small.gif</ImageSource>
+</ResourceDictionary>
