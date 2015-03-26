@@ -13,6 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfacesAndDTO", "Interfa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFridge.Tests.Unit", "SmartFridge.Tests.Unit\SmartFridge.Tests.Unit.csproj", "{D8BFF154-2B72-4AAA-9951-AF10A05A50AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFridgeDAL", "SmartFridgeDAL\SmartFridgeDAL.csproj", "{9349C197-28EC-470D-8CBC-69A0DAB08F10}"
+EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "SmartFridgeModelling", "SmartFridgeModelling\SmartFridgeModelling.modelproj", "{A907B88D-6736-47DA-9FC0-72D954C44FCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFridgeModellingLib", "SmartFridgeModellingLib\SmartFridgeModellingLib.csproj", "{0AD9C34B-C1EE-435A-BE28-C307C4193AAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +45,18 @@ Global
 		{D8BFF154-2B72-4AAA-9951-AF10A05A50AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8BFF154-2B72-4AAA-9951-AF10A05A50AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8BFF154-2B72-4AAA-9951-AF10A05A50AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9349C197-28EC-470D-8CBC-69A0DAB08F10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9349C197-28EC-470D-8CBC-69A0DAB08F10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9349C197-28EC-470D-8CBC-69A0DAB08F10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9349C197-28EC-470D-8CBC-69A0DAB08F10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A907B88D-6736-47DA-9FC0-72D954C44FCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A907B88D-6736-47DA-9FC0-72D954C44FCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A907B88D-6736-47DA-9FC0-72D954C44FCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A907B88D-6736-47DA-9FC0-72D954C44FCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AD9C34B-C1EE-435A-BE28-C307C4193AAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AD9C34B-C1EE-435A-BE28-C307C4193AAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AD9C34B-C1EE-435A-BE28-C307C4193AAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AD9C34B-C1EE-435A-BE28-C307C4193AAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
