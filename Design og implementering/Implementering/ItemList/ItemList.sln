@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFridgeApplication", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourcesDictionary", "ResourcesDictionary\ResourcesDictionary.csproj", "{045C23F7-F376-4BEA-9F7F-4CD490A09E90}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFridge.Tests.Unit", "SmartFridge.Tests.Unit\SmartFridge.Tests.Unit.csproj", "{FF848AF2-74A8-4759-89A6-938BFACA8825}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{045C23F7-F376-4BEA-9F7F-4CD490A09E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{045C23F7-F376-4BEA-9F7F-4CD490A09E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{045C23F7-F376-4BEA-9F7F-4CD490A09E90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF848AF2-74A8-4759-89A6-938BFACA8825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF848AF2-74A8-4759-89A6-938BFACA8825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF848AF2-74A8-4759-89A6-938BFACA8825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF848AF2-74A8-4759-89A6-938BFACA8825}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
