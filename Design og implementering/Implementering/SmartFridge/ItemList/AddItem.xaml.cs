@@ -19,7 +19,6 @@ namespace UserControlLibrary
         public string _currentList;
         public IData dataLayer = new FakeData();
         private CtrlTemplate _ctrlTemp;
-        private BLL _bll = new BLL();
 
         public AddItem(string currentList, CtrlTemplate ctrlTemp)
         {

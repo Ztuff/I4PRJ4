@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using BusinessLogicLayer;
 
 namespace UserControlLibrary
 {
@@ -13,6 +14,8 @@ namespace UserControlLibrary
         public UserControl[] NavigationHistoryCollection { get; private set; }
         private int NavigationHistoryCollectionPosition;
         private int NavigationHistoryCollectionOriginalPosition;
+        private BLL _bll = new BLL();
+
         public CtrlTemplate()
         {
             InitializeComponent();
