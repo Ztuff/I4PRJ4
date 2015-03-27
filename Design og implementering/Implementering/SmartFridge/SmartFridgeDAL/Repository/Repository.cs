@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using SmartFridgeDAL.AdoNetUoW;
+using DataAccessLayer.AdoNetUoW;
 
-namespace SmartFridgeDAL.Repository
+namespace DataAccessLayer.Repository
 {
     public abstract class Repository<T> where T : new() 
     {

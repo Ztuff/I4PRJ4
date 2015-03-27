@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace InterfacesAndDTO
 {
-    public class Item
+    public class GUIItem
     {
-        public Item()
+        public GUIItem()
         {
             Amount = 1;
         }
 
-        public Item(string type, uint amount, uint size, string unit)
+        public GUIItem(string type, uint amount, uint size, string unit)
         {
             Type = type;
             Amount = amount;

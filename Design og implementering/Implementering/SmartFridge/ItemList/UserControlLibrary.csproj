@@ -105,6 +105,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
+      <Project>{cf7896a8-f095-4941-a017-fb0b5a9cdc48}</Project>
+      <Name>BusinessLogicLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces og DTO-klasser\InterfacesAndDTO.csproj">
       <Project>{32aee5ec-30bc-435f-a54d-05a06a0ba2fd}</Project>
       <Name>InterfacesAndDTO</Name>
@@ -112,6 +116,14 @@
     <ProjectReference Include="..\ResourcesDictionary\ResourcesDictionary.csproj">
       <Project>{045c23f7-f376-4bea-9f7f-4cd490a09e90}</Project>
       <Name>ResourcesDictionary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartFridgeDAL\DataAccessLayer.csproj">
+      <Project>{9349c197-28ec-470d-8cbc-69a0dab08f10}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartFridgeModellingLib\SmartFridgeModellingLib.csproj">
+      <Project>{0ad9c34b-c1ee-435a-be28-c307c4193aaa}</Project>
+      <Name>SmartFridgeModellingLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

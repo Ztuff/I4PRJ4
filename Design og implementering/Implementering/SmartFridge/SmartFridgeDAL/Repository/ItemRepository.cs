@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SmartFridgeDAL.AdoNetUoW;
+using DataAccessLayer.AdoNetUoW;
 
-namespace SmartFridgeDAL.Repository
+namespace DataAccessLayer.Repository
 {
     public class ItemRepository : Repository<Item>
     {

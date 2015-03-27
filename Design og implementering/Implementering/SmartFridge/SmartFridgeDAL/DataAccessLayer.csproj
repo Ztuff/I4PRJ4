@@ -7,8 +7,8 @@
     <ProjectGuid>{9349C197-28EC-470D-8CBC-69A0DAB08F10}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SmartFridgeDAL</RootNamespace>
-    <AssemblyName>SmartFridgeDAL</AssemblyName>
+    <RootNamespace>DataAccessLayer</RootNamespace>
+    <AssemblyName>DataAccessLayer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

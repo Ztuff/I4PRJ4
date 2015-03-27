@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using BusinessLogicLayer;
 using InterfacesAndDTO;
 
 namespace UserControlLibrary
@@ -11,15 +12,14 @@ namespace UserControlLibrary
     /// </summary>
     public partial class AddItem : UserControl
     {
-        List<Item> newItems = new List<Item>();
-        List<Item> types = new List<Item>();
-        List<string> typeNames = new List<string>();
-        List<string> unitNames = new List<string>();
+        List<GUIItem> newItems = new List<GUIItem>();
+        List<GUIItem> types = new List<GUIItem>();
         private uint amount = 1;
         private string selectedType = "";
         public string _currentList;
         public IData dataLayer = new FakeData();
         private CtrlTemplate _ctrlTemp;
+        private BLL _bll = new BLL();
 
         public AddItem(string currentList, CtrlTemplate ctrlTemp)
         {
@@ -28,22 +28,20 @@ namespace UserControlLibrary
             InitializeComponent();
             ListBoxItems.ItemsSource = newItems;
             TextBoxAntal.Text = amount.ToString();
-            GetTypes();
-            GetUnitNames();
-            ComboBoxVaretype.ItemsSource = typeNames;
-            ComboBoxUnit.ItemsSource = unitNames;
+            ComboBoxVaretype.ItemsSource = _bll.Types;
+            ComboBoxUnit.ItemsSource = _bll.UnitNames;
         }
 
         #region OtherMethods
 
-        private Item GetTypeItemFromName(string name)
+        private GUIItem GetTypeItemFromName(string name)
         {
             foreach (var item in types)
             {
                 if (item.Type.Equals(name))
                     return item;
             }
-            return new Item();
+            return new GUIItem();
         }
 
         static string UppercaseFirst(string s)
@@ -57,54 +55,19 @@ namespace UserControlLibrary
             return char.ToUpper(s[0]) + s.Substring(1);
         }
 
-        private void GetTypes()
-        {
-            //Data-tier call
-            //Hent typer fra databasen
-
-            //Tests:
-            types.Add(new Item() { Type = "Mælk", Amount = 1, Size = 1, Unit = "L" });
-            types.Add(new Item() { Type = "Nutella" });
-            types.Add(new Item() { Type = "Kiks" });
-            types.Add(new Item() { Type = "Appelsin" });
-            types.Add(new Item() { Type = "Banan" });
-            types.Add(new Item() { Type = "Citron" });
-            types.Add(new Item() { Type = "Dej" });
-            types.Add(new Item() { Type = "Estragon" });
-            types.Add(new Item() { Type = "Flødeskum" });
-
-            foreach (var VARIABLE in types)
-            {
-                typeNames.Add(VARIABLE.Type);
-            }
-        }
-
-        private void GetUnitNames()
-        {
-            unitNames.Add("L");
-            unitNames.Add("DL");
-            unitNames.Add("CL");
-            unitNames.Add("ML");
-            unitNames.Add("KG");
-            unitNames.Add("G");
-        }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             AddNewItem(CreateNewItem());
         }
-
-        private Item CreateNewItem()
+        //Eksempel på BusinessLogicLayer
+        private GUIItem CreateNewItem()
         {
-            Item item = new Item();
-            item.Type = TextBoxVareType.Text;
-            item.Amount = Convert.ToUInt32(TextBoxAntal.Text);
-            item.Size = Convert.ToUInt32(TextBoxVolumen.Text);
-            item.Unit = TextBoxVolumenEnhed.Text;
-            return item;
+            return _bll.CreateNewItem(TextBoxVareType.Text, Convert.ToUInt32(TextBoxAntal.Text),
+                Convert.ToUInt32(TextBoxVolumen.Text), TextBoxVolumenEnhed.Text);
         }
 
-        private void AddNewItem(Item item)
+        private void AddNewItem(GUIItem item)
         {
             foreach (var i in newItems)
             {
@@ -120,7 +83,7 @@ namespace UserControlLibrary
             ListBoxItems.Items.Refresh();
         }
 
-        private void UpdateTextboxesFromType(Item item)
+        private void UpdateTextboxesFromType(GUIItem item)
         {
             if (item != null)
             {

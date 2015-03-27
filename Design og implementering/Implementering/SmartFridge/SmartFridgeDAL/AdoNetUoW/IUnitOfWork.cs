@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SmartFridgeDAL.AdoNetUoW
+namespace DataAccessLayer.AdoNetUoW
 {
     public interface IUnitOfWork : IDisposable
     {

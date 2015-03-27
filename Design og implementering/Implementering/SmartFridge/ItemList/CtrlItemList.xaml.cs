@@ -17,8 +17,8 @@ namespace UserControlLibrary
         public string ListType;
         public CtrlTemplate CtrlTemp { get; set; }
         IData fakeData = new FakeData();        // Vi skal have fjernet fakes fra alt andet end tests - hurtigst muligt!
-        Item selectedItem = new Item(); //(Item)DataGridItems.SelectedItem;
-        ObservableCollection<Item> Items;
+       GUIItem selectedItem = new GUIItem(); //(GUIItem)DataGridItems.SelectedItem;
+        ObservableCollection<GUIItem>GUIItems;
         List<string> unitNames = new List<string>();
 
         public CtrlItemList(string listType, CtrlTemplate ctrlTemp)
@@ -27,7 +27,7 @@ namespace UserControlLibrary
             _ctrlTemp = ctrlTemp;
             ListType = listType;
             LabelItemList.Content = ListType;
-            Items = fakeData.GetItemsFromTable(ListType);
+           GUIItems = fakeData.GetItemsFromTable(ListType);
             LoadItemData();
             GetUnitNames();
             SelectedUnitCB.ItemsSource = unitNames;
@@ -40,7 +40,7 @@ namespace UserControlLibrary
         {
             DataGridItems.AutoGenerateColumns = false;
             DataGridItems.CanUserAddRows = false;
-            DataGridItems.ItemsSource = Items;
+            DataGridItems.ItemsSource =GUIItems;
             DataGridTextColumn name = new DataGridTextColumn();
             name.Header = "Navn";
             name.Binding = new Binding("Type");
@@ -62,13 +62,13 @@ namespace UserControlLibrary
             // Midlertidig løsning:
             name.Width = 195;
 
-            //LabelItemList.Content = Items[0].ItemType;
+            //LabelItemList.Content =GUIItems[0].ItemType;
         }
 
         private void DataGridItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             /*Item*/
-            selectedItem = (Item)DataGridItems.SelectedItem;
+            selectedItem = (GUIItem)DataGridItems.SelectedItem;
             if (selectedItem != null)
             {
                 SelectedItemType.Content = selectedItem.Type;
@@ -98,7 +98,7 @@ namespace UserControlLibrary
                 selectedItem.Amount -= 1;
                 if (selectedItem.Amount <= 0)
                 {
-                    Items.Remove(selectedItem);
+                   GUIItems.Remove(selectedItem);
                     DataGridItems.UnselectAllCells();
                     DataGridItems.Items.Refresh();
                     DataGridItems.SelectedIndex = 0;
@@ -113,7 +113,7 @@ namespace UserControlLibrary
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
 
-            selectedItem = (Item)DataGridItems.SelectedItem;
+            selectedItem = (GUIItem)DataGridItems.SelectedItem;
             if (selectedItem != null)
             {
                 SelectedItemTB.Text = selectedItem.Type;
@@ -137,8 +137,8 @@ namespace UserControlLibrary
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            Item itemDelete = DataGridItems.SelectedItem as Item;
-            Items.Remove(itemDelete);
+           GUIItem itemDelete = DataGridItems.SelectedItem as GUIItem;
+           GUIItems.Remove(itemDelete);
             DataGridItems.UnselectAllCells();
             DataGridItems.SelectedIndex = 0;
             

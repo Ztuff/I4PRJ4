@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace SmartFridgeDAL.AdoNetUoW
+namespace DataAccessLayer.AdoNetUoW
 {
     public class AdoNetUnitOfWork : IUnitOfWork
     {

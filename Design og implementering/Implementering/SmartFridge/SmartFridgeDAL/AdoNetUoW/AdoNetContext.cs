@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Threading;
-using SmartFridgeDAL.Connection;
+using DataAccessLayer.Connection;
 
-namespace SmartFridgeDAL.AdoNetUoW
+namespace DataAccessLayer.AdoNetUoW
 {
     public class AdoNetContext : IContext
     {
