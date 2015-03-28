@@ -14,7 +14,7 @@ namespace UserControlLibrary
         public UserControl[] NavigationHistoryCollection { get; private set; }
         private int NavigationHistoryCollectionPosition;
         private int NavigationHistoryCollectionOriginalPosition;
-        private BLL _bll = new BLL();
+        public readonly BLL _bll = new BLL();
 
         public CtrlTemplate()
         {

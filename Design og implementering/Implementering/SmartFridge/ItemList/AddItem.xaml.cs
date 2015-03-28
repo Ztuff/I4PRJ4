@@ -27,8 +27,8 @@ namespace UserControlLibrary
             InitializeComponent();
             ListBoxItems.ItemsSource = newItems;
             TextBoxAntal.Text = amount.ToString();
-            ComboBoxVaretype.ItemsSource = _bll.Types;
-            ComboBoxUnit.ItemsSource = _bll.UnitNames;
+            ComboBoxVaretype.ItemsSource = _ctrlTemp._bll.Types;
+            ComboBoxUnit.ItemsSource = _ctrlTemp._bll.UnitNames;
         }
 
         #region OtherMethods
@@ -62,7 +62,7 @@ namespace UserControlLibrary
         //Eksempel på BusinessLogicLayer
         private GUIItem CreateNewItem()
         {
-            return _bll.CreateNewItem(TextBoxVareType.Text, Convert.ToUInt32(TextBoxAntal.Text),
+            return _ctrlTemp._bll.CreateNewItem(TextBoxVareType.Text, Convert.ToUInt32(TextBoxAntal.Text),
                 Convert.ToUInt32(TextBoxVolumen.Text), TextBoxVolumenEnhed.Text);
         }
 
