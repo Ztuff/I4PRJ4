@@ -138,7 +138,11 @@ namespace UserControlLibrary
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
            GUIItem itemDelete = DataGridItems.SelectedItem as GUIItem;
+
            GUIItems.Remove(itemDelete);
+
+            _ctrlTemp._bll.DeleteItem(itemDelete); //Calling BLL delete through CtrlTemplate
+
             DataGridItems.UnselectAllCells();
             DataGridItems.SelectedIndex = 0;
             

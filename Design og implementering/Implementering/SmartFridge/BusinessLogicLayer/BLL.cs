@@ -65,6 +65,25 @@ namespace BusinessLogicLayer
             return item;
         }
 
-
+        public void DeleteItem(GUIItem GUIitemToDelete)
+        {
+            /*Henter alle items fra databasen, da der ikke er nogen direkte måde at connecte
+                et GUIitem med et dbItem, da GUIitem ikke har noget ID*/
+            List<Item> dbItems = _itemRepository.GetAll().ToList();
+            Item dbItemToDelete = new Item();
+            /*Finder det dbItem der svarer til det GUIitem der skal fjernes*/
+            foreach (var VARIABLE in dbItems)
+            {
+                if (VARIABLE.ItemName == GUIitemToDelete.Type
+                    && VARIABLE.StdUnit == GUIitemToDelete.Unit
+                    && (uint) VARIABLE.StdVolume == GUIitemToDelete.Size)
+                {
+                    dbItemToDelete = VARIABLE;
+                    break;
+                }
+            }
+            /*Fjerner det ønskede item fra databasen*/
+                _itemRepository.Delete(dbItemToDelete);
+        }
     }
 }

@@ -59,6 +59,7 @@ namespace UserControlLibrary
         {
             AddNewItem(CreateNewItem());
         }
+
         //Eksempel på BusinessLogicLayer
         private GUIItem CreateNewItem()
         {
