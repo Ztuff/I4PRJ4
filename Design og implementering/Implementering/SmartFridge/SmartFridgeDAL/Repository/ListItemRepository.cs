@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using DataAccessLayer.AdoNetUoW;
 
 namespace DataAccessLayer.Repository
@@ -104,6 +105,38 @@ namespace DataAccessLayer.Repository
             listItem.Amount = (int)record["Amount"];
             listItem.Volume = (int)record["Volume"];
             listItem.Unit = (string) record["Unit"];
+        }
+
+        public void Mapper(List<Item> items, List<List> lists, List<ListItem> listItems)
+        {
+            foreach (var listitem in listItems)
+            {
+                int listid = 0, itemid = 0;
+                using (var command = Context.CreateCommand())
+                {
+                    command.CommandText = @"SELECT ListId,ItemId FROM ListItem";
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            listid = (int)reader["ListId"];
+                            itemid = (int)reader["ItemId"];
+
+                            foreach (var item in items.Where(item => item.ItemId == itemid))
+                            {
+                                listitem.Item = item;
+                                break;
+                            }
+
+                            foreach (var list in lists.Where(list => list.ListId == listid))
+                            {
+                                listitem.List = list;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
