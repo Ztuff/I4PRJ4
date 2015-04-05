@@ -76,14 +76,30 @@ namespace BusinessLogicLayer
             {
                 if (VARIABLE.ItemName == GUIitemToDelete.Type
                     && VARIABLE.StdUnit == GUIitemToDelete.Unit
-                    && (uint) VARIABLE.StdVolume == GUIitemToDelete.Size)
+                    && (uint)VARIABLE.StdVolume == GUIitemToDelete.Size)
                 {
                     dbItemToDelete = VARIABLE;
                     break;
                 }
             }
             /*Fjerner det ønskede item fra databasen*/
-                _itemRepository.Delete(dbItemToDelete);
+            _itemRepository.Delete(dbItemToDelete);
+        }
+
+        public void ChangeItem(GUIItem oldItem, GUIItem newItem)
+        {
+            List<Item> dbItems = _itemRepository.GetAll().ToList();
+            foreach (var item in dbItems)
+            {
+                if (item.ItemName == oldItem.Type && item.StdUnit == oldItem.Unit && (uint)item.StdVolume == oldItem.Size)
+                {
+                    item.ItemName = newItem.Type;
+                    item.StdUnit = newItem.Unit;
+                    item.StdVolume = (int)newItem.Size;
+                    return;
+                }
+            }
+            //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
         }
     }
 }

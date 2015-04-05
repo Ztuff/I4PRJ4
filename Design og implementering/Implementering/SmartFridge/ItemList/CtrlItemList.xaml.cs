@@ -17,7 +17,8 @@ namespace UserControlLibrary
         public string ListType;
         public CtrlTemplate CtrlTemp { get; set; }
         IData fakeData = new FakeData();        // Vi skal have fjernet fakes fra alt andet end tests - hurtigst muligt!
-       GUIItem selectedItem = new GUIItem(); //(GUIItem)DataGridItems.SelectedItem;
+        GUIItem selectedItemOld = new GUIItem();
+        GUIItem selectedItem = new GUIItem(); //(GUIItem)DataGridItems.SelectedItem;
         ObservableCollection<GUIItem>GUIItems;
         List<string> unitNames = new List<string>();
 
@@ -79,6 +80,8 @@ namespace UserControlLibrary
             }
         }
 
+        #region Buttons
+
         private void ButtonInc_Click(object sender, RoutedEventArgs e)
         {
             if (selectedItem != null)
@@ -116,6 +119,7 @@ namespace UserControlLibrary
             selectedItem = (GUIItem)DataGridItems.SelectedItem;
             if (selectedItem != null)
             {
+                selectedItemOld = selectedItem;
                 SelectedItemTB.Text = selectedItem.Type;
                 SelectedAmountTB.Text = selectedItem.Amount.ToString();
                 SelectedSizeTB.Text = selectedItem.Size.ToString();
@@ -133,7 +137,6 @@ namespace UserControlLibrary
                 BtnDec.IsEnabled = false;
             }
         }
-
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
@@ -187,6 +190,9 @@ namespace UserControlLibrary
             SelectedItemType.Content = selectedItem.Type;
             SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
             SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
+
+            _ctrlTemp._bll.ChangeItem(selectedItemOld, selectedItem); //Calling BLL change through CtrlTemplate
+
             DataGridItems.Items.Refresh();
             ButtonInc.Opacity = 100;
             ButtonInc.IsEnabled = true;
@@ -195,6 +201,7 @@ namespace UserControlLibrary
             HideButtonsAndTextboxes();
         }
 
+        #endregion
 
         private void ShowButtonsAndTextboxes()
         {
@@ -236,7 +243,6 @@ namespace UserControlLibrary
             BtnCancel.IsEnabled = false;
             BtnCancel.Opacity = 0;
         }
-
 
         private void SelectedUnitCB_OnDropDownClosed(object sender, EventArgs e)
         {
