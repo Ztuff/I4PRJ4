@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using SmartFridgeApplication;
 using UserControlLibrary;
 using WpfAnimatedGif;
 
@@ -30,6 +32,9 @@ namespace SmartFridgeApplication
             Desynced,
         }
 
+        DispatcherTimer timer = new DispatcherTimer();
+        Clock clock = new Clock();
+
         private SyncStatus syncStatus = SyncStatus.Synced;
 
         public CtrlTemplate _ctrlTemp = new CtrlTemplate();
@@ -40,6 +45,15 @@ namespace SmartFridgeApplication
         {
             InitializeComponent();
             ItemListGrid.Children.Add(CtrlTemp);
+
+            timer.Interval = TimeSpan.FromSeconds(1); //Timer ticks every 1 second
+            timer.Tick += timer_Tick; //Event that is called everytime the timer ticks
+            timer.Start();
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            clock.Update();
         }
 
         private void BackButton_Clicked(object sender, RoutedEventArgs e)

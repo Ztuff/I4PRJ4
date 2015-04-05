@@ -41,7 +41,8 @@
             </DockPanel>
             <Label Content="Title" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
             <DockPanel HorizontalAlignment="Right">
-                <Label Content="Date" VerticalContentAlignment="Center" HorizontalAlignment="Right"></Label>
+                <TextBlock Text="{Binding Path=Date}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                <TextBlock Text="{Binding Path=Time}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <Button x:Name="SyncButton" Focusable="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="100" Width="100" Click="SyncButton_OnClick">
                     <Image x:Name="SyncImage" gif:ImageBehavior.AnimatedSource="{StaticResource ImgSyncSucceeded}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100"/>
                 </Button>
