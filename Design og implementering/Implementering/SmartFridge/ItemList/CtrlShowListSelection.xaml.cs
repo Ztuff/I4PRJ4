@@ -19,7 +19,7 @@ namespace UserControlLibrary
 
         private void BtnInFridge_Click(object sender, RoutedEventArgs e)
         {
-            _ctrlTemp.ChangeGridContent(new CtrlItemList("I køleskab", _ctrlTemp));
+            _ctrlTemp.ChangeGridContent(new CtrlItemList("Køleskab", _ctrlTemp));
         }
 
         private void BtnShoppingList_Click(object sender, RoutedEventArgs e)
