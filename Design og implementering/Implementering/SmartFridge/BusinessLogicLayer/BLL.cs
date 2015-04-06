@@ -21,7 +21,7 @@ namespace BusinessLogicLayer
         private ListItemRepository _listItemRepository;
         public ObservableCollection<GUIItemList> Lists { get; private set; }
         private List<Item> DBItems;
-       private List<ListItem> ListItems;
+        private List<ListItem> ListItems;
 
         public BLL()
         {
@@ -110,7 +110,7 @@ namespace BusinessLogicLayer
             return item;
         }
 
-        public void AddItemsToTable(string currentListName, ObservableCollection<GUIItem> items)
+        public void AddItemsToTable(string currentListName, ObservableCollection<GUIItem> newItems)
         {
             GUIItemList currentList = null;
 
@@ -119,16 +119,96 @@ namespace BusinessLogicLayer
                 if (list.Name == currentListName)
                 {
                     currentList = list;
-                    foreach (var item in items)
-                    {
-                        currentList.ItemList.Add(item);
-                    }
-                    break;
                 }
             }
 
             if(currentList == null)
                 throw new Exception();
+
+            bool newItemAdded = false;
+
+            foreach (var newItem in newItems)
+            {
+                if (NewItem(newItem))
+                {
+                    Item dbItem = new Item()
+                    {
+                        ItemName = newItem.Type,
+                        StdUnit = newItem.Unit,
+                        StdVolume = (int) newItem.Size
+                    };
+                    _itemRepository.Insert(dbItem);
+                    newItemAdded = true;
+                }
+            }
+
+            if(newItemAdded)
+                LoadFromDB();
+
+
+            foreach (var newItem in newItems)
+            {
+                bool itemDoesNotExist = true;
+                foreach (var item in currentList.ItemList)
+                {
+                    if (item.Type == newItem.Type)
+                    {
+                        itemDoesNotExist = false;
+                        break;
+                    }
+                }
+                if (itemDoesNotExist)
+                {
+                    foreach (var dbItem in DBItems)
+                    {
+                        if (dbItem.ItemName == newItem.Type)
+                        {
+                            var listKey = new List()
+                            {
+                                ListId = currentList.ID,
+                                ListName = currentList.Name
+                            };
+
+                            _listItemRepository.Insert(new ListItem()
+                            {
+                                Item = dbItem,
+                                List = listKey,
+                                Amount = (int)newItem.Amount,
+                                Unit = newItem.Unit,
+                                Volume = (int)newItem.Size
+                            }                                       );
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var dbItem in DBItems)
+                    {
+                        if (dbItem.ItemName == newItem.Type)
+                        {
+                            foreach (var listItem in ListItems)
+                            {
+                                if (dbItem.ItemId == listItem.Item.ItemId &&
+                                    listItem.List.ListId == currentList.ID)
+                                {
+                                    listItem.Amount += (int)newItem.Amount;
+                                    _listItemRepository.Update(listItem);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool NewItem(GUIItem item)
+        {
+            foreach (var dbItem in DBItems)
+            {
+                if (item.Type == dbItem.ItemName)
+                    return false;
+            }
+            return true;
         }
 
         public void DeleteItem(GUIItem GUIitemToDelete)
