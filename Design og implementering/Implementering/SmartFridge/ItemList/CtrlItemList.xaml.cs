@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using BusinessLogicLayer;
 using InterfacesAndDTO;
 
 namespace UserControlLibrary
@@ -17,6 +18,7 @@ namespace UserControlLibrary
         public string ListType;
         public CtrlTemplate CtrlTemp { get; set; }
         IData fakeData = new FakeData();        // Vi skal have fjernet fakes fra alt andet end tests - hurtigst muligt!
+       // BLL BLLData = new BLL();                // skal bruges i stedet for fake når READ virker fra Rep-laget 
         GUIItem selectedItemOld = new GUIItem();
         GUIItem selectedItem = new GUIItem(); //(GUIItem)DataGridItems.SelectedItem;
         ObservableCollection<GUIItem>GUIItems;
@@ -29,6 +31,7 @@ namespace UserControlLibrary
             ListType = listType;
             LabelItemList.Content = ListType;
            GUIItems = fakeData.GetItemsFromTable(ListType);
+           // GUIItems = BLLData.Types; kan ikke hente data før READ er fikset
             LoadItemData();
             GetUnitNames();
             SelectedUnitCB.ItemsSource = unitNames;
@@ -46,7 +49,7 @@ namespace UserControlLibrary
             name.Header = "Navn";
             name.Binding = new Binding("Type");
             DataGridItems.Columns.Add(name);
-            DataGridTextColumn amount = new DataGridTextColumn();
+            DataGridTextColumn amount = new DataGridTextColumn();       
             amount.Header = "Antal";
             amount.Binding = new Binding("Amount");
             DataGridItems.Columns.Add(amount);
@@ -61,7 +64,16 @@ namespace UserControlLibrary
             // name.Width = DataGridItems.ActualWidth - amount.ActualWidth - size.ActualWidth - unit.ActualWidth;
             // Vi ser lige på at lave en dynamisk bredde på Navn
             // Midlertidig løsning:
-            name.Width = 195;
+           // name.Width = 195;
+            DataGridItems.Columns[0].Width = 70;
+            DataGridItems.Columns[1].Width = 292;
+            DataGridItems.Columns[2].Width = 70;
+            DataGridItems.Columns[3].Width = 90;
+            DataGridItems.Columns[4].Width = 70;
+            //DataGridItems.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; //VIRKER IKKE!
+
+            
+
 
             //LabelItemList.Content =GUIItems[0].ItemType;
         }

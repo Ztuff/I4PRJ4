@@ -41,7 +41,7 @@
             </Button>
 
         </Grid>
-        <DataGrid x:Name="DataGridItems" HorizontalAlignment="Left" Margin="10,100,0,10" Width="412" FontSize="20" SelectionChanged="DataGridItems_SelectionChanged" IsReadOnly="True">
+        <DataGrid x:Name="DataGridItems" HorizontalAlignment="Left" Margin="10,100,0,10" Width="600" FontSize="20" SelectionChanged="DataGridItems_SelectionChanged" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="">
                     <DataGridTemplateColumn.CellTemplate>

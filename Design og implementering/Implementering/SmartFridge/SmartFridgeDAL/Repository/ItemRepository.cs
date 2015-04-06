@@ -92,7 +92,7 @@ namespace DataAccessLayer.Repository
         protected override void Map(IDataRecord record, Item item)
         {
             item.ItemId = (int)record["ItemId"];
-            item.ItemName = (string)record["ListName"];
+            item.ItemName = (string)record["ItemName"];
             item.StdVolume = (int)record["StandardVolume"];
             item.StdUnit = (string)record["StandardUnit"];
         }
