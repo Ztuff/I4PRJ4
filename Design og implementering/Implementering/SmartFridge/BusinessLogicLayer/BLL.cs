@@ -112,6 +112,7 @@ namespace BusinessLogicLayer
 
         public void AddItemsToTable(string currentListName, ObservableCollection<GUIItem> newItems)
         {
+
             GUIItemList currentList = null;
 
             foreach (var list in Lists)
@@ -122,7 +123,7 @@ namespace BusinessLogicLayer
                 }
             }
 
-            if(currentList == null)
+            if (currentList == null)
                 throw new Exception();
 
             bool newItemAdded = false;
@@ -135,16 +136,15 @@ namespace BusinessLogicLayer
                     {
                         ItemName = newItem.Type,
                         StdUnit = newItem.Unit,
-                        StdVolume = (int) newItem.Size
+                        StdVolume = (int)newItem.Size
                     };
                     _itemRepository.Insert(dbItem);
                     newItemAdded = true;
                 }
             }
 
-            if(newItemAdded)
+            if (newItemAdded)
                 LoadFromDB();
-
 
             foreach (var newItem in newItems)
             {
@@ -169,14 +169,15 @@ namespace BusinessLogicLayer
                                 ListName = currentList.Name
                             };
 
-                            _listItemRepository.Insert(new ListItem()
+// Før mapper:              _listItemRepository.Insert(new ListItem()
+                            ListItems.Add(new ListItem()
                             {
                                 Item = dbItem,
                                 List = listKey,
                                 Amount = (int)newItem.Amount,
                                 Unit = newItem.Unit,
                                 Volume = (int)newItem.Size
-                            }                                       );
+                            });
                         }
                     }
                 }
@@ -192,13 +193,24 @@ namespace BusinessLogicLayer
                                     listItem.List.ListId == currentList.ID)
                                 {
                                     listItem.Amount += (int)newItem.Amount;
-                                    _listItemRepository.Update(listItem);
+// Uncomment hvis update ikke køres automatisk af mapperen
+//                                  _listItemRepository.Update(listItem);
                                 }
                             }
                         }
                     }
                 }
             }
+            List<List> dbLists = new List<List>();
+            foreach (var guiItemList in Lists)
+            {
+                dbLists.Add(new List()
+                {
+                    ListId = guiItemList.ID,
+                    ListName = guiItemList.Name
+                });
+            }
+            _listItemRepository.Mapper(DBItems, dbLists, ListItems);
         }
 
         private bool NewItem(GUIItem item)
