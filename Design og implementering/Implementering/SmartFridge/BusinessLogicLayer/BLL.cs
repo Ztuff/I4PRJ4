@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,14 +17,23 @@ namespace BusinessLogicLayer
         private IConnectionFactory _connectionFactory = new AppConnectionFactory("SmartFridgeConn");
         private IContext _context;
         private ItemRepository _itemRepository;
+        private ListRepository _listRepository;
+        private ListItemRepository _listItemRepository;
+        public ObservableCollection<GUIItemList> Lists { get; private set; }
+        private List<Item> DBItems;
+       private List<ListItem> ListItems;
 
         public BLL()
         {
             _context = new AdoNetContext(_connectionFactory);
             _itemRepository = new ItemRepository(_context);
+            _listRepository = new ListRepository(_context);
+            _listItemRepository = new ListItemRepository(_context);
+
+            LoadFromDB();
         }
 
-        public readonly List<string> UnitNames = new List<string>
+        public readonly ObservableCollection<string> UnitNames = new ObservableCollection<string>()
         {
             "l",
             "dl",
@@ -33,14 +43,13 @@ namespace BusinessLogicLayer
             "g"
         };
 
-        public List<GUIItem> Types
+        public ObservableCollection<GUIItem> Types
         {
             get
             {
-                List<Item> dbItems = _itemRepository.GetAll().ToList();
-                List<GUIItem> guiItems = new List<GUIItem>();
+                ObservableCollection<GUIItem> guiItems = new ObservableCollection<GUIItem>();
 
-                foreach (var dbItem in dbItems)
+                foreach (var dbItem in DBItems)
                 {
                     GUIItem guiItem = new GUIItem();
 
@@ -55,6 +64,42 @@ namespace BusinessLogicLayer
             }
         }
 
+        private void LoadFromDB()
+        {
+            // Oprettes som ObservableCollection, da den skal bruges direkte af GUI
+            Lists = new ObservableCollection<GUIItemList>();
+            foreach (var list in _listRepository.GetAll())
+            {
+                Lists.Add(new GUIItemList(list.ListId, list.ListName));
+            }
+
+            DBItems = _itemRepository.GetAll().ToList();
+            ListItems = _listItemRepository.GetAll().ToList();
+            foreach (var list in Lists)
+            {
+                foreach (var listItem in ListItems)
+                {
+                    if( listItem.List.ListId == list.ID)
+                        foreach (var dbItem in DBItems)
+                        {
+                            if (listItem.Item.ItemId == dbItem.ItemId)
+                            {
+                                GUIItem guiItem = new GUIItem()
+                                {
+                                    Amount = (uint) listItem.Amount,
+                                    Type = dbItem.ItemName,
+                                    Size = (uint) listItem.Volume,
+                                    Unit = listItem.Unit
+                                };
+                                list.ItemList.Add(guiItem);
+                                break;
+                            }
+                        }
+                }                
+            }
+
+        }
+
         public GUIItem CreateNewItem(string type, uint amount, uint size, string unit)
         {
             GUIItem item = new GUIItem();
@@ -65,14 +110,34 @@ namespace BusinessLogicLayer
             return item;
         }
 
+        public void AddItemsToTable(string currentListName, ObservableCollection<GUIItem> items)
+        {
+            GUIItemList currentList = null;
+
+            foreach (var list in Lists)
+            {
+                if (list.Name == currentListName)
+                {
+                    currentList = list;
+                    foreach (var item in items)
+                    {
+                        currentList.ItemList.Add(item);
+                    }
+                    break;
+                }
+            }
+
+            if(currentList == null)
+                throw new Exception();
+        }
+
         public void DeleteItem(GUIItem GUIitemToDelete)
         {
             /*Henter alle items fra databasen, da der ikke er nogen direkte måde at connecte
                 et GUIitem med et dbItem, da GUIitem ikke har noget ID*/
-            List<Item> dbItems = _itemRepository.GetAll().ToList();
             Item dbItemToDelete = new Item();
             /*Finder det dbItem der svarer til det GUIitem der skal fjernes*/
-            foreach (var VARIABLE in dbItems)
+            foreach (var VARIABLE in DBItems)
             {
                 if (VARIABLE.ItemName == GUIitemToDelete.Type
                     && VARIABLE.StdUnit == GUIitemToDelete.Unit
@@ -88,8 +153,7 @@ namespace BusinessLogicLayer
 
         public void ChangeItem(GUIItem oldItem, GUIItem newItem)
         {
-            List<Item> dbItems = _itemRepository.GetAll().ToList();
-            foreach (var item in dbItems)
+            foreach (var item in DBItems)
             {
                 if (item.ItemName == oldItem.Type && item.StdUnit == oldItem.Unit && (uint)item.StdVolume == oldItem.Size)
                 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using BusinessLogicLayer;
@@ -12,12 +13,11 @@ namespace UserControlLibrary
     /// </summary>
     public partial class AddItem : UserControl
     {
-        List<GUIItem> newItems = new List<GUIItem>();
-        List<GUIItem> types = new List<GUIItem>();
+        ObservableCollection<GUIItem> newItems = new ObservableCollection<GUIItem>();
+        ObservableCollection<GUIItem> types = new ObservableCollection<GUIItem>();
         private uint amount = 1;
         private string selectedType = "";
         public string _currentList;
-        public IData dataLayer = new FakeData();
         private CtrlTemplate _ctrlTemp;
 
         public AddItem(string currentList, CtrlTemplate ctrlTemp)
@@ -106,7 +106,7 @@ namespace UserControlLibrary
 
         private void Exit()
         {
-            dataLayer.AddItemsToTable(_currentList, newItems);
+            _ctrlTemp._bll.AddItemsToTable(_currentList, newItems);
             _ctrlTemp.ChangeGridContent(new CtrlItemList(_currentList, _ctrlTemp));
         }
 
