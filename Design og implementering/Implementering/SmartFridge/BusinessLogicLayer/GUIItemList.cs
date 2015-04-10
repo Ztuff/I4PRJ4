@@ -12,6 +12,7 @@ namespace BusinessLogicLayer
         public GUIItemList(int id, string name)
         {
             Name = name;
+            ID = id;
             ItemList = new ObservableCollection<GUIItem>();
         }
     }

@@ -18,7 +18,7 @@ namespace UserControlLibrary
         public string ListType;
         public CtrlTemplate CtrlTemp { get; set; }
         IData fakeData = new FakeData();        // Vi skal have fjernet fakes fra alt andet end tests - hurtigst muligt!
-       // BLL BLLData = new BLL();                // skal bruges i stedet for fake når READ virker fra Rep-laget 
+        BLL BLLData = new BLL();                // skal bruges i stedet for fake når READ virker fra Rep-laget 
         GUIItem selectedItemOld = new GUIItem();
         GUIItem selectedItem = new GUIItem(); //(GUIItem)DataGridItems.SelectedItem;
         ObservableCollection<GUIItem>GUIItems;
@@ -30,8 +30,8 @@ namespace UserControlLibrary
             _ctrlTemp = ctrlTemp;
             ListType = listType;
             LabelItemList.Content = ListType;
-           GUIItems = fakeData.GetItemsFromTable(ListType);
-           // GUIItems = BLLData.Types; kan ikke hente data før READ er fikset
+         //  GUIItems = fakeData.GetItemsFromTable(ListType);
+            GUIItems = BLLData.Types; //kan ikke hente data før READ er fikset
             LoadItemData();
             GetUnitNames();
             SelectedUnitCB.ItemsSource = unitNames;
