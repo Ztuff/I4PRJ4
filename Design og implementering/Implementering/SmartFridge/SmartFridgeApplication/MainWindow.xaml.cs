@@ -49,6 +49,8 @@ namespace SmartFridgeApplication
             timer.Interval = TimeSpan.FromSeconds(1); //Timer ticks every 1 second
             timer.Tick += timer_Tick; //Event that is called everytime the timer ticks
             timer.Start();
+            //DateBlock.DataContext = clock.Date;
+            //TimeBlock.DataContext = clock.Time;
         }
 
         void timer_Tick(object sender, EventArgs e)
