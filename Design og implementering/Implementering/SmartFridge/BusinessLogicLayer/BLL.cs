@@ -20,8 +20,8 @@ namespace BusinessLogicLayer
         private ListRepository _listRepository;
         private ListItemRepository _listItemRepository;
         public ObservableCollection<GUIItemList> Lists { get; private set; }
-        private List<Item> DBItems;
-        private List<ListItem> ListItems;
+        private List<Item> _dbItems;
+        private List<ListItem> _dblistItems;
 
         public BLL()
         {
@@ -49,7 +49,7 @@ namespace BusinessLogicLayer
             {
                 ObservableCollection<GUIItem> guiItems = new ObservableCollection<GUIItem>();
 
-                foreach (var dbItem in DBItems)
+                foreach (var dbItem in _dbItems)
                 {
                     GUIItem guiItem = new GUIItem();
 
@@ -66,6 +66,12 @@ namespace BusinessLogicLayer
 
         private void LoadFromDB()
         {
+            List<List> lists = _listRepository.GetAll().ToList();
+            _dbItems = _itemRepository.GetAll().ToList();
+            _dblistItems = _listItemRepository.GetAll().ToList();
+
+            _listItemRepository.Mapper(_dbItems, lists, _dblistItems);
+
             // Oprettes som ObservableCollection, da den skal bruges direkte af GUI
             Lists = new ObservableCollection<GUIItemList>();
             foreach (var list in _listRepository.GetAll())
@@ -73,14 +79,12 @@ namespace BusinessLogicLayer
                 Lists.Add(new GUIItemList(list.ListId, list.ListName));
             }
 
-            DBItems = _itemRepository.GetAll().ToList();
-            ListItems = _listItemRepository.GetAll().ToList();
             foreach (var list in Lists)
             {
-                foreach (var listItem in ListItems)
+                foreach (var listItem in _dblistItems)
                 {
                     if( listItem.List.ListId == list.ID)
-                        foreach (var dbItem in DBItems)
+                        foreach (var dbItem in _dbItems)
                         {
                             if (listItem.Item.ItemId == dbItem.ItemId)
                             {
@@ -159,7 +163,7 @@ namespace BusinessLogicLayer
                 }
                 if (itemDoesNotExist)
                 {
-                    foreach (var dbItem in DBItems)
+                    foreach (var dbItem in _dbItems)
                     {
                         if (dbItem.ItemName == newItem.Type)
                         {
@@ -170,7 +174,7 @@ namespace BusinessLogicLayer
                             };
 
 // Før mapper:              _listItemRepository.Insert(new ListItem()
-                            ListItems.Add(new ListItem()
+                            _dblistItems.Add(new ListItem()
                             {
                                 Item = dbItem,
                                 List = listKey,
@@ -183,11 +187,11 @@ namespace BusinessLogicLayer
                 }
                 else
                 {
-                    foreach (var dbItem in DBItems)
+                    foreach (var dbItem in _dbItems)
                     {
                         if (dbItem.ItemName == newItem.Type)
                         {
-                            foreach (var listItem in ListItems)
+                            foreach (var listItem in _dblistItems)
                             {
                                 if (dbItem.ItemId == listItem.Item.ItemId &&
                                     listItem.List.ListId == currentList.ID)
@@ -210,12 +214,12 @@ namespace BusinessLogicLayer
                     ListName = guiItemList.Name
                 });
             }
-            _listItemRepository.Mapper(DBItems, dbLists, ListItems);
+            _listItemRepository.Mapper(_dbItems, dbLists, _dblistItems);
         }
 
         private bool NewItem(GUIItem item)
         {
-            foreach (var dbItem in DBItems)
+            foreach (var dbItem in _dbItems)
             {
                 if (item.Type == dbItem.ItemName)
                     return false;
@@ -229,7 +233,7 @@ namespace BusinessLogicLayer
                 et GUIitem med et dbItem, da GUIitem ikke har noget ID*/
             Item dbItemToDelete = new Item();
             /*Finder det dbItem der svarer til det GUIitem der skal fjernes*/
-            foreach (var VARIABLE in DBItems)
+            foreach (var VARIABLE in _dbItems)
             {
                 if (VARIABLE.ItemName == GUIitemToDelete.Type
                     && VARIABLE.StdUnit == GUIitemToDelete.Unit
@@ -245,7 +249,7 @@ namespace BusinessLogicLayer
 
         public void ChangeItem(GUIItem oldItem, GUIItem newItem)
         {
-            foreach (var item in DBItems)
+            foreach (var item in _dbItems)
             {
                 if (item.ItemName == oldItem.Type && item.StdUnit == oldItem.Unit && (uint)item.StdVolume == oldItem.Size)
                 {
