@@ -74,7 +74,7 @@ namespace BusinessLogicLayer
 
             // Oprettes som ObservableCollection, da den skal bruges direkte af GUI
             Lists = new ObservableCollection<GUIItemList>();
-            foreach (var list in _listRepository.GetAll())
+            foreach (var list in lists)
             {
                 Lists.Add(new GUIItemList(list.ListId, list.ListName));
             }
@@ -173,15 +173,17 @@ namespace BusinessLogicLayer
                                 ListName = currentList.Name
                             };
 
-// Før mapper:              _listItemRepository.Insert(new ListItem()
-                            _dblistItems.Add(new ListItem()
+                            ListItem listItem = new ListItem()
                             {
                                 Item = dbItem,
                                 List = listKey,
-                                Amount = (int)newItem.Amount,
+                                Amount = (int) newItem.Amount,
                                 Unit = newItem.Unit,
-                                Volume = (int)newItem.Size
-                            });
+                                Volume = (int) newItem.Size
+                            };
+/* Før mapper:*/
+                            _listItemRepository.Insert(listItem);
+                            _dblistItems.Add(listItem);
                         }
                     }
                 }
