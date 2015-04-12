@@ -9,6 +9,7 @@ namespace SmartFridgeApplication
 {
     public class Clock : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
 
         string date;
         string time;
@@ -22,6 +23,8 @@ namespace SmartFridgeApplication
         {
             Date = DateTime.Now.ToLongDateString();
             Time = DateTime.Now.ToLongTimeString();
+            Debug.WriteLine(Date);
+            Debug.WriteLine(Time);
         }
 
         public string Date
@@ -45,19 +48,20 @@ namespace SmartFridgeApplication
                 if (time != value)
                 {
                     time = value;
-                    Notify("Time");
+                    Notify("Time");                   
                 }
             }
         }
 
         private void Notify(string propName)
         {
+            //PropertyChangedEventHandler handler = PropertyChanged
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        
     }
 }

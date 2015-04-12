@@ -15,7 +15,7 @@ namespace BusinessLogicLayer
     public class BLL
     {
         private IConnectionFactory _connectionFactory = new AppConnectionFactory("SmartFridgeConn");
-        private IContext _context;
+        public readonly IContext Context;
         private ItemRepository _itemRepository;
         private ListRepository _listRepository;
         private ListItemRepository _listItemRepository;
@@ -25,10 +25,10 @@ namespace BusinessLogicLayer
 
         public BLL()
         {
-            _context = new AdoNetContext(_connectionFactory);
-            _itemRepository = new ItemRepository(_context);
-            _listRepository = new ListRepository(_context);
-            _listItemRepository = new ListItemRepository(_context);
+            Context = new AdoNetContext(_connectionFactory);
+            _itemRepository = new ItemRepository(Context);
+            _listRepository = new ListRepository(Context);
+            _listItemRepository = new ListItemRepository(Context);
 
             LoadFromDB();
         }

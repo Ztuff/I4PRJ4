@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -150,17 +151,19 @@ namespace UserControlLibrary
             }
         }
 
-        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        private async void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-           GUIItem itemDelete = DataGridItems.SelectedItem as GUIItem;
+            using (var uow = _ctrlTemp._bll.Context.CreateUnitOfWork())
+            {
+                GUIItem itemDelete = DataGridItems.SelectedItem as GUIItem;
 
-           GUIItems.Remove(itemDelete);
+                GUIItems.Remove(itemDelete);
+                
+          /*await*/ _ctrlTemp._bll.DeleteItem(itemDelete); //Calling BLL delete through CtrlTemplate
 
-            _ctrlTemp._bll.DeleteItem(itemDelete); //Calling BLL delete through CtrlTemplate
-
-            DataGridItems.UnselectAllCells();
-            DataGridItems.SelectedIndex = 0;
-            
+                DataGridItems.UnselectAllCells();
+                DataGridItems.SelectedIndex = 0;
+            }
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

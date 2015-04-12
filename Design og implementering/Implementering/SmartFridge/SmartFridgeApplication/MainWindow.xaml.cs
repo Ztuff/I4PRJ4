@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -56,6 +57,10 @@ namespace SmartFridgeApplication
         void timer_Tick(object sender, EventArgs e)
         {
             clock.Update();
+            DateTime d;
+            d = DateTime.Now;
+            TestDateLabel.Content = d.Date;
+            TestTimeLabel.Content = d.ToLongTimeString();
         }
 
         private void BackButton_Clicked(object sender, RoutedEventArgs e)
