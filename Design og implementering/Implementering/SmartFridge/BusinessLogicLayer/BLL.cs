@@ -229,24 +229,29 @@ namespace BusinessLogicLayer
             return true;
         }
 
-        public void DeleteItem(GUIItem GUIitemToDelete)
+        public async Task DeleteItem(GUIItem GUIitemToDelete)
         {
             /*Henter alle items fra databasen, da der ikke er nogen direkte måde at connecte
                 et GUIitem med et dbItem, da GUIitem ikke har noget ID*/
-            Item dbItemToDelete = new Item();
-            /*Finder det dbItem der svarer til det GUIitem der skal fjernes*/
-            foreach (var VARIABLE in _dbItems)
+            ListItem dbListItemToDelete = new ListItem();
+            using (var uow = Context.CreateUnitOfWork())
             {
-                if (VARIABLE.ItemName == GUIitemToDelete.Type
-                    && VARIABLE.StdUnit == GUIitemToDelete.Unit
-                    && (uint)VARIABLE.StdVolume == GUIitemToDelete.Size)
+                /*Finder det dbItem der svarer til det GUIitem der skal fjernes*/
+                foreach (var VARIABLE in _dblistItems)
                 {
-                    dbItemToDelete = VARIABLE;
-                    break;
+                    if (VARIABLE.Item.ItemName == GUIitemToDelete.Type
+                        && VARIABLE.Item.StdVolume == GUIitemToDelete.Amount
+                        && VARIABLE.Item.StdUnit == GUIitemToDelete.Unit
+                        && (uint) VARIABLE.Item.StdVolume == GUIitemToDelete.Size)
+                    {
+                        dbListItemToDelete = VARIABLE;
+                        break;
+                    }
                 }
+                /*Fjerner det ønskede item fra databasen*/
+               await Task.Run( () =>_listItemRepository.Delete(dbListItemToDelete) );
+                
             }
-            /*Fjerner det ønskede item fra databasen*/
-            _itemRepository.Delete(dbItemToDelete);
         }
 
         public void ChangeItem(GUIItem oldItem, GUIItem newItem)

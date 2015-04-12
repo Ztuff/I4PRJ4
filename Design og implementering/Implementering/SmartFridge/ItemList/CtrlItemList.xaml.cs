@@ -153,17 +153,13 @@ namespace UserControlLibrary
 
         private async void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            using (var uow = _ctrlTemp._bll.Context.CreateUnitOfWork())
-            {
+ 
                 GUIItem itemDelete = DataGridItems.SelectedItem as GUIItem;
-
                 GUIItems.Remove(itemDelete);
-                
-          /*await*/ _ctrlTemp._bll.DeleteItem(itemDelete); //Calling BLL delete through CtrlTemplate
-
+                await _ctrlTemp._bll.DeleteItem(itemDelete); //Calling BLL delete through CtrlTemplate
                 DataGridItems.UnselectAllCells();
                 DataGridItems.SelectedIndex = 0;
-            }
+            
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
