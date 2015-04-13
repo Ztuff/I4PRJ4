@@ -261,17 +261,15 @@ namespace BusinessLogicLayer
                 /*Finder det dbItem der svarer til det GUIitem der skal fjernes*/
                 foreach (var dbListItem in _dblistItems)
                 {
-<<<<<<< d797ab8fef4465be17add8424540d5e7d0c5f133
                     if (dbListItem.Item.ItemName == GUIitemToDelete.Type
                         && dbListItem.Item.StdVolume == GUIitemToDelete.Amount
                         && dbListItem.Item.StdUnit == GUIitemToDelete.Unit
                         && (uint) dbListItem.Item.StdVolume == GUIitemToDelete.Size)
-=======
-                    if (VARIABLE.Item.ItemName == GUIitemToDelete.Type
-                        && VARIABLE.Item.StdVolume == GUIitemToDelete.Amount
-                        && VARIABLE.Item.StdUnit == GUIitemToDelete.Unit
-                        && (uint)VARIABLE.Item.StdVolume == GUIitemToDelete.Size)
->>>>>>> d2857b1b834864766984988488d4f3301d9e71eb
+
+                        if (dbListItem.Item.ItemName == GUIitemToDelete.Type
+                        && dbListItem.Item.StdVolume == GUIitemToDelete.Amount
+                        && dbListItem.Item.StdUnit == GUIitemToDelete.Unit
+                        && (uint)dbListItem.Item.StdVolume == GUIitemToDelete.Size)
                     {
                         dbListItemToDelete = dbListItem;
                         break;
