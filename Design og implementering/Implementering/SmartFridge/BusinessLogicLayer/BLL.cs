@@ -66,11 +66,15 @@ namespace BusinessLogicLayer
 
         private void LoadFromDB()
         {
-            List<List> lists = _listRepository.GetAll().ToList();
-            _dbItems = _itemRepository.GetAll().ToList();
-            _dblistItems = _listItemRepository.GetAll().ToList();
+            List<List> lists = new List<List>();
+            using (var uow = Context.CreateUnitOfWork())
+            {
+                lists = _listRepository.GetAll().ToList();
+                _dbItems = _itemRepository.GetAll().ToList();
+                _dblistItems = _listItemRepository.GetAll().ToList();
 
-            _listItemRepository.Mapper(_dbItems, lists, _dblistItems);
+                _listItemRepository.Mapper(_dbItems, lists, _dblistItems);
+            }
 
             // Oprettes som ObservableCollection, da den skal bruges direkte af GUI
             Lists = new ObservableCollection<GUIItemList>();
@@ -83,23 +87,23 @@ namespace BusinessLogicLayer
             {
                 foreach (var listItem in _dblistItems)
                 {
-                    if( listItem.List.ListId == list.ID)
+                    if (listItem.List.ListId == list.ID)
                         foreach (var dbItem in _dbItems)
                         {
                             if (listItem.Item.ItemId == dbItem.ItemId)
                             {
                                 GUIItem guiItem = new GUIItem()
                                 {
-                                    Amount = (uint) listItem.Amount,
+                                    Amount = (uint)listItem.Amount,
                                     Type = dbItem.ItemName,
-                                    Size = (uint) listItem.Volume,
+                                    Size = (uint)listItem.Volume,
                                     Unit = listItem.Unit
                                 };
                                 list.ItemList.Add(guiItem);
                                 break;
                             }
                         }
-                }                
+                }
             }
 
         }
@@ -131,21 +135,26 @@ namespace BusinessLogicLayer
                 throw new Exception();
 
             bool newItemAdded = false;
-
-            foreach (var newItem in newItems)
+            using (var uow = Context.CreateUnitOfWork())
             {
-                if (NewItem(newItem))
+                foreach (var newItem in newItems)
                 {
-                    Item dbItem = new Item()
+                    if (NewItem(newItem))
                     {
-                        ItemName = newItem.Type,
-                        StdUnit = newItem.Unit,
-                        StdVolume = (int)newItem.Size
-                    };
-                    _itemRepository.Insert(dbItem);
-                    newItemAdded = true;
+                        Item dbItem = new Item()
+                        {
+                            ItemName = newItem.Type,
+                            StdUnit = newItem.Unit,
+                            StdVolume = (int)newItem.Size
+                        };
+                        _itemRepository.Insert(dbItem);
+                        newItemAdded = true;
+                    }
                 }
+
+                uow.SaveChanges();
             }
+
 
             if (newItemAdded)
                 LoadFromDB();
@@ -163,51 +172,63 @@ namespace BusinessLogicLayer
                 }
                 if (itemDoesNotExist)
                 {
-                    foreach (var dbItem in _dbItems)
+                    using (var uow = Context.CreateUnitOfWork())
                     {
-                        if (dbItem.ItemName == newItem.Type)
+                        foreach (var dbItem in _dbItems)
                         {
-                            var listKey = new List()
+                            if (dbItem.ItemName == newItem.Type)
                             {
-                                ListId = currentList.ID,
-                                ListName = currentList.Name
-                            };
+                                var listKey = new List()
+                                {
+                                    ListId = currentList.ID,
+                                    ListName = currentList.Name
+                                };
 
-                            ListItem listItem = new ListItem()
-                            {
-                                Item = dbItem,
-                                List = listKey,
-                                Amount = (int) newItem.Amount,
-                                Unit = newItem.Unit,
-                                Volume = (int) newItem.Size
-                            };
-/* Før mapper:*/
-                            _listItemRepository.Insert(listItem);
-                            _dblistItems.Add(listItem);
+                                ListItem listItem = new ListItem()
+                                {
+                                    Item = dbItem,
+                                    List = listKey,
+                                    Amount = (int)newItem.Amount,
+                                    Unit = newItem.Unit,
+                                    Volume = (int)newItem.Size
+                                };
+
+                                Task.Run(() => _listItemRepository.Insert(listItem));
+                                _dblistItems.Add(listItem);
+                            }
                         }
+                        uow.SaveChanges();
                     }
+
                 }
                 else
                 {
-                    foreach (var dbItem in _dbItems)
+                    using (var uow = Context.CreateUnitOfWork())
                     {
-                        if (dbItem.ItemName == newItem.Type)
+                        foreach (var dbItem in _dbItems)
                         {
-                            foreach (var listItem in _dblistItems)
+                            if (dbItem.ItemName == newItem.Type)
                             {
-                                if (dbItem.ItemId == listItem.Item.ItemId &&
-                                    listItem.List.ListId == currentList.ID)
+                                foreach (var listItem in _dblistItems)
                                 {
-                                    listItem.Amount += (int)newItem.Amount;
-// Uncomment hvis update ikke køres automatisk af mapperen
-//                                  _listItemRepository.Update(listItem);
+                                    if (dbItem.ItemId == listItem.Item.ItemId &&
+                                        listItem.List.ListId == currentList.ID)
+                                    {
+                                        listItem.Amount += (int)newItem.Amount;
+                                        Task.Run(() => _listItemRepository.Update(listItem));
+                                    }
                                 }
                             }
                         }
+                        uow.SaveChanges();
                     }
+
                 }
+
+                LoadFromDB();
             }
             List<List> dbLists = new List<List>();
+
             foreach (var guiItemList in Lists)
             {
                 dbLists.Add(new List()
@@ -216,6 +237,7 @@ namespace BusinessLogicLayer
                     ListName = guiItemList.Name
                 });
             }
+
             _listItemRepository.Mapper(_dbItems, dbLists, _dblistItems);
         }
 
@@ -239,18 +261,26 @@ namespace BusinessLogicLayer
                 /*Finder det dbItem der svarer til det GUIitem der skal fjernes*/
                 foreach (var dbListItem in _dblistItems)
                 {
+<<<<<<< d797ab8fef4465be17add8424540d5e7d0c5f133
                     if (dbListItem.Item.ItemName == GUIitemToDelete.Type
                         && dbListItem.Item.StdVolume == GUIitemToDelete.Amount
                         && dbListItem.Item.StdUnit == GUIitemToDelete.Unit
                         && (uint) dbListItem.Item.StdVolume == GUIitemToDelete.Size)
+=======
+                    if (VARIABLE.Item.ItemName == GUIitemToDelete.Type
+                        && VARIABLE.Item.StdVolume == GUIitemToDelete.Amount
+                        && VARIABLE.Item.StdUnit == GUIitemToDelete.Unit
+                        && (uint)VARIABLE.Item.StdVolume == GUIitemToDelete.Size)
+>>>>>>> d2857b1b834864766984988488d4f3301d9e71eb
                     {
                         dbListItemToDelete = dbListItem;
                         break;
                     }
                 }
                 /*Fjerner det ønskede item fra databasen*/
-               await Task.Run( () =>_listItemRepository.Delete(dbListItemToDelete) );
-                
+                await Task.Run(() => _listItemRepository.Delete(dbListItemToDelete));
+
+                uow.SaveChanges();
             }
         }
 
