@@ -55,7 +55,6 @@ namespace SmartFridgeApplication
 
         private void Notify(string propName)
         {
-            //PropertyChangedEventHandler handler = PropertyChanged
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));

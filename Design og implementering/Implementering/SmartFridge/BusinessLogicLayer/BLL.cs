@@ -237,14 +237,14 @@ namespace BusinessLogicLayer
             using (var uow = Context.CreateUnitOfWork())
             {
                 /*Finder det dbItem der svarer til det GUIitem der skal fjernes*/
-                foreach (var VARIABLE in _dblistItems)
+                foreach (var dbListItem in _dblistItems)
                 {
-                    if (VARIABLE.Item.ItemName == GUIitemToDelete.Type
-                        && VARIABLE.Item.StdVolume == GUIitemToDelete.Amount
-                        && VARIABLE.Item.StdUnit == GUIitemToDelete.Unit
-                        && (uint) VARIABLE.Item.StdVolume == GUIitemToDelete.Size)
+                    if (dbListItem.Item.ItemName == GUIitemToDelete.Type
+                        && dbListItem.Item.StdVolume == GUIitemToDelete.Amount
+                        && dbListItem.Item.StdUnit == GUIitemToDelete.Unit
+                        && (uint) dbListItem.Item.StdVolume == GUIitemToDelete.Size)
                     {
-                        dbListItemToDelete = VARIABLE;
+                        dbListItemToDelete = dbListItem;
                         break;
                     }
                 }

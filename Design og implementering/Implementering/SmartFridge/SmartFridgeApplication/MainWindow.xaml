@@ -9,9 +9,7 @@
     <Window.Resources>
         <ResourceDictionary Source="pack://application:,,,/ResourcesDictionary;component/Dictionary.xaml"/>
     </Window.Resources>
-    <Window.DataContext>
-        <smartFridgeApplication:Clock x:Name="DateAndTime"/>
-    </Window.DataContext>
+
     <DockPanel LastChildFill="False" Width="1920" Height="1080" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid DockPanel.Dock="Top" MinHeight="96">
             <DockPanel HorizontalAlignment="Left" LastChildFill="False">

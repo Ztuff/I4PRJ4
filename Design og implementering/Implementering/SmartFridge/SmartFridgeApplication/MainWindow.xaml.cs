@@ -35,7 +35,7 @@ namespace SmartFridgeApplication
 
         DispatcherTimer timer = new DispatcherTimer();
         Clock clock = new Clock();
-
+        
         private SyncStatus syncStatus = SyncStatus.Synced;
 
         public CtrlTemplate _ctrlTemp = new CtrlTemplate();
@@ -46,7 +46,7 @@ namespace SmartFridgeApplication
         {
             InitializeComponent();
             ItemListGrid.Children.Add(CtrlTemp);
-
+            this.DataContext = clock;
             timer.Interval = TimeSpan.FromSeconds(1); //Timer ticks every 1 second
             timer.Tick += timer_Tick; //Event that is called everytime the timer ticks
             timer.Start();
@@ -58,6 +58,7 @@ namespace SmartFridgeApplication
         {
             clock.Update();
             DateTime d;
+
             d = DateTime.Now;
             TestDateLabel.Content = d.Date;
             TestTimeLabel.Content = d.ToLongTimeString();
