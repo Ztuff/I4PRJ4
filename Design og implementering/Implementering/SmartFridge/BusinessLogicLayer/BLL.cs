@@ -64,6 +64,35 @@ namespace BusinessLogicLayer
             }
         }
 
+        public ObservableCollection<GUIItem> WatchItems
+        {
+            get
+            {
+                ObservableCollection<GUIItem> guiItems = new ObservableCollection<GUIItem>();
+
+                foreach (var dbListItem in _dblistItems)
+                {
+                    foreach (var dbItem in _dbItems)
+                    {
+                        if (dbListItem.Item.ItemId == dbItem.ItemId)
+                        {
+                            GUIItem guiItem = new GUIItem();
+
+                            guiItem.Type = dbItem.ItemName;
+                            guiItem.Amount = (uint)dbListItem.Amount;
+                            guiItem.Unit = dbListItem.Unit;
+                            guiItem.Size = (uint)dbListItem.Volume;
+
+                            guiItems.Add(guiItem);
+                        }
+                    }
+
+                }
+
+                return guiItems;
+            }
+        }
+
         private void LoadFromDB()
         {
             List<List> lists = new List<List>();
@@ -264,16 +293,16 @@ namespace BusinessLogicLayer
                     if (dbListItem.Item.ItemName == GUIitemToDelete.Type
                         && dbListItem.Item.StdVolume == GUIitemToDelete.Amount
                         && dbListItem.Item.StdUnit == GUIitemToDelete.Unit
-                        && (uint) dbListItem.Item.StdVolume == GUIitemToDelete.Size)
+                        && (uint)dbListItem.Item.StdVolume == GUIitemToDelete.Size)
 
                         if (dbListItem.Item.ItemName == GUIitemToDelete.Type
                         && dbListItem.Item.StdVolume == GUIitemToDelete.Amount
                         && dbListItem.Item.StdUnit == GUIitemToDelete.Unit
                         && (uint)dbListItem.Item.StdVolume == GUIitemToDelete.Size)
-                    {
-                        dbListItemToDelete = dbListItem;
-                        break;
-                    }
+                        {
+                            dbListItemToDelete = dbListItem;
+                            break;
+                        }
                 }
                 /*Fjerner det ønskede item fra databasen*/
                 await Task.Run(() => _listItemRepository.Delete(dbListItemToDelete));
