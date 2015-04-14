@@ -122,7 +122,22 @@ namespace DataAccessLayer.Repository
                             listid = (int)reader["ListId"];
                             itemid = (int)reader["ItemId"];
 
-                            foreach (var item in items.Where(item => item.ItemId == itemid))
+                            foreach (var item in items)
+                            {
+                                if (item.ItemId == itemid)
+                                {
+                                    listitem.Item = item;
+                                }
+                            }
+
+                            foreach (var list in lists)
+                            {
+                                if (list.ListId == listid)
+                                {
+                                    listitem.List = list;
+                                }
+                            }
+                            /*foreach (var item in items.Where(item => item.ItemId == itemid))
                             {
                                 listitem.Item = item;
                                 break;
@@ -132,7 +147,7 @@ namespace DataAccessLayer.Repository
                             {
                                 listitem.List = list;
                                 break;
-                            }
+                            }*/
                         }
                     }
                 }
