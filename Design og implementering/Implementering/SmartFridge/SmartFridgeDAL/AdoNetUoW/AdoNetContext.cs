@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading;
 using DataAccessLayer.Connection;
@@ -8,14 +9,13 @@ namespace DataAccessLayer.AdoNetUoW
     public class AdoNetContext : IContext
     {
         private readonly IDbConnection _connection;
-        private readonly IConnectionFactory _connectionFactory;
         private readonly ReaderWriterLockSlim _rwLock = new ReaderWriterLockSlim();
         private readonly LinkedList<AdoNetUnitOfWork> _uows = new LinkedList<AdoNetUnitOfWork>();
 
         public AdoNetContext(IConnectionFactory connectionFactory)
         {
-            _connectionFactory = connectionFactory;
-            _connection = _connectionFactory.Create();
+            if (connectionFactory == null) throw new ArgumentNullException("connectionFactory");
+            _connection = connectionFactory.Create();
         }
 
         public IUnitOfWork CreateUnitOfWork()

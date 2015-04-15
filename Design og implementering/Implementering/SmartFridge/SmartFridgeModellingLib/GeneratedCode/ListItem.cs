@@ -11,13 +11,13 @@ using System.Text;
 
 public class ListItem
 {
-	public virtual int Amount
+	public int Amount
 	{
 		get;
 		set;
 	}
 
-	public virtual int Volume
+	public int Volume
 	{
 		get;
 		set;

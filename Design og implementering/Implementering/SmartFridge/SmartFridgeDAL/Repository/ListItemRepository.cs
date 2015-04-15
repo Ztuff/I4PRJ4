@@ -8,7 +8,8 @@ namespace DataAccessLayer.Repository
 {
     public class ListItemRepository : Repository<ListItem>
     {
-        public ListItemRepository(IContext context) : base(context)
+        public ListItemRepository(IContext context)
+            : base(context)
         {
         }
 
@@ -42,7 +43,7 @@ namespace DataAccessLayer.Repository
         }
 
         //No update of ListItem: Delete -> Add if needed.
-        public override void Update(ListItem item) 
+        public override void Update(ListItem item)
         {
             throw new NotImplementedException();
         }
@@ -104,53 +105,64 @@ namespace DataAccessLayer.Repository
             //listItem.Item.ItemId = (int)record["ItemId"];
             listItem.Amount = (int)record["Amount"];
             listItem.Volume = (int)record["Volume"];
-            listItem.Unit = (string) record["Unit"];
+            listItem.Unit = (string)record["Unit"];
         }
 
         public void Mapper(List<Item> items, List<List> lists, List<ListItem> listItems)
         {
-            foreach (var listitem in listItems)
+            /*using (var command = Context.CreateCommand())
             {
-                int listid = 0, itemid = 0;
+                command.CommandText = @"SELECT LI.ListId, LI.ItemId
+                                FROM ListItem AS LI
+                                    INNER JOIN List AS L
+                                        ON L.ListId = LI.ListId
+                                    INNER JOIN Item AS I
+                                        ON I.ListId = LI.ItemId";
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int listId = (int)reader["ListId"];
+                        int itemId = (int)reader["ItemId"];
+
+                        foreach (var listItem in listItems)
+                        {
+                            listItem.List = lists.SingleOrDefault(l => l.ListId = listItem.ListId);
+                            listItem.Item = items.SingleOrDefault(i => i.ItemId = listItem.ItemId);
+                        }
+                    }
+                }*/
+
                 using (var command = Context.CreateCommand())
                 {
-                    command.CommandText = @"SELECT ListId,ItemId FROM ListItem";
+                    command.CommandText = @"SELECT ListItem.ListId, ListItem.ItemId, Item.ItemId AS ItemItemId, List.ListId AS ListListId 
+                                                FROM Item INNER JOIN
+                                                ListItem ON Item.ItemId = ListItem.ItemId INNER JOIN
+                                                List ON ListItem.ListId = List.ListId";
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            listid = (int)reader["ListId"];
-                            itemid = (int)reader["ItemId"];
+                            int listid = (int)reader["ListId"];
+                            int itemid = (int)reader["ItemId"];
+                            int listlistid = (int)reader["ListId"];
+                            int itemitemid = (int)reader["ItemItemId"];
 
-                            foreach (var item in items)
+                            foreach (var listitem in listItems)
                             {
-                                if (item.ItemId == itemid)
+                                foreach (var item in items.Where(item => item.ItemId == itemitemid && itemitemid == itemid))
                                 {
                                     listitem.Item = item;
                                 }
-                            }
 
-                            foreach (var list in lists)
-                            {
-                                if (list.ListId == listid)
+                                foreach (var list in lists.Where(list => list.ListId == listlistid))
                                 {
                                     listitem.List = list;
                                 }
                             }
-                            /*foreach (var item in items.Where(item => item.ItemId == itemid))
-                            {
-                                listitem.Item = item;
-                                break;
-                            }
-
-                            foreach (var list in lists.Where(list => list.ListId == listid))
-                            {
-                                listitem.List = list;
-                                break;
-                            }*/
                         }
                     }
-                }
             }
         }
     }
