@@ -9,32 +9,38 @@
     <Window.Resources>
         <ResourceDictionary Source="pack://application:,,,/ResourcesDictionary;component/Dictionary.xaml"/>
     </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF503C3C" Offset="1"/>
+            <GradientStop Color="#FFA0A0B4"/>
+        </LinearGradientBrush>
+    </Window.Background>
 
     <DockPanel LastChildFill="False" Width="1920" Height="1080" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid DockPanel.Dock="Top" MinHeight="96">
             <DockPanel HorizontalAlignment="Left" LastChildFill="False">
 
-                <Button x:Name="CloseButton" Focusable="False" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}" Click="Close_Button_Clicked">
+                <Button Style="{DynamicResource NoChromeButton}" x:Name="CloseButton" Focusable="False" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}" Click="Close_Button_Clicked">
                     <Button.Background>
                         <ImageBrush ImageSource="{StaticResource ImgCancel}"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="BackButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Back_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}" >
+                <Button Style="{DynamicResource NoChromeButton}" x:Name="BackButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Back_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}" >
                     <Button.Background>
                         <ImageBrush ImageSource="{StaticResource ImgBackward}"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="ForwardButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Forward_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                <Button Style="{DynamicResource NoChromeButton}" x:Name="ForwardButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Forward_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
                     <Button.Background>
                         <ImageBrush ImageSource="{StaticResource ImgForward}"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="HomeButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Home_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                <Button Style="{DynamicResource NoChromeButton}" x:Name="HomeButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Home_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
                     <Button.Background>
                         <ImageBrush ImageSource="{StaticResource ImgHome}"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="SettingsButton" Focusable="False" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                <Button Style="{DynamicResource NoChromeButton}" x:Name="SettingsButton" Focusable="False" DockPanel.Dock="Left" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
                     <Button.Background>
                         <ImageBrush ImageSource="{StaticResource ImgSettings}"/>
                     </Button.Background>
@@ -44,8 +50,8 @@
             <DockPanel HorizontalAlignment="Right">
                 <TextBlock Name="DateBlock" Text="{Binding Path=Date}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4,0"></TextBlock>
                 <TextBlock Name="TimeBlock" Text="{Binding Path=Time}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4,0"></TextBlock>
-                <Button x:Name="SyncButton" Focusable="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="100" Width="100" Click="SyncButton_OnClick">
-                    <Image x:Name="SyncImage" gif:ImageBehavior.AnimatedSource="{StaticResource ImgSyncSucceeded}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100"/>
+                <Button Style="{DynamicResource NoChromeButton}" x:Name="SyncButton" Focusable="False" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="100" Width="100" Click="SyncButton_OnClick">
+                    <Image x:Name="SyncImage" gif:ImageBehavior.AnimatedSource="{StaticResource ImgSyncSucceeded}" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Button>
             </DockPanel>
         </Grid>
@@ -93,8 +99,12 @@
         </Grid>
 
         <Grid DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1920" Height="1080" Margin="0">
-            <Grid x:Name="ItemListGrid" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Height="720" VerticalAlignment="Center" Width="1280">
-                <Border BorderBrush="Black" BorderThickness="2"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1451*"/>
+                <ColumnDefinition Width="469*"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="ItemListGrid" HorizontalAlignment="Center" Height="720" VerticalAlignment="Center" Width="1280" Grid.ColumnSpan="2" Margin="320,180">
+                <Border BorderThickness="1" Background="#19000000"/>
             </Grid>
             <Button Content="TestHome" HorizontalAlignment="Left" Margin="364,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButton_Home_Clicked"/>
             <Button Content="TestBack" HorizontalAlignment="Left" Margin="488,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButton_Back_Clicked"/>

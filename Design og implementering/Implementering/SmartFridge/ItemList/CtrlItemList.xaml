@@ -24,17 +24,17 @@
             <ComboBox x:Name="SelectedUnitCB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="23" Height="19" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="True" MaxDropDownHeight ="150" Margin="228,90,0,0" DropDownClosed="SelectedUnitCB_OnDropDownClosed"/>
             <TextBlock x:Name="SelectedBestBefore" Margin="20,114,0,0" TextWrapping="Wrap" Text="Mindst holdbar til:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16"/>
             <TextBox Name="SelectedBestBeforeTB" Margin="154,116,394,475"/>
-            <Button x:Name="BtnEdit" Content="" Focusable="False" Margin="0,20,20,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" FontSize="20" Click="BtnEdit_Click" BorderBrush="{x:Null}">
+            <Button Style="{DynamicResource NoChromeButton}" x:Name="BtnEdit" Content="" Focusable="False" Margin="0,20,20,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" FontSize="20" Click="BtnEdit_Click" BorderBrush="{x:Null}">
                 <Button.Background>
                     <ImageBrush ImageSource="{StaticResource ImgEdit}"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="ButtonInc" Margin="0,115,20,0" VerticalAlignment="Top" Focusable="False"  HorizontalAlignment="Right" Width="75" Height="75" Click="ButtonInc_Click" Foreground="{x:Null}" BorderBrush="{x:Null}">
+            <Button Style="{DynamicResource NoChromeButton}" x:Name="ButtonInc" Margin="0,115,20,0" VerticalAlignment="Top" Focusable="False"  HorizontalAlignment="Right" Width="75" Height="75" Click="ButtonInc_Click" Foreground="{x:Null}" BorderBrush="{x:Null}">
                 <Button.Background>
                     <ImageBrush ImageSource="{StaticResource ImgAdd}"/>
                 </Button.Background>
             </Button>
-            <Button x:Name="BtnDec" Margin="0,210,20,0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" Click="BtnDec_Click" BorderThickness="1" BorderBrush="{x:Null}">
+            <Button Style="{DynamicResource NoChromeButton}" x:Name="BtnDec" Margin="0,210,20,0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" Click="BtnDec_Click" BorderThickness="1" BorderBrush="{x:Null}">
                 <Button.Background>
                     <ImageBrush ImageSource="{StaticResource ImgRemove}"/>
                 </Button.Background>
@@ -53,17 +53,17 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label x:Name="LabelItemList" Content="Listetype" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="40" HorizontalAlignment="Center"/>
-        <Button Name="BtnCancel"  Content="" HorizontalAlignment="Left" Margin="671,257,0,0" VerticalAlignment="Top" Width="75" Height="75" Click="BtnCancel_Click" BorderBrush="{x:Null}">
+        <Button Style="{DynamicResource NoChromeButton}" Name="BtnCancel"  Content="" HorizontalAlignment="Left" Margin="671,257,0,0" VerticalAlignment="Top" Width="75" Height="75" Click="BtnCancel_Click" BorderBrush="{x:Null}">
             <Button.Background>
                 <ImageBrush ImageSource="{StaticResource ImgCancel}"/>
             </Button.Background>
         </Button>
-        <Button Name="BtnAccept" Content="" HorizontalAlignment="Left" Margin="775,257,0,0" VerticalAlignment="Top" Width="75" Height="75" Click="BtnAccept_Click" BorderBrush="{x:Null}">
+        <Button Style="{DynamicResource NoChromeButton}" Name="BtnAccept" Content="" HorizontalAlignment="Left" Margin="775,257,0,0" VerticalAlignment="Top" Width="75" Height="75" Click="BtnAccept_Click" BorderBrush="{x:Null}">
             <Button.Background>
                 <ImageBrush ImageSource="{StaticResource ImgOK}"/>
             </Button.Background>
         </Button>
-        <Button Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="75" Width="75" Click="Button_Click" BorderBrush="{x:Null}">
+        <Button Style="{DynamicResource NoChromeButton}" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="75" Width="75" Click="Button_Click" BorderBrush="{x:Null}">
             <Button.Background>
                 <ImageBrush ImageSource="{StaticResource ImgAddItem}"/>
             </Button.Background>
