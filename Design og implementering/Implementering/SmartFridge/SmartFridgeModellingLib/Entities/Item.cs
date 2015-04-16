@@ -9,19 +9,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class List
+public class Item
 {
-	public virtual int ListId
-	{
-		get;
-		set;
-	}
+    public int ItemId { get; set; }
+    public string ItemName { get; set; }
+    public int StdVolume { get; set; }
+    public string StdUnit { get; set; }
 
-	public virtual string ListName
-	{
-		get;
-		set;
-	}
+    public Item()
+    {
+    }
 
+    public Item(string itemName, int stdVolume, string stdUnit)
+    {
+        ItemName = itemName;
+        StdVolume = stdVolume;
+        StdUnit = stdUnit;
+    }
 }
 

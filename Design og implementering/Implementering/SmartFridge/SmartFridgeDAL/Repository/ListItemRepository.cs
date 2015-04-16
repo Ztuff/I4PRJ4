@@ -101,8 +101,8 @@ namespace DataAccessLayer.Repository
 
         protected override void Map(IDataRecord record, ListItem listItem)
         {
-            //listItem.List.ListId = (int)record["ListId"];
-            //listItem.Item.ItemId = (int)record["ItemId"];
+            listItem.ListId = (int)record["ListId"];
+            listItem.ItemId = (int)record["ItemId"];
             listItem.Amount = (int)record["Amount"];
             listItem.Volume = (int)record["Volume"];
             listItem.Unit = (string)record["Unit"];
@@ -110,31 +110,20 @@ namespace DataAccessLayer.Repository
 
         public void Mapper(List<Item> items, List<List> lists, List<ListItem> listItems)
         {
-            /*using (var command = Context.CreateCommand())
+            foreach (var listItem in listItems)
             {
-                command.CommandText = @"SELECT LI.ListId, LI.ItemId
-                                FROM ListItem AS LI
-                                    INNER JOIN List AS L
-                                        ON L.ListId = LI.ListId
-                                    INNER JOIN Item AS I
-                                        ON I.ListId = LI.ItemId";
-
-                using (var reader = command.ExecuteReader())
+                foreach (var item in items.Where(item => item.ItemId == listItem.ItemId))
                 {
-                    while (reader.Read())
-                    {
-                        int listId = (int)reader["ListId"];
-                        int itemId = (int)reader["ItemId"];
+                    listItem.Item = item;
+                }
 
-                        foreach (var listItem in listItems)
-                        {
-                            listItem.List = lists.SingleOrDefault(l => l.ListId = listItem.ListId);
-                            listItem.Item = items.SingleOrDefault(i => i.ItemId = listItem.ItemId);
-                        }
-                    }
-                }*/
+                foreach (var list in lists.Where(list => list.ListId == listItem.ListId))
+                {
+                    listItem.List = list;
+                }
+            }
 
-                using (var command = Context.CreateCommand())
+            /*using (var command = Context.CreateCommand())
                 {
                     command.CommandText = @"SELECT ListItem.ListId, ListItem.ItemId, Item.ItemId AS ItemItemId, List.ListId AS ListListId 
                                                 FROM Item INNER JOIN
@@ -163,7 +152,7 @@ namespace DataAccessLayer.Repository
                             }
                         }
                     }
-            }
+            }*/
         }
     }
 }

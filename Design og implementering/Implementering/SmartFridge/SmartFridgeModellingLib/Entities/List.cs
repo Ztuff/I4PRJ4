@@ -9,37 +9,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class ListItem
+public class List
 {
-	public int Amount
-	{
-		get;
-		set;
-	}
+    public int ListId { get; set; }
+    public string ListName { get; set; }
 
-	public int Volume
-	{
-		get;
-		set;
-	}
+    public List()
+    {
+    }
 
-	public virtual string Unit
-	{
-		get;
-		set;
-	}
-
-	public virtual List List
-	{
-		get;
-		set;
-	}
-
-	public virtual Item Item
-	{
-		get;
-		set;
-	}
-
+    public List(string listName)
+    {
+        ListName = listName;
+    }
 }
 
