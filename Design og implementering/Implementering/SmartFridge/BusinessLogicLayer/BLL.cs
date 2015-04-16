@@ -284,28 +284,23 @@ namespace BusinessLogicLayer
         {
             /*Henter alle items fra databasen, da der ikke er nogen direkte måde at connecte
                 et GUIitem med et dbItem, da GUIitem ikke har noget ID*/
-            ListItem dbListItemToDelete = new ListItem();
             using (var uow = Context.CreateUnitOfWork())
             {
                 /*Finder det dbItem der svarer til det GUIitem der skal fjernes*/
                 foreach (var dbListItem in _dblistItems)
                 {
+
                     if (dbListItem.Item.ItemName == GUIitemToDelete.Type
                         && dbListItem.Item.StdVolume == GUIitemToDelete.Amount
                         && dbListItem.Item.StdUnit == GUIitemToDelete.Unit
                         && (uint)dbListItem.Item.StdVolume == GUIitemToDelete.Size)
-
-                        if (dbListItem.Item.ItemName == GUIitemToDelete.Type
-                        && dbListItem.Item.StdVolume == GUIitemToDelete.Amount
-                        && dbListItem.Item.StdUnit == GUIitemToDelete.Unit
-                        && (uint)dbListItem.Item.StdVolume == GUIitemToDelete.Size)
                         {
-                            dbListItemToDelete = dbListItem;
+                            /*Fjerner det ønskede item fra databasen*/
+                            await Task.Run(() => _listItemRepository.Delete(dbListItem));
                             break;
                         }
                 }
-                /*Fjerner det ønskede item fra databasen*/
-                await Task.Run(() => _listItemRepository.Delete(dbListItemToDelete));
+                
 
                 uow.SaveChanges();
             }
