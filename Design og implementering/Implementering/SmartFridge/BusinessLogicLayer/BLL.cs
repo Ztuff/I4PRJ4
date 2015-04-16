@@ -311,17 +311,26 @@ namespace BusinessLogicLayer
             }
         }
 
-        public void ChangeItem(GUIItem oldItem, GUIItem newItem)
+        public async void ChangeItem(GUIItem oldItem, GUIItem newItem)
         {
-            foreach (var item in _dbItems)
+            using (var uow = Context.CreateUnitOfWork())
             {
-                if (item.ItemName == oldItem.Type && item.StdUnit == oldItem.Unit && (uint)item.StdVolume == oldItem.Size)
+                var itemToSet = new Item();
+                foreach (var item in _dbItems)
                 {
-                    item.ItemName = newItem.Type;
-                    item.StdUnit = newItem.Unit;
-                    item.StdVolume = (int)newItem.Size;
-                    return;
+                    if (item.ItemName == oldItem.Type && item.StdUnit == oldItem.Unit && (uint)item.StdVolume == oldItem.Size)
+                    {
+                        itemToSet = item;
+                        break;
+                    }
                 }
+                await Task.Run(() =>
+                {
+                    itemToSet.ItemName = newItem.Type;
+                    itemToSet.StdUnit = newItem.Unit;
+                    itemToSet.StdVolume = (int)newItem.Size;
+                });
+                uow.SaveChanges();
             }
             //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
         }
