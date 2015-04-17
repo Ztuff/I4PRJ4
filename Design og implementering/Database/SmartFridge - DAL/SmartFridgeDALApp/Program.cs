@@ -45,6 +45,13 @@ namespace SmartFridgeDALApp
                 uow.SaveChanges();
             }
 
+            using (var uow = context.CreateUnitOfWork())
+            {
+                var listitemRepos = new ListItemRepository(context);
+                listitemRepos.Delete(listitem);
+                uow.SaveChanges();
+            }
+
             List<ListItem> test;
             var listitemRepostest = new ListItemRepository(context);
             test = listitemRepostest.GetListItemsOnList(list).ToList();
