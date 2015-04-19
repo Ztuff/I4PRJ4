@@ -1,0 +1,45 @@
+﻿body {
+    font-family: Verdana, Arial, sans-serif;
+}
+
+#wrapper {
+    margin: 0 auto;
+    width: 80%;
+    background-color: #40e0d0;
+}
+
+header {
+
+    font-weight: bold;
+      padding: 1%;
+} 
+
+#HButtonWrapper {
+       text-align: left; 
+}
+
+#HTitle {
+        font-size: 300%;
+    padding: 2%;
+    text-align: center;
+}
+
+footer {
+    font-size: 10px;
+    text-align: center;
+    padding: 1%
+}
+
+#content {
+    text-align: center;
+    padding: 5%
+}
+img .controlButton {
+    width: 10%;
+    height: auto;
+}
+button {
+    background: transparent;
+    border: none;
+}
+
