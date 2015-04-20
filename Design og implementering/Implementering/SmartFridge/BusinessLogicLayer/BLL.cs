@@ -222,11 +222,12 @@ namespace BusinessLogicLayer
                                     Volume = (int)newItem.Size
                                 };
 
-                                Task.Run(() => _listItemRepository.Insert(listItem));
+                                _listItemRepository.Insert(listItem);
+                                
                                 _dblistItems.Add(listItem);
                             }
                         }
-                        uow.SaveChanges();
+                         uow.SaveChanges();
                     }
 
                 }
@@ -280,7 +281,7 @@ namespace BusinessLogicLayer
             return true;
         }
 
-        public async Task DeleteItem(GUIItem GUIitemToDelete)
+        public void DeleteItem(GUIItem GUIitemToDelete)
         {
             /*Henter alle items fra databasen, da der ikke er nogen direkte måde at connecte
                 et GUIitem med et dbItem, da GUIitem ikke har noget ID*/
@@ -291,12 +292,12 @@ namespace BusinessLogicLayer
                 {
 
                     if (dbListItem.Item.ItemName == GUIitemToDelete.Type
-                        && dbListItem.Item.StdVolume == GUIitemToDelete.Amount
-                        && dbListItem.Item.StdUnit == GUIitemToDelete.Unit
-                        && (uint)dbListItem.Item.StdVolume == GUIitemToDelete.Size)
+                        && dbListItem.Amount == GUIitemToDelete.Amount
+                        && dbListItem.Unit == GUIitemToDelete.Unit
+                        && (uint)dbListItem.Volume == GUIitemToDelete.Size)
                         {
                             /*Fjerner det ønskede item fra databasen*/
-                            await Task.Run(() => _listItemRepository.Delete(dbListItem));
+                            _listItemRepository.Delete(dbListItem);
                             break;
                         }
                 }
@@ -306,26 +307,25 @@ namespace BusinessLogicLayer
             }
         }
 
-        public async void ChangeItem(GUIItem oldItem, GUIItem newItem)
+        public void ChangeItem(GUIItem oldItem, GUIItem newItem)
         {
             using (var uow = Context.CreateUnitOfWork())
             {
-                var itemToSet = new Item();
-                foreach (var item in _dbItems)
+                foreach (var ListItemToEdit in _dblistItems)
                 {
-                    if (item.ItemName == oldItem.Type && item.StdUnit == oldItem.Unit && (uint)item.StdVolume == oldItem.Size)
+                    if (ListItemToEdit.Item.ItemName == oldItem.Type && ListItemToEdit.Unit == oldItem.Unit && (uint)ListItemToEdit.Volume == oldItem.Size && ListItemToEdit.Amount == oldItem.Amount)
                     {
-                        itemToSet = item;
+
+                        ListItemToEdit.Item.ItemName = newItem.Type;
+                        ListItemToEdit.Unit = newItem.Unit;
+                        ListItemToEdit.Volume = (int)newItem.Size;
+                        ListItemToEdit.Amount = (int)newItem.Amount;
+                        _listItemRepository.Update(ListItemToEdit);
+                        uow.SaveChanges();
                         break;
                     }
                 }
-                await Task.Run(() =>
-                {
-                    itemToSet.ItemName = newItem.Type;
-                    itemToSet.StdUnit = newItem.Unit;
-                    itemToSet.StdVolume = (int)newItem.Size;
-                });
-                uow.SaveChanges();
+               
             }
             //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
         }

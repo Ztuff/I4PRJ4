@@ -52,7 +52,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"DELETE FROM Item Where ListId = @ListId AND ItemId = @ItemId AND Amount = @Amount AND Volume = @Volume AND Unit = @Unit";
+                command.CommandText = @"DELETE FROM ListItem Where ListId = @ListId AND ItemId = @ItemId AND Amount = @Amount AND Volume = @Volume AND Unit = @Unit";
                 var listParam = command.CreateParameter();
                 listParam.ParameterName = "@ListId";
                 listParam.Value = listItem.List.ListId;

@@ -132,7 +132,13 @@ namespace UserControlLibrary
             selectedItem = (GUIItem)DataGridItems.SelectedItem;
             if (selectedItem != null)
             {
-                selectedItemOld = selectedItem;
+                //selectedItemOld = selectedItem;
+
+                selectedItemOld.Type = selectedItem.Type;                
+                selectedItemOld.Unit = selectedItem.Unit;
+                selectedItemOld.Size = selectedItem.Size;
+                selectedItemOld.Amount = selectedItem.Amount;
+
                 SelectedItemTB.Text = selectedItem.Type;
                 SelectedAmountTB.Text = selectedItem.Amount.ToString();
                 SelectedSizeTB.Text = selectedItem.Size.ToString();
@@ -156,7 +162,7 @@ namespace UserControlLibrary
  
                 GUIItem itemDelete = DataGridItems.SelectedItem as GUIItem;
                 GUIItems.Remove(itemDelete);
-                await _ctrlTemp._bll.DeleteItem(itemDelete); //Calling BLL delete through CtrlTemplate
+                _ctrlTemp._bll.DeleteItem(itemDelete); //Calling BLL delete through CtrlTemplate
                 DataGridItems.UnselectAllCells();
                 DataGridItems.SelectedIndex = 0;
             
@@ -194,6 +200,7 @@ namespace UserControlLibrary
                     return;
                 }
             }
+
             selectedItem.Type = SelectedItemTB.Text;
             selectedItem.Amount = Convert.ToUInt32(SelectedAmountTB.Text);
             selectedItem.Size = Convert.ToUInt32(SelectedSizeTB.Text);
@@ -203,6 +210,7 @@ namespace UserControlLibrary
             SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
 
             _ctrlTemp._bll.ChangeItem(selectedItemOld, selectedItem); //Calling BLL change through CtrlTemplate
+
 
             DataGridItems.Items.Refresh();
             ButtonInc.Opacity = 100;
