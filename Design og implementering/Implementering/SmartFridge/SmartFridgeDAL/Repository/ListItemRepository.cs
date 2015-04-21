@@ -122,37 +122,6 @@ namespace DataAccessLayer.Repository
                     listItem.List = list;
                 }
             }
-
-            /*using (var command = Context.CreateCommand())
-                {
-                    command.CommandText = @"SELECT ListItem.ListId, ListItem.ItemId, Item.ItemId AS ItemItemId, List.ListId AS ListListId 
-                                                FROM Item INNER JOIN
-                                                ListItem ON Item.ItemId = ListItem.ItemId INNER JOIN
-                                                List ON ListItem.ListId = List.ListId";
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            int listid = (int)reader["ListId"];
-                            int itemid = (int)reader["ItemId"];
-                            int listlistid = (int)reader["ListId"];
-                            int itemitemid = (int)reader["ItemItemId"];
-
-                            foreach (var listitem in listItems)
-                            {
-                                foreach (var item in items.Where(item => item.ItemId == itemitemid && itemitemid == itemid))
-                                {
-                                    listitem.Item = item;
-                                }
-
-                                foreach (var list in lists.Where(list => list.ListId == listlistid))
-                                {
-                                    listitem.List = list;
-                                }
-                            }
-                        }
-                    }
-            }*/
         }
     }
 }
