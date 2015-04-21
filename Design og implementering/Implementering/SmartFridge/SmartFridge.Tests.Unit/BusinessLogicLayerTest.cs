@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLogicLayer;
+using InterfacesAndDTO;
 using NUnit.Framework;
 
 namespace SmartFridge.Tests.Unit
@@ -33,5 +35,17 @@ namespace SmartFridge.Tests.Unit
             Assert.AreEqual(size, item.Size);
             Assert.AreEqual(unit, item.Unit);
         }
+
+        [Test] //semi-integrationstest
+        public void AddItemsToTable_1NewItem_SameItemAddedToKøleskab()
+        {
+            //public void AddItemsToTable(string currentListName, ObservableCollection<GUIItem> newItems)
+            var items = new ObservableCollection<GUIItem>();
+            items.Add(new GUIItem("Type", 1, 1,"Unit"));
+            uut.AddItemsToTable("Køleskab", items);
+            string bums = "";
+
+        }
+
     }
 }
