@@ -20,8 +20,10 @@ namespace BusinessLogicLayer
         private ListRepository _listRepository;
         private ListItemRepository _listItemRepository;
         public ObservableCollection<GUIItemList> Lists { get; private set; }
+        public string CurrentList { private get; set; }
         private List<Item> _dbItems;
         private List<ListItem> _dblistItems;
+
 
         public BLL()
         {
@@ -72,20 +74,24 @@ namespace BusinessLogicLayer
 
                 foreach (var dbListItem in _dblistItems)
                 {
-                    foreach (var dbItem in _dbItems)
+                    if (dbListItem.List.ListName == CurrentList)
                     {
-                        if (dbListItem.Item.ItemId == dbItem.ItemId)
+                        foreach (var dbItem in _dbItems)
                         {
-                            GUIItem guiItem = new GUIItem();
+                            if (dbListItem.Item.ItemId == dbItem.ItemId)
+                            {
+                                GUIItem guiItem = new GUIItem();
 
-                            guiItem.Type = dbItem.ItemName;
-                            guiItem.Amount = (uint)dbListItem.Amount;
-                            guiItem.Unit = dbListItem.Unit;
-                            guiItem.Size = (uint)dbListItem.Volume;
+                                guiItem.Type = dbItem.ItemName;
+                                guiItem.Amount = (uint)dbListItem.Amount;
+                                guiItem.Unit = dbListItem.Unit;
+                                guiItem.Size = (uint)dbListItem.Volume;
 
-                            guiItems.Add(guiItem);
+                                guiItems.Add(guiItem);
+                            }
                         }
                     }
+
 
                 }
 
@@ -223,11 +229,11 @@ namespace BusinessLogicLayer
                                 };
 
                                 _listItemRepository.Insert(listItem);
-                                
+
                                 _dblistItems.Add(listItem);
                             }
                         }
-                         uow.SaveChanges();
+                        uow.SaveChanges();
                     }
 
                 }
@@ -295,13 +301,13 @@ namespace BusinessLogicLayer
                         && dbListItem.Amount == GUIitemToDelete.Amount
                         && dbListItem.Unit == GUIitemToDelete.Unit
                         && (uint)dbListItem.Volume == GUIitemToDelete.Size)
-                        {
-                            /*Fjerner det ønskede item fra databasen*/
-                            _listItemRepository.Delete(dbListItem);
-                            break;
-                        }
+                    {
+                        /*Fjerner det ønskede item fra databasen*/
+                        _listItemRepository.Delete(dbListItem);
+                        break;
+                    }
                 }
-                
+
 
                 uow.SaveChanges();
             }
@@ -325,7 +331,7 @@ namespace BusinessLogicLayer
                         break;
                     }
                 }
-               
+
             }
             //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
         }
