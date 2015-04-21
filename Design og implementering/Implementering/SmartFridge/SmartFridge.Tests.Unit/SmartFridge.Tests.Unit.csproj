@@ -49,12 +49,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< f66d9af80f28accb98f7203e90f4d8e370682c8c
     <Compile Include="BusinessLogicLayerTest.cs" />
-=======
     <Compile Include="AdoNetUnitOfWorkIntegrationTest.cs" />
     <Compile Include="AppConnectionFactoryIntegrationTest.cs" />
->>>>>>> ba088115b55e650cc7ca9a0183a7da0e595af3ec
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
