@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using DataAccessLayer.Connection;
 using NUnit.Framework;
 
@@ -33,6 +35,20 @@ namespace SmartFridge.Tests.Unit
             _uut = new AppConnectionFactory("SmartFridgeConn");
             IDbConnection connection = _uut.Create();
             Assert.That(connection.ConnectionString, Is.EqualTo(@"Data Source=(localdb)\ProjectsV12;Initial Catalog=SmartFridge-SSDT;Integrated Security=True;Pooling=False;Connect Timeout=30"));
+        }
+
+        [Test]
+        public void Create_ConnectionNameIsTest_ThrowsConfigurationErrorsException()
+        {
+            _uut = new AppConnectionFactory("Test");
+            Assert.That(() => _uut.Create(), Throws.TypeOf<SqlException>());
+        }
+
+        [Test]
+        public void Create_ConnectionNameIsSmartFridgeConn_ReturnsConnection()
+        {
+            _uut = new AppConnectionFactory("SmartFridgeConn");
+            Assert.IsInstanceOf<IDbConnection>(_uut.Create());
         }
 
     }

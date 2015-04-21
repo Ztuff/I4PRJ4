@@ -28,9 +28,6 @@ namespace DataAccessLayer.Connection
         public IDbConnection Create()
         {
             var connection = _provider.CreateConnection();
-            if (connection == null)
-                throw new ConfigurationErrorsException(string.Format("Failed to find the connection named {0} in App.config", _name));
-
             connection.ConnectionString = _connectionString;
             connection.Open();
             return connection;
