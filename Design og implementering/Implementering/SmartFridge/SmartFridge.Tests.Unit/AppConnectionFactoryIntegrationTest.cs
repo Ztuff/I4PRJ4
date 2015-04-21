@@ -38,10 +38,10 @@ namespace SmartFridge.Tests.Unit
         }
 
         [Test]
-        public void Create_ConnectionNameIsTest_ThrowsConfigurationErrorsException()
+        public void Create_ConnectionNameIsTest_ThrowsArgumentException()
         {
             _uut = new AppConnectionFactory("Test");
-            Assert.That(() => _uut.Create(), Throws.TypeOf<SqlException>());
+            Assert.That(() => _uut.Create(), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]

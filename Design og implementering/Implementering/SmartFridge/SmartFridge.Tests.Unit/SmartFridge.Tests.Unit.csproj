@@ -39,6 +39,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -55,6 +56,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
     <Compile Include="UserControlLibraryUnitTest.cs" />
   </ItemGroup>
@@ -74,6 +76,10 @@
     <ProjectReference Include="..\SmartFridgeApplication\SmartFridgeApplication.csproj">
       <Project>{7d8121c6-93f6-463b-baad-d395564f4e49}</Project>
       <Name>SmartFridgeApplication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartFridgeDAL\DataAccessLayer.csproj">
+      <Project>{9349C197-28EC-470D-8CBC-69A0DAB08F10}</Project>
+      <Name>DataAccessLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
