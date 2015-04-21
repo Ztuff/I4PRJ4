@@ -49,6 +49,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogicLayerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +57,10 @@
     <Compile Include="UserControlLibraryUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
+      <Project>{cf7896a8-f095-4941-a017-fb0b5a9cdc48}</Project>
+      <Name>BusinessLogicLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces og DTO-klasser\InterfacesAndDTO.csproj">
       <Project>{32aee5ec-30bc-435f-a54d-05a06a0ba2fd}</Project>
       <Name>InterfacesAndDTO</Name>
