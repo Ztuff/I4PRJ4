@@ -30,7 +30,7 @@ namespace SmartFridge.Tests.Unit
         }
 
         [Test]
-        public void Create_ConnectionNameIsSmartFridgeConn_ConnectionIsOpen()
+        public void Create_ConnectionNameIsSmartFridgeConn_ConnectionStringIsCorrect()
         {
             _uut = new AppConnectionFactory("SmartFridgeConn");
             IDbConnection connection = _uut.Create();
