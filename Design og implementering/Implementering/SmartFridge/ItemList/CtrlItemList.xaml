@@ -46,7 +46,11 @@
                 <DataGridTemplateColumn Header="">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete" Click="BtnDelete_Click"/>
+                            <Button Style="{DynamicResource NoChromeButton}" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Height="32" Width="32" Click="BtnDelete_Click" BorderBrush="{x:Null}">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="{StaticResource ImgTrash}"/>
+                                </Button.Background>
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
