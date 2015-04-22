@@ -17,6 +17,11 @@ namespace EF_SmartFridge.Entities
         public Item Item { get; set; }
         public int ItemId { get; set; }
 
+        public ListItem()
+        {
+            
+        }
+
         public ListItem(int amount, int volume, string unit)
         {
             Amount = amount;

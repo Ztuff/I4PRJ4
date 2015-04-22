@@ -12,8 +12,7 @@ namespace EF_SmartFridge
     public class SmartFridgeContext : DbContext
     {
         public SmartFridgeContext() : base("EFSmartFridgeConn")
-        {
-            
+        {   
         }
 
         public DbSet<List> Lists { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -26,21 +27,11 @@ namespace EF_Test
                 db.SaveChanges();
             }
 
-
             var manage = new ListManager();
-            List newlist;
+            IEnumerable<List> a = manage.Read().Result;
+            a.ToList();
+            List b = manage.Read(list.ListId).Result;
 
-            Task.Run(async () =>
-            {
-                newlist = manage.Read(list.ListId).Result;
-            }).Wait();
-
-        }
-
-        public static Task<List> Reader(int id)
-        {
-            var manage = new ListManager();
-            return manage.Read(id);
         }
     }
 }

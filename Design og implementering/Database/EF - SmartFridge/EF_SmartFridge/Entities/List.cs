@@ -13,6 +13,9 @@ namespace EF_SmartFridge.Entities
 
         public ICollection<ListItem> ListItems { get; set; } 
 
+        public List()
+        { }
+
         public List(string listname)
         {
             ListName = listname;
