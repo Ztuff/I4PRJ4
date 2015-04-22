@@ -143,6 +143,18 @@ namespace BusinessLogicLayer
 
         }
 
+        public bool Compare(GUIItem item1, GUIItem item2)
+        {
+            if (item1.Amount == item2.Amount)
+                if (item1.Size == item2.Size)
+                    if (item1.Type.Equals(item2.Type))
+                        if (item1.Unit.Equals(item2.Unit))
+                        {
+                            return true;
+                        }
+            return false;
+        }
+
         public GUIItem CreateNewItem(string type, uint amount, uint size, string unit)
         {
             GUIItem item = new GUIItem();
