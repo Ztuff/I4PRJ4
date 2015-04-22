@@ -14,7 +14,6 @@ namespace DataAccessLayer.AdoNetUoW
 
         public AdoNetContext(IConnectionFactory connectionFactory)
         {
-            //if (connectionFactory == null) throw new ArgumentNullException("connectionFactory");
             _connection = connectionFactory.Create();
         }
 
