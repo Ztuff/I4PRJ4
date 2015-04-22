@@ -50,6 +50,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdoNetContextIntegrationTest.cs" />
     <Compile Include="BusinessLogicLayerTest.cs" />
     <Compile Include="AdoNetUnitOfWorkIntegrationTest.cs" />
     <Compile Include="AppConnectionFactoryIntegrationTest.cs" />
