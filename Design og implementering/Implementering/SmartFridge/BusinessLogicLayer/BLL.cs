@@ -3,6 +3,7 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.AdoNetUoW;
@@ -71,6 +72,16 @@ namespace BusinessLogicLayer
                 ObservableCollection<GUIItem> guiItems = new ObservableCollection<GUIItem>();
 
                 LoadFromDB();
+                List<string> temp = new List<string>();
+                foreach (var list in Lists)
+                {
+                    temp.Add(list.Name);
+                }
+
+                if (!temp.Contains(CurrentList))
+                {
+                    CreateList();
+                }
 
                 foreach (var dbListItem in _dblistItems)
                 {
@@ -97,6 +108,18 @@ namespace BusinessLogicLayer
 
                 return guiItems;
             }
+        }
+
+        private void CreateList()
+        {
+            using (var uow = Context.CreateUnitOfWork())
+            {
+                List temp = new List(CurrentList);
+                _listRepository.Insert(temp);
+
+                uow.SaveChanges();
+            }
+            LoadFromDB();
         }
 
         private void LoadFromDB()
