@@ -38,7 +38,6 @@ namespace SmartFridgeApplication
         
         private SyncStatus syncStatus = SyncStatus.Synced;
 
-        public CtrlTemplate _ctrlTemp = new CtrlTemplate();
         public CtrlTemplate CtrlTemp = new CtrlTemplate();
 
         // public GridContent PrevUserControl;
