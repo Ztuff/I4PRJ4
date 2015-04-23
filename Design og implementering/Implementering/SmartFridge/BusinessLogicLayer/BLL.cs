@@ -31,8 +31,6 @@ namespace BusinessLogicLayer
             _itemRepository = new ItemRepository(Context);
             _listRepository = new ListRepository(Context);
             _listItemRepository = new ListItemRepository(Context);
-
-            LoadFromDB();
         }
 
         public readonly ObservableCollection<string> UnitNames = new ObservableCollection<string>()
@@ -71,6 +69,8 @@ namespace BusinessLogicLayer
             get
             {
                 ObservableCollection<GUIItem> guiItems = new ObservableCollection<GUIItem>();
+
+                LoadFromDB();
 
                 foreach (var dbListItem in _dblistItems)
                 {
