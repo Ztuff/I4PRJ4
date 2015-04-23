@@ -1,11 +1,11 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 
 namespace DataAccessLayer.AdoNetUoW
 {
-    public interface IContext
+    public interface IContext : IDisposable
     {
         IUnitOfWork CreateUnitOfWork();
         IDbCommand CreateCommand();
-        void Dispose();
     }
 }
