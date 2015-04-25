@@ -192,6 +192,11 @@ namespace BusinessLogicLayer
         {
 
             GUIItemList currentList = null;
+            if(Lists == null)
+            {
+                CurrentList = currentListName;
+                CreateList();
+            }
 
             foreach (var list in Lists)
             {

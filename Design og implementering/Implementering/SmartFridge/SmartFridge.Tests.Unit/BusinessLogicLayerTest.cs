@@ -55,7 +55,6 @@ namespace SmartFridge.Tests.Unit
         // - At der er en liste der hedder 'Køleskab'
         public void AddItemsToTable_1NewItem_SameItemAddedToKøleskab()
         {
-            //public void AddItemsToTable(string currentListName, ObservableCollection<GUIItem> newItems)
             var items = new ObservableCollection<GUIItem>();
             var rnd = new Random();
             string type = rnd.Next(int.MinValue, int.MaxValue).ToString();
