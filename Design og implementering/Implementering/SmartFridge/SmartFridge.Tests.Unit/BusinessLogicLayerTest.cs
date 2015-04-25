@@ -49,6 +49,17 @@ namespace SmartFridge.Tests.Unit
         }
 
         [Test]
+        public void Compare_TwoNonSimilarItems_ReturnFalse()
+        {
+            var item1 = new GUIItem("Type", 1, 1, "Unit");
+            var item2 = new GUIItem("Type 2", 1, 1, "Unit");
+
+            var equality = uut.Compare(item1, item2);
+
+            Assert.AreEqual(false, equality);
+        }
+
+        [Test]
         //Integrationstest
         //Forudsætninger: 
         // - At der er en database
