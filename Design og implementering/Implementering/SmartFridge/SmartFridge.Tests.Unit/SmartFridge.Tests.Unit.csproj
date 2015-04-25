@@ -54,6 +54,7 @@
     <Compile Include="BusinessLogicLayerTest.cs" />
     <Compile Include="AdoNetUnitOfWorkIntegrationTest.cs" />
     <Compile Include="AppConnectionFactoryIntegrationTest.cs" />
+    <Compile Include="CtrlShowListSelectionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

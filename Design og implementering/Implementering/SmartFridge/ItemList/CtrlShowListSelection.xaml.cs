@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace UserControlLibrary
@@ -13,8 +14,17 @@ namespace UserControlLibrary
 
         public CtrlShowListSelection(CtrlTemplate ctrlTemp)
         {
-            InitializeComponent();
+            try
+            {
+InitializeComponent();
             _ctrlTemp = ctrlTemp;
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            
         }
 
         private void BtnInFridge_Click(object sender, RoutedEventArgs e)
