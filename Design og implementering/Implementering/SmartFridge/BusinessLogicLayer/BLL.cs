@@ -317,6 +317,11 @@ namespace BusinessLogicLayer
             _listItemRepository.Mapper(_dbItems, dbLists, _dblistItems);
         }
 
+        /*public GUIItem GetStandardInfo(GUIItem item)
+        {
+            return null;
+        }*/
+
         private bool NewItem(GUIItem item)
         {
             foreach (var dbItem in _dbItems)

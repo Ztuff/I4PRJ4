@@ -152,9 +152,11 @@ namespace UserControlLibrary
         {
             if (ComboBoxVaretype.SelectedItem != null)
             {
-                selectedType = ComboBoxVaretype.SelectedItem.ToString();
+                GUIItem temp = (GUIItem)ComboBoxVaretype.SelectedItem;
+                selectedType = temp.Type;
                 TextBoxVareType.Text = selectedType;
                 TextBoxVareType_OnLostFocus(null, null);
+                UpdateTextboxesFromType(temp);
             }
         }
 
