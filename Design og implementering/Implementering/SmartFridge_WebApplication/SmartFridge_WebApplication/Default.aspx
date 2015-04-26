@@ -8,17 +8,17 @@
     <title>SmartFridge Web Application</title>
     <link href="Style.css" rel="stylesheet" />
 </head>
-<body>
+<body>  
     <div id="wrapper">
         <header>
 
-            <button>
-                <img src="Images/Backward.png" width="70px" class="controlButton" />
+            <button onclick="history.go(-1);return true;" >
+                <img src="Images/Backward.png" width="70px" class="controlButton"/>
             </button>
-            <button class="controlButton">
+            <button onclick="history.go(+1);return true;">
                 <img src="Images/Forward.png" width="70px" class="controlButton" />
             </button>
-            <button class="controlButton">
+            <button onclick="window.location.href='Default.aspx'">
                 <img src="Images/Home.png" width="70px" class="controlButton" />
             </button>
             <button class="controlButton">
