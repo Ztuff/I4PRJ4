@@ -122,7 +122,7 @@ namespace BusinessLogicLayer
             LoadFromDB();
         }
 
-        private void LoadFromDB()
+        public void LoadFromDB()
         {
             List<List> lists = new List<List>();
             using (var uow = Context.CreateUnitOfWork())
