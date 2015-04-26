@@ -81,8 +81,5 @@ namespace DataAccessLayer.Sync
             Console.WriteLine(e.Conflict.Type);
             Console.WriteLine(e.Error);
         }
-        }
-
-
     }
 }
