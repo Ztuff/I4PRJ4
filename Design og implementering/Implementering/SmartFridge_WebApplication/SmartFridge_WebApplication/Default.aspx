@@ -1,14 +1,16 @@
-﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SmartFridge_WebApplication.Default" %>
 
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width" />
     <title>SmartFridge Web Application</title>
     <link href="Style.css" rel="stylesheet" />
 </head>
-<body>  
+<body>
+    <form id="form1" runat="server">
+    <div>
     <div id="wrapper">
         <header>
 
@@ -45,5 +47,7 @@
             Copyright &copy; 2015 SmartFridge
         </footer>
     </div>
+    </div>
+    </form>
 </body>
 </html>
