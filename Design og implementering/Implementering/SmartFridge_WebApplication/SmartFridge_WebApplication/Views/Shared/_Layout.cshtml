@@ -5,12 +5,28 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Style.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @RenderBody()
-
+<div id="wrapper">
+    <header>
+        <input type="image" src="~/Images/Backward.png" class="MenuImg" onclick="history.go(-1); return true;"/>
+        <input type="image" src="~/Images/Forward.png" class="MenuImg" onclick="history.go(+1);return true;" />
+        <input type="image" src="~/Images/Home.png" class="MenuImg"/>
+        <input type="image" src="~/Images/Settings.png" class="MenuImg" />
+    </header>
+    <h1>SmartFridge Web Application</h1>
+    <div id="content">
+        @RenderBody()
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
+
+    <footer>
+        Copyright &copy; 2015 SmartFridge
+    </footer>
+
+</div>
 </body>
 </html>

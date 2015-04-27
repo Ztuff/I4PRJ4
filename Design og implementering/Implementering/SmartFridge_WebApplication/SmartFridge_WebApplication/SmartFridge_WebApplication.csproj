@@ -126,13 +126,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,7 +187,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
@@ -232,7 +225,27 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Style.css" />
+    <Content Include="Content\Style.css" />
+    <Content Include="Views\Shared\Images\Add.png" />
+    <Content Include="Views\Shared\Images\AddAndExit.png" />
+    <Content Include="Views\Shared\Images\AddItem.png" />
+    <Content Include="Views\Shared\Images\Add_And_Exit_Animation.gif" />
+    <Content Include="Views\Shared\Images\Backward.png" />
+    <Content Include="Views\Shared\Images\Cancel.png" />
+    <Content Include="Views\Shared\Images\Edit.png" />
+    <Content Include="Views\Shared\Images\Forward.png" />
+    <Content Include="Views\Shared\Images\Fridge.png" />
+    <Content Include="Views\Shared\Images\Home.png" />
+    <Content Include="Views\Shared\Images\List.png" />
+    <Content Include="Views\Shared\Images\OK.png" />
+    <Content Include="Views\Shared\Images\Remove.png" />
+    <Content Include="Views\Shared\Images\Settings.png" />
+    <Content Include="Views\Shared\Images\Standard.png" />
+    <Content Include="Views\Shared\Images\Sync Failed.png" />
+    <Content Include="Views\Shared\Images\Sync Succeeded.png" />
+    <Content Include="Views\Shared\Images\Syncing-Small.gif" />
+    <Content Include="Views\Shared\Images\Syncing.gif" />
+    <Content Include="Views\Shared\Images\Trash.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -244,10 +257,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Images\Thumbs.db" />
+    <Content Include="Views\Home\ListView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
