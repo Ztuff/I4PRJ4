@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SmartFridge-DDS", "SmartFridge-DDS\SmartFridge-DDS.sqlproj", "{9F8FC31E-2DFA-4FC2-8F8A-A6F0FB1C2068}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SmartFridge-SSDT", "SmartFridge-SSDT\SmartFridge-SSDT.sqlproj", "{08D4B9F8-D0D6-426D-A016-883EBD9D8C32}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SmartFridge-SSDT2", "SmartFridge-SSDT\SmartFridge-SSDT2.sqlproj", "{08D4B9F8-D0D6-426D-A016-883EBD9D8C32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
