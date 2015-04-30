@@ -50,6 +50,7 @@
     <Compile Include="FakeData.cs" />
     <Compile Include="IData.cs" />
     <Compile Include="GUIItem.cs" />
+    <Compile Include="Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

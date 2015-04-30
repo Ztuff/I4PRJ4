@@ -40,6 +40,16 @@ namespace SmartFridgeApplication
 
         public CtrlTemplate CtrlTemp = new CtrlTemplate();
 
+        void ShelfLifeChecker()
+        {
+            while (true)
+            {
+                //CtrlTemp._bll.CheckShelfLife();
+                int timetosleep = 1000 * 60 * 60; //every hour
+                Thread.Sleep(timetosleep);
+            }
+        }
+
         // public GridContent PrevUserControl;
         public MainWindow()
         {
@@ -51,6 +61,9 @@ namespace SmartFridgeApplication
             timer.Start();
             //DateBlock.DataContext = clock.Date;
             //TimeBlock.DataContext = clock.Time;
+
+            Thread shelfThread = new Thread(() => ShelfLifeChecker());
+            shelfThread.Start();
         }
 
         void timer_Tick(object sender, EventArgs e)

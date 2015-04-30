@@ -38,6 +38,28 @@ namespace SmartFridge.Tests.Unit
         }
 
         [Test]
+        public void CheckShelfLife_NoExpiredItems_NoNotifications()
+        {
+            var items = new ObservableCollection<GUIItem>();
+            var rnd = new Random();
+            for (int i = 0; i < 5; i++)
+            {
+                string type = rnd.Next(int.MinValue, int.MaxValue).ToString();
+                items.Add(new GUIItem(type, 5, 1, "Unit") { ShelfLife = new DateTime(3000, 1, 1) });
+            }
+            string listName = "Køleskab";
+            uut.AddItemsToTable(listName, items);
+
+            var kitchen = uut.GetList(listName);
+            uut.Lists.Add(kitchen);
+            uut.Notifications = new List<Notification>();
+            uut.CheckShelfLife();
+
+            Assert.AreEqual(0, uut.Notifications.Count);
+
+        }
+
+        [Test]
         public void Compare_TwoSimilarItems_ReturnTrue()
         {
             var item1 = new GUIItem("Type", 1, 1, "Unit");
@@ -74,12 +96,7 @@ namespace SmartFridge.Tests.Unit
             uut.AddItemsToTable(listName, items);
 
             //Find the list...
-            GUIItemList list = null;
-            foreach (var guiItemList in uut.Lists)
-            {
-                if (guiItemList.Name.Equals("Køleskab"))
-                    list = guiItemList;
-            }
+            GUIItemList list = uut.GetList(listName);
             int EqualItems = 0;
             foreach (var guiItem1 in items)
             {
@@ -90,7 +107,7 @@ namespace SmartFridge.Tests.Unit
                 }
             }
 
-            Assert.AreEqual(1,EqualItems);
+            Assert.AreEqual(1, EqualItems);
 
             foreach (var guiItem in items)
             {

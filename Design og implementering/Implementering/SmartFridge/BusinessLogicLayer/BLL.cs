@@ -22,6 +22,7 @@ namespace BusinessLogicLayer
         private ListItemRepository _listItemRepository;
         public ObservableCollection<GUIItemList> Lists { get; private set; }
         public string CurrentList { private get; set; }
+        public List<Notification> Notifications { get; set; }
         private List<Item> _dbItems;
         private List<ListItem> _dblistItems;
 
@@ -164,6 +165,31 @@ namespace BusinessLogicLayer
                 }
             }
 
+        }
+
+        public GUIItemList GetList(string ListName)
+        {
+            foreach (var guiItemList in Lists)
+            {
+                if (guiItemList.Name.Equals(ListName))
+                    return guiItemList;
+            }
+            return null;
+        }
+
+        public void CheckShelfLife()
+        {
+            var items = GetList("Køkken");
+            foreach (var item in items.ItemList)
+            {
+
+                if (item.ShelfLife.Date <= DateTime.Now)
+                {
+                    string message = item.Type + " blev for gammel d. " + DateTime.Now.Date;
+                    Notifications.Add(new Notification(message, DateTime.Now));
+                }
+
+            }
         }
 
         public bool Compare(GUIItem item1, GUIItem item2)
