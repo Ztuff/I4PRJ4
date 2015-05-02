@@ -15,5 +15,10 @@ namespace SmartFridge_WebApplication.Controllers
         {
             return View();
         }
+
+        public ActionResult ListView()
+        {
+            return View();
+        }
     }
 }

@@ -11,12 +11,15 @@
 <body>
 <div id="wrapper">
     <header>
-        <input type="image" src="~/Images/Backward.png" class="MenuImg" onclick="history.go(-1); return true;"/>
-        <input type="image" src="~/Images/Forward.png" class="MenuImg" onclick="history.go(+1);return true;" />
-        <input type="image" src="~/Images/Home.png" class="MenuImg"/>
+        <input type="image" src="~/Images/Backward.png" class="MenuImg" align="left" onclick="history.go(-1); return true;"/>
+        <input type="image" src="~/Images/Forward.png" class="MenuImg" align="left" onclick="history.go(+1);return true;" />
+        @using (Html.BeginForm("", "Home"))
+        { <input type="image" src="~/Images/Home.png" class="MenuImg" align="left" /> }    
         <input type="image" src="~/Images/Settings.png" class="MenuImg" />
     </header>
     <h1>SmartFridge Web Application</h1>
+
+
     <div id="content">
         @RenderBody()
     </div>

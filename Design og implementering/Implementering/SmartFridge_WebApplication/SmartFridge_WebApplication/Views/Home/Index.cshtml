@@ -3,9 +3,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using (Html.BeginForm("ListView", "Home"))
+{
+    <input type="image" src="~/Images/Fridge.png" alt="Submit"/>
+    <input type="image" src="~/Images/List.png" alt="Submit" />
+    <input type="image" src="~/Images/Standard.png" alt="Submit" />
+}
 
 
-<input type="image" src="~/Images/Fridge.png" id="Fridge" />
-<input type="image" src="~/Images/List.png" id="ShopList" />
-<input type="image" src="~/Images/Standard.png" id="StandardList" />
 
