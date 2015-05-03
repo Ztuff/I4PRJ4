@@ -25,5 +25,10 @@ namespace SmartFridge_WebApplication.Controllers
         {
             return View();
         }
+
+        public ActionResult EditItem()
+        {
+            return View();
+        }
     }
 }

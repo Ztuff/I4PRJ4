@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Edit Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("EditItem", "Home"))
+{
+    <div class="NewItem">
+        <label>VareType</label>
+        <br />
+        <input type="text" name="Varetype" />
+        <select></select>
+        <br />
+        <label>Antal</label>
+        <br />
+        <input type="text" name="Antal" />
+        <table>
+            <tr><td><button>+</button></td></tr>
+            <tr><td><button>-</button></td></tr>
+        </table>
+        <br />
+        <label>Volumen</label>
+        <br />
+        <input type="text" name="Volume" />
+        <input type="text" name="Unit" />
+        <br />
+        <input type="image" src="~/Images/OK.png" alt="Submit" class="AddImg" />
+        <input type="image" src="~/Images/Cancel.png" alt="Submit" class="AddImg" />
+    </div>
+}
