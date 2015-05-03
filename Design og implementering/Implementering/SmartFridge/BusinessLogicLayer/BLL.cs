@@ -383,7 +383,42 @@ namespace BusinessLogicLayer
                 uow.SaveChanges();
             }
         }
+        public void ChangeItem(GUIItem oldItem, GUIItem newItem)
+        {
+            using (var uow = Context.CreateUnitOfWork())
+            {
+                foreach (var dbListItem in _dblistItems)
+                {
+                    if (dbListItem.Item.ItemName == oldItem.Type && dbListItem.Unit == oldItem.Unit && (uint)dbListItem.Volume == oldItem.Size && dbListItem.Amount == oldItem.Amount)
+                    {
+                        if (oldItem.Type != newItem.Type) //Hvis der skal ændres i dens Item (og ikke kun i listItem)
+                        {
+                            foreach (var dbItem in _dbItems)
+                            {
+                                if (dbItem.ItemName == oldItem.Type)
+                                {
+                                    dbItem.ItemName = newItem.Type;
+                                    _itemRepository.Update(dbItem);
+                                }
+                            }
+                        }
+                        ListItem updatedListItem = new ListItem((int)newItem.Amount, 
+                                                                (int)newItem.Size, 
+                                                                newItem.Unit,dbListItem.List,
+                                                                dbListItem.Item);
 
+                        _listItemRepository.Delete(dbListItem);
+                        _listItemRepository.Insert(updatedListItem);
+
+                        uow.SaveChanges();
+                        break;
+                    }
+                }
+
+            }
+            //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
+        } 
+      /*  #region ChangeItem - Old
         public void ChangeItem(GUIItem oldItem, GUIItem newItem)
         {
             using (var uow = Context.CreateUnitOfWork())
@@ -405,6 +440,6 @@ namespace BusinessLogicLayer
 
             }
             //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
-        }
+        } #endregion*/
     }
 }
