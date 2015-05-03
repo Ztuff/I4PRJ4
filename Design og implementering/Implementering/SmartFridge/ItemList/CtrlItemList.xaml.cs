@@ -139,8 +139,10 @@ namespace UserControlLibrary
                     _ctrlTemp._bll.DeleteItem(selectedItemOld); //Hvis det valgte Item rammer 0, og skal slettes
                 }
                 else
+                { 
                 SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
                 _ctrlTemp._bll.ChangeItem(selectedItemOld, selectedItem);
+                }
             }
             
             GUIItems = _ctrlTemp._bll.WatchItems; //Reloader vores guiItems så de passer med DB

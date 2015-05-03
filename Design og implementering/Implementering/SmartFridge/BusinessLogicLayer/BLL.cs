@@ -341,6 +341,7 @@ namespace BusinessLogicLayer
             }
 
             _listItemRepository.Mapper(_dbItems, dbLists, _dblistItems);
+            STDToShopListControl(currentListName);
         }
 
         /*public GUIItem GetStandardInfo(GUIItem item)
@@ -441,5 +442,57 @@ namespace BusinessLogicLayer
             }
             //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
         } #endregion*/
+
+        public void STDToShopListControl(string ListWithNewItem)
+        {
+            if (ListWithNewItem == "Køleskab" || ListWithNewItem == "Indkøbsliste") { return; }
+            if (ListWithNewItem == "Standard-beholdning")
+            {
+                List<ListItem> har = new List<ListItem>();
+                List<ListItem> skalHave = new List<ListItem>();
+                //Kan ikke gå fra list til vores listItem.
+                //Bliver nødt til at lede alle listItems igennem og finde dem der tilhører
+                //den rigtige liste.
+
+                using (var uow = Context.CreateUnitOfWork())
+                {
+                    foreach (var dbListItem in _dblistItems) //Laver en liste med hvad vi har, og hvad der skal være
+                    {
+                        if (dbListItem.List.ListName == "Køleskab")
+                        {
+                            har.Add(dbListItem);
+                        }
+                        else if (dbListItem.List.ListName == "Standard-beholdning")
+                        {
+                            skalHave.Add(dbListItem);
+                        }
+                    }
+                }
+                foreach (var STDListItem in skalHave) //Sammenligner de to lister, og sletter det vi har
+                {
+                    foreach (var ownedListItem in har)
+                    {
+                        if (ownedListItem.Item.ItemName == STDListItem.Item.ItemName &&
+                            ownedListItem.Amount >= STDListItem.Amount &&
+                            ownedListItem.Unit == STDListItem.Unit &&
+                            ownedListItem.Volume == STDListItem.Volume)
+                        {
+                            skalHave.Remove(STDListItem);
+                        }
+                    }
+                }
+                ObservableCollection<GUIItem> ItemsToAdd = new ObservableCollection<GUIItem>();
+                foreach (var STDListItem in skalHave)
+                {
+                    GUIItem ItemToAdd = new GUIItem(STDListItem.Item.ItemName,
+                                                    (uint)STDListItem.Amount,
+                                                    (uint) STDListItem.Volume,
+                                                    STDListItem.Unit);
+                    ItemsToAdd.Add(ItemToAdd);
+                }
+                    AddItemsToTable("Indkøbsliste", ItemsToAdd);
+            }
+            else { throw new Exception("List not recognized");}
+        }
     }
 }
