@@ -43,3 +43,19 @@ button {
     width: 5%;
     height: auto;
 }
+
+.NewItem {
+    text-align: left;
+    float: left;
+    width: 300px;
+}
+
+.AddedItems {
+    margin-left: 300px;
+    text-align: left;
+}
+
+.AddImg {
+    width: 20%;
+    height: auto;
+}

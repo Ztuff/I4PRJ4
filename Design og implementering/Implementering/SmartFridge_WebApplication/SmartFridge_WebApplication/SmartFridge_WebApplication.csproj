@@ -260,6 +260,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Images\Thumbs.db" />
     <Content Include="Views\Home\ListView.cshtml" />
+    <Content Include="Views\Home\AddItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

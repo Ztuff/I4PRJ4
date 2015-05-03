@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "AddItem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using(Html.BeginForm("AddItem", "Home"))
+{
+    <div class="NewItem">
+        <label>VareType</label>
+        <br/>
+        <input type="text" name="Varetype"/>
+        <select/>
+        <br/>
+        <label>Antal</label>
+        <br/>
+        <input type="text" name="Antal"/>
+        <table>
+            <tr><td><button>+</button></td></tr>
+            <tr><td><button>-</button></td></tr>
+        </table>
+        <br/>
+        <label>Volumen</label>
+        <br/>
+        <input type="text" name="Volume"/>
+        <input type="text" name="Unit"/>
+        <br/>
+        <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg"/>
+        <input type="image" src="~/Images/AddAndExit.png" alt="Submit" class="AddImg"/>
+    </div>
+    <div class="AddedItems">
+        <label>Nyligt tilføjede vare</label>
+        <br/>
+        <textarea readonly="readonly"></textarea>
+    </div>
+}
