@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -15,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using InterfacesAndDTO;
 using SmartFridgeApplication;
 using UserControlLibrary;
 using WpfAnimatedGif;
@@ -33,18 +35,28 @@ namespace SmartFridgeApplication
             Desynced,
         }
 
+        private List<Notification> Notifications = new List<Notification>();
+
         DispatcherTimer timer = new DispatcherTimer();
         Clock clock = new Clock();
+        Popup popup = new Popup();
+        StackPanel Panel = new StackPanel();
         
         private SyncStatus syncStatus = SyncStatus.Synced;
-
         public CtrlTemplate CtrlTemp = new CtrlTemplate();
 
         void ShelfLifeChecker()
         {
             while (true)
             {
-                //CtrlTemp._bll.CheckShelfLife();
+                List<Notification> notifications = new List<Notification>();
+                /*
+                //var fridge = CtrlTemp._bll.GetList("Køleskab");
+                notifactions = CtrlTemp._bll.CheckShelfLife(fridge);
+                */
+                //Notifications = notifications;
+                Dispatcher.Invoke(UpdateNotificationsAmount);
+
                 int timetosleep = 1000 * 60 * 60; //every hour
                 Thread.Sleep(timetosleep);
             }
@@ -61,9 +73,18 @@ namespace SmartFridgeApplication
             timer.Start();
             //DateBlock.DataContext = clock.Date;
             //TimeBlock.DataContext = clock.Time;
-
-            Thread shelfThread = new Thread(() => ShelfLifeChecker());
+            test_add_new_notifications();
+            Thread shelfThread = new Thread(ShelfLifeChecker);
             shelfThread.Start();
+        }
+
+        void test_add_new_notifications()
+        {
+            //ONLY FOR TESTING NOTIFICATIONS:
+            Notifications.Add(new Notification("Test notification 1", DateTime.Now){ID = 1});
+            Notifications.Add(new Notification("Test notification 2", DateTime.Now){ID = 2});
+            Notifications.Add(new Notification("Test notification 3", DateTime.Now){ID = 3});
+            //ABOVE ONLY FOR TESTING NOTIFICATIONS
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -74,6 +95,19 @@ namespace SmartFridgeApplication
             d = DateTime.Now;
             TestDateLabel.Content = d.Date;
             TestTimeLabel.Content = d.ToLongTimeString();
+        }
+
+        private void UpdateNotificationsAmount()
+        {
+            TextBoxNotifications.Content = Notifications.Count.ToString();
+            UpdateNotificationsButton();
+        }
+
+        private void UpdateNotificationsButton()
+        {
+            NotificationsButton.IsEnabled = Notifications.Count != 0;
+            if (Notifications.Count == 0)
+                popup.IsOpen = false;
         }
 
         private void BackButton_Clicked(object sender, RoutedEventArgs e)
@@ -146,5 +180,100 @@ namespace SmartFridgeApplication
             if (Closing == MessageBoxResult.Yes)
                 Close();
         }
+
+        private void NotificationsButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+
+            
+            /*
+            TextBlock popupText = new TextBlock();
+            popupText.Text = "Popup Text";
+            popupText.Background = Brushes.LightBlue;
+            popupText.Foreground = Brushes.Blue;
+            */
+            AddNotificationsToPanel(Notifications, Panel);
+            popup.Child = Panel;
+
+            popup.PlacementTarget = button;
+            popup.IsOpen = true;
+        }
+
+        private void AddNotificationsToPanel(List<Notification> notifications, StackPanel panel)
+        {
+            panel.Children.Clear();
+
+
+            foreach (var notification in notifications)
+            {
+                //We want every message to have text, a delete button and a postpone button
+                //So we need a nested stackpanel:
+                var horizontalStackPanel = new StackPanel();
+                horizontalStackPanel.Orientation = Orientation.Horizontal;
+                panel.Children.Add(horizontalStackPanel);
+
+                //Display the message:
+                var text = new TextBlock();
+                text.Text = notification.Message;
+                text.Foreground = Brushes.Black;
+                text.Background = Brushes.White;
+                text.FontSize = 24;
+                horizontalStackPanel.Children.Add(text);
+
+                //Add a delete button:
+                var del = new Button();
+                del.Content = "Slet";
+                del.FontSize = 24;
+                del.Command = DeleteNotificationCommand;
+                del.CommandParameter = notification.ID;
+                horizontalStackPanel.Children.Add(del);
+
+                //Add a postpone button:
+                var postpone = new Button();
+                postpone.Content = "Udskyd";
+                postpone.FontSize = 24;
+                postpone.IsEnabled = false;
+                horizontalStackPanel.Children.Add(postpone);
+            }
+            panel.Children.Add(new Button { Content = "Luk", FontSize = 24, Command = ClosePopupCommand });
+        }
+
+        private Notification NotificationForDeletion = new Notification("", DateTime.Now);
+
+        public ICommand ClosePopupCommand
+        {
+            get{
+                return new RelayCommand(o => ClosePopup());
+            }
+        }
+
+        public ICommand DeleteNotificationCommand
+        {
+            get
+            {
+                return new RelayCommand(DeleteNotification);
+            }
+        }
+
+        private void ClosePopup()
+        {
+            popup.IsOpen = false;
+        }
+
+        private void DeleteNotification(object parameter)
+        {
+            int notificationID = (int) parameter;
+            var NotificationForDeletion = Notifications.Single(o => o.ID == notificationID);
+            Notifications.Remove(NotificationForDeletion);
+            AddNotificationsToPanel(Notifications, Panel);
+            UpdateNotificationsAmount();
+        }
+
+        private void PostPoneNotification()
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }

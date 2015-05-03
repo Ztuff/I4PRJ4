@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RelayCommand.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -107,6 +108,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
+      <Project>{CF7896A8-F095-4941-A017-FB0B5A9CDC48}</Project>
+      <Name>BusinessLogicLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces og DTO-klasser\InterfacesAndDTO.csproj">
+      <Project>{32aee5ec-30bc-435f-a54d-05a06a0ba2fd}</Project>
+      <Name>InterfacesAndDTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ItemList\UserControlLibrary.csproj">
       <Project>{a687d3c8-9299-4131-b317-d1e743fffe66}</Project>
       <Name>UserControlLibrary</Name>

@@ -11,8 +11,8 @@
     </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FF503C3C" Offset="1"/>
-            <GradientStop Color="#FFA0A0B4"/>
+            <GradientStop Color="#FFA0A0B4" Offset="1"/>
+            <GradientStop Color="#FFDDDDE8"/>
         </LinearGradientBrush>
     </Window.Background>
 
@@ -58,8 +58,9 @@
 
         <Grid DockPanel.Dock="Bottom" Margin="0,0,10,10">
             <Label Content="SmartFridge™" HorizontalAlignment="Left"></Label>
-            <TextBox Text="Number of notifications" HorizontalAlignment="Right"></TextBox>
-            <TextBox Text="Notification" HorizontalAlignment="Right"></TextBox>
+            <Button x:Name="NotificationsButton" Margin="1853,0,0,0" Click="NotificationsButton_OnClick">
+                <Label x:Name="TextBoxNotifications" Content="Notes." HorizontalAlignment="Right" FontSize="24"/>
+            </Button>
         </Grid>
 
         <Grid DockPanel.Dock="Right" Margin="0,150,0,10">
@@ -117,6 +118,7 @@
 
 
         </Grid>
+        <Label Content="Label" Height="0" VerticalAlignment="Top"/>
 
 
     </DockPanel>
