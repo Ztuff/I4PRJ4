@@ -100,10 +100,20 @@ namespace UserControlLibrary
         {
             if (selectedItem != null)
             {
-                // Kan ikke implementeres endnu, da det skal synkroniseres med den lokale database i samme omgang.
+
+                selectedItem = (GUIItem)DataGridItems.SelectedItem;
+                selectedItemOld.Type = selectedItem.Type;
+                selectedItemOld.Unit = selectedItem.Unit;
+                selectedItemOld.Size = selectedItem.Size;
+                selectedItemOld.Amount = selectedItem.Amount;
+                selectedItemOld.ShelfLife = selectedItem.ShelfLife;
+
                 selectedItem.Amount += 1;
+
                 SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
+                _ctrlTemp._bll.ChangeItem(selectedItemOld, selectedItem);
             }
+            GUIItems = _ctrlTemp._bll.WatchItems; //Reloader vores guiItems så de passer med DB
             DataGridItems.Items.Refresh();
         }
 
@@ -111,19 +121,32 @@ namespace UserControlLibrary
         {
             if (selectedItem != null)
             {
-                // Kan ikke implementeres endnu, da det skal synkroniseres med den lokale database i samme omgang.
+                selectedItem = (GUIItem)DataGridItems.SelectedItem;
+                selectedItemOld.Type = selectedItem.Type;                
+                selectedItemOld.Unit = selectedItem.Unit;
+                selectedItemOld.Size = selectedItem.Size;
+                selectedItemOld.Amount = selectedItem.Amount;
+                selectedItemOld.ShelfLife = selectedItem.ShelfLife;
+                
                 selectedItem.Amount -= 1;
+                
                 if (selectedItem.Amount <= 0)
                 {
+                    _ctrlTemp._bll.DeleteItem(selectedItem); //Hvis det valgte Item rammer 0, og skal slettes
                    GUIItems.Remove(selectedItem);
                     DataGridItems.UnselectAllCells();
                     DataGridItems.Items.Refresh();
                     DataGridItems.SelectedIndex = 0;
+                    
                 }
                 else
+                { 
                 SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
+                _ctrlTemp._bll.ChangeItem(selectedItemOld, selectedItem);
+                }
             }
             
+            GUIItems = _ctrlTemp._bll.WatchItems; //Reloader vores guiItems så de passer med DB
             DataGridItems.Items.Refresh();
         }
 
@@ -211,7 +234,7 @@ namespace UserControlLibrary
             SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
 
             _ctrlTemp._bll.ChangeItem(selectedItemOld, selectedItem); //Calling BLL change through CtrlTemplate
-
+            GUIItems = _ctrlTemp._bll.WatchItems; //Reloader vores guiItems så de passer med DB
 
             DataGridItems.Items.Refresh();
             ButtonInc.Opacity = 100;

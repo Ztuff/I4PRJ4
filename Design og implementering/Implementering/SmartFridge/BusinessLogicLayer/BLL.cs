@@ -215,39 +215,40 @@ namespace BusinessLogicLayer
             return item;
         }
 
-        public void AddItemsToTable(string currentListName, ObservableCollection<GUIItem> newItems)
+        public void AddItemsToTable(string currentListName, ObservableCollection<GUIItem> newGuiItems)
         {
 
-            GUIItemList currentList = null;
-            if(Lists == null)
+            GUIItemList currentGuiItemList = null;
+            if(Lists == null) //Hvis den liste vi vil tilføje items til ikke findes, opretter vi den OBS: currentList er den lokale, CurrentList er klassens 
             {
                 CurrentList = currentListName;
                 CreateList();
             }
 
-            foreach (var list in Lists)
+            foreach (var list in Lists) // Finder den rigtige GuiListe, og sætter vores currentList til den
             {
                 if (list.Name == currentListName)
                 {
-                    currentList = list;
+                    currentGuiItemList = list;
                 }
             }
-
-            if (currentList == null)
+            if (currentGuiItemList == null) //Hvis listen ikke er opretet smides en exception
                 throw new Exception();
-
+                                                                         
             bool newItemAdded = false;
             using (var uow = Context.CreateUnitOfWork())
             {
-                foreach (var newItem in newItems)
+                foreach (var newGuiItem in newGuiItems)
                 {
-                    if (NewItem(newItem))
+                    //IsNewItem ser på om newGuiItem er af en ny type. Altså om det er et helt nyt Item, eller kun et nyt ListItem
+                    //Hvis det er en ny type Item bliver dette oprettet i databasen.
+                    if (IsNewItem(newGuiItem))
                     {
                         Item dbItem = new Item()
                         {
-                            ItemName = newItem.Type,
-                            StdUnit = newItem.Unit,
-                            StdVolume = (int)newItem.Size
+                            ItemName = newGuiItem.Type,
+                            StdUnit = newGuiItem.Unit,
+                            StdVolume = (int)newGuiItem.Size
                         };
                         _itemRepository.Insert(dbItem);
                         newItemAdded = true;
@@ -258,41 +259,42 @@ namespace BusinessLogicLayer
             }
 
 
-            if (newItemAdded)
+            if (newItemAdded) //Vi Loader data fra databasen, hvis vi har tilføjet det nye item.
                 LoadFromDB();
 
-            foreach (var newItem in newItems)
+            foreach (var newGuiItem in newGuiItems) //Ser ´på alle elementer i listen af GuiItems der skal tilføjes
             {
                 bool itemDoesNotExist = true;
-                foreach (var item in currentList.ItemList)
+                foreach (var item in currentGuiItemList.ItemList)//Ser på alle GuiItems der allerede er i vores liste
                 {
-                    if (item.Type == newItem.Type)
-                    {
+                    if (item.Type == newGuiItem.Type) //Hvis det GUI item vi skal tilføje har samme type, som et af vores eksisterende
+                    {                                               //GUI items gør vi intent
                         itemDoesNotExist = false;
                         break;
                     }
                 }
-                if (itemDoesNotExist)
+                if (itemDoesNotExist) // Hvis det GUI item vi vil tilføje IKKE har samme type som et eksisterende GUI-Item.
                 {
                     using (var uow = Context.CreateUnitOfWork())
                     {
-                        foreach (var dbItem in _dbItems)
-                        {
-                            if (dbItem.ItemName == newItem.Type)
+                        foreach (var dbItem in _dbItems) //Vi leder nu databasen af items igennem for at finde det Item som 
+                        {                                       // har samme navn som typen af vores GUI-Item
+                            if (dbItem.ItemName == newGuiItem.Type)
                             {
                                 var listKey = new List()
                                 {
-                                    ListId = currentList.ID,
-                                    ListName = currentList.Name
+                                    ListId = currentGuiItemList.ID,
+                                    ListName = currentGuiItemList.Name
                                 };
 
+                                //Vi har nu fundet det korrekte Item i databasen, og laver nu ListItem'et, og putter i databasen
                                 ListItem listItem = new ListItem()
                                 {
                                     Item = dbItem,
                                     List = listKey,
-                                    Amount = (int)newItem.Amount,
-                                    Unit = newItem.Unit,
-                                    Volume = (int)newItem.Size
+                                    Amount = (int)newGuiItem.Amount,
+                                    Unit = newGuiItem.Unit,
+                                    Volume = (int)newGuiItem.Size
                                 };
 
                                 _listItemRepository.Insert(listItem);
@@ -304,21 +306,43 @@ namespace BusinessLogicLayer
                     }
 
                 }
-                else
-                {
+                else  // Hvis det GUI item vi vil tilføje har samme type som et eksisterende GUI-Item i vores Liste<GUI-Item>.
+                {       //så finder vi ud af hvad forksellen er, og tilføjer en listItem udgave mere, eller tilapasser amount
                     using (var uow = Context.CreateUnitOfWork())
                     {
                         foreach (var dbItem in _dbItems)
                         {
-                            if (dbItem.ItemName == newItem.Type)
+                            if (dbItem.ItemName == newGuiItem.Type) //hvis vi finder det Item der har navn tilsvarende typen på Gui-Item'et
                             {
-                                foreach (var listItem in _dblistItems)
-                                {
-                                    if (dbItem.ItemId == listItem.Item.ItemId &&
-                                        listItem.List.ListId == currentList.ID)
+                                foreach (var dbListItem in _dblistItems) //finder alle de listItems af vores Item type.
+                                {//Samme Item, forskellig amount (+/-). Vi sletter det gamle item, og tilføjer et med sammenlagt amount
+                                    if (dbItem.ItemId == dbListItem.Item.ItemId &&
+                                        dbListItem.List.ListId == currentGuiItemList.ID &&
+                                        dbListItem.Unit == newGuiItem.Unit &&
+                                        dbListItem.Volume == newGuiItem.Size)
                                     {
-                                        listItem.Amount += (int)newItem.Amount;
-                                        Task.Run(() => _listItemRepository.Update(listItem));
+                                        int currentAmount = dbListItem.Amount;
+                                        ListItem updatedListItem = new ListItem(((int)newGuiItem.Amount),
+                                                               (int)newGuiItem.Size,
+                                                               newGuiItem.Unit,
+                                                               dbListItem.List,
+                                                               dbItem);
+
+                                        _listItemRepository.Delete(dbListItem);
+                                        _listItemRepository.Insert(updatedListItem);
+                                    }
+                                    // Forskellig unit, forskellig Size/volume. Vi tilføjer et det nye ListItem
+                                    if (dbItem.ItemId == dbListItem.Item.ItemId &&
+                                        dbListItem.List.ListId == currentGuiItemList.ID &&
+                                        (dbListItem.Unit != newGuiItem.Unit || dbListItem.Volume != newGuiItem.Size))
+                                    {
+                                        ListItem updatedListItem = new ListItem(((int)newGuiItem.Amount),
+                                                                                   (int)newGuiItem.Size,
+                                                                                   newGuiItem.Unit,
+                                                                                   dbListItem.List,
+                                                                                   dbItem);
+                                        _listItemRepository.Insert(updatedListItem);
+
                                     }
                                 }
                             }
@@ -342,6 +366,7 @@ namespace BusinessLogicLayer
             }
 
             _listItemRepository.Mapper(_dbItems, dbLists, _dblistItems);
+            STDToShopListControl(currentListName);
         }
 
         /*public GUIItem GetStandardInfo(GUIItem item)
@@ -349,7 +374,7 @@ namespace BusinessLogicLayer
             return null;
         }*/
 
-        private bool NewItem(GUIItem item)
+        private bool IsNewItem(GUIItem item)
         {
             foreach (var dbItem in _dbItems)
             {
@@ -361,6 +386,14 @@ namespace BusinessLogicLayer
 
         public void DeleteItem(GUIItem GUIitemToDelete)
         {
+            GUIItemList currentGuiItemList = null;
+            foreach (var list in Lists) // Finder den rigtige GuiListe, og sætter vores currentGUiItemList til den
+            {
+                if (list.Name == CurrentList)
+                {
+                    currentGuiItemList = list;
+                }
+            }
             /*Henter alle items fra databasen, da der ikke er nogen direkte måde at connecte
                 et GUIitem med et dbItem, da GUIitem ikke har noget ID*/
             using (var uow = Context.CreateUnitOfWork())
@@ -372,7 +405,8 @@ namespace BusinessLogicLayer
                     if (dbListItem.Item.ItemName == GUIitemToDelete.Type
                         && dbListItem.Amount == GUIitemToDelete.Amount
                         && dbListItem.Unit == GUIitemToDelete.Unit
-                        && (uint)dbListItem.Volume == GUIitemToDelete.Size)
+                        && (uint)dbListItem.Volume == GUIitemToDelete.Size
+                        && dbListItem.ListId == currentGuiItemList.ID)
                     {
                         /*Fjerner det ønskede item fra databasen*/
                         _listItemRepository.Delete(dbListItem);
@@ -384,7 +418,55 @@ namespace BusinessLogicLayer
                 uow.SaveChanges();
             }
         }
+        public void ChangeItem(GUIItem oldItem, GUIItem newItem)
+        {
+            GUIItemList currentGuiItemList = null;
+            foreach (var list in Lists) // Finder den rigtige GuiListe, og sætter vores currentGUiItemList til den
+            {
+                if (list.Name == CurrentList)
+                {
+                    currentGuiItemList = list;
+                }
+            }
+            using (var uow = Context.CreateUnitOfWork())
+            {
+                foreach (var dbListItem in _dblistItems)
+                {
+                    if (dbListItem.Item.ItemName == oldItem.Type && 
+                        dbListItem.Unit == oldItem.Unit && 
+                        (uint)dbListItem.Volume == oldItem.Size && 
+                        dbListItem.Amount == oldItem.Amount &&
+                        dbListItem.ListId == currentGuiItemList.ID)
+                    {
+                        if (oldItem.Type != newItem.Type) //Hvis der skal ændres i dens Item (og ikke kun i listItem)
+                        {
+                            foreach (var dbItem in _dbItems)
+                            {
+                                if (dbItem.ItemName == oldItem.Type)
+                                {
+                                    dbItem.ItemName = newItem.Type;
+                                    _itemRepository.Update(dbItem);
+                                }
+                            }
+                        }
+                        
+                        ListItem updatedListItem = new ListItem((int)newItem.Amount, 
+                                                                (int)newItem.Size, 
+                                                                newItem.Unit,
+                                                                dbListItem.List,
+                                                                dbListItem.Item);
 
+                        _listItemRepository.Delete(dbListItem);
+                        _listItemRepository.Insert(updatedListItem);
+                        uow.SaveChanges();
+                        break;
+                    }
+                }
+
+            }
+            //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
+        } 
+      /*  #region ChangeItem - Old
         public void ChangeItem(GUIItem oldItem, GUIItem newItem)
         {
             using (var uow = Context.CreateUnitOfWork())
@@ -406,6 +488,67 @@ namespace BusinessLogicLayer
 
             }
             //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
+        } #endregion*/
+
+        public void STDToShopListControl(string ListWithNewItem)
+        {
+            if (ListWithNewItem == "Køleskab" || ListWithNewItem == "Indkøbsliste") { return; }
+            if (ListWithNewItem == "Standard-beholdning")
+            {
+                List<ListItem> har = new List<ListItem>();
+                List<ListItem> skalAltidHave = new List<ListItem>();
+                //Kan ikke gå fra list til vores listItem.
+                //Bliver nødt til at lede alle listItems igennem og finde dem der tilhører
+                //den rigtige liste.
+
+                using (var uow = Context.CreateUnitOfWork())
+                {
+                    foreach (var dbListItem in _dblistItems) //Laver en liste med hvad vi har, og hvad der skal være
+                    {
+                        if (dbListItem.List.ListName == "Køleskab")
+                        {
+                            har.Add(dbListItem);
+                        }
+                        else if (dbListItem.List.ListName == "Standard-beholdning")
+                        {
+                            skalAltidHave.Add(dbListItem);
+                        }
+                    }
+                }
+                List<ListItem> mangler = new List<ListItem>(skalAltidHave);
+                foreach (var STDListItem in skalAltidHave) //Sammenligner de to lister, og ser bort fra det vi har
+                {
+                    foreach (var ownedListItem in har)
+                    {   //Hvis vi har det item vi mangler, retter vi enten amount eller ser bort fra det ListItem
+                        if (ownedListItem.Item.ItemName == STDListItem.Item.ItemName &&
+                            ownedListItem.Unit == STDListItem.Unit &&
+                            ownedListItem.Volume == STDListItem.Volume)
+                        {
+                            if (ownedListItem.Amount >= STDListItem.Amount)
+                            {
+                            mangler.Remove(STDListItem);    
+                            }
+                            if (ownedListItem.Amount <= STDListItem.Amount)
+                            {
+                                STDListItem.Amount -= ownedListItem.Amount;
+                            }
+                        }
+                    }
+                }
+                ObservableCollection<GUIItem> ItemsToAdd = new ObservableCollection<GUIItem>();
+                foreach (var STDListItem in mangler)
+                {
+                    GUIItem ItemToAdd = new GUIItem(STDListItem.Item.ItemName,
+                                                    (uint)STDListItem.Amount,
+                                                    (uint) STDListItem.Volume,
+                                                    STDListItem.Unit);
+                    ItemsToAdd.Add(ItemToAdd);
+                }
+                    CurrentList = "Indkøbsliste"; //Sætter at den liste vi skal til at tilføje til hedder Indkøbsliste
+                    AddItemsToTable("Indkøbsliste", ItemsToAdd);
+                    CurrentList = ListWithNewItem; //Sætter at den liste vi arbejder på, er den liste vi tilføjede til
+            }
+            else { throw new Exception("List not recognized");}
         }
     }
 }
