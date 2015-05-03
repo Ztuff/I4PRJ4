@@ -10,6 +10,7 @@ namespace InterfacesAndDTO
     {
         public string Message;
         public DateTime TimeOfNotification;
+        public int ID;
 
         public Notification(string message, DateTime time)
         {

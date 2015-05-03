@@ -177,19 +177,20 @@ namespace BusinessLogicLayer
             return null;
         }
 
-        public void CheckShelfLife()
+        public List<Notification> CheckShelfLife(GUIItemList items)
         {
-            var items = GetList("Køkken");
+            var list = new List<Notification>();
             foreach (var item in items.ItemList)
             {
 
                 if (item.ShelfLife.Date <= DateTime.Now)
                 {
                     string message = item.Type + " blev for gammel d. " + DateTime.Now.Date;
-                    Notifications.Add(new Notification(message, DateTime.Now));
+                    list.Add(new Notification(message, DateTime.Now));
                 }
 
             }
+            return list;
         }
 
         public bool Compare(GUIItem item1, GUIItem item2)

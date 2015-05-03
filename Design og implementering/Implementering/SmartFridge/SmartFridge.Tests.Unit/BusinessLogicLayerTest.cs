@@ -40,22 +40,26 @@ namespace SmartFridge.Tests.Unit
         [Test]
         public void CheckShelfLife_NoExpiredItems_NoNotifications()
         {
-            var items = new ObservableCollection<GUIItem>();
-            var rnd = new Random();
-            for (int i = 0; i < 5; i++)
-            {
-                string type = rnd.Next(int.MinValue, int.MaxValue).ToString();
-                items.Add(new GUIItem(type, 5, 1, "Unit") { ShelfLife = new DateTime(3000, 1, 1) });
-            }
-            string listName = "Køleskab";
-            uut.AddItemsToTable(listName, items);
+            var GUIItemlist = new GUIItemList(5, "TestList");
+            GUIItemlist.ItemList.Add(new GUIItem("Test", 1, 1, "1") { ShelfLife = new DateTime(3000, 1, 1) });
+            GUIItemlist.ItemList.Add(new GUIItem("Test", 1, 1, "1") { ShelfLife = new DateTime(3000, 1, 1) });
+            
+            var notifications = uut.CheckShelfLife(GUIItemlist);
 
-            var kitchen = uut.GetList(listName);
-            uut.Lists.Add(kitchen);
-            uut.Notifications = new List<Notification>();
-            uut.CheckShelfLife();
+            Assert.AreEqual(0, notifications.Count);
 
-            Assert.AreEqual(0, uut.Notifications.Count);
+        }
+
+        [Test]
+        public void CheckShelfLife_2ExperiedItems_2Notifications()
+        {
+            var GUIItemlist = new GUIItemList(5, "TestList");
+            GUIItemlist.ItemList.Add(new GUIItem("Test", 1, 1, "1") { ShelfLife = new DateTime(1993,1,1)});
+            GUIItemlist.ItemList.Add(new GUIItem("Test", 1, 1, "1") { ShelfLife = new DateTime(1984,1,1)});
+
+            var notifications = uut.CheckShelfLife(GUIItemlist);
+
+            Assert.AreEqual(2, notifications.Count);
 
         }
 
