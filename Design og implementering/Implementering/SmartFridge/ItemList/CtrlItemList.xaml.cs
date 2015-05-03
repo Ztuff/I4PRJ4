@@ -132,11 +132,12 @@ namespace UserControlLibrary
                 
                 if (selectedItem.Amount <= 0)
                 {
+                    _ctrlTemp._bll.DeleteItem(selectedItem); //Hvis det valgte Item rammer 0, og skal slettes
                    GUIItems.Remove(selectedItem);
                     DataGridItems.UnselectAllCells();
                     DataGridItems.Items.Refresh();
                     DataGridItems.SelectedIndex = 0;
-                    _ctrlTemp._bll.DeleteItem(selectedItemOld); //Hvis det valgte Item rammer 0, og skal slettes
+                    
                 }
                 else
                 { 
