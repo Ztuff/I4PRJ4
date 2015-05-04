@@ -20,6 +20,8 @@ namespace SmartFridge.Tests.Unit
         public void SetUp()
         {
             uut = new BLL();
+            uut.CurrentList = "Køleskab"; //High coupling...
+            var items = uut.WatchItems;
         }
 
         [Test]
@@ -141,12 +143,14 @@ namespace SmartFridge.Tests.Unit
 
             //Find the list...
             GUIItemList list = null;
+
             foreach (var guiItemList in uut.Lists)
             {
                 if (guiItemList.Name.Equals("Køleskab"))
                     list = guiItemList;
             }
             int EqualItems = 0;
+
             foreach (var guiItem1 in items)
             {
                 foreach (var guiItem2 in list.ItemList)
