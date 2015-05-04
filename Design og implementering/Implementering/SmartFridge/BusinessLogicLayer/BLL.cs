@@ -22,7 +22,6 @@ namespace BusinessLogicLayer
         private ListItemRepository _listItemRepository;
         public ObservableCollection<GUIItemList> Lists { get; private set; }
         public string CurrentList { private get; set; }
-        public List<Notification> Notifications { get; set; }
         private List<Item> _dbItems;
         private List<ListItem> _dblistItems;
 
@@ -33,6 +32,22 @@ namespace BusinessLogicLayer
             _itemRepository = new ItemRepository(Context);
             _listRepository = new ListRepository(Context);
             _listItemRepository = new ListItemRepository(Context);
+        }
+
+        public void DeleteItemWithType(string type)
+        {
+            using (var uow = Context.CreateUnitOfWork())
+            {
+                foreach (var item in _dbItems)
+                {
+                    if (item.ItemName.Equals(type))
+                    {
+                        _dbItems.Remove(item);
+                        break;
+                    }
+                }
+                uow.SaveChanges();
+            }
         }
 
         public readonly ObservableCollection<string> UnitNames = new ObservableCollection<string>()
