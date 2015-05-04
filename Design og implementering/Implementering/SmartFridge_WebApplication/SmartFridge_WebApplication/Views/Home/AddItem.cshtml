@@ -5,33 +5,46 @@
 
 
 
-    <div class="NewItem">
-        <label>VareType</label>
-        <br/>
-        <input type="text" name="Varetype"/>
-        <select></select>
-        <br/>
-        <label>Antal</label>
-        <br/>
-        <input type="text" name="Antal"/>
-        <table>
-            <tr><td><button>+</button></td></tr>
-            <tr><td><button>-</button></td></tr>
-        </table>
-        <br/>
-        <label>Volumen</label>
-        <br/>
-        <input type="text" name="Volume"/>
-        <input type="text" name="Unit"/>
-        <br/>
-        <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg"/>
+<div class="NewItem">
+    <label>VareType</label>
+    <br />
+    <input type="text" name="Varetype" />
+    <select></select>
+    <br />
+    <table>
+        <tr>
+            <label>Antal</label>
+            <br />
+            <input type="text" name="Antal" />
+            <table>
+                <tr><td><button>+</button></td></tr>
+                <tr><td><button>-</button></td></tr>
+            </table>
+        </tr>
+    </table>
+    <br />
+    <label>Volumen</label>
+    <br />
+    <input type="text" name="Volume" />
+    <select>
+        <option value="l">l</option>
+        <option value="l">dl</option>
+        <option value="l">ml</option>
+        <option value="l">kg</option>
+        <option value="l">g</option>
+        <option value="stk">stk</option>
+    </select>
+    <br />
+    <table>
+    <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg" />
     @using (Html.BeginForm("ListView", "Home"))
-    {         
+    {
         <input type="image" src="~/Images/AddAndExit.png" alt="Submit" class="AddImg" />
     }
-    </div>
-    <div class="AddedItems">
-        <label>Nyligt tilføjede vare</label>
-        <br/>
-        <textarea readonly="readonly"></textarea>
-    </div>
+        </table>
+</div>
+<div class="AddedItems">
+    <label>Nyligt tilføjede vare</label>
+    <br />
+    <textarea readonly="readonly"></textarea>
+</div>
