@@ -4,13 +4,12 @@
 }
 
 
-@using(Html.BeginForm("AddItem", "Home"))
-{
+
     <div class="NewItem">
         <label>VareType</label>
         <br/>
         <input type="text" name="Varetype"/>
-        <select/>
+        <select></select>
         <br/>
         <label>Antal</label>
         <br/>
@@ -26,11 +25,13 @@
         <input type="text" name="Unit"/>
         <br/>
         <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg"/>
-        <input type="image" src="~/Images/AddAndExit.png" alt="Submit" class="AddImg"/>
+    @using (Html.BeginForm("ListView", "Home"))
+    {         
+        <input type="image" src="~/Images/AddAndExit.png" alt="Submit" class="AddImg" />
+    }
     </div>
     <div class="AddedItems">
         <label>Nyligt tilføjede vare</label>
         <br/>
         <textarea readonly="readonly"></textarea>
     </div>
-}
