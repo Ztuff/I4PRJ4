@@ -45,23 +45,6 @@ namespace SmartFridgeApplication
         private SyncStatus syncStatus = SyncStatus.Synced;
         public CtrlTemplate CtrlTemp = new CtrlTemplate();
 
-        void ShelfLifeChecker()
-        {
-            while (true)
-            {
-                List<Notification> notifications = new List<Notification>();
-                /*
-                //var fridge = CtrlTemp._bll.GetList("Køleskab");
-                notifactions = CtrlTemp._bll.CheckShelfLife(fridge);
-                */
-                //Notifications = notifications;
-                Dispatcher.Invoke(UpdateNotificationsAmount);
-
-                int timetosleep = 1000 * 60 * 60; //every hour
-                Thread.Sleep(timetosleep);
-            }
-        }
-
         // public GridContent PrevUserControl;
         public MainWindow()
         {
@@ -73,9 +56,7 @@ namespace SmartFridgeApplication
             timer.Start();
             //DateBlock.DataContext = clock.Date;
             //TimeBlock.DataContext = clock.Time;
-            test_add_new_notifications();
-            Thread shelfThread = new Thread(ShelfLifeChecker);
-            shelfThread.Start();
+            EventTimer eventT = new EventTimer(this, 30);
         }
 
         void test_add_new_notifications()
@@ -97,7 +78,7 @@ namespace SmartFridgeApplication
             TestTimeLabel.Content = d.ToLongTimeString();
         }
 
-        private void UpdateNotificationsAmount()
+        public void UpdateNotificationsAmount()
         {
             TextBoxNotifications.Content = Notifications.Count.ToString();
             UpdateNotificationsButton();
@@ -238,8 +219,6 @@ namespace SmartFridgeApplication
             panel.Children.Add(new Button { Content = "Luk", FontSize = 24, Command = ClosePopupCommand });
         }
 
-        private Notification NotificationForDeletion = new Notification("", DateTime.Now);
-
         public ICommand ClosePopupCommand
         {
             get{
@@ -267,11 +246,6 @@ namespace SmartFridgeApplication
             Notifications.Remove(NotificationForDeletion);
             AddNotificationsToPanel(Notifications, Panel);
             UpdateNotificationsAmount();
-        }
-
-        private void PostPoneNotification()
-        {
-            throw new NotImplementedException();
         }
 
 
