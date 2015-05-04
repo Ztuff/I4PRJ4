@@ -116,6 +116,7 @@ namespace SmartFridge.Tests.Unit
             foreach (var guiItem in items)
             {
                 uut.DeleteItem(guiItem);
+                uut.DeleteItemWithType(guiItem.Type);
             }
         }
 
@@ -160,6 +161,7 @@ namespace SmartFridge.Tests.Unit
             foreach (var guiItem in items)
             {
                 uut.DeleteItem(guiItem);
+                uut.DeleteItemWithType(guiItem.Type);
             }
         }
 
