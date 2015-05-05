@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using InterfacesAndDTO;
 using Timer = System.Timers.Timer;
 
 namespace SmartFridgeApplication
@@ -43,8 +44,35 @@ namespace SmartFridgeApplication
         public void TriggerShelfChecking()
         {
             var fridge = _owner.CtrlTemp._bll.GetList("Køleskab"); //Get the list
-            _owner.CtrlTemp._bll.CheckShelfLife(fridge); //Call the ShelfLife-checking method
-            _owner.UpdateNotificationsAmount(); //The above method can add notifications to owner, so we'll have to update the amount, so we can show that in the GUI
+            var newNotifications = _owner.CtrlTemp._bll.CheckShelfLife(fridge); //Call the ShelfLife-checking method
+            DontAddDuplicates(newNotifications);
+            AddNewNotifications(newNotifications);
+            _owner.UpdateNotificationsAmount(); //The above methods can add notifications to '_owner', so we'll have to update the amount, so we can show that in the GUI
+        }
+
+        private void AddNewNotifications(List<Notification> notifications)
+        {
+            foreach (var notification in notifications)
+            {
+                _owner.CtrlTemp._bll.Notifications.Add(notification);
+            }
+        }
+
+        private void DontAddDuplicates(List<Notification> notifications)
+        {
+            var duplicatesToRemove = new List<Notification>();
+            foreach (var newNotifications in notifications)
+            {
+                foreach (var oldNotifications in _owner.CtrlTemp._bll.Notifications)
+                {
+                    if (newNotifications.ItemID == oldNotifications.ItemID)
+                    {
+                        duplicatesToRemove.Add(newNotifications);
+                    }
+                }
+            }
+
+            notifications.RemoveAll(item => duplicatesToRemove.Contains(item));
         }
 
         public void TriggerSyncing()
