@@ -35,8 +35,6 @@ namespace SmartFridgeApplication
             Desynced,
         }
 
-        private List<Notification> Notifications = new List<Notification>();
-
         DispatcherTimer timer = new DispatcherTimer();
         Clock clock = new Clock();
         Popup popup = new Popup();
@@ -56,15 +54,19 @@ namespace SmartFridgeApplication
             timer.Start();
             //DateBlock.DataContext = clock.Date;
             //TimeBlock.DataContext = clock.Time;
+            CtrlTemp._bll.CurrentList = "Køleskab";
+            var items = CtrlTemp._bll.WatchItems;
             EventTimer eventT = new EventTimer(this, 30);
+            eventT.TriggerShelfChecking();
+            eventT.TriggerSyncing();
         }
 
         void test_add_new_notifications()
         {
             //ONLY FOR TESTING NOTIFICATIONS:
-            Notifications.Add(new Notification("Test notification 1", DateTime.Now){ID = 1});
-            Notifications.Add(new Notification("Test notification 2", DateTime.Now){ID = 2});
-            Notifications.Add(new Notification("Test notification 3", DateTime.Now){ID = 3});
+            //Notifications.Add(new Notification("Test notification 1", DateTime.Now){ID = 1});
+            //Notifications.Add(new Notification("Test notification 2", DateTime.Now){ID = 2});
+            //Notifications.Add(new Notification("Test notification 3", DateTime.Now){ID = 3});
             //ABOVE ONLY FOR TESTING NOTIFICATIONS
         }
 
@@ -80,14 +82,14 @@ namespace SmartFridgeApplication
 
         public void UpdateNotificationsAmount()
         {
-            TextBoxNotifications.Content = Notifications.Count.ToString();
+            TextBoxNotifications.Content = CtrlTemp._bll.Notifications.Count.ToString();
             UpdateNotificationsButton();
         }
 
         private void UpdateNotificationsButton()
         {
-            NotificationsButton.IsEnabled = Notifications.Count != 0;
-            if (Notifications.Count == 0)
+            NotificationsButton.IsEnabled = CtrlTemp._bll.Notifications.Count != 0;
+            if (CtrlTemp._bll.Notifications.Count == 0)
                 popup.IsOpen = false;
         }
 
@@ -173,7 +175,7 @@ namespace SmartFridgeApplication
             popupText.Background = Brushes.LightBlue;
             popupText.Foreground = Brushes.Blue;
             */
-            AddNotificationsToPanel(Notifications, Panel);
+            AddNotificationsToPanel(CtrlTemp._bll.Notifications, Panel);
             popup.Child = Panel;
 
             popup.PlacementTarget = button;
@@ -242,9 +244,9 @@ namespace SmartFridgeApplication
         private void DeleteNotification(object parameter)
         {
             int notificationID = (int) parameter;
-            var NotificationForDeletion = Notifications.Single(o => o.ID == notificationID);
-            Notifications.Remove(NotificationForDeletion);
-            AddNotificationsToPanel(Notifications, Panel);
+            var NotificationForDeletion = CtrlTemp._bll.Notifications.Single(o => o.ID == notificationID);
+            CtrlTemp._bll.Notifications.Remove(NotificationForDeletion);
+            AddNotificationsToPanel(CtrlTemp._bll.Notifications, Panel);
             UpdateNotificationsAmount();
         }
 
