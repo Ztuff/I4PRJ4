@@ -24,6 +24,7 @@ namespace BusinessLogicLayer
         public string CurrentList { private get; set; }
         private List<Item> _dbItems;
         private List<ListItem> _dblistItems;
+        public List<Notification> Notifications = new List<Notification>();
 
 
         public BLL()
@@ -42,7 +43,7 @@ namespace BusinessLogicLayer
                 {
                     if (item.ItemName.Equals(type))
                     {
-                        _dbItems.Remove(item);
+                        _itemRepository.Delete(item);
                         break;
                     }
                 }
@@ -199,9 +200,9 @@ namespace BusinessLogicLayer
             {
 
                 if (item.ShelfLife.Date <= DateTime.Now)
-                {
+                { //The item is seen as 'expired' when we're on the same day as its expiration date
                     string message = item.Type + " blev for gammel d. " + DateTime.Now.Date;
-                    list.Add(new Notification(message, DateTime.Now));
+                    list.Add(new Notification(message, DateTime.Now, item.ID));
                 }
 
             }
