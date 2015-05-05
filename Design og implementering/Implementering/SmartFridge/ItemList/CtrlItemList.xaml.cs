@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 using BusinessLogicLayer;
 using InterfacesAndDTO;
 
@@ -40,6 +41,7 @@ namespace UserControlLibrary
             HideButtonsAndTextboxes();
             DataGridItems.SelectedIndex = 0;
             //DataGridItems.Items
+            DataGridItems_SelectionChanged(null, null);
         }
 
         private void LoadItemData()
@@ -89,8 +91,16 @@ namespace UserControlLibrary
                 SelectedItemType.Content = selectedItem.Type;
                 SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
                 SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
+                BtnEdit.Background = new ImageBrush { ImageSource = TryFindResource("ImgEdit") as ImageSource };
+                BtnInc.Background = new ImageBrush { ImageSource = TryFindResource("ImgAdd") as ImageSource };
+                BtnDec.Background = new ImageBrush { ImageSource = TryFindResource("ImgRemove") as ImageSource };
                 HideButtonsAndTextboxes();
-
+            }
+            if (selectedItem == null)
+            {
+                BtnEdit.Background = new ImageBrush { ImageSource = TryFindResource("ImgEditGrayed") as ImageSource };
+                BtnInc.Background = new ImageBrush { ImageSource = TryFindResource("ImgAddGrayed") as ImageSource };
+                BtnDec.Background = new ImageBrush { ImageSource = TryFindResource("ImgRemoveGrayed") as ImageSource };
             }
         }
 
@@ -98,6 +108,7 @@ namespace UserControlLibrary
 
         private void ButtonInc_Click(object sender, RoutedEventArgs e)
         {
+            selectedItem = (GUIItem)DataGridItems.SelectedItem;
             if (selectedItem != null)
             {
 
@@ -119,6 +130,7 @@ namespace UserControlLibrary
 
         private void BtnDec_Click(object sender, RoutedEventArgs e)
         {
+            selectedItem = (GUIItem)DataGridItems.SelectedItem;
             if (selectedItem != null)
             {
                 selectedItem = (GUIItem)DataGridItems.SelectedItem;
@@ -174,8 +186,8 @@ namespace UserControlLibrary
                 SelectedUnitTB.DataContext = selectedItem.Unit;
                 //SelectedBestBeforeTB.DataContext = selectedItem.BestBefore;
 
-                ButtonInc.Opacity = 50;
-                ButtonInc.IsEnabled = false;
+                BtnInc.Opacity = 50;
+                BtnInc.IsEnabled = false;
                 BtnDec.Opacity = 50;
                 BtnDec.IsEnabled = false;
             }
@@ -198,8 +210,8 @@ namespace UserControlLibrary
             SelectedAmountTB.Text = selectedItem.Amount.ToString();
             SelectedSizeTB.Text = selectedItem.Size.ToString();
             SelectedUnitTB.Text = selectedItem.Unit;
-            ButtonInc.Opacity = 100;
-            ButtonInc.IsEnabled = true;
+            BtnInc.Opacity = 100;
+            BtnInc.IsEnabled = true;
             BtnDec.Opacity = 100;
             BtnDec.IsEnabled = true;
             HideButtonsAndTextboxes();
@@ -237,8 +249,8 @@ namespace UserControlLibrary
             GUIItems = _ctrlTemp._bll.WatchItems; //Reloader vores guiItems så de passer med DB
 
             DataGridItems.Items.Refresh();
-            ButtonInc.Opacity = 100;
-            ButtonInc.IsEnabled = true;
+            BtnInc.Opacity = 100;
+            BtnInc.IsEnabled = true;
             BtnDec.Opacity = 100;
             BtnDec.IsEnabled = true;
             HideButtonsAndTextboxes();

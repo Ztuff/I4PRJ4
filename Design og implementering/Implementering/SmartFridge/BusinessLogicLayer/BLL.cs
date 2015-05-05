@@ -172,7 +172,9 @@ namespace BusinessLogicLayer
                                     Amount = (uint)listItem.Amount,
                                     Type = dbItem.ItemName,
                                     Size = (uint)listItem.Volume,
-                                    Unit = listItem.Unit
+                                    Unit = listItem.Unit,
+                                    ID = listItem.ItemId
+                                    
                                 };
                                 list.ItemList.Add(guiItem);
                                 break;

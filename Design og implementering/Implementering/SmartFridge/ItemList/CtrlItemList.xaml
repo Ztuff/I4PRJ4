@@ -29,7 +29,7 @@
                     <ImageBrush ImageSource="{StaticResource ImgEdit}"/>
                 </Button.Background>
             </Button>
-            <Button Style="{DynamicResource NoChromeButton}" x:Name="ButtonInc" Margin="0,115,20,0" VerticalAlignment="Top" Focusable="False"  HorizontalAlignment="Right" Width="75" Height="75" Click="ButtonInc_Click" Foreground="{x:Null}" BorderBrush="{x:Null}">
+            <Button Style="{DynamicResource NoChromeButton}" x:Name="BtnInc" Margin="0,115,20,0" VerticalAlignment="Top" Focusable="False"  HorizontalAlignment="Right" Width="75" Height="75" Click="ButtonInc_Click" Foreground="{x:Null}" BorderBrush="{x:Null}">
                 <Button.Background>
                     <ImageBrush ImageSource="{StaticResource ImgAdd}"/>
                 </Button.Background>
