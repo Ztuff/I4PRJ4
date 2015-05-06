@@ -317,7 +317,7 @@ namespace UserControlLibrary
             unitNames.Add("G");
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnAddItem_Click(object sender, RoutedEventArgs e)
         {
             _ctrlTemp.ChangeGridContent(new AddItem(ListType, _ctrlTemp));
         }
