@@ -321,9 +321,5 @@ namespace UserControlLibrary
         {
             _ctrlTemp.ChangeGridContent(new AddItem(ListType, _ctrlTemp));
         }
-
-
-
-
     }
 }
