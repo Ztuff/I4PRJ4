@@ -59,6 +59,7 @@ namespace SmartFridgeApplication
             EventTimer eventT = new EventTimer(this, 30);
             eventT.TriggerShelfChecking();
             eventT.TriggerSyncing();
+            popup.StaysOpen = false;
         }
 
         void test_add_new_notifications()
@@ -176,6 +177,8 @@ namespace SmartFridgeApplication
             popupText.Foreground = Brushes.Blue;
             */
             AddNotificationsToPanel(CtrlTemp._bll.Notifications, Panel);
+
+            
             popup.Child = Panel;
 
             popup.PlacementTarget = button;
@@ -218,14 +221,6 @@ namespace SmartFridgeApplication
                 postpone.IsEnabled = false;
                 horizontalStackPanel.Children.Add(postpone);
             }
-            panel.Children.Add(new Button { Content = "Luk", FontSize = 24, Command = ClosePopupCommand });
-        }
-
-        public ICommand ClosePopupCommand
-        {
-            get{
-                return new RelayCommand(o => ClosePopup());
-            }
         }
 
         public ICommand DeleteNotificationCommand
@@ -234,11 +229,6 @@ namespace SmartFridgeApplication
             {
                 return new RelayCommand(DeleteNotification);
             }
-        }
-
-        private void ClosePopup()
-        {
-            popup.IsOpen = false;
         }
 
         private void DeleteNotification(object parameter)
