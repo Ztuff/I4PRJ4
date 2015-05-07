@@ -7,6 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using DataAccessLayer.Connection;
+using DataAccessLayer.Sync;
 using InterfacesAndDTO;
 using Timer = System.Timers.Timer;
 
@@ -19,30 +21,43 @@ namespace SmartFridgeApplication
         //The timer checks every 30 seconds...
         private int _lastHour = DateTime.Now.Hour;
         public double SyncSecondsElapsed = 0;
+        private IConnectionFactory _localDatabaseConnection;
+        private IConnectionFactory _externalDatabaseConnection;
+        private DbSync _sync;
+        private string ExternalDatabaseString;
 
         private MainWindow _owner; //Need this to call back 
-        
+
 
         public EventTimer(MainWindow owner, int precisionInSeconds)
         {
             _owner = owner;
-            _NotificationTimer = new Timer(1000*precisionInSeconds);
+            SetUpSyncing();
+
+            _NotificationTimer = new Timer(1000 * precisionInSeconds);
             _NotificationTimer.Elapsed += OnTimedEventNotification;
             _NotificationTimer.Enabled = true;
 
-            _SyncTimer = new Timer(1000*precisionInSeconds);
+            _SyncTimer = new Timer(1000 * precisionInSeconds);
             _SyncTimer.Elapsed += OnTimedEventSync;
             _SyncTimer.Enabled = true;
         }
 
+        private void SetUpSyncing()
+        {
+            //_localDatabaseConnection = new AppConnectionFactory("SmartFridgeConn");
+            //_externalDatabaseConnection = new AppConnectionFactory("SmartFridgeConn2");
+            //_sync = new DbSync(_externalDatabaseConnection, _localDatabaseConnection);
+        }
+
         public void OnTimedEventSync(object source, ElapsedEventArgs e)
         {
-            SyncSecondsElapsed += _SyncTimer.Interval/1000; //In seconds
-            if (SyncSecondsElapsed >= 10*60) //10 minutes
+            SyncSecondsElapsed += _SyncTimer.Interval / 1000; //In seconds
+            if (SyncSecondsElapsed >= 30) //10 minutes
             {
                 TriggerSyncing();
             }
-            
+
         }
 
         public void OnTimedEventNotification(object source, ElapsedEventArgs e)
@@ -92,7 +107,11 @@ namespace SmartFridgeApplication
 
         public void TriggerSyncing()
         {
-            //TBD
+            /*
+            _sync.ProvisionServer();
+            _sync.ProvisionClient();
+            _sync.Sync();
+             */
         }
     }
 }

@@ -125,6 +125,10 @@
       <Project>{045c23f7-f376-4bea-9f7f-4cd490a09e90}</Project>
       <Name>ResourcesDictionary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SmartFridgeDAL\DataAccessLayer.csproj">
+      <Project>{9349c197-28ec-470d-8cbc-69a0dab08f10}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -11,7 +11,7 @@ using Microsoft.Synchronization.Data.SqlServer;
 
 namespace DataAccessLayer.Sync
 {
-    class DbSync
+    public class DbSync
     {
         private readonly IConnectionFactory _serverConn;
         private readonly IConnectionFactory _clientConn;

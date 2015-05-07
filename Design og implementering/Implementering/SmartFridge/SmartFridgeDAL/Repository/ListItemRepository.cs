@@ -128,7 +128,8 @@ namespace DataAccessLayer.Repository
             listItem.Amount = (int)record["Amount"];
             listItem.Volume = (int)record["Volume"];
             listItem.Unit = (string)record["Unit"];
-            listItem.ShelfLife = (DateTime)record["ShelfLife"];
+            if(listItem.ShelfLife != null)
+                listItem.ShelfLife = (DateTime?)record["ShelfLife"];
         }
 
         public void Mapper(List<Item> items, List<List> lists, List<ListItem> listItems)
