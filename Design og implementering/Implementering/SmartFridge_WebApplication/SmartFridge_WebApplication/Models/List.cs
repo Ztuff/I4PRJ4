@@ -9,18 +9,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class List
+namespace SmartFridge_WebApplication.Models
 {
-    public int ListId { get; set; }
-    public string ListName { get; set; }
 
-    public List()
+    public class List
     {
+        public int ListId { get; set; }
+        public string ListName { get; set; }
+
+        public List()
+        {
+        }
+
+        public List(string listName)
+        {
+            ListName = listName;
+        }
     }
 
-    public List(string listName)
-    {
-        ListName = listName;
-    }
 }
-

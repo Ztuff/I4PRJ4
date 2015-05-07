@@ -46,7 +46,7 @@ button {
 
 .NewItem {
     text-align: left;
-    float: left;
+    /*float: left;*/
     width: 300px;
 }
 
@@ -58,4 +58,8 @@ button {
 .AddImg {
     width: 20%;
     height: auto;
+}
+
+#grid {
+    background-color: pink;
 }

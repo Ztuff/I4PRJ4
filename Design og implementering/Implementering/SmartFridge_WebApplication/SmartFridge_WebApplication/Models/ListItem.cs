@@ -9,68 +9,72 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class ListItem
+namespace SmartFridge_WebApplication.Models
 {
-    public int Amount { get; set; }
-    public int Volume { get; set; }
-    public string Unit { get; set; }
 
-    private List _list;
-    private int _listId;
-
-    public List List
+    public class ListItem
     {
-        get { return _list; }
-        set
+        public int Amount { get; set; }
+        public int Volume { get; set; }
+        public string Unit { get; set; }
+
+        private List _list;
+        private int _listId;
+
+        public List List
         {
-            _list = value;
-            _listId = value.ListId;
+            get { return _list; }
+            set
+            {
+                _list = value;
+                _listId = value.ListId;
+            }
+        }
+
+        public int ListId
+        {
+            get { return _listId; }
+            set { _listId = value; }
+        }
+
+        private Item _item;
+        private int _itemId;
+
+        public Item Item
+        {
+            get { return _item; }
+            set
+            {
+                _item = value;
+                _itemId = value.ItemId;
+            }
+        }
+
+        public int ItemId
+        {
+            get { return _itemId; }
+            set { _itemId = value; }
+        }
+
+        public ListItem()
+        {
+        }
+
+        public ListItem(int amount, int volume, string unit)
+        {
+            Amount = amount;
+            Volume = volume;
+            Unit = unit;
+        }
+
+        public ListItem(int amount, int volume, string unit, List list, Item item)
+        {
+            Amount = amount;
+            Volume = volume;
+            Unit = unit;
+            List = list;
+            Item = item;
         }
     }
 
-    public int ListId
-    {
-        get { return _listId; }
-        set { _listId = value; }
-    }
-
-    private Item _item;
-    private int _itemId;
-
-    public Item Item
-    {
-        get { return _item; }
-        set
-        {
-            _item = value;
-            _itemId = value.ItemId;
-        }
-    }
-
-    public int ItemId
-    {
-        get { return _itemId; }
-        set { _itemId = value; }
-    }
-
-    public ListItem()
-    {
-    }
-
-    public ListItem(int amount, int volume, string unit)
-    {
-        Amount = amount;
-        Volume = volume;
-        Unit = unit;
-    }
-
-    public ListItem(int amount, int volume, string unit, List list, Item item)
-    {
-        Amount = amount;
-        Volume = volume;
-        Unit = unit;
-        List = list;
-        Item = item;
-    }
 }
-

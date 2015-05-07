@@ -1,7 +1,9 @@
-﻿@{
+﻿@model IEnumerable<SmartFridge_WebApplication.Models.GUIItem>
+@{
     ViewBag.Title = "AddItem";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 
 
@@ -36,15 +38,21 @@
     </select>
     <br />
     <table>
-    <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg" />
-    @using (Html.BeginForm("ListView", "Home"))
-    {
-        <input type="image" src="~/Images/AddAndExit.png" alt="Submit" class="AddImg" />
-    }
-        </table>
+        <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg" />
+        @using (Html.BeginForm("ListView", "LisView"))
+        {
+            <input type="image" src="~/Images/AddAndExit.png" alt="Submit" class="AddImg" />
+        }
+    </table>
 </div>
 <div class="AddedItems">
     <label>Nyligt tilføjede vare</label>
-    <br />
-    <textarea readonly="readonly"></textarea>
+    <br/>
+    @{
+        var grid = new WebGrid(Model, defaultSort: "null");
+    }
+    <div id="grid">
+        @grid.GetHtml()
+    </div>
 </div>
+
