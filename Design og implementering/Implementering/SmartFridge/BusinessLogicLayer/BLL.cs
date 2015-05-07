@@ -315,7 +315,9 @@ namespace BusinessLogicLayer
                                     List = listKey,
                                     Amount = (int)newGuiItem.Amount,
                                     Unit = newGuiItem.Unit,
-                                    Volume = (int)newGuiItem.Size
+                                    Volume = (int)newGuiItem.Size,
+                                    ShelfLife = newGuiItem.ShelfLife
+                                    
                                 };
 
                                 _listItemRepository.Insert(listItem);
