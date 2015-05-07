@@ -25,60 +25,53 @@ namespace DataAccessLayer.Sync
 
         public void ProvisionServer()
         {
-            SqlConnection serverConn = (SqlConnection)_serverConn.Create();
-            DbSyncScopeDescription scopeDesc = new DbSyncScopeDescription(_sScope);
+            var serverConn = (SqlConnection)_serverConn.Create();
+            var serverProvision = new SqlSyncScopeProvisioning(serverConn);
 
-            DbSyncTableDescription listDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable("List", serverConn);
+            if (serverProvision.ScopeExists(_sScope)) return;
+
+            var scopeDesc = new DbSyncScopeDescription(_sScope);
+
+            var listDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable("List", serverConn);
             scopeDesc.Tables.Add(listDesc);
-            DbSyncTableDescription itemDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable("Item", serverConn);
+            var itemDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable("Item", serverConn);
             scopeDesc.Tables.Add(itemDesc);
-            DbSyncTableDescription listItemDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable("ListItem", serverConn);
+            var listItemDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable("ListItem",
+                serverConn);
+
             scopeDesc.Tables.Add(listItemDesc);
 
-            SqlSyncScopeProvisioning serverProvision = new SqlSyncScopeProvisioning(serverConn, scopeDesc);
+            serverProvision = new SqlSyncScopeProvisioning(serverConn, scopeDesc);
             serverProvision.SetCreateTableDefault(DbSyncCreationOption.CreateOrUseExisting);
-
             serverProvision.Apply();
         }
 
         public void ProvisionClient()
         {
-            SqlConnection clientConn = (SqlConnection)_clientConn.Create();
-            SqlConnection serverConn = (SqlConnection)_serverConn.Create();
+            var clientConn = (SqlConnection)_clientConn.Create();
+            var serverConn = (SqlConnection)_serverConn.Create();
 
-            DbSyncScopeDescription scopeDesc = SqlSyncDescriptionBuilder.GetDescriptionForScope(_sScope, serverConn);
-            SqlSyncScopeProvisioning clientProvision = new SqlSyncScopeProvisioning(clientConn, scopeDesc);
+            var clientProvision = new SqlSyncScopeProvisioning(clientConn);
+            if (clientProvision.ScopeExists(_sScope)) return;
 
+            var scopeDesc = SqlSyncDescriptionBuilder.GetDescriptionForScope(_sScope, serverConn);
+            clientProvision = new SqlSyncScopeProvisioning(clientConn, scopeDesc);
             clientProvision.Apply();
         }
 
         public void Sync()
         {
-            SqlConnection clientConn = (SqlConnection)_clientConn.Create();
-            SqlConnection serverConn = (SqlConnection)_serverConn.Create();
+            var clientConn = (SqlConnection)_clientConn.Create();
+            var serverConn = (SqlConnection)_serverConn.Create();
 
-            SyncOrchestrator syncOrchestrator = new SyncOrchestrator
+            var syncOrchestrator = new SyncOrchestrator
             {
                 LocalProvider = new SqlSyncProvider(_sScope, clientConn),
                 RemoteProvider = new SqlSyncProvider(_sScope, serverConn),
                 Direction = SyncDirectionOrder.DownloadAndUpload
             };
-
-            ((SqlSyncProvider)syncOrchestrator.LocalProvider).ApplyChangeFailed += Program_ApplyChangeFailed;
-
-            SyncOperationStatistics syncStats = syncOrchestrator.Synchronize();
-
-            Console.WriteLine("Start Time: " + syncStats.SyncStartTime);
-            Console.WriteLine("Total Changes Uploaded: " + syncStats.UploadChangesTotal);
-            Console.WriteLine("Total Changes Downloaded: " + syncStats.DownloadChangesTotal);
-            Console.WriteLine("Complete Time: " + syncStats.SyncEndTime);
-            Console.WriteLine(String.Empty);
-        }
- 
-        public void Program_ApplyChangeFailed(object sender, DbApplyChangeFailedEventArgs e)
-        {           
-            Console.WriteLine(e.Conflict.Type);
-            Console.WriteLine(e.Error);
+            
+            syncOrchestrator.Synchronize();
         }
     }
 }
