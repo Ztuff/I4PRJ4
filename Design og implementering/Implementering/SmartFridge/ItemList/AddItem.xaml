@@ -19,12 +19,12 @@
         <TextBox x:Name="TextBoxVolumenEnhed" HorizontalAlignment="Left" Height="23" Margin="135,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" MaxLines="1" TextAlignment="Right"/>
         <Button x:Name="PlusButton" Content="+" HorizontalAlignment="Left" Margin="130,89,0,0" VerticalAlignment="Top" Width="23" Height="23" BorderThickness="1" Click="PlusButton_Click"/>
         <ListBox x:Name="ListBoxItems" HorizontalAlignment="Left" Height="669" Margin="364,41,0,0" VerticalAlignment="Top" Width="906"/>
-        <Button Style="{DynamicResource NoChromeButton}" x:Name="AddButton" Content="" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="AddButton_Click" BorderBrush="{x:Null}">
+        <Button Style="{DynamicResource NoChromeButton}" x:Name="AddButton" Content="" HorizontalAlignment="Left" Margin="10,274,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="AddButton_Click" BorderBrush="{x:Null}">
             <Button.Background>
                 <ImageBrush ImageSource="{StaticResource ImgAdd}"/>
             </Button.Background>
         </Button>
-        <Button Style="{DynamicResource NoChromeButton}" x:Name="AddExitButton" Content="" HorizontalAlignment="Left" Margin="120,187,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="AddExitButton_Click" BorderBrush="{x:Null}">
+        <Button Style="{DynamicResource NoChromeButton}" x:Name="AddExitButton" Content="" HorizontalAlignment="Left" Margin="120,274,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="AddExitButton_Click" BorderBrush="{x:Null}">
             <Button.Background>
                 <ImageBrush ImageSource="{StaticResource ImgAddAndExit}"/>
             </Button.Background>
@@ -32,6 +32,8 @@
         <Button x:Name="MinusButton" Content="-" HorizontalAlignment="Left" Margin="130,112,0,0" VerticalAlignment="Top" Width="23" Height="23" BorderThickness="1" Click="MinusButton_Click"/>
         <Label Content="Nyligt Tilføjede Varer" HorizontalAlignment="Left" Margin="364,10,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="ComboBoxUnit" HorizontalAlignment="Left" Margin="177,159,0,0" VerticalAlignment="Top" Width="23" Height="23" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="True" MaxDropDownHeight ="150" DropDownClosed="ComboBoxUnit_OnDropDownClosed"/>
+        <Label Content="Holdbarhedsdato" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="TextBoxShelfLife" HorizontalAlignment="Left" Margin="10,218,0,0" VerticalAlignment="Top" Width="190"/>
 
 
     </Grid>

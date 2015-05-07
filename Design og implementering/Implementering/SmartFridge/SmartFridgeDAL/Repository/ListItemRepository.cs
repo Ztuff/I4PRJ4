@@ -17,27 +17,38 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"INSERT INTO ListItem (ListId,ItemId,Amount,Volume,Unit) VALUES(@ListId,@ItemId,@Amount,@Volume,@Unit)";
+                command.CommandText = @"INSERT INTO ListItem (ListId,ItemId,Amount,Volume,Unit,ShelfLife) VALUES(@ListId,@ItemId,@Amount,@Volume,@Unit,@ShelfLife)";
+                
                 var listParam = command.CreateParameter();
                 listParam.ParameterName = "@ListId";
                 listParam.Value = listItem.List.ListId;
                 command.Parameters.Add(listParam);
+
                 var itemParam = command.CreateParameter();
                 itemParam.ParameterName = "@ItemId";
                 itemParam.Value = listItem.Item.ItemId;
                 command.Parameters.Add(itemParam);
+
                 var amountParam = command.CreateParameter();
                 amountParam.ParameterName = "@Amount";
                 amountParam.Value = listItem.Amount;
                 command.Parameters.Add(amountParam);
+
                 var volumeParam = command.CreateParameter();
                 volumeParam.ParameterName = "@Volume";
                 volumeParam.Value = listItem.Volume;
                 command.Parameters.Add(volumeParam);
+
                 var unitParam = command.CreateParameter();
                 unitParam.ParameterName = "@Unit";
                 unitParam.Value = listItem.Unit;
                 command.Parameters.Add(unitParam);
+
+                var shelfParam = command.CreateParameter();
+                shelfParam.ParameterName = "@ShelfLife";
+                shelfParam.Value = listItem.ShelfLife;
+                command.Parameters.Add(shelfParam);
+
                 command.ExecuteNonQuery();
             }
         }
@@ -52,27 +63,38 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"DELETE FROM ListItem Where ListId = @ListId AND ItemId = @ItemId AND Amount = @Amount AND Volume = @Volume AND Unit = @Unit";
+                command.CommandText = @"DELETE FROM ListItem Where ListId = @ListId AND ItemId = @ItemId AND Amount = @Amount AND Volume = @Volume AND Unit = @Unit AND ShelfLife = @ShelfLife";
+                
                 var listParam = command.CreateParameter();
                 listParam.ParameterName = "@ListId";
                 listParam.Value = listItem.List.ListId;
                 command.Parameters.Add(listParam);
+                
                 var itemParam = command.CreateParameter();
                 itemParam.ParameterName = "@ItemId";
                 itemParam.Value = listItem.Item.ItemId;
                 command.Parameters.Add(itemParam);
+                
                 var amountParam = command.CreateParameter();
                 amountParam.ParameterName = "@Amount";
                 amountParam.Value = listItem.Amount;
                 command.Parameters.Add(amountParam);
+                
                 var volumeParam = command.CreateParameter();
                 volumeParam.ParameterName = "@Volume";
                 volumeParam.Value = listItem.Volume;
                 command.Parameters.Add(volumeParam);
+                
                 var unitParam = command.CreateParameter();
                 unitParam.ParameterName = "@Unit";
                 unitParam.Value = listItem.Unit;
                 command.Parameters.Add(unitParam);
+
+                var shelfParam = command.CreateParameter();
+                shelfParam.ParameterName = "@ShelfLife";
+                shelfParam.Value = listItem.ShelfLife;
+                command.Parameters.Add(shelfParam);
+
                 command.ExecuteNonQuery();
             }
         }
@@ -106,6 +128,7 @@ namespace DataAccessLayer.Repository
             listItem.Amount = (int)record["Amount"];
             listItem.Volume = (int)record["Volume"];
             listItem.Unit = (string)record["Unit"];
+            listItem.ShelfLife = (DateTime)record["ShelfLife"];
         }
 
         public void Mapper(List<Item> items, List<List> lists, List<ListItem> listItems)

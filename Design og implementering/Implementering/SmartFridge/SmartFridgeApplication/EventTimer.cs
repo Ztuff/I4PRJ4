@@ -14,23 +14,38 @@ namespace SmartFridgeApplication
 {
     public class EventTimer
     {
-        private Timer _eTimer;
+        private Timer _NotificationTimer;
+        private Timer _SyncTimer;
         //The timer checks every 30 seconds...
         private int _lastHour = DateTime.Now.Hour;
+        public double SyncSecondsElapsed = 0;
+
         private MainWindow _owner; //Need this to call back 
         
 
         public EventTimer(MainWindow owner, int precisionInSeconds)
         {
             _owner = owner;
-            _eTimer = new Timer(1000*precisionInSeconds);
-            _eTimer.Elapsed += OnTimedEvent;
-            _eTimer.Enabled = true;
-            //TriggerShelfChecking();
-            //TriggerSyncing();
+            _NotificationTimer = new Timer(1000*precisionInSeconds);
+            _NotificationTimer.Elapsed += OnTimedEventNotification;
+            _NotificationTimer.Enabled = true;
+
+            _SyncTimer = new Timer(1000*precisionInSeconds);
+            _SyncTimer.Elapsed += OnTimedEventSync;
+            _SyncTimer.Enabled = true;
         }
 
-        public void OnTimedEvent(object source, ElapsedEventArgs e)
+        public void OnTimedEventSync(object source, ElapsedEventArgs e)
+        {
+            SyncSecondsElapsed += _SyncTimer.Interval/1000; //In seconds
+            if (SyncSecondsElapsed >= 10*60) //10 minutes
+            {
+                TriggerSyncing();
+            }
+            
+        }
+
+        public void OnTimedEventNotification(object source, ElapsedEventArgs e)
         {
             //If the time is X o'clock sharp, it'll trigger the timer
             if (_lastHour < DateTime.Now.Hour || (_lastHour == 23 && DateTime.Now.Hour == 0))

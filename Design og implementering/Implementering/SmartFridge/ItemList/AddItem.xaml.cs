@@ -63,8 +63,9 @@ namespace UserControlLibrary
         //Eksempel på BusinessLogicLayer
         private GUIItem CreateNewItem()
         {
+            
             return _ctrlTemp._bll.CreateNewItem(TextBoxVareType.Text, Convert.ToUInt32(TextBoxAntal.Text),
-                Convert.ToUInt32(TextBoxVolumen.Text), TextBoxVolumenEnhed.Text);
+                Convert.ToUInt32(TextBoxVolumen.Text), TextBoxVolumenEnhed.Text, TextBoxShelfLife.SelectedDate);
         }
 
         private void AddNewItem(GUIItem item)

@@ -23,7 +23,8 @@
             <TextBox x:Name="SelectedUnitTB" HorizontalAlignment="Left" Height="19" Margin="186,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" MaxLines="1" TextAlignment="Right"/>
             <ComboBox x:Name="SelectedUnitCB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="23" Height="19" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="True" MaxDropDownHeight ="150" Margin="228,90,0,0" DropDownClosed="SelectedUnitCB_OnDropDownClosed"/>
             <TextBlock x:Name="SelectedBestBefore" Margin="20,114,0,0" TextWrapping="Wrap" Text="Mindst holdbar til:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16"/>
-            <TextBox Name="SelectedBestBeforeTB" Margin="154,116,394,475"/>
+            <DatePicker x:Name="SelectedBestBeforeTB" HorizontalAlignment="Left" Margin="154,114,0,0" VerticalAlignment="Top" Width="120"/>
+
             <Button Style="{DynamicResource NoChromeButton}" x:Name="BtnEdit" Content="" Focusable="False" Margin="0,20,20,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" FontSize="20" Click="BtnEdit_Click" BorderBrush="{x:Null}">
                 <Button.Background>
                     <ImageBrush ImageSource="{StaticResource ImgEdit}"/>
@@ -39,7 +40,6 @@
                     <ImageBrush ImageSource="{StaticResource ImgRemove}"/>
                 </Button.Background>
             </Button>
-
         </Grid>
         <DataGrid x:Name="DataGridItems" HorizontalAlignment="Left" Margin="10,100,0,10" Width="600" FontSize="20" SelectionChanged="DataGridItems_SelectionChanged" IsReadOnly="True">
             <DataGrid.Columns>

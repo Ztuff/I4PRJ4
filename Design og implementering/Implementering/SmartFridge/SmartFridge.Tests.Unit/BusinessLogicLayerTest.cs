@@ -25,18 +25,20 @@ namespace SmartFridge.Tests.Unit
         }
 
         [Test]
-        public void CreateNewItem_4ParametersInserted_Same4ParametersInNewItem()
+        public void CreateNewItem_5ParametersInserted_Same5ParametersInNewItem()
         {
             string type = "type";
             uint amount = 1;
             uint size = 1;
             string unit = "unit";
+            DateTime year3000 = new DateTime(3000,1,1);
 
-            var item = uut.CreateNewItem(type, amount, size, unit);
+            var item = uut.CreateNewItem(type, amount, size, unit, year3000);
             Assert.AreEqual(type, item.Type);
             Assert.AreEqual(amount, item.Amount);
             Assert.AreEqual(size, item.Size);
             Assert.AreEqual(unit, item.Unit);
+            Assert.AreEqual(year3000, item.ShelfLife.Value.Date);
         }
 
         [Test]

@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 
 public class ListItem
@@ -14,6 +15,7 @@ public class ListItem
     public int Amount { get; set; }
     public int Volume { get; set; }
     public string Unit { get; set; }
+    public DateTime? ShelfLife { get; set; }
 
     private List _list;
     private int _listId;

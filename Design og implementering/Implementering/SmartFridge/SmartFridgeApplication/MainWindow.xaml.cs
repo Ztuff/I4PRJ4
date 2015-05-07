@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace SmartFridgeApplication
         Clock clock = new Clock();
         Popup popup = new Popup();
         StackPanel Panel = new StackPanel();
+        private EventTimer eventT;
         
         private SyncStatus syncStatus = SyncStatus.Synced;
         public CtrlTemplate CtrlTemp = new CtrlTemplate();
@@ -56,7 +58,7 @@ namespace SmartFridgeApplication
             //TimeBlock.DataContext = clock.Time;
             CtrlTemp._bll.CurrentList = "Køleskab";
             var items = CtrlTemp._bll.WatchItems;
-            EventTimer eventT = new EventTimer(this, 30);
+            eventT = new EventTimer(this, 30);
             eventT.TriggerShelfChecking();
             eventT.TriggerSyncing();
             popup.StaysOpen = false;
@@ -83,15 +85,22 @@ namespace SmartFridgeApplication
 
         public void UpdateNotificationsAmount()
         {
-            TextBoxNotifications.Content = CtrlTemp._bll.Notifications.Count.ToString();
+            Dispatcher.Invoke(()=> TextBoxNotifications.Content = CtrlTemp._bll.Notifications.Count.ToString());
             UpdateNotificationsButton();
         }
 
         private void UpdateNotificationsButton()
         {
-            NotificationsButton.IsEnabled = CtrlTemp._bll.Notifications.Count != 0;
-            if (CtrlTemp._bll.Notifications.Count == 0)
-                popup.IsOpen = false;
+            Dispatcher.Invoke(() =>
+                NotificationsButton.IsEnabled = CtrlTemp._bll.Notifications.Count != 0);
+
+            int count = 0;
+            Dispatcher.Invoke(() => count = CtrlTemp._bll.Notifications.Count);
+
+           if (count == 0)
+           {
+                Dispatcher.Invoke(() => popup.IsOpen = false);
+           }
         }
 
         private void BackButton_Clicked(object sender, RoutedEventArgs e)
@@ -123,7 +132,11 @@ namespace SmartFridgeApplication
 
         private void SyncButton_OnClick(object sender, RoutedEventArgs e)
         {
+
+            eventT.SyncSecondsElapsed = 0;
+            eventT.TriggerSyncing();
             SyncTest();
+            
         }
 
         private void SyncTest()

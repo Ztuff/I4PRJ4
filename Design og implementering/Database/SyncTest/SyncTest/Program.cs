@@ -13,8 +13,8 @@ namespace SyncTest
             var serverConn = new AppConnectionFactory("SmartFridgeConn");
             var clientConn = new AppConnectionFactory("SmartFridgeConn2");
             var sync = new DbSync(serverConn,clientConn);
-            //sync.ProvisionServer();
-            //sync.ProvisionClient();
+            sync.ProvisionServer();
+            sync.ProvisionClient();
             sync.Sync();
         }
     }
