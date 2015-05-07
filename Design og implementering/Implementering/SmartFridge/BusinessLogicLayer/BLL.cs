@@ -174,7 +174,7 @@ namespace BusinessLogicLayer
                                     Size = (uint)listItem.Volume,
                                     Unit = listItem.Unit,
                                     ID = listItem.ItemId
-                                    
+
                                 };
                                 list.ItemList.Add(guiItem);
                                 break;
@@ -200,11 +200,13 @@ namespace BusinessLogicLayer
             var list = new List<Notification>();
             foreach (var item in items.ItemList)
             {
-
-                if (item.ShelfLife.Date <= DateTime.Now)
-                { //The item is seen as 'expired' when we're on the same day as its expiration date
-                    string message = item.Type + " blev for gammel d. " + DateTime.Now.Date;
-                    list.Add(new Notification(message, DateTime.Now, item.ID));
+                if (item.ShelfLife != null)
+                {
+                    if (item.ShelfLife.Value.Date <= DateTime.Now)
+                    { //The item is seen as 'expired' when we're on the same day as its expiration date
+                        string message = item.Type + " blev for gammel d. " + DateTime.Now.Date;
+                        list.Add(new Notification(message, DateTime.Now, item.ID));
+                    }
                 }
 
             }
@@ -223,13 +225,14 @@ namespace BusinessLogicLayer
             return false;
         }
 
-        public GUIItem CreateNewItem(string type, uint amount, uint size, string unit)
+        public GUIItem CreateNewItem(string type, uint amount, uint size, string unit, DateTime? shelfLife)
         {
             GUIItem item = new GUIItem();
             item.Type = type;
             item.Amount = amount;
             item.Size = size;
             item.Unit = unit;
+            item.ShelfLife = shelfLife;
             return item;
         }
 
@@ -237,7 +240,7 @@ namespace BusinessLogicLayer
         {
 
             GUIItemList currentGuiItemList = null;
-            if(Lists == null) //Hvis den liste vi vil tilføje items til ikke findes, opretter vi den OBS: currentList er den lokale, CurrentList er klassens 
+            if (Lists == null) //Hvis den liste vi vil tilføje items til ikke findes, opretter vi den OBS: currentList er den lokale, CurrentList er klassens 
             {
                 CurrentList = currentListName;
                 CreateList();
@@ -252,7 +255,7 @@ namespace BusinessLogicLayer
             }
             if (currentGuiItemList == null) //Hvis listen ikke er opretet smides en exception
                 throw new Exception();
-                                                                         
+
             bool newItemAdded = false;
             using (var uow = Context.CreateUnitOfWork())
             {
@@ -450,9 +453,9 @@ namespace BusinessLogicLayer
             {
                 foreach (var dbListItem in _dblistItems)
                 {
-                    if (dbListItem.Item.ItemName == oldItem.Type && 
-                        dbListItem.Unit == oldItem.Unit && 
-                        (uint)dbListItem.Volume == oldItem.Size && 
+                    if (dbListItem.Item.ItemName == oldItem.Type &&
+                        dbListItem.Unit == oldItem.Unit &&
+                        (uint)dbListItem.Volume == oldItem.Size &&
                         dbListItem.Amount == oldItem.Amount &&
                         dbListItem.ListId == currentGuiItemList.ID)
                     {
@@ -467,9 +470,9 @@ namespace BusinessLogicLayer
                                 }
                             }
                         }
-                        
-                        ListItem updatedListItem = new ListItem((int)newItem.Amount, 
-                                                                (int)newItem.Size, 
+
+                        ListItem updatedListItem = new ListItem((int)newItem.Amount,
+                                                                (int)newItem.Size,
                                                                 newItem.Unit,
                                                                 dbListItem.List,
                                                                 dbListItem.Item);
@@ -483,30 +486,30 @@ namespace BusinessLogicLayer
 
             }
             //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
-        } 
-      /*  #region ChangeItem - Old
-        public void ChangeItem(GUIItem oldItem, GUIItem newItem)
-        {
-            using (var uow = Context.CreateUnitOfWork())
-            {
-                foreach (var ListItemToEdit in _dblistItems)
-                {
-                    if (ListItemToEdit.Item.ItemName == oldItem.Type && ListItemToEdit.Unit == oldItem.Unit && (uint)ListItemToEdit.Volume == oldItem.Size && ListItemToEdit.Amount == oldItem.Amount)
-                    {
+        }
+        /*  #region ChangeItem - Old
+          public void ChangeItem(GUIItem oldItem, GUIItem newItem)
+          {
+              using (var uow = Context.CreateUnitOfWork())
+              {
+                  foreach (var ListItemToEdit in _dblistItems)
+                  {
+                      if (ListItemToEdit.Item.ItemName == oldItem.Type && ListItemToEdit.Unit == oldItem.Unit && (uint)ListItemToEdit.Volume == oldItem.Size && ListItemToEdit.Amount == oldItem.Amount)
+                      {
 
-                        ListItemToEdit.Item.ItemName = newItem.Type;
-                        ListItemToEdit.Unit = newItem.Unit;
-                        ListItemToEdit.Volume = (int)newItem.Size;
-                        ListItemToEdit.Amount = (int)newItem.Amount;
-                        _listItemRepository.Update(ListItemToEdit);
-                        uow.SaveChanges();
-                        break;
-                    }
-                }
+                          ListItemToEdit.Item.ItemName = newItem.Type;
+                          ListItemToEdit.Unit = newItem.Unit;
+                          ListItemToEdit.Volume = (int)newItem.Size;
+                          ListItemToEdit.Amount = (int)newItem.Amount;
+                          _listItemRepository.Update(ListItemToEdit);
+                          uow.SaveChanges();
+                          break;
+                      }
+                  }
 
-            }
-            //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
-        } #endregion*/
+              }
+              //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
+          } #endregion*/
 
         public void STDToShopListControl(string ListWithNewItem)
         {
@@ -544,7 +547,7 @@ namespace BusinessLogicLayer
                         {
                             if (ownedListItem.Amount >= STDListItem.Amount)
                             {
-                            mangler.Remove(STDListItem);    
+                                mangler.Remove(STDListItem);
                             }
                             if (ownedListItem.Amount <= STDListItem.Amount)
                             {
@@ -558,15 +561,15 @@ namespace BusinessLogicLayer
                 {
                     GUIItem ItemToAdd = new GUIItem(STDListItem.Item.ItemName,
                                                     (uint)STDListItem.Amount,
-                                                    (uint) STDListItem.Volume,
+                                                    (uint)STDListItem.Volume,
                                                     STDListItem.Unit);
                     ItemsToAdd.Add(ItemToAdd);
                 }
-                    CurrentList = "Indkøbsliste"; //Sætter at den liste vi skal til at tilføje til hedder Indkøbsliste
-                    AddItemsToTable("Indkøbsliste", ItemsToAdd);
-                    CurrentList = ListWithNewItem; //Sætter at den liste vi arbejder på, er den liste vi tilføjede til
+                CurrentList = "Indkøbsliste"; //Sætter at den liste vi skal til at tilføje til hedder Indkøbsliste
+                AddItemsToTable("Indkøbsliste", ItemsToAdd);
+                CurrentList = ListWithNewItem; //Sætter at den liste vi arbejder på, er den liste vi tilføjede til
             }
-            else { throw new Exception("List not recognized");}
+            else { throw new Exception("List not recognized"); }
         }
     }
 }
