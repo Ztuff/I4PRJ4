@@ -83,15 +83,22 @@ namespace SmartFridgeApplication
 
         public void UpdateNotificationsAmount()
         {
-            TextBoxNotifications.Content = CtrlTemp._bll.Notifications.Count.ToString();
+            Dispatcher.Invoke(()=> TextBoxNotifications.Content = CtrlTemp._bll.Notifications.Count.ToString());
             UpdateNotificationsButton();
         }
 
         private void UpdateNotificationsButton()
         {
-            NotificationsButton.IsEnabled = CtrlTemp._bll.Notifications.Count != 0;
-            if (CtrlTemp._bll.Notifications.Count == 0)
-                popup.IsOpen = false;
+            Dispatcher.Invoke(() =>
+                NotificationsButton.IsEnabled = CtrlTemp._bll.Notifications.Count != 0);
+
+            int count = 0;
+            Dispatcher.Invoke(() => count = CtrlTemp._bll.Notifications.Count);
+
+           if (count == 0)
+           {
+                Dispatcher.Invoke(() => popup.IsOpen = false);
+           }
         }
 
         private void BackButton_Clicked(object sender, RoutedEventArgs e)
