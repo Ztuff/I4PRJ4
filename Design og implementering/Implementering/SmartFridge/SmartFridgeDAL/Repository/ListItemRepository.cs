@@ -63,7 +63,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"DELETE FROM ListItem Where ListId = @ListId AND ItemId = @ItemId AND Amount = @Amount AND Volume = @Volume AND Unit = @Unit AND ShelfLife = @ShelfLife";
+                command.CommandText = @"DELETE FROM ListItem Where ListId = @ListId AND ItemId = @ItemId AND Amount = @Amount AND Volume = @Volume AND Unit = @Unit";
                 
                 var listParam = command.CreateParameter();
                 listParam.ParameterName = "@ListId";
@@ -89,11 +89,6 @@ namespace DataAccessLayer.Repository
                 unitParam.ParameterName = "@Unit";
                 unitParam.Value = listItem.Unit;
                 command.Parameters.Add(unitParam);
-
-                var shelfParam = command.CreateParameter();
-                shelfParam.ParameterName = "@ShelfLife";
-                shelfParam.Value = listItem.ShelfLife;
-                command.Parameters.Add(shelfParam);
 
                 command.ExecuteNonQuery();
             }
