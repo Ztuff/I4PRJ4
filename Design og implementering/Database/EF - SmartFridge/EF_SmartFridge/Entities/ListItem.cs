@@ -11,6 +11,7 @@ namespace EF_SmartFridge.Entities
         public int Amount { get; set; }
         public int Volume { get; set; }
         public string Unit { get; set; }
+        public DateTime? ShelfLife { get; set; }
 
         public List List { get; set; }
         public int ListId { get; set; }
@@ -35,9 +36,7 @@ namespace EF_SmartFridge.Entities
             Volume = volume;
             Unit = unit;
             List = list;
-            ListId = list.ListId;
             Item = item;
-            ItemId = item.ItemId;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace EF_SmartFridge
 {
     public class SmartFridgeContext : DbContext
     {
-        public SmartFridgeContext() : base("EFSmartFridgeConn")
+        public SmartFridgeContext() : base("SmartFridgeConn2")
         {   
         }
 

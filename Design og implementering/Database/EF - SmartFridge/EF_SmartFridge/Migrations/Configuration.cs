@@ -11,6 +11,7 @@ namespace EF_SmartFridge.Migrations
         {
             AutomaticMigrationsEnabled = false;
             ContextKey = "EF_SmartFridge.SmartFridgeContext";
+            SetSqlGenerator("MySql.Data.MySqlClient", new MySql.Data.Entity.MySqlMigrationSqlGenerator());
         }
 
         protected override void Seed(EF_SmartFridge.SmartFridgeContext context)

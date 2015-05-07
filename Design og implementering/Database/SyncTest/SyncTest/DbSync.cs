@@ -43,7 +43,7 @@ namespace SyncTest
 
         public void ProvisionClient()
         {
-            var clientConn = (SqlConnection)_clientConn.Create();
+            var clientConn = (SqlConnection) _clientConn.Create();
             var serverConn = (SqlConnection) _serverConn.Create();
 
             var clientProvision = new SqlSyncScopeProvisioning(clientConn);

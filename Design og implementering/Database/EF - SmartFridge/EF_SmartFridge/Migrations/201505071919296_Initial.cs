@@ -3,7 +3,7 @@ namespace EF_SmartFridge.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -12,9 +12,9 @@ namespace EF_SmartFridge.Migrations
                 c => new
                     {
                         ItemId = c.Int(nullable: false, identity: true),
-                        ItemName = c.String(),
+                        ItemName = c.String(unicode: false),
                         StdVolume = c.Int(nullable: false),
-                        StdUnit = c.String(),
+                        StdUnit = c.String(unicode: false),
                     })
                 .PrimaryKey(t => t.ItemId);
             
@@ -26,7 +26,8 @@ namespace EF_SmartFridge.Migrations
                         ItemId = c.Int(nullable: false),
                         Amount = c.Int(nullable: false),
                         Volume = c.Int(nullable: false),
-                        Unit = c.String(),
+                        Unit = c.String(unicode: false),
+                        ShelfLife = c.DateTime(precision: 0),
                     })
                 .PrimaryKey(t => new { t.ListId, t.ItemId })
                 .ForeignKey("dbo.Items", t => t.ItemId, cascadeDelete: true)
@@ -39,7 +40,7 @@ namespace EF_SmartFridge.Migrations
                 c => new
                     {
                         ListId = c.Int(nullable: false, identity: true),
-                        ListName = c.String(),
+                        ListName = c.String(unicode: false),
                     })
                 .PrimaryKey(t => t.ListId);
             
