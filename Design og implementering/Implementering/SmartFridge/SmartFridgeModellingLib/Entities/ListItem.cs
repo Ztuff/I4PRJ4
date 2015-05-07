@@ -14,6 +14,7 @@ public class ListItem
     public int Amount { get; set; }
     public int Volume { get; set; }
     public string Unit { get; set; }
+    public DateTime ShelfLife { get; set; }
 
     private List _list;
     private int _listId;
