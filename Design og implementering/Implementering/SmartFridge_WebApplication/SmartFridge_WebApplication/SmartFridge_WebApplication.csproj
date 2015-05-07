@@ -50,6 +50,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -126,10 +129,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AddItemController.cs" />
+    <Compile Include="Controllers\EditItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LisViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\GUIItem.cs" />
+    <Compile Include="Models\GUIItemList.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\List.cs" />
     <Compile Include="Models\ListItem.cs" />
@@ -262,9 +270,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Images\Thumbs.db" />
-    <Content Include="Views\Home\ListView.cshtml" />
-    <Content Include="Views\Home\AddItem.cshtml" />
-    <Content Include="Views\Home\EditItem.cshtml" />
+    <Content Include="Views\AddItem\AddItem.cshtml" />
+    <Content Include="Views\EditItem\EditItem.cshtml" />
+    <Content Include="Views\LisView\ListView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
