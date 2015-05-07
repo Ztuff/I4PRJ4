@@ -19,11 +19,11 @@ namespace UserControlLibrary
         private CtrlTemplate _ctrlTemp;
         public string ListType;
         public CtrlTemplate CtrlTemp { get; set; }
-       // IData fakeData = new FakeData();        // Vi skal have fjernet fakes fra alt andet end tests - hurtigst muligt!
+        // IData fakeData = new FakeData();        // Vi skal have fjernet fakes fra alt andet end tests - hurtigst muligt!
         // skal bruges i stedet for fake når READ virker fra Rep-laget 
         GUIItem selectedItemOld = new GUIItem();
         GUIItem selectedItem = new GUIItem(); //(GUIItem)DataGridItems.SelectedItem;
-        ObservableCollection<GUIItem>GUIItems;
+        ObservableCollection<GUIItem> GUIItems;
         List<string> unitNames = new List<string>();
 
         public CtrlItemList(string listType, CtrlTemplate ctrlTemp)
@@ -32,7 +32,7 @@ namespace UserControlLibrary
             _ctrlTemp = ctrlTemp;
             ListType = listType;
             LabelItemList.Content = ListType;
-         //  GUIItems = fakeData.GetItemsFromTable(ListType);
+            //  GUIItems = fakeData.GetItemsFromTable(ListType);
             _ctrlTemp._bll.CurrentList = ListType;
             GUIItems = _ctrlTemp._bll.WatchItems;//kan ikke hente data før READ er fikset
             LoadItemData();
@@ -48,12 +48,12 @@ namespace UserControlLibrary
         {
             DataGridItems.AutoGenerateColumns = false;
             DataGridItems.CanUserAddRows = false;
-            DataGridItems.ItemsSource =GUIItems;
+            DataGridItems.ItemsSource = GUIItems;
             DataGridTextColumn name = new DataGridTextColumn();
             name.Header = "Navn";
             name.Binding = new Binding("Type");
             DataGridItems.Columns.Add(name);
-            DataGridTextColumn amount = new DataGridTextColumn();       
+            DataGridTextColumn amount = new DataGridTextColumn();
             amount.Header = "Antal";
             amount.Binding = new Binding("Amount");
             DataGridItems.Columns.Add(amount);
@@ -68,7 +68,7 @@ namespace UserControlLibrary
             // name.Width = DataGridItems.ActualWidth - amount.ActualWidth - size.ActualWidth - unit.ActualWidth;
             // Vi ser lige på at lave en dynamisk bredde på Navn
             // Midlertidig løsning:
-           // name.Width = 195;
+            // name.Width = 195;
             DataGridItems.Columns[0].Width = 70;
             DataGridItems.Columns[1].Width = 292;
             DataGridItems.Columns[2].Width = 70;
@@ -76,7 +76,7 @@ namespace UserControlLibrary
             DataGridItems.Columns[4].Width = 70;
             //DataGridItems.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; //VIRKER IKKE!
 
-            
+
 
 
             //LabelItemList.Content =GUIItems[0].ItemType;
@@ -91,6 +91,8 @@ namespace UserControlLibrary
                 SelectedItemType.Content = selectedItem.Type;
                 SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
                 SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
+                if (selectedItem.ShelfLife != null)
+                    SelectedBestBeforeTB.SelectedDate = selectedItem.ShelfLife.Value;
                 BtnEdit.Background = new ImageBrush { ImageSource = TryFindResource("ImgEdit") as ImageSource };
                 BtnInc.Background = new ImageBrush { ImageSource = TryFindResource("ImgAdd") as ImageSource };
                 BtnDec.Background = new ImageBrush { ImageSource = TryFindResource("ImgRemove") as ImageSource };
@@ -134,30 +136,30 @@ namespace UserControlLibrary
             if (selectedItem != null)
             {
                 selectedItem = (GUIItem)DataGridItems.SelectedItem;
-                selectedItemOld.Type = selectedItem.Type;                
+                selectedItemOld.Type = selectedItem.Type;
                 selectedItemOld.Unit = selectedItem.Unit;
                 selectedItemOld.Size = selectedItem.Size;
                 selectedItemOld.Amount = selectedItem.Amount;
                 selectedItemOld.ShelfLife = selectedItem.ShelfLife;
-                
+
                 selectedItem.Amount -= 1;
-                
+
                 if (selectedItem.Amount <= 0)
                 {
                     _ctrlTemp._bll.DeleteItem(selectedItem); //Hvis det valgte Item rammer 0, og skal slettes
-                   GUIItems.Remove(selectedItem);
+                    GUIItems.Remove(selectedItem);
                     DataGridItems.UnselectAllCells();
                     DataGridItems.Items.Refresh();
                     DataGridItems.SelectedIndex = 0;
-                    
+
                 }
                 else
-                { 
-                SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
-                _ctrlTemp._bll.ChangeItem(selectedItemOld, selectedItem);
+                {
+                    SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
+                    _ctrlTemp._bll.ChangeItem(selectedItemOld, selectedItem);
                 }
             }
-            
+
             GUIItems = _ctrlTemp._bll.WatchItems; //Reloader vores guiItems så de passer med DB
             DataGridItems.Items.Refresh();
         }
@@ -170,7 +172,7 @@ namespace UserControlLibrary
             {
                 //selectedItemOld = selectedItem;
 
-                selectedItemOld.Type = selectedItem.Type;                
+                selectedItemOld.Type = selectedItem.Type;
                 selectedItemOld.Unit = selectedItem.Unit;
                 selectedItemOld.Size = selectedItem.Size;
                 selectedItemOld.Amount = selectedItem.Amount;
@@ -195,13 +197,13 @@ namespace UserControlLibrary
 
         private async void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
- 
-                GUIItem itemDelete = DataGridItems.SelectedItem as GUIItem;
-                GUIItems.Remove(itemDelete);
-                _ctrlTemp._bll.DeleteItem(itemDelete); //Calling BLL delete through CtrlTemplate
-                DataGridItems.UnselectAllCells();
-                DataGridItems.SelectedIndex = 0;
-            
+
+            GUIItem itemDelete = DataGridItems.SelectedItem as GUIItem;
+            GUIItems.Remove(itemDelete);
+            _ctrlTemp._bll.DeleteItem(itemDelete); //Calling BLL delete through CtrlTemplate
+            DataGridItems.UnselectAllCells();
+            DataGridItems.SelectedIndex = 0;
+
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -270,9 +272,7 @@ namespace UserControlLibrary
             SelectedUnitTB.Opacity = 100;
             SelectedUnitCB.IsReadOnly = false;
             SelectedUnitCB.Opacity = 100;
-            SelectedBestBeforeTB.IsReadOnly = false;
             SelectedBestBeforeTB.Opacity = 100;
-            SelectedBestBeforeTB.Opacity = 0;
             BtnAccept.IsEnabled = true;
             BtnAccept.Opacity = 100;
             BtnCancel.IsEnabled = true;
@@ -291,7 +291,6 @@ namespace UserControlLibrary
             SelectedUnitTB.Opacity = 0;
             SelectedUnitCB.IsReadOnly = true;
             SelectedUnitCB.Opacity = 0;
-            SelectedBestBeforeTB.IsReadOnly = true;
             SelectedBestBeforeTB.Opacity = 0;
             BtnAccept.IsEnabled = false;
             BtnAccept.Opacity = 0;
