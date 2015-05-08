@@ -6,8 +6,8 @@ h1 {
     text-align: center;
     font-weight: bold;
     font-size: 300%;
-
 }
+
 #wrapper {
     margin: 0 auto;
     width: 80%;
@@ -16,22 +16,21 @@ h1 {
 }
 
 header {
-
     font-weight: bold;
     padding: 1%;
     text-align: left;
-} 
+}
 
 
 footer {
     font-size: 10px;
     text-align: center;
-    padding: 1%
+    padding: 1%;
 }
 
 #content {
     text-align: center;
-    padding: 5%
+    padding: 5%;
 }
 
 button {
@@ -42,6 +41,13 @@ button {
 .MenuImg {
     width: 5%;
     height: auto;
+}
+
+.RowImg {
+    width: 4em;
+    height: auto;
+    margin: 0;
+    padding: 0;
 }
 
 .NewItem {
@@ -60,9 +66,22 @@ button {
 }
 
 .column {
-    width:1%
+    width: 1%;
 }
 
-#grid {
-    background-color:azure;
+tbody {
+    height: 5em;
+    text-align: center;
+}
+
+td {
+    padding: 0 1.5em 0 1.5em
+}
+
+.oddRow {
+    background-color: white;
+}
+
+.evenRow {
+    background-color: lightgray;
 }

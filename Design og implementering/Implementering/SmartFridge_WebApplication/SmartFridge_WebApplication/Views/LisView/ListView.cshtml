@@ -4,6 +4,72 @@
     ViewBag.Title = "ListView";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var grid = new WebGrid(Model, defaultSort: "null");
+    
+    IEnumerable<WebGridColumn> cols =
+            new List<WebGridColumn> {
+                new WebGridColumn{
+                    Format =
+                    @<text>
+                        <a href='#' class="display edit-btn">
+                            @using (Html.BeginForm("EditItem", "EditItem"))
+                            {
+                                <input type="image" src="~/Images/Edit.png" alt="Submit" class="RowImg"/>
+                            }
+                        </a>
+                    </text>
+                },
+                new WebGridColumn{
+                    Format =
+                    @<text>
+                        <a href='#' class="display edit-btn">
+                            @using (Html.BeginForm("EditItem", "EditItem"))
+                            {
+                                <input type="image" src="~/Images/Trash.png" alt="Submit" class="RowImg" />
+                            }
+                        </a>
+                    </text>
+                },
+                new WebGridColumn{
+                    Header="Amount",
+                    Format = @<text>
+                        <span class="display">
+                            <label id="lblAmount">@item.Amount</label>
+                        </span>
+                    </text>
+                },
+                new WebGridColumn{
+                    Header="ShelfLife",
+                    Format = @<text>
+                        <span class="display">
+                            <label id="lblShelfLife">@item.ShelfLife</label>
+                        </span>
+                    </text>
+                },
+                new WebGridColumn{
+                    Header="Size",
+                    Format = @<text>
+                        <span class="display">
+                            <label id="lblSize">@item.Size</label>
+                        </span>
+                    </text>
+                },
+                new WebGridColumn{
+                    Header="Type",
+                    Format = @<text>
+                        <span class="display">
+                            <label id="lblType">@item.Type</label>
+                        </span>
+                    </text>
+                },
+                new WebGridColumn{
+                    Header="Unit",
+                    Format = @<text>
+                        <span class="display">
+                            <label id="lblUnit">@item.Unit</label>
+                        </span>
+                    </text>
+                }
+            };
 }
 
 <h2>ListView</h2>
@@ -18,12 +84,7 @@
 }
 
 
-<div id="grid">
-    @grid.GetHtml(columns: grid.Columns(
-            grid.Column("Amount", "Amount", canSort: true, style: "column"),
-            grid.Column("ShelfLife", "ShelfLife", canSort: true, style: "column"),
-            grid.Column("Size", "Size", canSort: true, style: "column"),
-            grid.Column("Type", "Type", canSort: true, style: "column"),
-            grid.Column("Unit", "Unit", canSort: true, style: "column")
-    ))
+<div align="center">
+    @grid.GetHtml(columns:cols, 
+            rowStyle:"oddRow", alternatingRowStyle:"evenRow")
 </div>
