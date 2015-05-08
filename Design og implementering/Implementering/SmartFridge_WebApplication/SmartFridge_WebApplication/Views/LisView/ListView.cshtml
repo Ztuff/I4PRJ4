@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SmartFridge_WebApplication.Models.GUIItem>
+﻿@using System.Diagnostics
+@model IEnumerable<SmartFridge_WebApplication.Models.GUIItem>
 @{
     ViewBag.Title = "ListView";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,5 +19,11 @@
 
 
 <div id="grid">
-    @grid.GetHtml()
+    @grid.GetHtml(columns: grid.Columns(
+            grid.Column("Amount", "Amount", canSort: true, style: "column"),
+            grid.Column("ShelfLife", "ShelfLife", canSort: true, style: "column"),
+            grid.Column("Size", "Size", canSort: true, style: "column"),
+            grid.Column("Type", "Type", canSort: true, style: "column"),
+            grid.Column("Unit", "Unit", canSort: true, style: "column")
+    ))
 </div>
