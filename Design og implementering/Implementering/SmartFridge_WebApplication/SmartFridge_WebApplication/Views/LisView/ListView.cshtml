@@ -1,0 +1,22 @@
+﻿@model IEnumerable<SmartFridge_WebApplication.Models.GUIItem>
+@{
+    ViewBag.Title = "ListView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var grid = new WebGrid(Model, defaultSort: "null");
+}
+
+<h2>ListView</h2>
+@using (Html.BeginForm("AddItem", "AddItem"))
+{
+    <input type="image" src="~/Images/AddItem.png" alt="Submit" class="MenuImg" />
+}
+
+@using (Html.BeginForm("EditItem", "EditItem"))
+{
+    <input type="image" src="~/Images/Edit.png" alt="Submit" class="MenuImg" />
+}
+
+
+<div id="grid">
+    @grid.GetHtml()
+</div>
