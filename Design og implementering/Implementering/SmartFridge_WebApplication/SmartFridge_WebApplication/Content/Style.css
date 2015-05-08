@@ -47,17 +47,16 @@ button {
 .NewItem {
     text-align: left;
     /*float: left;*/
-    width: 300px;
 }
 
 .AddedItems {
-    margin-left: 300px;
+    margin-left: 0px;
     text-align: left;
 }
 
 .AddImg {
-    width: 20%;
-    height: auto;
+    width: 5em;
+    margin: 0 auto 0 auto;
 }
 
 #grid {
