@@ -1,3 +1,5 @@
+using DAL.Context;
+
 namespace DAL.Migrations
 {
     using System;
@@ -5,14 +7,14 @@ namespace DAL.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DAL.SFContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<SFContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DAL.SFContext context)
+        protected override void Seed(SFContext context)
         {
             //  This method will be called after migrating to the latest version.
 

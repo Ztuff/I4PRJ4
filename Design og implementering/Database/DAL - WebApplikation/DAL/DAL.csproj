@@ -46,18 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISmartFridgeDALFacade.cs" />
     <Compile Include="Migrations\201505091352427_Initial.cs" />
     <Compile Include="Migrations\201505091352427_Initial.Designer.cs">
       <DependentUpon>201505091352427_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
-    <Compile Include="SFContext.cs" />
+    <Compile Include="Context\SFContext.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\List.cs" />
     <Compile Include="Entities\ListItem.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SmartFridgeDALFacade.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>

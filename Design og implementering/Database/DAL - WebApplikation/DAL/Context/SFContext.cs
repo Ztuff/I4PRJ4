@@ -1,24 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 using DAL.Entities;
 
-namespace DAL
+namespace DAL.Context
 {
     public class SFContext : DbContext
     {
-        public SFContext() : base("SmartFridgeDb")
-        {   
-        }
 
         public DbSet<List> Lists { get; set; }
         public DbSet<ListItem> ListItems { get; set; }
         public DbSet<Item> Items { get; set; }
 
-       protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        #region Constructors
+
+        public SFContext()
+        {
+        }
+
+        public SFContext(string databaseName)
+            : base(databaseName)
+        {
+        }
+
+        #endregion
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ListItem>().HasKey(li => new { li.ListId, li.ItemId });
 
