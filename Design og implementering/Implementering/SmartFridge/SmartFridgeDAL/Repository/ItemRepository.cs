@@ -14,8 +14,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"INSERT INTO Item (ItemName,StandardVolume,StandardUnit) 
-                                        OUTPUT INSERTED.ItemId VALUES(@ItemName,@StandardVolume,@StandardUnit)";
+                command.CommandText = @"DECLARE @InsertItem TABLE ([ItemId] INT); INSERT INTO [Item] ([ItemName],[StandardVolume],[StandardUnit]) OUTPUT [inserted].ItemId INTO @InsertItem VALUES(@ItemName,@StandardVolume,@StandardUnit); SELECT * FROM @InsertItem";
                 var nameParam = command.CreateParameter();
                 nameParam.ParameterName = "@ItemName";
                 nameParam.Value = item.ItemName;

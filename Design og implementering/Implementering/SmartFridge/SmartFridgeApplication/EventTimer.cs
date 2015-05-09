@@ -45,9 +45,9 @@ namespace SmartFridgeApplication
 
         private void SetUpSyncing()
         {
-            //_localDatabaseConnection = new AppConnectionFactory("SmartFridgeConn");
-            //_externalDatabaseConnection = new AppConnectionFactory("SmartFridgeConn2");
-            //_sync = new DbSync(_externalDatabaseConnection, _localDatabaseConnection);
+            _localDatabaseConnection = new AppConnectionFactory("SmartFridgeConn");
+            _externalDatabaseConnection = new AppConnectionFactory("SmartFridgeConn2");
+            _sync = new DbSync(_externalDatabaseConnection, _localDatabaseConnection);
         }
 
         public void OnTimedEventSync(object source, ElapsedEventArgs e)
@@ -107,11 +107,9 @@ namespace SmartFridgeApplication
 
         public void TriggerSyncing()
         {
-            /*
             _sync.ProvisionServer();
             _sync.ProvisionClient();
             _sync.Sync();
-             */
         }
     }
 }
