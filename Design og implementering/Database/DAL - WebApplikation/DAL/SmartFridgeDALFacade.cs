@@ -16,6 +16,19 @@ namespace DAL
 
         public string DatabaseName { get; set; }
 
+        #region Constructors
+
+        public SmartFridgeDALFacade()
+        {
+            
+        }
+
+        public SmartFridgeDALFacade(string databaseName)
+        {
+            DatabaseName = databaseName;
+        }
+
+        #endregion
         public IUnitOfWork GetUnitOfWork()
         {
             if (_unitOfWork != null)

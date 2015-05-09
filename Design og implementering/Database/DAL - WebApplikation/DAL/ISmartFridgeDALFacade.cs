@@ -9,7 +9,7 @@ using DAL.UnitOfWork;
 namespace DAL
 {
     //Facade for the DAL.
-    interface ISmartFridgeDALFacade
+    public interface ISmartFridgeDALFacade
     {
         //Creates a UoW. Only allows one instance, so if UoW is in use, throws exception.
         IUnitOfWork GetUnitOfWork();
