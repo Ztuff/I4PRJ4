@@ -9,30 +9,39 @@
     
     <label>Varetype</label>
     <br />
-    <input type="text" name="Varetype" />
-    <select></select>
+    <input type="text" name="Varetype"/>
+     
+
+@using (Html.BeginForm("AddItem", "AddItem")) {
+        @Html.DropDownList("ListNewGuiItems")
+}
+    @*<select></select>*@
     <br />
 
     <label>Antal</label>
-    <br />
-    <input type="text" name="Antal" />
-    <button>+</button>
-    <button>-</button>
-    <br />
+    <br/>
+    <input type="number" name="Antal" min="0"/>
+
+    @*<button>+</button>
+    <button>-</button>*@
+        <br />
 
     <label>Volumen</label>
     <br />
-    <input type="text" name="Volume" />
+    <input type="number" name="Volume" min="0"/>
     <select>
         <option value="l">l</option>
-        <option value="l">dl</option>
-        <option value="l">ml</option>
-        <option value="l">kg</option>
-        <option value="l">g</option>
+        <option value="dl">dl</option>
+        <option value="ml">ml</option>
+        <option value="kg">kg</option>
+        <option value="g">g</option>
         <option value="stk">stk</option>
     </select>
-    <br />
-    <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg" />
+    <br/>
+@using (Html.BeginForm())
+{
+    <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg"/>
+}
     @using (Html.BeginForm("ListView", "LisView"))
     {
         <input type="image" src="~/Images/AddAndExit.png" alt="Submit" class="AddImg" />
