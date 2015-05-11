@@ -19,7 +19,7 @@ namespace SmartFridge_WebApplication.Controllers
         //private IEnumerable<GUIItem> model;
         public ActionResult AddItem()
         {
-                   model = newGuiItems;
+                   
             
             //Test
             //ListItemTypes.Add(new Item("test1",42,"kgb"));
@@ -32,7 +32,7 @@ namespace SmartFridge_WebApplication.Controllers
             {
                 ListGuiItemTypes.Add(new SelectListItem { Text = GuiItemTypes.ItemName });
             }
-
+            model = newGuiItems;
             ViewBag.ListNewGuiItems = ListGuiItemTypes;
             return View(model);
         }
@@ -79,7 +79,7 @@ namespace SmartFridge_WebApplication.Controllers
              //ListBoxItems.Items.Refresh();
              model = newGuiItems;
             ViewBag.ListNewGuiItems = ListGuiItemTypes;
-             return RedirectToAction("AddItem"); //Viewet skal dog opdateres først
+             return View("~/Views/AddItem/AddItem.cshtml",model); //Viewet skal dog opdateres først
 
             #region FromWPF             
 

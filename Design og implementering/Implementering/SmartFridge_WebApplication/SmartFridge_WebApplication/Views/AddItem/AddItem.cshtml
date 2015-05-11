@@ -6,15 +6,16 @@
 
 
 <div class="NewItem" style="background-color: red; margin: 0 22em 0 22em">
-    
+    @using (Html.BeginForm("addNewItem", "AddItem"))
+    {
     <label>Varetype</label>
     <br />
     <input type="text" name="Varetype"/>
      
 
-@using (Html.BeginForm("AddItem", "AddItem")) {
+@*@using (Html.BeginForm("AddItem", "AddItem")) {
         @Html.DropDownList("ListNewGuiItems")
-}
+}*@
     @*<select></select>*@
     <br />
 
@@ -38,8 +39,7 @@
         <option value="stk">stk</option>
     </select>
     <br/>
-@using (Html.BeginForm())
-{
+
     <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg"/>
 }
     @using (Html.BeginForm("ListView", "LisView"))
@@ -50,11 +50,12 @@
 </div>
 <div class="AddedItems">
     <label>Nyligt tilføjede vare</label>
-    <br />
-    @{
-        var grid = new WebGrid(Model, defaultSort: "null");
-    }
+    <br/>
     <div id="grid">
+        @{
+            var grid = new WebGrid(Model, defaultSort: "null");
+        }
+
         @grid.GetHtml()
     </div>
 </div>
