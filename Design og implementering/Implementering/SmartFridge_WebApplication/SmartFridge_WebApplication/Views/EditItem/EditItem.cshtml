@@ -1,37 +1,40 @@
-﻿@{
+﻿@using SmartFridge_WebApplication.Models
+@{
     ViewBag.Title = "EditItem";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    GUIItem dataSource = ViewData["olditem"] as GUIItem;
 }
 
 
 <div class="NewItem">
-    <label>VareType</label>
-    <br />
-    <input type="text" name="Varetype" />
-    <select></select>
-    <br />
-    <label>Antal</label>
-    <br />
-    <input type="text" name="Antal" />
-    <table>
-        <tr><td><button>+</button></td></tr>
-        <tr><td><button>-</button></td></tr>
-    </table>
-    <br />
-    <label>Volumen</label>
-    <br />
-    <input type="text" name="Volume" />
-    <input type="text" name="Unit" />
-    <br />
-    @using (Html.BeginForm("ListView", "LisView"))
+    @using (Html.BeginForm("UpdateItem", "EditItem"))
     {
-        <input type="image" src="~/Images/OK.png" alt="Submit" class="AddImg"/>
-        //SKAL OGSÅ GØRE NOGET MERE!
+        <label>VareType</label>
+        <br/>
+        @Html.TextBox("Type", dataSource.Type)
+        <select></select>
+        <br />
+        <label>Antal</label>
+        <br />
+        @Html.TextBox("Amount", dataSource.Amount)
+        <table>
+            <tr><td><button>+</button></td></tr>
+            <tr><td><button>-</button></td></tr>
+        </table>
+        <br />
+        <label>Volumen</label>
+        <br />
+        @Html.TextBox("Volume", dataSource.Size)
+        @Html.TextBox("Unit", dataSource.Unit)
+        <br />
+
+
+        <input type="image" src="~/Images/OK.png" alt="Submit" class="AddImg" />
     }
     @using (Html.BeginForm("ListView", "LisView"))
     {
         <input type="image" src="~/Images/Cancel.png" alt="Submit" class="AddImg" />
     }
 
-</div>
 
+</div>
