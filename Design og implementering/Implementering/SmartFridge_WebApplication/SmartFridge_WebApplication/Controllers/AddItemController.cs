@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Objects;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -23,10 +22,10 @@ namespace SmartFridge_WebApplication.Controllers
                    model = newGuiItems;
             
             //Test
-            ListItemTypes.Add(new Item("test1",42,"kgb"));
-            ListItemTypes.Add(new Item("test2",42,"kgb"));
-            ListItemTypes.Add(new Item("test3",42,"kgb"));
-            ListItemTypes.Add(new Item("test4",42,"kgb"));
+            //ListItemTypes.Add(new Item("test1",42,"kgb"));
+            //ListItemTypes.Add(new Item("test2",42,"kgb"));
+            //ListItemTypes.Add(new Item("test3",42,"kgb"));
+            //ListItemTypes.Add(new Item("test4",42,"kgb"));
 
 
             foreach  (var GuiItemTypes in ListItemTypes ) 
