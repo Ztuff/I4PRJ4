@@ -5,9 +5,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using DAL.Context;
+using SmartFridge_WebApplication.DAL.Context;
 
-namespace DAL.Repository
+namespace SmartFridge_WebApplication.DAL.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {

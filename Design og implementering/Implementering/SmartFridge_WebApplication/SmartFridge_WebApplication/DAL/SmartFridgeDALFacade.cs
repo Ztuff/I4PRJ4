@@ -4,10 +4,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.Context;
-using DAL.UnitOfWork;
+using SmartFridge_WebApplication.DAL.Context;
+using SmartFridge_WebApplication.DAL.UnitOfWork;
 
-namespace DAL
+namespace SmartFridge_WebApplication.DAL
 {
     public class SmartFridgeDALFacade : ISmartFridgeDALFacade
     {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.Context;
+using SmartFridge_WebApplication.DAL.Context;
 using SmartFridge_WebApplication.Models;
-using DAL.Repository;
+using SmartFridge_WebApplication.DAL.Repository;
 
-namespace DAL.UnitOfWork
+namespace SmartFridge_WebApplication.DAL.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

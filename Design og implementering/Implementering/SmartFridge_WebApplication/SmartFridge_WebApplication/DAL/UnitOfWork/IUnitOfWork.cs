@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SmartFridge_WebApplication.Models;
-using DAL.Repository;
+using SmartFridge_WebApplication.DAL.Repository;
 
-namespace DAL.UnitOfWork
+namespace SmartFridge_WebApplication.DAL.UnitOfWork
 {
     public interface IUnitOfWork
     {

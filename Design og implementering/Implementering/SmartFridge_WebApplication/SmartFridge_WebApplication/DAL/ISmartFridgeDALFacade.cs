@@ -4,9 +4,9 @@ using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.UnitOfWork;
+using SmartFridge_WebApplication.DAL.UnitOfWork;
 
-namespace DAL
+namespace SmartFridge_WebApplication.DAL
 {
     //Facade for the DAL.
     public interface ISmartFridgeDALFacade

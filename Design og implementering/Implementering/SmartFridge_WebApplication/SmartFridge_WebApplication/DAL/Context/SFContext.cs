@@ -2,7 +2,7 @@
 using SmartFridge_WebApplication.Models;
 
 
-namespace DAL.Context
+namespace SmartFridge_WebApplication.DAL.Context
 {
     public class SFContext : DbContext
     {
