@@ -40,11 +40,11 @@
 
         <label>Holdbarhedsdato</label>
         <br />
-        <input type="date" name="Holdbarhedsdato" min="0" />
+        <input type="date" name="Holdbarhedsdato" min="0" id="LifeOfItem" autocomplete="on"/>
         <br />
 
 
-        <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg" />
+        <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg" id="addItemImgClicked"/>
         }
         @using (Html.BeginForm("ListView", "LisView"))
     {
