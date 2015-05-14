@@ -29,12 +29,14 @@ namespace DAL
         }
 
         #endregion
+
         public IUnitOfWork GetUnitOfWork()
         {
             if (_unitOfWork != null)
                 throw new InvalidOperationException("A Unit of Work is already in use.");
 
-            _context = new SFContext(DatabaseName);
+            _context = DatabaseName == null ? new SFContext() : new SFContext(DatabaseName);
+            
             _unitOfWork = new UnitOfWork.UnitOfWork(_context);
             return _unitOfWork;
         }
