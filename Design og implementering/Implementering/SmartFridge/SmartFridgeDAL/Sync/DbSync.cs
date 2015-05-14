@@ -11,18 +11,29 @@ using Microsoft.Synchronization.Data.SqlServer;
 
 namespace DataAccessLayer.Sync
 {
+    /// <summary>
+    /// Class for syncronization of two databases using Sync Framework.
+    /// </summary>
     public class DbSync
     {
         private readonly IConnectionFactory _serverConn;
         private readonly IConnectionFactory _clientConn;
         private readonly string _sScope = "SmartFridgeScope";
 
+        /// <summary>
+        /// Injects the server and client connections.
+        /// </summary>
+        /// <param name="serverConn"></param>
+        /// <param name="clientConn"></param>
         public DbSync(IConnectionFactory serverConn, IConnectionFactory clientConn)
         {
             _serverConn = serverConn;
             _clientConn = clientConn;
         }
 
+        /// <summary>
+        /// Provisions the database acting as server.
+        /// </summary>
         public void ProvisionServer()
         {
             var serverConn = (SqlConnection)_serverConn.Create();
@@ -46,6 +57,9 @@ namespace DataAccessLayer.Sync
             serverProvision.Apply();
         }
 
+        /// <summary>
+        /// Provisions the database acting as client.
+        /// </summary>
         public void ProvisionClient()
         {
             var clientConn = (SqlConnection)_clientConn.Create();
@@ -59,6 +73,9 @@ namespace DataAccessLayer.Sync
             clientProvision.Apply();
         }
 
+        /// <summary>
+        /// Syncronizes the databases.
+        /// </summary>
         public void Sync()
         {
             var clientConn = (SqlConnection)_clientConn.Create();
