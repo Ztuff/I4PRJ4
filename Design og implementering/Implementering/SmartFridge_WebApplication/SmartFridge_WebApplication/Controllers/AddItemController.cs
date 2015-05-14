@@ -27,10 +27,10 @@ namespace SmartFridge_WebApplication.Controllers
                    
             
             //Test
-            //ListItemTypes.Add(new Item("test1",42,"kgb"));
-            //ListItemTypes.Add(new Item("test2",42,"kgb"));
-            //ListItemTypes.Add(new Item("test3",42,"kgb"));
-            //ListItemTypes.Add(new Item("test4",42,"kgb"));
+            ListItemTypes.Add(new Item("Is"));
+            ListItemTypes.Add(new Item("Vingummi"));
+            ListItemTypes.Add(new Item("Chokolade"));
+            ListItemTypes.Add(new Item("Kage"));
 
 
             foreach  (var GuiItemTypes in ListItemTypes ) 
@@ -136,6 +136,15 @@ namespace SmartFridge_WebApplication.Controllers
 
 
         }
+
+        public string AsText()
+        {
+            return "apples, oranges, bananas";
+        }
+
+
+
+
 
         /*private GUIItem CreateNewItem()
         {

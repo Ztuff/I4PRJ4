@@ -231,6 +231,7 @@
     <Content Include="Images\Syncing-Small.gif" />
     <Content Include="Images\Syncing.gif" />
     <Content Include="Images\Trash.png" />
+    <Content Include="Scripts\addItemScripts.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

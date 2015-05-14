@@ -10,45 +10,45 @@
     {
     <label>Varetype</label>
     <br />
-    <input type="text" name="Varetype" required/>
-     
-
-@*@using (Html.BeginForm("AddItem", "AddItem")) {
-        @Html.DropDownList("ListNewGuiItems")
-}*@
-    @*<select></select>*@
-    <br />
-
-    <label>Antal</label>
-    <br/>
-    <input type="number" name="Antal" min="0"required/>
-    <br />
-      
-
-    <label>Volumen</label>
-    <br />
-    <input type="number" name="Volume" min="0"required/>
-    <select name="Enhed">
-        <option value="l">l</option>
-        <option value="dl">dl</option>
-        <option value="ml">ml</option>
-        <option value="kg">kg</option>
-        <option value="g">g</option>
-        <option value="stk">stk</option>
-    </select>
-        <br/>
+    <input type="text" name="Varetype" id="VaretypeText" required/>
         
-    <label>Holdbarhedsdato</label>
-    <br/>
-    <input type="date" name="Holdbarhedsdato" min="0"/>
-    <br />
-      
+           @Html.DropDownList("ListNewGuiItems", (IEnumerable<SelectListItem>)ViewBag.ListNewGuiItems, new
+           {
+               @id = "VaretypeDropDown"
+           })
+        
+        <br />
 
-    <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg"/>
-}
-    @using (Html.BeginForm("ListView", "LisView"))
+        <label>Antal</label>
+        <br />
+        <input type="number" name="Antal" min="0" required />
+        <br />
+
+
+        <label>Volumen</label>
+        <br />
+        <input type="number" name="Volume" min="0" required />
+        <select name="Enhed">
+            <option value="l">l</option>
+            <option value="dl">dl</option>
+            <option value="ml">ml</option>
+            <option value="kg">kg</option>
+            <option value="g">g</option>
+            <option value="stk">stk</option>
+        </select>
+        <br />
+
+        <label>Holdbarhedsdato</label>
+        <br />
+        <input type="date" name="Holdbarhedsdato" min="0" />
+        <br />
+
+
+        <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg" />
+        }
+        @using (Html.BeginForm("ListView", "LisView"))
     {
-        <input type="image" src="~/Images/AddAndExit.png" alt="Submit" class="AddImg" />
+            <input type="image" src="~/Images/AddAndExit.png" alt="Submit" class="AddImg" />
     }
 
 </div>
@@ -63,3 +63,7 @@
         @grid.GetHtml()
     </div>
 </div>
+
+@section scripts {
+    <script src="~/scripts/addItemScripts.js"></script>
+}
