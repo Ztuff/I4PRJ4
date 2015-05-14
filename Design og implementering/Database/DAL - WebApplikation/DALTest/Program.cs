@@ -16,10 +16,18 @@ namespace DALTest
             ISmartFridgeDALFacade dal = new SmartFridgeDALFacade("SmartFridgeDb");
 
             var uow = dal.GetUnitOfWork();
-
-            uow.ListRepo.Add(new List("testing"));
-
+            var list = new List("testing");
+            var item = new Item("Meat");
+            uow.ListRepo.Add(list);
+            var listitem = new ListItem(1, 500, "g", null, list, item);
+            uow.ListItemRepo.Add(listitem);
             uow.SaveChanges();
+
+            listitem.Amount = 400;
+            uow.ListItemRepo.Update(listitem);
+            uow.SaveChanges();
+
+            
             
             dal.DisposeUnitOfWork();
         }

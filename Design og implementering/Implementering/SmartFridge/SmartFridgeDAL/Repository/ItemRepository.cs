@@ -4,12 +4,23 @@ using DataAccessLayer.AdoNetUoW;
 
 namespace DataAccessLayer.Repository
 {
+    /// <summary>
+    /// A repository pattern derived class for item.
+    /// </summary>
     public class ItemRepository : Repository<Item>
     {
+        /// <summary>
+        /// Injects the IContext interface.
+        /// </summary>
+        /// <param name="context"></param>
         public ItemRepository(IContext context) : base(context)
         {
         }
 
+        /// <summary>
+        /// Inserts an item.
+        /// </summary>
+        /// <param name="item"></param>
         public override void Insert(Item item)
         {
             using (var command = Context.CreateCommand())
@@ -31,6 +42,10 @@ namespace DataAccessLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Updates an item.
+        /// </summary>
+        /// <param name="item"></param>
         public override void Update(Item item)
         {
             using (var command = Context.CreateCommand())
@@ -53,6 +68,10 @@ namespace DataAccessLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Deletes an item.
+        /// </summary>
+        /// <param name="item"></param>
         public override void Delete(Item item)
         {
             using (var command = Context.CreateCommand())
@@ -66,6 +85,10 @@ namespace DataAccessLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Gets all items.
+        /// </summary>
+        /// <returns>List of all items.</returns>
         public override IEnumerable<Item> GetAll()
         {
             using (var command = Context.CreateCommand())
@@ -75,6 +98,11 @@ namespace DataAccessLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Gets an item by name.
+        /// </summary>
+        /// <param name="name">Name of item.</param>
+        /// <returns>Item.</returns>
         public IEnumerable<Item> GetByName(string name)
         {
             using (var command = Context.CreateCommand())
@@ -88,6 +116,11 @@ namespace DataAccessLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Maps the item attributes.
+        /// </summary>
+        /// <param name="record">Attributes from data table.</param>
+        /// <param name="item">Item to get attributes inserted.</param>
         protected override void Map(IDataRecord record, Item item)
         {
             item.ItemId = (int)record["ItemId"];
