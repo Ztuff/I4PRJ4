@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SmartFridge_WebApplication.DAL;
+using SmartFridge_WebApplication.DAL.Context;
 using SmartFridge_WebApplication.Models;
 
 namespace SmartFridge_WebApplication.Controllers
@@ -16,7 +18,10 @@ namespace SmartFridge_WebApplication.Controllers
         private List<SelectListItem> ListGuiItemTypes = new List<SelectListItem>();
         private IEnumerable<GUIItem> model;
         private List<Item> ListItemTypes = new List<Item>();
-        //private IEnumerable<GUIItem> model;
+        
+        private ISmartFridgeDALFacade dalFacade = new SmartFridgeDALFacade();
+        private SFContext dbContext = new SFContext();
+
         public ActionResult AddItem()
         {
                    
@@ -52,14 +57,14 @@ namespace SmartFridge_WebApplication.Controllers
         #endregion
 
         [HttpPost]
-        public ActionResult addNewItem(string Varetype, string Antal, string Volume ,string unit)
+        public ActionResult addNewItem(string Varetype, string Antal, string Volume, string Enhed, DateTime Holdbarhedsdato)
         {
             GUIItem guiItemToAdd = new GUIItem();
-            //guiItemToAdd.ShelfLife = AMOUNT READ FROM FIELD
+            guiItemToAdd.ShelfLife = Holdbarhedsdato; //AMOUNT READ FROM FIELD
             guiItemToAdd.Amount = Convert.ToUInt32(Antal); //Antal READ FROM FIELD
             guiItemToAdd.Size = Convert.ToUInt32(Volume); //Volume READ FROM FIELD
             guiItemToAdd.Type = Varetype; //Varetype READ FROM FIELD
-            guiItemToAdd.Unit = unit; //unit READ FROM FIELD
+            guiItemToAdd.Unit = Enhed; //unit READ FROM FIELD
 
             foreach (var i in newGuiItems)
             {
@@ -75,7 +80,7 @@ namespace SmartFridge_WebApplication.Controllers
             }
             newGuiItems.Add(guiItemToAdd);
             //test
-            newGuiItems.Add(new GUIItem("Tester", 1, 6, "l"));
+            //newGuiItems.Add(new GUIItem("Tester", 1, 6, "l"));
              //ListBoxItems.Items.Refresh();
              model = newGuiItems;
             ViewBag.ListNewGuiItems = ListGuiItemTypes;

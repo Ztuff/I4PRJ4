@@ -10,7 +10,7 @@
     {
     <label>Varetype</label>
     <br />
-    <input type="text" name="Varetype"/>
+    <input type="text" name="Varetype" required/>
      
 
 @*@using (Html.BeginForm("AddItem", "AddItem")) {
@@ -21,16 +21,14 @@
 
     <label>Antal</label>
     <br/>
-    <input type="number" name="Antal" min="0"/>
-
-    @*<button>+</button>
-    <button>-</button>*@
-        <br />
+    <input type="number" name="Antal" min="0"required/>
+    <br />
+      
 
     <label>Volumen</label>
     <br />
-    <input type="number" name="Volume" min="0"/>
-    <select>
+    <input type="number" name="Volume" min="0"required/>
+    <select name="Enhed">
         <option value="l">l</option>
         <option value="dl">dl</option>
         <option value="ml">ml</option>
@@ -38,7 +36,13 @@
         <option value="g">g</option>
         <option value="stk">stk</option>
     </select>
+        <br/>
+        
+    <label>Holdbarhedsdato</label>
     <br/>
+    <input type="date" name="Holdbarhedsdato" min="0"/>
+    <br />
+      
 
     <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg"/>
 }
