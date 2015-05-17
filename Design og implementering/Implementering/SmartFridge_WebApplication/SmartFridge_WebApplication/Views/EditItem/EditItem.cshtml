@@ -16,23 +16,27 @@
     @using (Html.BeginForm("UpdateItem", "EditItem"))
     {
         <label>VareType</label>
-        <br/>
+        <br />
         @Html.TextBox("Type", dataSource.Type)
-        <select></select>
+        @Html.DropDownList("types")
         <br />
         <label>Antal</label>
         <br />
-        @Html.TextBox("Amount", dataSource.Amount)
-        <table>
-            <tr><td><button>+</button></td></tr>
-            <tr><td><button>-</button></td></tr>
-        </table>
+        @Html.TextBox("Amount", dataSource.Amount, new { @type = "number", @min = 0 })
+        @*<table>
+                <tr><td><button>+</button></td></tr>
+                <tr><td><button>-</button></td></tr>
+            </table>*@
         <br />
         <label>Volumen</label>
         <br />
-        @Html.TextBox("Volume", dataSource.Size)
-        @Html.TextBox("Unit", dataSource.Unit)
+        @Html.TextBox("Volume", dataSource.Size, new { @type = "number", @min = 0 })
+        @Html.DropDownList("units")
         <br />
+        <label>Holdbarhedsdato</label>
+        <br/>
+        @*@Html.TextBox("Shelflife", dataSource.ShelfLife, new{@type = "date", @min = "0", @autocomplete = "on"})*@
+        <br/>
 
 
         <input type="image" src="~/Images/OK.png" alt="Submit" class="AddImg" />
