@@ -4,13 +4,23 @@ using DataAccessLayer.AdoNetUoW;
 
 namespace DataAccessLayer.Repository
 {
+    /// <summary>
+    /// A repository pattern dereved class for list.
+    /// </summary>
     public class ListRepository : Repository<List>
     {
-
+        /// <summary>
+        /// Injects the IContext interface.
+        /// </summary>
+        /// <param name="context"></param>
         public ListRepository(IContext context) : base(context)
         {
         }
 
+        /// <summary>
+        /// Inserts a list.
+        /// </summary>
+        /// <param name="list"></param>
         public override void Insert(List list)
         {
             using (var command = Context.CreateCommand())
@@ -24,6 +34,10 @@ namespace DataAccessLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Updates a list.
+        /// </summary>
+        /// <param name="list"></param>
         public override void Update(List list)
         {
             using (var command = Context.CreateCommand())
@@ -41,6 +55,10 @@ namespace DataAccessLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Deletes a list.
+        /// </summary>
+        /// <param name="list"></param>
         public override void Delete(List list)
         {
             using (var command = Context.CreateCommand())
@@ -54,6 +72,10 @@ namespace DataAccessLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Gets all lists.
+        /// </summary>
+        /// <returns></returns>
         public override IEnumerable<List> GetAll()
         {
             using (var command = Context.CreateCommand())
@@ -63,6 +85,11 @@ namespace DataAccessLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Gets a list by name.
+        /// </summary>
+        /// <param name="name">Name of list.</param>
+        /// <returns></returns>
         public IEnumerable<List> GetByName(string name)
         {
             using (var command = Context.CreateCommand())
@@ -76,6 +103,11 @@ namespace DataAccessLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Maps the list attributes.
+        /// </summary>
+        /// <param name="record">Attributes from data table.</param>
+        /// <param name="list">Listitem to get attributes inserted.</param>
         protected override void Map(IDataRecord record, List list)
         {
             list.ListId = (int) record["ListId"];

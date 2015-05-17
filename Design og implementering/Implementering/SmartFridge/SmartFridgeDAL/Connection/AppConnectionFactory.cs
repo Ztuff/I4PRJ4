@@ -5,12 +5,19 @@ using System.Data.Common;
 
 namespace DataAccessLayer.Connection
 {
+    /// <summary>
+    /// Connectionfactory for the databases.
+    /// </summary>
     public class AppConnectionFactory : IConnectionFactory
     {
         private readonly DbProviderFactory _provider;
         private readonly string _connectionString;
         private readonly string _name;
 
+        /// <summary>
+        /// Finds a connectionstring by connectioName in app.config.
+        /// </summary>
+        /// <param name="connectionName">Connectionname from app.config.</param>
         public AppConnectionFactory(string connectionName)
         {
             if (connectionName == null)
@@ -25,6 +32,10 @@ namespace DataAccessLayer.Connection
             _connectionString = connStr.ConnectionString;
         }
 
+        /// <summary>
+        /// Creates/opens a connection to the specified database.
+        /// </summary>
+        /// <returns></returns>
         public IDbConnection Create()
         {
             var connection = _provider.CreateConnection();
@@ -32,6 +43,5 @@ namespace DataAccessLayer.Connection
             connection.Open();
             return connection;
         }
-
     }
 }

@@ -6,13 +6,24 @@ using DataAccessLayer.AdoNetUoW;
 
 namespace DataAccessLayer.Repository
 {
+    /// <summary>
+    /// A repository pattern derived class for listitem.
+    /// </summary>
     public class ListItemRepository : Repository<ListItem>
     {
+        /// <summary>
+        /// Injects the IContext interface.
+        /// </summary>
+        /// <param name="context"></param>
         public ListItemRepository(IContext context)
             : base(context)
         {
         }
 
+        /// <summary>
+        /// Inserts a listitem.
+        /// </summary>
+        /// <param name="listItem"></param>
         public override void Insert(ListItem listItem)
         {
             using (var command = Context.CreateCommand())
@@ -53,12 +64,19 @@ namespace DataAccessLayer.Repository
             }
         }
 
-        //No update of ListItem: Delete -> Add if needed.
+        /// <summary>
+        /// Not implemented function. Delete the old listitem and insert the updated one to update a listitem.
+        /// </summary>
+        /// <param name="item"></param>
         public override void Update(ListItem item)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Deletes a listitem.
+        /// </summary>
+        /// <param name="listItem"></param>
         public override void Delete(ListItem listItem)
         {
             using (var command = Context.CreateCommand())
@@ -94,6 +112,10 @@ namespace DataAccessLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Gets all listitems.
+        /// </summary>
+        /// <returns></returns>
         public override IEnumerable<ListItem> GetAll()
         {
             using (var command = Context.CreateCommand())
@@ -103,6 +125,11 @@ namespace DataAccessLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Gets all listitem from specified list.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public IEnumerable<ListItem> GetListItemsOnList(List list)
         {
             using (var command = Context.CreateCommand())
@@ -116,6 +143,11 @@ namespace DataAccessLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Maps the listitem attributes.
+        /// </summary>
+        /// <param name="record">Attributes from data table.</param>
+        /// <param name="listItem">Listitem to get attributes inserted.</param>
         protected override void Map(IDataRecord record, ListItem listItem)
         {
             listItem.ListId = (int)record["ListId"];
@@ -127,6 +159,12 @@ namespace DataAccessLayer.Repository
                 listItem.ShelfLife = (DateTime?)record["ShelfLife"];
         }
 
+        /// <summary>
+        /// Maps the references between a list of items, a list of lists and a list of listitems.
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="lists"></param>
+        /// <param name="listItems"></param>
         public void Mapper(List<Item> items, List<List> lists, List<ListItem> listItems)
         {
             foreach (var listItem in listItems)

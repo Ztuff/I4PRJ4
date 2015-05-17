@@ -6,55 +6,64 @@
 
 
 <div class="NewItem" style="background-color: red; margin: 0 22em 0 22em">
-    
+    @using (Html.BeginForm("addNewItem", "AddItem"))
+    {
     <label>Varetype</label>
     <br />
-    <input type="text" name="Varetype"/>
-     
-
-@using (Html.BeginForm("AddItem", "AddItem")) {
-        @Html.DropDownList("ListNewGuiItems")
-}
-    @*<select></select>*@
-    <br />
-
-    <label>Antal</label>
-    <br/>
-    <input type="number" name="Antal" min="0"/>
-
-    @*<button>+</button>
-    <button>-</button>*@
+    <input type="text" name="Varetype" id="VaretypeText" required/>
+        
+           @Html.DropDownList("ListNewGuiItems", (IEnumerable<SelectListItem>)ViewBag.ListNewGuiItems, new
+           {
+               @id = "VaretypeDropDown"
+           })
+        
         <br />
 
-    <label>Volumen</label>
-    <br />
-    <input type="number" name="Volume" min="0"/>
-    <select>
-        <option value="l">l</option>
-        <option value="dl">dl</option>
-        <option value="ml">ml</option>
-        <option value="kg">kg</option>
-        <option value="g">g</option>
-        <option value="stk">stk</option>
-    </select>
-    <br/>
-@using (Html.BeginForm())
-{
-    <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg"/>
-}
-    @using (Html.BeginForm("ListView", "LisView"))
+        <label>Antal</label>
+        <br />
+        <input type="number" name="Antal" min="0" required />
+        <br />
+
+
+        <label>Volumen</label>
+        <br />
+        <input type="number" name="Volume" min="0" required />
+        <select name="Enhed">
+            <option value="l">l</option>
+            <option value="dl">dl</option>
+            <option value="ml">ml</option>
+            <option value="kg">kg</option>
+            <option value="g">g</option>
+            <option value="stk">stk</option>
+        </select>
+        <br />
+
+        <label>Holdbarhedsdato</label>
+        <br />
+        <input type="date" name="Holdbarhedsdato" min="0" id="LifeOfItem" autocomplete="on"/>
+        <br />
+
+
+        <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg" id="addItemImgClicked"/>
+        }
+        @using (Html.BeginForm("ListView", "LisView"))
     {
-        <input type="image" src="~/Images/AddAndExit.png" alt="Submit" class="AddImg" />
+            <input type="image" src="~/Images/AddAndExit.png" alt="Submit" class="AddImg" />
     }
 
 </div>
 <div class="AddedItems">
     <label>Nyligt tilføjede vare</label>
-    <br />
-    @{
-        var grid = new WebGrid(Model, defaultSort: "null");
-    }
+    <br/>
     <div id="grid">
+        @{
+            var grid = new WebGrid(Model, defaultSort: "null");
+        }
+
         @grid.GetHtml()
     </div>
 </div>
+
+@section scripts {
+    <script src="~/scripts/addItemScripts.js"></script>
+}
