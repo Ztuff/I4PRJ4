@@ -27,6 +27,7 @@ namespace SmartFridge_WebApplication.Controllers
 
         public ActionResult AddItem()
         {
+            
             currentList = TempData["CurrentListToEdit"].ToString();
             var uow = dalFacade.GetUnitOfWork();
             //Test
@@ -111,9 +112,9 @@ namespace SmartFridge_WebApplication.Controllers
 
 
         [HttpPost]
-        public ActionResult addItemAndExit()
+        public ActionResult addItemAndExit(string Varetype, string Antal, string Volume, string Enhed, DateTime Holdbarhedsdato)
         {
-            AddItem();
+            addNewItem(Varetype, Antal, Volume, Enhed, Holdbarhedsdato);
             Exit();
             return null;
 
