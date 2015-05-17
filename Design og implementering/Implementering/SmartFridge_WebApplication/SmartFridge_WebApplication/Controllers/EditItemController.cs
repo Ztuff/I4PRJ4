@@ -57,11 +57,11 @@ namespace SmartFridge_WebApplication.Controllers
             //    }
             //}
 
-            _units = new List<SelectListItem>(){new SelectListItem{Text = "l", Value = "0"},
-                                                new SelectListItem{Text = "dl", Value = "1"},
-                                                new SelectListItem{Text = "ml", Value = "2"},
-                                                new SelectListItem{Text = "kg", Value = "3"},
-                                                new SelectListItem{Text = "g", Value = "4"}};
+            _units = new List<SelectListItem>(){new SelectListItem{Text = "l", Value = "l"},
+                                                new SelectListItem{Text = "dl", Value = "dl"},
+                                                new SelectListItem{Text = "ml", Value = "ml"},
+                                                new SelectListItem{Text = "kg", Value = "kg"},
+                                                new SelectListItem{Text = "g", Value = "g"}};
             ViewData.Add("oldItem", _oldItem);
             ViewBag.types = _types;
             ViewBag.units = _units;
@@ -79,9 +79,13 @@ namespace SmartFridge_WebApplication.Controllers
         {
             
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="collection"> Collection of input from HTML form</param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult UpdateItem(FormCollection collection)
+        public ActionResult UpdateItem(FormCollection collection) //Mangler tjek på om den pågældene list item eksistere i forvejen
         {
             Item itemWithError = new Item();
 
@@ -89,9 +93,15 @@ namespace SmartFridge_WebApplication.Controllers
                 collection["Type"],
                 Convert.ToUInt32(collection["Amount"]),
                 Convert.ToUInt32(collection["Volume"]),
-                collection["Unit"]
+                collection["units"]
                 )/*{ShelfLife = Convert.ToDateTime(collection["Shelflife"])}*/;
-
+            foreach (var item in _dbItems)
+            {
+                if (item.ItemName == _oldItem.Type)
+                {
+                    itemWithError = item;
+                }
+            }
             var uow = _dal.GetUnitOfWork();
             foreach (var listItem in _dbListItems)
             {
@@ -104,12 +114,6 @@ namespace SmartFridge_WebApplication.Controllers
                     {
                         foreach (var item in _dbItems)
                         {
-                            
-
-                            if (item.ItemName == _oldItem.Type)
-                            {
-                                itemWithError = item;
-                            }
                             if (item.ItemName == _updatedItem.Type)
                             {
                                 listItem.Item = item;
@@ -127,47 +131,7 @@ namespace SmartFridge_WebApplication.Controllers
                     break;
                 }
             }
-
-            //uow.SaveChanges();
-
-            //_dal.DisposeUnitOfWork();
-
-            //Jeg forestiller mig at strukturen bliver for fjern gammel 
-            //indsæt ny bliver omtrent den samme, og at skellettet fra
-            //den lokale app, derfor kan bruges.
-
-            //foreach (var dbListItem in _dblistItems)
-            //{
-            //    if (dbListItem.Item.ItemName == oldItem.Type &&
-            //        dbListItem.Unit == oldItem.Unit &&
-            //        (uint)dbListItem.Volume == oldItem.Size &&
-            //        dbListItem.Amount == oldItem.Amount &&
-            //        dbListItem.ListId == currentGuiItemList.ID)
-            //    {
-            //        if (oldItem.Type != newItem.Type) //Hvis der skal ændres i dens Item (og ikke kun i listItem)
-            //        {
-            //            foreach (var dbItem in _dbItems)
-            //            {
-            //                if (dbItem.ItemName == oldItem.Type)
-            //                {
-            //                    dbItem.ItemName = newItem.Type;
-            //                    _itemRepository.Update(dbItem);
-            //                }
-            //            }
-            //        }
-
-            //        ListItem updatedListItem = new ListItem((int)newItem.Amount,
-            //                                                (int)newItem.Size,
-            //                                                newItem.Unit,
-            //                                                dbListItem.List,
-            //                                                dbListItem.Item);
-
-            //        _listItemRepository.Delete(dbListItem);
-            //        _listItemRepository.Insert(updatedListItem);
-            //        uow.SaveChanges();
-            //        break;
-            //    }
-            //} 
+            _dal.DisposeUnitOfWork();
 
             return RedirectToAction("ListView", "LisView");
         }
