@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -7,21 +8,29 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using System.Web.WebPages;
 using SmartFridge_WebApplication.Models;
+using SmartFridge_WebApplication.DAL;
 
 namespace SmartFridge_WebApplication.Controllers
 {
     public class EditItemController : Controller
     {
         static private GUIItem _oldItem = new GUIItem();
+        static private GUIItemList _currentList;
+        static private ISmartFridgeDALFacade _dal;
 
         private GUIItem _updatedItem = new GUIItem();
 
         //
         // GET: /EditItem/
 
-        public ActionResult EditItem(GUIItem oldItem)
+        public ActionResult EditItem(GUIItem oldItem/*, GUIItemList currentList, 
+                                     ISmartFridgeDALFacade dal*/)
         {
-            _oldItem = oldItem;
+            _oldItem = new GUIItem("test", 1, 1, "l");//oldItem;
+            /*_currentList = currentList;
+            _dal = dal;*/
+            _currentList = new GUIItemList(0, "testlist");
+            _dal = new SmartFridgeDALFacade();
             ViewData.Add("oldItem", _oldItem);
             return View();
         }
@@ -29,7 +38,7 @@ namespace SmartFridge_WebApplication.Controllers
         [HttpPost]
         public void Increment()
         {
-
+   
         }
 
         [HttpPost]
@@ -41,16 +50,47 @@ namespace SmartFridge_WebApplication.Controllers
         [HttpPost]
         public ActionResult UpdateItem(FormCollection collection)
         {
-            Debug.WriteLine(collection["Type"]);
-            Debug.WriteLine(collection["Amount"]);
-            Debug.WriteLine(collection["Volume"]);
-            Debug.WriteLine(collection["Unit"]);
+
             _updatedItem = new GUIItem(
                 collection["Type"],
                 Convert.ToUInt32(collection["Amount"]),
                 Convert.ToUInt32(collection["Volume"]),
                 collection["Unit"]
                 );
+
+            var uow = _dal.GetUnitOfWork();
+            List<SmartFridge_WebApplication.Models.ListItem> dbListItems = uow.ListItemRepo.GetAll().ToList();
+            List<Item> dbItems = uow.ItemRepo.GetAll().ToList();
+            foreach (var listItem in dbListItems)
+            {
+                if (listItem.Item.ItemId == _oldItem.ID && listItem.List.ListId == _currentList.ID)
+                {
+                    listItem.Amount = Convert.ToInt32(_updatedItem.Amount);
+                    listItem.Volume = Convert.ToInt32(_updatedItem.Size);
+                    listItem.Unit = _updatedItem.Unit;
+                    if (listItem.Item.ItemName != _updatedItem.Type)
+                    {
+                        foreach (var item in dbItems)
+                        {
+                            if (item.ItemName == _updatedItem.Type)
+                            {
+                                listItem.Item = item;
+                            }
+                            else
+                            {
+                                var temp = new Item(_updatedItem.Type);
+                                uow.ItemRepo.Add(temp);
+                            }
+                        }
+                    }
+                    uow.ListItemRepo.Update(listItem);
+                    break;
+                }
+            }
+
+            uow.SaveChanges();
+
+            _dal.DisposeUnitOfWork();
 
             //Jeg forestiller mig at strukturen bliver for fjern gammel 
             //indsæt ny bliver omtrent den samme, og at skellettet fra
