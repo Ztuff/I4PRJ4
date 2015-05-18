@@ -30,35 +30,38 @@ namespace SmartFridge_WebApplication.Controllers
         //
         // GET: /EditItem/
 
-        public ActionResult EditItem(GUIItem oldItem/*, GUIItemList currentList, 
-                                     ISmartFridgeDALFacade dal*/)
+        public ActionResult EditItem(GUIItem oldItem)
         {
+
             _oldItem = oldItem;
             /*_currentList = currentList;
             _dal = dal;*/
             _dal = new SmartFridgeDALFacade();
-            _types = new List<SelectListItem>();
-            //var uow = _dal.GetUnitOfWork();
-            //_dbItems = uow.ItemRepo.GetAll().ToList();
-            //_dbListItems = uow.ListItemRepo.GetAll().ToList();
-            //_dbLists = uow.ListRepo.GetAll().ToList();
-            //_dal.DisposeUnitOfWork();
-            //foreach (var item in _dbItems)
-            //{
-            //    int value = 0;
-            //    _types.Add(new SelectListItem{Text = item.ItemName, Value = value.ToString()});
-            //    value++;
-            //}
 
-            //foreach (var list in _dbLists)
-            //{
-            //    if (list == TempData["CurrentListToEdit"])
-            //    {
-            //        _currentList = list;
-            //    }
-            //}
+            _oldItem = new GUIItem("test", 1, 1, "dl");//oldItem;
+            _dal = new SmartFridgeDALFacade("SmartFridgeDb");
+
+            _types = new List<SelectListItem>();
+            var uow = _dal.GetUnitOfWork();
+            _dbItems = uow.ItemRepo.GetAll().ToList();
+            _dbListItems = uow.ListItemRepo.GetAll().ToList();
+            _dbLists = uow.ListRepo.GetAll().ToList();
+            _dal.DisposeUnitOfWork();
             _types.Add(new SelectListItem { Text = "Varetype", Value = "Varetype", Selected = true});
-            _types.Add(new SelectListItem{Text = "js", Value = "js"});
+            foreach (var item in _dbItems)
+            {
+                int value = 0;
+                _types.Add(new SelectListItem { Text = item.ItemName, Value = value.ToString() });
+                value++;
+            }
+
+            foreach (var list in _dbLists)
+            {
+                if (list == TempData.Peek("CurrentListToEdit"))
+                {
+                    _currentList = list;
+                }
+            }
             _units = new List<SelectListItem>(){new SelectListItem{Text = "l", Value = "l"},
                                                 new SelectListItem{Text = "dl", Value = "dl"},
                                                 new SelectListItem{Text = "ml", Value = "ml"},
@@ -90,13 +93,21 @@ namespace SmartFridge_WebApplication.Controllers
         public ActionResult UpdateItem(FormCollection collection) //Mangler tjek på om den pågældene list item eksistere i forvejen
         {
             Item itemWithError = new Item();
-
+            string date = collection["Shelflife"];
             _updatedItem = new GUIItem(
                 collection["Type"],
                 Convert.ToUInt32(collection["Amount"]),
                 Convert.ToUInt32(collection["Volume"]),
                 collection["units"]
-                )/*{ShelfLife = Convert.ToDateTime(collection["Shelflife"])}*/;
+                );
+            if(date.Length == 0)
+            {             
+                _updatedItem.ShelfLife = default(DateTime) /*Convert.ToDateTime(collection["Shelflife"])*/;
+            }
+            else
+            {
+                _updatedItem.ShelfLife = Convert.ToDateTime(collection["Shelflife"]);
+            }
             foreach (var item in _dbItems)
             {
                 if (item.ItemName == _oldItem.Type)
