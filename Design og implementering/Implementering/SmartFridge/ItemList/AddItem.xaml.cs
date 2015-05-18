@@ -72,7 +72,7 @@ namespace UserControlLibrary
         {
             foreach (var i in newItems)
             {
-                if (i.Type.Equals(item.Type))
+                if (i.Type.Equals(item.Type) && i.Size == item.Size && i.ShelfLife.Equals(item.ShelfLife))
                 {
                     i.Amount += item.Amount;
                     ListBoxItems.Items.Refresh();
