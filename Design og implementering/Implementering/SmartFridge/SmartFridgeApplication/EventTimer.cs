@@ -107,11 +107,19 @@ namespace SmartFridgeApplication
 
         public bool TriggerSyncing()
         {
-            SyncSecondsElapsed = 0;
-            _sync.ProvisionServer();
-            _sync.ProvisionClient();
-            _sync.Sync();
-            return true;
+            try
+            {
+                SyncSecondsElapsed = 0;
+                _sync.ProvisionServer();
+                _sync.ProvisionClient();
+                _sync.Sync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
     }
 }
