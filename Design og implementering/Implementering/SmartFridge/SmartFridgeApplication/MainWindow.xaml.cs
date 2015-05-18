@@ -135,23 +135,31 @@ namespace SmartFridgeApplication
 
             eventT.SyncSecondsElapsed = 0;
             eventT.TriggerSyncing();
-            SyncTest();
+            TrySync();
             
         }
 
-        private void SyncTest()
+        private void TrySync()
         {
             syncStatus = SyncStatus.Syncing;
             ChangeSyncImage();
-            Thread thread = new Thread(WaitAndSetToDesynced);
+            Thread thread = new Thread(Syncing);
             thread.Start();
         }
 
-        private void WaitAndSetToDesynced()
+        private void Syncing()
         {
-            Thread.Sleep(2000);
-            syncStatus = SyncStatus.Desynced;
-            Dispatcher.Invoke(ChangeSyncImage);
+            try
+            {
+                eventT.TriggerSyncing();
+                syncStatus = SyncStatus.Synced;
+                Dispatcher.Invoke(ChangeSyncImage);
+            }
+            catch (Exception)
+            {
+                syncStatus = SyncStatus.Desynced;
+                Dispatcher.Invoke(ChangeSyncImage);
+            }
         }
 
         private void ChangeSyncImage()

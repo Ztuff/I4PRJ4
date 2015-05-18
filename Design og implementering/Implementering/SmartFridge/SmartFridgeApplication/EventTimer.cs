@@ -53,7 +53,7 @@ namespace SmartFridgeApplication
         public void OnTimedEventSync(object source, ElapsedEventArgs e)
         {
             SyncSecondsElapsed += _SyncTimer.Interval / 1000; //In seconds
-            if (SyncSecondsElapsed >= 30) //10 minutes
+            if (SyncSecondsElapsed >= 60*10) //10 minutes
             {
                 TriggerSyncing();
             }
@@ -107,6 +107,7 @@ namespace SmartFridgeApplication
 
         public void TriggerSyncing()
         {
+            SyncSecondsElapsed = 0;
             _sync.ProvisionServer();
             _sync.ProvisionClient();
             _sync.Sync();
