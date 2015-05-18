@@ -33,10 +33,11 @@ namespace SmartFridge_WebApplication.Controllers
 
             if (TempData.Peek("CurrentListToEdit") != null)
             {
+                //Bliver nødt til at hente fra TempData og gemme ned lokalt, da LINQ statements ikke supporterer
+                //direkte sysyem. kald... Kaster en system.notsupported exception
                 currentListName = TempData.Peek("CurrentListToEdit").ToString(); //Skal slettes når der er forbindelse til db
-                
+                List actualList = uow.ListRepo.Find(l => l.ListName == currentListName);
 
-                List actualList = uow.ListRepo.Find(l => l.ListName == TempData.Peek("CurrentListToEdit").ToString());
                 if (actualList != null)
                 {
                     currentListID = actualList.ListId;

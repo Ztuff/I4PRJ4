@@ -24,6 +24,7 @@ namespace SmartFridge_WebApplication.Controllers
         {
             currentList = ListToEdit;
             TempData["CurrentListToEdit"] = ListToEdit;
+			TempData.Keep();
             List<GUIItem> tempData = new List<GUIItem>();
             _dal = new SmartFridgeDALFacade("SmartFridgeDb");
             var uow = _dal.GetUnitOfWork();
@@ -51,6 +52,8 @@ namespace SmartFridge_WebApplication.Controllers
             }
             model = tempData; 
             //model = new List<GUIItem>() { new GUIItem("KONTENT'SSSSS", 1, 1, "Reference"), new GUIItem("TreadsSS!", 2, 3, "Reference") { ShelfLife = new DateTime(2017, 6, 2) } }; //Til test
+
+
             return View(model);
         }
 
