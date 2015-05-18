@@ -25,17 +25,17 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"DECLARE @InsertItem TABLE ([ItemId] INT); INSERT INTO [Item] ([ItemName],[StandardVolume],[StandardUnit]) OUTPUT [inserted].ItemId INTO @InsertItem VALUES(@ItemName,@StandardVolume,@StandardUnit); SELECT * FROM @InsertItem";
+                command.CommandText = @"DECLARE @InsertItem TABLE ([ItemId] INT); INSERT INTO [Items] ([ItemName],[StdVolume],[StdUnit]) OUTPUT [inserted].ItemId INTO @InsertItem VALUES(@ItemName,@StdVolume,@StdUnit); SELECT * FROM @InsertItem";
                 var nameParam = command.CreateParameter();
                 nameParam.ParameterName = "@ItemName";
                 nameParam.Value = item.ItemName;
                 command.Parameters.Add(nameParam);
                 var volParam = command.CreateParameter();
-                volParam.ParameterName = "@StandardVolume";
+                volParam.ParameterName = "@StdVolume";
                 volParam.Value = item.StdVolume;
                 command.Parameters.Add(volParam);
                 var unitParam = command.CreateParameter();
-                unitParam.ParameterName = "@StandardUnit";
+                unitParam.ParameterName = "@StdUnit";
                 unitParam.Value = item.StdUnit;
                 command.Parameters.Add(unitParam);
                 item.ItemId = (int)command.ExecuteScalar();
@@ -50,18 +50,18 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"UPDATE Item SET ItemName = @ListName, StandardVolume = @StandardVolume,
-                                        StandardUnit = @StandardUnit WHERE ItemId = @ItemId";
+                command.CommandText = @"UPDATE Items SET ItemName = @ListName, StdVolume = @StdVolume,
+                                        StdUnit = @StdUnit WHERE ItemId = @ItemId";
                 var nameParam = command.CreateParameter();
                 nameParam.ParameterName = "@ItemName";
                 nameParam.Value = item.ItemName;
                 command.Parameters.Add(nameParam);
                 var volParam = command.CreateParameter();
-                volParam.ParameterName = "@StandardVolume";
+                volParam.ParameterName = "@StdVolume";
                 volParam.Value = item.StdVolume;
                 command.Parameters.Add(volParam);
                 var unitParam = command.CreateParameter();
-                unitParam.ParameterName = "@StandardUnit";
+                unitParam.ParameterName = "@StdUnit";
                 unitParam.Value = item.StdUnit;
                 command.Parameters.Add(unitParam);
                 command.ExecuteNonQuery();
@@ -76,7 +76,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"DELETE FROM Item Where ItemId = @ItemId";
+                command.CommandText = @"DELETE FROM Items Where ItemId = @ItemId";
                 var param = command.CreateParameter();
                 param.ParameterName = "@ItemId";
                 param.Value = item.ItemId;
@@ -93,7 +93,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"SELECT * From Item";
+                command.CommandText = @"SELECT * From Items";
                 return ToList(command);
             }
         }
@@ -107,7 +107,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"SELECT * FROM Item WHERE ItemName = @ItemName";
+                command.CommandText = @"SELECT * FROM Items WHERE ItemName = @ItemName";
                 var param = command.CreateParameter();
                 param.ParameterName = "@ItemName";
                 param.Value = name;
@@ -125,8 +125,8 @@ namespace DataAccessLayer.Repository
         {
             item.ItemId = (int)record["ItemId"];
             item.ItemName = (string)record["ItemName"];
-            item.StdVolume = (int)record["StandardVolume"];
-            item.StdUnit = (string)record["StandardUnit"];
+            item.StdVolume = (int)record["StdVolume"];
+            item.StdUnit = (string)record["StdUnit"];
         }
     }
 }

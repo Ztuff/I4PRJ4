@@ -53,7 +53,7 @@ namespace SmartFridgeApplication
         public void OnTimedEventSync(object source, ElapsedEventArgs e)
         {
             SyncSecondsElapsed += _SyncTimer.Interval / 1000; //In seconds
-            if (SyncSecondsElapsed >= 60*10) //10 minutes
+            if (SyncSecondsElapsed >= 60 * 10) //10 minutes
             {
                 TriggerSyncing();
             }
@@ -105,12 +105,21 @@ namespace SmartFridgeApplication
             notifications.RemoveAll(item => duplicatesToRemove.Contains(item));
         }
 
-        public void TriggerSyncing()
+        public bool TriggerSyncing()
         {
-            SyncSecondsElapsed = 0;
-            _sync.ProvisionServer();
-            _sync.ProvisionClient();
-            _sync.Sync();
+            try
+            {
+                SyncSecondsElapsed = 0;
+                _sync.ProvisionServer();
+                _sync.ProvisionClient();
+                _sync.Sync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
     }
 }

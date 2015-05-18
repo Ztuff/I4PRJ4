@@ -25,7 +25,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"DECLARE @InsertList TABLE ([ListId] INT); INSERT INTO [List] ([ListName]) OUTPUT [inserted].ListId INTO @InsertList VALUES(@ListName); SELECT * FROM @InsertList";
+                command.CommandText = @"DECLARE @InsertList TABLE ([ListId] INT); INSERT INTO [Lists] ([ListName]) OUTPUT [inserted].ListId INTO @InsertList VALUES(@ListName); SELECT * FROM @InsertList";
                 var param = command.CreateParameter();
                 param.ParameterName = "@ListName";
                 param.Value = list.ListName;
@@ -42,7 +42,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"UPDATE List SET ListName = @ListName WHERE ListId = @ListId";
+                command.CommandText = @"UPDATE Lists SET ListName = @ListName WHERE ListId = @ListId";
                 var nameParam = command.CreateParameter();
                 nameParam.ParameterName = "@ListName";
                 nameParam.Value = list.ListName;
@@ -63,7 +63,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"DELETE FROM List Where ListId = @ListId";
+                command.CommandText = @"DELETE FROM Lists Where ListId = @ListId";
                 var param = command.CreateParameter();
                 param.ParameterName = "@ListId";
                 param.Value = list.ListId;
@@ -80,7 +80,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"SELECT * From List";
+                command.CommandText = @"SELECT * From Lists";
                 return ToList(command);
             }
         }
@@ -94,7 +94,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"SELECT * FROM List WHERE ListName = @ListName";
+                command.CommandText = @"SELECT * FROM Lists WHERE ListName = @ListName";
                 var param = command.CreateParameter();
                 param.ParameterName = "@ListName";
                 param.Value = name;

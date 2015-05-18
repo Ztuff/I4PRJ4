@@ -16,10 +16,10 @@ namespace SmartFridge_WebApplication.Controllers
         public string currentList;
         private int currentListID; //CurrentListID skal komme et sted fra
 
-        private List<GUIItem> newGuiItems = new List<GUIItem>();
-        private List<SelectListItem> ListGuiItemTypes = new List<SelectListItem>();
-        private IEnumerable<GUIItem> model;
-        private List<Item> ListItemTypes = new List<Item>();
+        static private List<GUIItem> newGuiItems = new List<GUIItem>();
+        static private List<SelectListItem> ListGuiItemTypes = new List<SelectListItem>();
+        static private IEnumerable<GUIItem> model;
+        static private List<Item> ListItemTypes = new List<Item>();
 
         private ISmartFridgeDALFacade dalFacade = new SmartFridgeDALFacade("SmartFridgeDb");
 
@@ -92,7 +92,7 @@ namespace SmartFridge_WebApplication.Controllers
              //ListBoxItems.Items.Refresh();
              model = newGuiItems;
             ViewBag.ListNewGuiItems = ListGuiItemTypes;
-             return View("~/Views/AddItem/AddItem.cshtml",model); //Viewet skal dog opdateres først
+             return PartialView("~/Views/AddItem/AddItem.cshtml",model); //Viewet skal dog opdateres først
 
             #region FromWPF             
 
@@ -138,10 +138,13 @@ namespace SmartFridge_WebApplication.Controllers
             var uow = dalFacade.GetUnitOfWork();
             foreach (var newGuiItem in newGuiItems)
             {
-                ListItem dbListItem = new ListItem();
+                //Searching for ListItem in DB
+                ListItem dbListItem = uow.ListItemRepo.Find(l => l.List.ListName == currentList);
+                
+                //ListItem dbListItem = new ListItem();
                 //Searching for item in DB
                 Item dbItem = uow.ItemRepo.Find(l => l.ItemName == newGuiItem.Type);
-                //Item dbItem = new Item(newGuiItem.Type);
+                if (dbListItem == null) { dbItem = new Item(newGuiItem.Type); }
 
                dbListItem.ShelfLife = newGuiItem.ShelfLife;
                dbListItem.Amount = (int)newGuiItem.Amount;

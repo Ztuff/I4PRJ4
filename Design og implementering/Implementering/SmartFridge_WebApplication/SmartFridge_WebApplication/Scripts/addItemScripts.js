@@ -14,7 +14,7 @@
 ////    $('#LifeOfItem').text(utcdatePlusAYear);
 //    });
 
-        var dNow = new Date();
+    var dNow = new Date();
     var utcdatePlusAYear = (dNow.getMonth() + 1) + '-' + dNow.getDate() + '-' + (dNow.getFullYear() + 1);
     $('#addItemImgClicked').mouseover(function (event)
     {

@@ -43,11 +43,11 @@ namespace DataAccessLayer.Sync
 
             var scopeDesc = new DbSyncScopeDescription(_sScope);
 
-            var listDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable("List", serverConn);
+            var listDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable("Lists", serverConn);
             scopeDesc.Tables.Add(listDesc);
-            var itemDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable("Item", serverConn);
+            var itemDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable("Items", serverConn);
             scopeDesc.Tables.Add(itemDesc);
-            var listItemDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable("ListItem",
+            var listItemDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable("ListItems",
                 serverConn);
 
             scopeDesc.Tables.Add(listItemDesc);
