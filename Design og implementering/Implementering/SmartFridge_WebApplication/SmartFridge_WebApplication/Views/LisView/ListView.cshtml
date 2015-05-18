@@ -9,25 +9,27 @@
             new List<WebGridColumn> {
                 new WebGridColumn{
                     Format =
-                    @<text>
-                        <a href='#' class="display edit-btn">
+                        @<text>
+                            <a href="@Url.Action("EditItem", "EditItem", new {id = 1})"><img src="~/Images/Edit.png" class="RowImg" /></a>
+                            @*<a href='#' class="display edit-btn">
                             @using (Html.BeginForm("EditItem", "EditItem"))
                             {
                                 <input type="image" src="~/Images/Edit.png" alt="Submit" class="RowImg"/>
                             }
-                        </a>
-                    </text>
+                        </a>*@
+                         </text>
                 },
                 new WebGridColumn{
                     Format =
-                    @<text>
-                        <a href='#' class="display edit-btn">
+                        @<text>
+                            <a href="@Url.Action("EditItem", "EditItem", new {id = 1})"><img src="~/Images/Trash.png" class="RowImg" /></a>
+                            @*<a href='#' class="display edit-btn">
                             @using (Html.BeginForm("EditItem", "EditItem"))
                             {
                                 <input type="image" src="~/Images/Trash.png" alt="Submit" class="RowImg" />
                             }
-                        </a>
-                    </text>
+                        </a>*@
+                         </text>
                 },
                 new WebGridColumn{
                     Header="Amount",
@@ -72,16 +74,16 @@
             };
 }
 
-<h2>ListView</h2>
+
 @using (Html.BeginForm("AddItem", "AddItem"))
 {
     <input type="image" src="~/Images/AddItem.png" alt="Submit" class="MenuImg" />
 }
 
-@using (Html.BeginForm("EditItem", "EditItem"))
+@*@using (Html.BeginForm("EditItem", "EditItem"))
 {
     <input type="image" src="~/Images/Edit.png" alt="Submit" class="MenuImg" />
-}
+}*@
 
 
 <div align="center">
