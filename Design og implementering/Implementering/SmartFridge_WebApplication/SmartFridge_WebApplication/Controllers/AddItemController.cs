@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using SmartFridge_WebDAL;
 using SmartFridge_WebDAL.Context;
 using SmartFridge_WebModels;
@@ -13,9 +14,9 @@ namespace SmartFridge_WebApplication.Controllers
     {
         //
         // GET: /AddItem/
-        public string currentList;
-        private int currentListID; //CurrentListID skal komme et sted fra
-
+        public string currentListName;
+        static private int currentListID;
+        static private List CurrentListEntity;
         static private List<GUIItem> newGuiItems = new List<GUIItem>();
         static private List<SelectListItem> ListGuiItemTypes = new List<SelectListItem>();
         static private IEnumerable<GUIItem> model;
@@ -28,8 +29,15 @@ namespace SmartFridge_WebApplication.Controllers
         {
             //string testing = TempData.Peek("CurrentListToEdit").ToString();
             //currentList = TempData["CurrentListToEdit"].ToString();
-            currentList = TempData.Peek("CurrentListToEdit").ToString();
+            currentListName = TempData.Peek("CurrentListToEdit").ToString();
             var uow = dalFacade.GetUnitOfWork();
+
+            List actualList = uow.ListRepo.Find(l => l.ListName == currentListName);
+            if (actualList != null) 
+            {
+                currentListID = actualList.ListId;
+                CurrentListEntity = actualList;
+            }
             //Test
             //ListItemTypes.Add(new Item("Is"));
             //ListItemTypes.Add(new Item("Vingummi"));
@@ -48,20 +56,6 @@ namespace SmartFridge_WebApplication.Controllers
             dalFacade.DisposeUnitOfWork();
             return View(model);
         }
-        #region interne funktioner_OLD
-      /*  public void AddGuiItem(string type, uint amount, uint size, string unit)
-        {
-         
-            newGuiItems.Add(new GUIItem(type,amount,size,unit));
-        }
-
-        public List<GUIItem> AddAndExit(string type, uint amount, uint size, string unit)
-        {
-            newGuiItems.Add(new GUIItem(type, amount, size, unit));
-            
-            return newGuiItems;
-        }*/
-        #endregion
 
         [HttpPost]
         public ActionResult addNewItem(string Varetype, string Antal, string Volume, string Enhed, DateTime Holdbarhedsdato)
@@ -74,25 +68,23 @@ namespace SmartFridge_WebApplication.Controllers
             guiItemToAdd.Unit = Enhed; //unit READ FROM FIELD
 
 
-            foreach (var i in newGuiItems)
+            foreach (var newGuiItem in newGuiItems)
             {
-                if (i.Type.Equals(guiItemToAdd.Type) &&
-                    i.Size.Equals(guiItemToAdd.Size) &&
-                    i.Unit.Equals(guiItemToAdd.Unit) &&
-                    i.ShelfLife.Equals(guiItemToAdd.ShelfLife))
+                if (newGuiItem.Type.Equals(guiItemToAdd.Type) &&
+                    newGuiItem.Size.Equals(guiItemToAdd.Size) &&
+                    newGuiItem.Unit.Equals(guiItemToAdd.Unit) &&
+                    newGuiItem.ShelfLife.Equals(guiItemToAdd.ShelfLife))
                 {
-                    i.Amount += guiItemToAdd.Amount;
-                    //ListBoxItems.Items.Refresh();
+                    newGuiItem.Amount += guiItemToAdd.Amount;                    
                     return null;//Viewet skal dog opdateres først
                 }
             }
             newGuiItems.Add(guiItemToAdd);
             //test
             //newGuiItems.Add(new GUIItem("Tester", 1, 6, "l"));
-             //ListBoxItems.Items.Refresh();
              model = newGuiItems;
-            ViewBag.ListNewGuiItems = ListGuiItemTypes;
-             return PartialView("~/Views/AddItem/AddItem.cshtml",model); //Viewet skal dog opdateres først
+             ViewBag.ListNewGuiItems = ListGuiItemTypes;
+             return PartialView("~/Views/AddItem/AddItem.cshtml",model);
 
             #region FromWPF             
 
@@ -136,32 +128,45 @@ namespace SmartFridge_WebApplication.Controllers
 
             //Kobel de tilføjede items fra listen til databasen
             var uow = dalFacade.GetUnitOfWork();
+
             foreach (var newGuiItem in newGuiItems)
             {
-                //Searching for ListItem in DB
-                ListItem dbListItem = uow.ListItemRepo.Find(l => l.List.ListName == currentList);
-                
-                //ListItem dbListItem = new ListItem();
                 //Searching for item in DB
                 Item dbItem = uow.ItemRepo.Find(l => l.ItemName == newGuiItem.Type);
-                if (dbListItem == null) { dbItem = new Item(newGuiItem.Type); }
+                if (dbItem == null)
+                {
+                    dbItem = new Item(newGuiItem.Type);
+                    uow.ItemRepo.Add(dbItem);
+                }
 
-               dbListItem.ShelfLife = newGuiItem.ShelfLife;
-               dbListItem.Amount = (int)newGuiItem.Amount;
-               dbListItem.Volume = (int)newGuiItem.Size;
-               dbListItem.Unit = newGuiItem.Unit;
+                //Searching for ListItem in DB
+                ListItem dbListItem = uow.ListItemRepo.Find(l => l.List.ListName == currentListName &&
+                                                                 l.Item.ItemName == newGuiItem.Type &&
+                                                                 l.Unit == newGuiItem.Unit &&
+                                                                 l.Volume == newGuiItem.Size &&
+                                                                 l.ShelfLife == newGuiItem.ShelfLife);
+                if (dbListItem != null)
+                {
+                    dbListItem.Amount += (int)newGuiItem.Amount;
+                }
+                else if (dbListItem == null)
+                {
+                    dbListItem = new ListItem();
+                    dbListItem.ShelfLife = newGuiItem.ShelfLife;
+                    dbListItem.Amount = (int)newGuiItem.Amount;
+                    dbListItem.Volume = (int)newGuiItem.Size;
+                    dbListItem.Unit = newGuiItem.Unit;
+                    dbListItem.ListId = currentListID;
+                    dbListItem.List = CurrentListEntity;                    
+                    dbListItem.ItemId = dbItem.ItemId;
+                    dbListItem.Item = dbItem;
 
-               dbListItem.ListId = currentListID; 
-               
-               dbListItem.Item = dbItem;   //Der skal kontrolleres at en udgave af dbItem ikke eksiterer i DB. Hvis der gør, skal ListItem.Item være lig denne.
-                
-               uow.ListItemRepo.Add(dbListItem);
-               uow.ItemRepo.Add(dbItem);   //Der mangler et check på om Item allerede eksisterer i DB
+                    uow.ListItemRepo.Add(dbListItem); 
+                }                                                           
+                             
             }
 
-
-
-
+            uow.SaveChanges();
             dalFacade.DisposeUnitOfWork();
             return View("~/Views/LisView/ListView.cshtml");
 
@@ -171,32 +176,6 @@ namespace SmartFridge_WebApplication.Controllers
             _ctrlTemp.ChangeGridContent(new CtrlItemList(_currentList, _ctrlTemp));*/
 
             #endregion
-
-
         }
-
-
-
-
-
-
-        /*private GUIItem CreateNewItem()
-        {
-            
-            return _ctrlTemp._bll.CreateNewItem(TextBoxVareType.Text, Convert.ToUInt32(TextBoxAntal.Text),
-                Convert.ToUInt32(TextBoxVolumen.Text), TextBoxVolumenEnhed.Text, TextBoxShelfLife.SelectedDate);
-        }*/
-        //public ActionResult SelectType()
-        //{
-        //                ViewBag.ListNewGuiItems = newGuiItems;
-        //                return View();
-
-        //}
- 
-
-
-
-
-
     }
 }
