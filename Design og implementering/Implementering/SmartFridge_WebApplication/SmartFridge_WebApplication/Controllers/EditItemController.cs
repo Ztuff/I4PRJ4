@@ -33,7 +33,7 @@ namespace SmartFridge_WebApplication.Controllers
         public ActionResult EditItem(GUIItem oldItem/*, GUIItemList currentList, 
                                      ISmartFridgeDALFacade dal*/)
         {
-            _oldItem = new GUIItem("test", 1, 1, "l");//oldItem;
+            _oldItem = new GUIItem("test", 1, 1, "dl");//oldItem;
             /*_currentList = currentList;
             _dal = dal;*/
             _dal = new SmartFridgeDALFacade();
@@ -57,7 +57,8 @@ namespace SmartFridge_WebApplication.Controllers
             //        _currentList = list;
             //    }
             //}
-
+            _types.Add(new SelectListItem { Text = "Varetype", Value = "Varetype", Selected = true});
+            _types.Add(new SelectListItem{Text = "js", Value = "js"});
             _units = new List<SelectListItem>(){new SelectListItem{Text = "l", Value = "l"},
                                                 new SelectListItem{Text = "dl", Value = "dl"},
                                                 new SelectListItem{Text = "ml", Value = "ml"},

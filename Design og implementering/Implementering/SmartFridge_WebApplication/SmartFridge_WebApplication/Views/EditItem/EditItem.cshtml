@@ -17,8 +17,14 @@
     {
         <label>VareType</label>
         <br />
-        @Html.TextBox("Type", dataSource.Type)
-        @Html.DropDownList("types")
+        @Html.TextBox("Type", dataSource.Type, new
+        {
+            @id = "VaretypeText"
+        })
+        @Html.DropDownList("types", (List<SelectListItem>)ViewBag.types , new
+           {
+               @id = "VaretypeDropDown"
+           })
         <br />
         <label>Antal</label>
         <br />
@@ -35,7 +41,7 @@
         <br />
         <label>Holdbarhedsdato</label>
         <br/>
-        @*@Html.TextBox("Shelflife", dataSource.ShelfLife, new{@type = "date", @min = "0", @autocomplete = "on"})*@
+        @Html.TextBox("Shelflife", dataSource.ShelfLife, new{@type = "date", @min = "0", @autocomplete = "on"})
         <br/>
 
 
@@ -48,3 +54,7 @@
 
 
 </div>
+
+@section scripts {
+    <script src="~/scripts/addItemScripts.js"></script>
+}
