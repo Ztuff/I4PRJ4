@@ -44,11 +44,10 @@
         <br />
 
 
-        <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg" id="addItemImgClicked"/>
-        }
-        @using (Html.BeginForm("ListView", "LisView"))
-    {
-            <input type="image" src="~/Images/AddAndExit.png" alt="Submit" class="AddImg" />
+    <input type="image" src="~/Images/Add.png" alt="Submit" class="AddImg" id="addItemImgClicked" name="ItemImgClicked" value="Add" />
+    
+    <input type="image" src="~/Images/AddAndExit.png" alt="Submit" class="AddImg" name="ItemImgClicked" value="Exit" />
+       
     }
 
 </div>

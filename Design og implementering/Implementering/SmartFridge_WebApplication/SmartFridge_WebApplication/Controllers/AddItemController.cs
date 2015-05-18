@@ -14,7 +14,7 @@ namespace SmartFridge_WebApplication.Controllers
     {
         //
         // GET: /AddItem/
-        public string currentListName;
+        static public string currentListName;
         static private int currentListID;
         static private List CurrentListEntity;
         static private List<GUIItem> newGuiItems = new List<GUIItem>();
@@ -27,18 +27,20 @@ namespace SmartFridge_WebApplication.Controllers
 
         public ActionResult AddItem()
         {
-            //string testing = TempData.Peek("CurrentListToEdit").ToString();
+            string testing = TempData.Peek("CurrentListToEdit").ToString();
             //currentList = TempData["CurrentListToEdit"].ToString();
             var uow = dalFacade.GetUnitOfWork();
 
-            if (TempData.ContainsKey("CurrentListToEdit") && CurrentListEntity == null)
+            if (TempData.Peek("CurrentListToEdit") != null)
             {
-                currentListName = TempData.Peek("CurrentListToEdit").ToString();
+                currentListName = TempData.Peek("CurrentListToEdit").ToString(); //Skal slettes når der er forbindelse til db
+                
 
-                List actualList = uow.ListRepo.Find(l => l.ListName == currentListName);
+                List actualList = uow.ListRepo.Find(l => l.ListName == TempData.Peek("CurrentListToEdit").ToString());
                 if (actualList != null)
                 {
                     currentListID = actualList.ListId;
+                    currentListName = actualList.ListName;
                     CurrentListEntity = actualList;
                 }
             }
@@ -63,7 +65,7 @@ namespace SmartFridge_WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult addNewItem(string Varetype, string Antal, string Volume, string Enhed, string Holdbarhedsdato)
+        public ActionResult addNewItem(string Varetype, string Antal, string Volume, string Enhed, string Holdbarhedsdato, string ItemImgClicked)
         {
             
             DateTime dblistItemDateTime = new DateTime();
@@ -97,8 +99,16 @@ namespace SmartFridge_WebApplication.Controllers
                 }
             }
             newGuiItems.Add(guiItemToAdd);
+
+            if (ItemImgClicked == "Exit")
+            {
+
+                return Exit(); 
+            }
+
             //test
             //newGuiItems.Add(new GUIItem("Tester", 1, 6, "l"));
+
              model = newGuiItems;
              ViewBag.ListNewGuiItems = ListGuiItemTypes;
              return PartialView("~/Views/AddItem/AddItem.cshtml",model);
@@ -122,22 +132,21 @@ namespace SmartFridge_WebApplication.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult addItemAndExit(string Varetype, string Antal, string Volume, string Enhed, string Holdbarhedsdato)
-        {
-            addNewItem(Varetype, Antal, Volume, Enhed, Holdbarhedsdato);
-            Exit();
-            return null;
+        //[HttpPost]
+        //public ActionResult addItemAndExit(string Varetype, string Antal, string Volume, string Enhed, string Holdbarhedsdato)
+        //{
+        //    addNewItem(Varetype, Antal, Volume, Enhed, Holdbarhedsdato,"Add");
+        //    Exit();
+        //    return null;
 
-            #region FromWPF
+        //    #region FromWPF
 
-            /*AddNewItem(CreateNewItem());
-            Exit();*/
+        //    /*AddNewItem(CreateNewItem());
+        //    Exit();*/
 
-            #endregion
+        //    #endregion
+        //}
 
-
-        }
         [HttpPost]
         public ActionResult Exit()
         {
@@ -183,10 +192,12 @@ namespace SmartFridge_WebApplication.Controllers
                              
             }
 
-            uow.SaveChanges();
+            //uow.SaveChanges();
             dalFacade.DisposeUnitOfWork();
-            TempData["CurrentListToEdit"] = currentListName;
-            return View("~/Views/LisView/ListView.cshtml");
+
+          //  return View("~/Views/LisView/ListView.cshtml", new { ListToEdit = currentListName });
+            return RedirectToAction("ListView", "LisView", new { ListToEdit = currentListName });
+
 
             #region FromWPF
 
