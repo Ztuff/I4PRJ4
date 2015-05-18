@@ -9,7 +9,7 @@ namespace SmartFridge_WebModels
         public uint Size { get; set; }
         public string Unit { get; set; }
         public DateTime ShelfLife { get; set; }
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         public GUIItem()
         {

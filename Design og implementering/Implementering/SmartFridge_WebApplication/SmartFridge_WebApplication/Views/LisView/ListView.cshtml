@@ -1,4 +1,5 @@
 ﻿@using System.Diagnostics
+@using SmartFridge_WebModels
 @model IEnumerable<SmartFridge_WebModels.GUIItem>
 @{
     ViewBag.Title = "ListView";
@@ -10,7 +11,7 @@
                 new WebGridColumn{
                     Format =
                         @<text>
-                            <a href="@Url.Action("EditItem", "EditItem", new {id = 1})"><img src="~/Images/Edit.png" class="RowImg" /></a>
+                            <a href="@Url.Action("ToEditItem", "LisView", new GUIItem(item.Type, item.Amount, item.Size, item.Unit))"><img src="~/Images/Edit.png" class="RowImg" /></a>
                             @*<a href='#' class="display edit-btn">
                             @using (Html.BeginForm("EditItem", "EditItem"))
                             {

@@ -33,7 +33,7 @@ namespace SmartFridge_WebApplication.Controllers
         public ActionResult EditItem(GUIItem oldItem/*, GUIItemList currentList, 
                                      ISmartFridgeDALFacade dal*/)
         {
-            _oldItem = new GUIItem("test", 1, 1, "dl");//oldItem;
+            _oldItem = oldItem;
             /*_currentList = currentList;
             _dal = dal;*/
             _dal = new SmartFridgeDALFacade();
@@ -107,7 +107,7 @@ namespace SmartFridge_WebApplication.Controllers
             var uow = _dal.GetUnitOfWork();
             foreach (var listItem in _dbListItems)
             {
-                if (listItem.Item.ItemId == _oldItem.ID && listItem.List.ListId == _currentList.ListId)
+                if (listItem.Item.ItemId == _oldItem.Id && listItem.List.ListId == _currentList.ListId)
                 {
                     listItem.Amount = Convert.ToInt32(_updatedItem.Amount);
                     listItem.Volume = Convert.ToInt32(_updatedItem.Size);
