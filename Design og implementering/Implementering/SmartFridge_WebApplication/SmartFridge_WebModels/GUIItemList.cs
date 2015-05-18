@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
-namespace SmartFridge_WebApplication.Models
+namespace SmartFridge_WebModels
 {
     public class GUIItemList
     {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
-namespace SmartFridge_WebApplication
+namespace SmartFridge_WebApplication.Content
 {
     public static class WebApiConfig
     {

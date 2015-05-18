@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using SmartFridge_WebApplication.DAL.Context;
+using SmartFridge_WebDAL.Context;
 
-namespace SmartFridge_WebApplication.DAL.Repository
+namespace SmartFridge_WebDAL.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {

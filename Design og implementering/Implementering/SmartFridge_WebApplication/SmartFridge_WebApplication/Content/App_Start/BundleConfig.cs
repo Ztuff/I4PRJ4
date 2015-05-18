@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
-namespace SmartFridge_WebApplication
+namespace SmartFridge_WebApplication.Content
 {
     public class BundleConfig
     {

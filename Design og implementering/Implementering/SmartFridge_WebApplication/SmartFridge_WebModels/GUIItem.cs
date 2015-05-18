@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SmartFridge_WebApplication.Models
+namespace SmartFridge_WebModels
 {
     public class GUIItem
     {

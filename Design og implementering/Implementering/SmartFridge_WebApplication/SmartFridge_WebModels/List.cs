@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SmartFridge_WebApplication.Models
+namespace SmartFridge_WebModels
 {
     public class List
     {

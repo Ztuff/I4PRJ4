@@ -8,21 +8,22 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using System.Web.WebPages;
-using SmartFridge_WebApplication.Models;
-using SmartFridge_WebApplication.DAL;
+using SmartFridge_WebDAL;
+using SmartFridge_WebModels;
+using ListItem = SmartFridge_WebModels.ListItem;
 
 namespace SmartFridge_WebApplication.Controllers
 {
     public class EditItemController : Controller
     {
         private static GUIItem _oldItem = new GUIItem();
-        private static Models.List _currentList;
+        private static List _currentList;
         private static ISmartFridgeDALFacade _dal;
         private static List<SelectListItem> _units;
         private static List<SelectListItem> _types;
         private static List<Item> _dbItems;
-        private static List<Models.ListItem> _dbListItems;
-        private static List<Models.List> _dbLists; 
+        private static List<ListItem> _dbListItems;
+        private static List<List> _dbLists; 
 
         private GUIItem _updatedItem = new GUIItem();
 

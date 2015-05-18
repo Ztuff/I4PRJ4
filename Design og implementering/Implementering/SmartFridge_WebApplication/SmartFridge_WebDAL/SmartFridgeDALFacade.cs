@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SmartFridge_WebApplication.DAL.Context;
-using SmartFridge_WebApplication.DAL.UnitOfWork;
+using SmartFridge_WebDAL.Context;
+using SmartFridge_WebDAL.UnitOfWork;
 
-namespace SmartFridge_WebApplication.DAL
+namespace SmartFridge_WebDAL
 {
     public class SmartFridgeDALFacade : ISmartFridgeDALFacade
     {
@@ -29,12 +24,14 @@ namespace SmartFridge_WebApplication.DAL
         }
 
         #endregion
+
         public IUnitOfWork GetUnitOfWork()
         {
             if (_unitOfWork != null)
                 throw new InvalidOperationException("A Unit of Work is already in use.");
 
-            _context = new SFContext(DatabaseName);
+            _context = DatabaseName == null ? new SFContext() : new SFContext(DatabaseName);
+            
             _unitOfWork = new UnitOfWork.UnitOfWork(_context);
             return _unitOfWork;
         }

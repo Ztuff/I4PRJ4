@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SmartFridge_WebApplication.DAL.Context;
-using SmartFridge_WebApplication.Models;
-using SmartFridge_WebApplication.DAL.Repository;
+using SmartFridge_WebDAL.Context;
+using SmartFridge_WebDAL.Repository;
+using SmartFridge_WebModels;
 
-namespace SmartFridge_WebApplication.DAL.UnitOfWork
+namespace SmartFridge_WebDAL.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

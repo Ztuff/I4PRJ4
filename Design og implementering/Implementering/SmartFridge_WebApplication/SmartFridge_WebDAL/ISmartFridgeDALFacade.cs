@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SmartFridge_WebApplication.DAL.UnitOfWork;
+﻿using SmartFridge_WebDAL.UnitOfWork;
 
-namespace SmartFridge_WebApplication.DAL
+namespace SmartFridge_WebDAL
 {
     //Facade for the DAL.
     public interface ISmartFridgeDALFacade

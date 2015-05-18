@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SmartFridge_WebApplication.DAL;
-using SmartFridge_WebApplication.DAL.Context;
-using SmartFridge_WebApplication.DAL.UnitOfWork;
-using SmartFridge_WebApplication.Models;
+using SmartFridge_WebDAL;
+using SmartFridge_WebDAL.Context;
+using SmartFridge_WebModels;
 
 namespace SmartFridge_WebApplication.Controllers
 {
@@ -22,13 +21,14 @@ namespace SmartFridge_WebApplication.Controllers
         private IEnumerable<GUIItem> model;
         private List<Item> ListItemTypes = new List<Item>();
 
-        private ISmartFridgeDALFacade dalFacade = new SmartFridgeDALFacade("SmartFridge-SSDT2");
-        private SFContext dbContext = new SFContext("SmartFridge-SSDT2");
+        private ISmartFridgeDALFacade dalFacade = new SmartFridgeDALFacade("SmartFridgeDb");
+
 
         public ActionResult AddItem()
         {
-            
-            currentList = TempData["CurrentListToEdit"].ToString();
+            //string testing = TempData.Peek("CurrentListToEdit").ToString();
+            //currentList = TempData["CurrentListToEdit"].ToString();
+            currentList = TempData.Peek("CurrentListToEdit").ToString();
             var uow = dalFacade.GetUnitOfWork();
             //Test
             //ListItemTypes.Add(new Item("Is"));
@@ -44,6 +44,7 @@ namespace SmartFridge_WebApplication.Controllers
             model = newGuiItems;
             ViewBag.ListNewGuiItems = ListGuiItemTypes;
 
+            uow.SaveChanges();
             dalFacade.DisposeUnitOfWork();
             return View(model);
         }

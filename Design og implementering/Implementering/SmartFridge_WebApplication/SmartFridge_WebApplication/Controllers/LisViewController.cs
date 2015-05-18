@@ -5,8 +5,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SmartFridge_WebApplication.Models;
 using System.Web.Helpers;
+using SmartFridge_WebModels;
 
 namespace SmartFridge_WebApplication.Controllers
 {

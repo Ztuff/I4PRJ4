@@ -1,8 +1,7 @@
 ﻿using System.Data.Entity;
-using SmartFridge_WebApplication.Models;
+using SmartFridge_WebModels;
 
-
-namespace SmartFridge_WebApplication.DAL.Context
+namespace SmartFridge_WebDAL.Context
 {
     public class SFContext : DbContext
     {

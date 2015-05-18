@@ -281,7 +281,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmartFridge_WebDAL\SmartFridge_WebDAL.csproj">
-      <Project>{0eae92dc-7ab3-4ef0-9f90-afc263fbc7a7}</Project>
+      <Project>{e3102637-728f-45ce-8e4f-49554ad23514}</Project>
       <Name>SmartFridge_WebDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\SmartFridge_WebModels\SmartFridge_WebModels.csproj">

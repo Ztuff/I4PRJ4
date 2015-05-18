@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SmartFridge_WebApplication.Models
+namespace SmartFridge_WebModels
 {
     public class ListItem
     {

@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace SmartFridge_WebApplication
+namespace SmartFridge_WebApplication.Content
 {
     public class FilterConfig
     {
