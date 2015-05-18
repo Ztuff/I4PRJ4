@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFridge_WebApplication"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFridge_WebApplication.Tests", "SmartFridge_WebApplication.Tests\SmartFridge_WebApplication.Tests.csproj", "{B4D33DB5-49BE-474E-A665-0D9937DCD826}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFridge_WebDAL", "SmartFridge_WebDAL\SmartFridge_WebDAL.csproj", "{0EAE92DC-7AB3-4EF0-9F90-AFC263FBC7A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFridge_WebModels", "SmartFridge_WebModels\SmartFridge_WebModels.csproj", "{AF9F7FE5-BB34-45F0-AC65-A6E1460CEDE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{B4D33DB5-49BE-474E-A665-0D9937DCD826}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4D33DB5-49BE-474E-A665-0D9937DCD826}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4D33DB5-49BE-474E-A665-0D9937DCD826}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EAE92DC-7AB3-4EF0-9F90-AFC263FBC7A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EAE92DC-7AB3-4EF0-9F90-AFC263FBC7A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EAE92DC-7AB3-4EF0-9F90-AFC263FBC7A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EAE92DC-7AB3-4EF0-9F90-AFC263FBC7A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF9F7FE5-BB34-45F0-AC65-A6E1460CEDE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF9F7FE5-BB34-45F0-AC65-A6E1460CEDE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF9F7FE5-BB34-45F0-AC65-A6E1460CEDE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF9F7FE5-BB34-45F0-AC65-A6E1460CEDE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

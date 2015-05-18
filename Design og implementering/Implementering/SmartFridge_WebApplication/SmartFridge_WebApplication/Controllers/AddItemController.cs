@@ -37,9 +37,9 @@ namespace SmartFridge_WebApplication.Controllers
             //ListItemTypes.Add(new Item("Kage"));
             //ListItemTypes = uow.ItemRepo.GetAll(); //Apparently not legal to do
 
-            foreach (var GuiItemTypes in uow.ItemRepo.GetAll()) 
+            foreach (var guiItemTypes in uow.ItemRepo.GetAll()) 
             {
-                ListGuiItemTypes.Add(new SelectListItem { Text = GuiItemTypes.ItemName });
+                ListGuiItemTypes.Add(new SelectListItem { Text = guiItemTypes.ItemName });
             }
             model = newGuiItems;
             ViewBag.ListNewGuiItems = ListGuiItemTypes;
@@ -71,6 +71,7 @@ namespace SmartFridge_WebApplication.Controllers
             guiItemToAdd.Size = Convert.ToUInt32(Volume); //Volume READ FROM FIELD
             guiItemToAdd.Type = Varetype; //Varetype READ FROM FIELD
             guiItemToAdd.Unit = Enhed; //unit READ FROM FIELD
+
 
             foreach (var i in newGuiItems)
             {
@@ -137,18 +138,21 @@ namespace SmartFridge_WebApplication.Controllers
             foreach (var newGuiItem in newGuiItems)
             {
                 ListItem dbListItem = new ListItem();
-                Item dbItem = new Item(newGuiItem.Type);
+                //Searching for item in DB
+                Item dbItem = uow.ItemRepo.Find(l => l.ItemName == newGuiItem.Type);
+                //Item dbItem = new Item(newGuiItem.Type);
 
                dbListItem.ShelfLife = newGuiItem.ShelfLife;
                dbListItem.Amount = (int)newGuiItem.Amount;
                dbListItem.Volume = (int)newGuiItem.Size;
                dbListItem.Unit = newGuiItem.Unit;
 
-                dbListItem.ListId = currentListID; 
-                dbListItem.Item = dbItem;   //Der skal kontrolleres at en udgave af dbItem ikke eksiterer i DB. Hvis der gør, skal ListItem.Item være lig denne.
+               dbListItem.ListId = currentListID; 
+               
+               dbListItem.Item = dbItem;   //Der skal kontrolleres at en udgave af dbItem ikke eksiterer i DB. Hvis der gør, skal ListItem.Item være lig denne.
                 
-                uow.ListItemRepo.Add(dbListItem);
-                uow.ItemRepo.Add(dbItem);   //Der mangler et check på om Item allerede eksisterer i DB
+               uow.ListItemRepo.Add(dbListItem);
+               uow.ItemRepo.Add(dbItem);   //Der mangler et check på om Item allerede eksisterer i DB
             }
 
 

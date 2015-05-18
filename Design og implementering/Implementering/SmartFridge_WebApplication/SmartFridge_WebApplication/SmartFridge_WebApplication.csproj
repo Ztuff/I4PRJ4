@@ -136,21 +136,9 @@
     <Compile Include="Controllers\EditItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LisViewController.cs" />
-    <Compile Include="DAL\Context\SFContext.cs" />
-    <Compile Include="DAL\ISmartFridgeDALFacade.cs" />
-    <Compile Include="DAL\Repository\IRepository.cs" />
-    <Compile Include="DAL\Repository\Repository.cs" />
-    <Compile Include="DAL\SmartFridgeDALFacade.cs" />
-    <Compile Include="DAL\UnitOfWork\IUnitOfWork.cs" />
-    <Compile Include="DAL\UnitOfWork\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\GUIItem.cs" />
-    <Compile Include="Models\GUIItemList.cs" />
-    <Compile Include="Models\Item.cs" />
-    <Compile Include="Models\List.cs" />
-    <Compile Include="Models\ListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -290,6 +278,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartFridge_WebDAL\SmartFridge_WebDAL.csproj">
+      <Project>{0eae92dc-7ab3-4ef0-9f90-afc263fbc7a7}</Project>
+      <Name>SmartFridge_WebDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartFridge_WebModels\SmartFridge_WebModels.csproj">
+      <Project>{af9f7fe5-bb34-45f0-ac65-a6e1460cede2}</Project>
+      <Name>SmartFridge_WebModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
