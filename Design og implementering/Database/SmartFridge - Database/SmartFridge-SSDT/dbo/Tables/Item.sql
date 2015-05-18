@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Item] (
+﻿CREATE TABLE [dbo].[Items] (
     [ItemId] INT IDENTITY (1, 1) NOT NULL,
     [ItemName] NVARCHAR(MAX) NOT NULL, 
     [StandardVolume] INT NULL, 
