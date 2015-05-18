@@ -23,7 +23,7 @@
                 new WebGridColumn{
                     Format =
                         @<text>
-                            <a href="@Url.Action("EditItem", "EditItem", new {id = 1})"><img src="~/Images/Trash.png" class="RowImg" /></a>
+                            <a href="@Url.Action("DeleteSelectedItem", "LisView", new GUIItem(item.Type, item.Amount, item.Size, item.Unit))"><img src="~/Images/Trash.png" class="RowImg" /></a>
                             @*<a href='#' class="display edit-btn">
                             @using (Html.BeginForm("EditItem", "EditItem"))
                             {
@@ -32,19 +32,19 @@
                         </a>*@
                          </text>
                 },
+                 new WebGridColumn{
+                    Header="Type",
+                    Format = @<text>
+                        <span class="display">
+                            <label id="lblType">@item.Type</label>
+                        </span>
+                    </text>
+                },
                 new WebGridColumn{
                     Header="Amount",
                     Format = @<text>
                         <span class="display">
                             <label id="lblAmount">@item.Amount</label>
-                        </span>
-                    </text>
-                },
-                new WebGridColumn{
-                    Header="ShelfLife",
-                    Format = @<text>
-                        <span class="display">
-                            <label id="lblShelfLife">@item.ShelfLife</label>
                         </span>
                     </text>
                 },
@@ -56,19 +56,20 @@
                         </span>
                     </text>
                 },
-                new WebGridColumn{
-                    Header="Type",
-                    Format = @<text>
-                        <span class="display">
-                            <label id="lblType">@item.Type</label>
-                        </span>
-                    </text>
-                },
+               
                 new WebGridColumn{
                     Header="Unit",
                     Format = @<text>
                         <span class="display">
                             <label id="lblUnit">@item.Unit</label>
+                        </span>
+                    </text>
+                },
+                 new WebGridColumn{
+                    Header="Holdbarhedsdato",
+                    Format = @<text>
+                        <span class="display">
+                            <label id="lblShelfLife">@item.ShelfLife</label>
                         </span>
                     </text>
                 }
