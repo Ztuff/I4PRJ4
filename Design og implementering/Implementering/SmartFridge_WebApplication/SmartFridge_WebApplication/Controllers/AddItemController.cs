@@ -29,15 +29,20 @@ namespace SmartFridge_WebApplication.Controllers
         {
             //string testing = TempData.Peek("CurrentListToEdit").ToString();
             //currentList = TempData["CurrentListToEdit"].ToString();
-            currentListName = TempData.Peek("CurrentListToEdit").ToString();
             var uow = dalFacade.GetUnitOfWork();
 
-            List actualList = uow.ListRepo.Find(l => l.ListName == currentListName);
-            if (actualList != null) 
+            if (TempData.ContainsKey("CurrentListToEdit") && CurrentListEntity == null)
             {
-                currentListID = actualList.ListId;
-                CurrentListEntity = actualList;
+                currentListName = TempData.Peek("CurrentListToEdit").ToString();
+
+                List actualList = uow.ListRepo.Find(l => l.ListName == currentListName);
+                if (actualList != null)
+                {
+                    currentListID = actualList.ListId;
+                    CurrentListEntity = actualList;
+                }
             }
+            
             //Test
             //ListItemTypes.Add(new Item("Is"));
             //ListItemTypes.Add(new Item("Vingummi"));
@@ -58,10 +63,22 @@ namespace SmartFridge_WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult addNewItem(string Varetype, string Antal, string Volume, string Enhed, DateTime Holdbarhedsdato)
+        public ActionResult addNewItem(string Varetype, string Antal, string Volume, string Enhed, string Holdbarhedsdato)
         {
+            
+            DateTime dblistItemDateTime = new DateTime();
+            if (Holdbarhedsdato.Length == 0)
+            {
+                dblistItemDateTime = default(DateTime);
+            }
+            else
+            {
+                dblistItemDateTime = Convert.ToDateTime(Holdbarhedsdato);
+            }
+
+
             GUIItem guiItemToAdd = new GUIItem();
-            guiItemToAdd.ShelfLife = Holdbarhedsdato; //AMOUNT READ FROM FIELD
+            guiItemToAdd.ShelfLife = dblistItemDateTime; //AMOUNT READ FROM FIELD
             guiItemToAdd.Amount = Convert.ToUInt32(Antal); //Antal READ FROM FIELD
             guiItemToAdd.Size = Convert.ToUInt32(Volume); //Volume READ FROM FIELD
             guiItemToAdd.Type = Varetype; //Varetype READ FROM FIELD
@@ -106,7 +123,7 @@ namespace SmartFridge_WebApplication.Controllers
 
 
         [HttpPost]
-        public ActionResult addItemAndExit(string Varetype, string Antal, string Volume, string Enhed, DateTime Holdbarhedsdato)
+        public ActionResult addItemAndExit(string Varetype, string Antal, string Volume, string Enhed, string Holdbarhedsdato)
         {
             addNewItem(Varetype, Antal, Volume, Enhed, Holdbarhedsdato);
             Exit();
@@ -168,6 +185,7 @@ namespace SmartFridge_WebApplication.Controllers
 
             uow.SaveChanges();
             dalFacade.DisposeUnitOfWork();
+            TempData["CurrentListToEdit"] = currentListName;
             return View("~/Views/LisView/ListView.cshtml");
 
             #region FromWPF
