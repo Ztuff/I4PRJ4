@@ -28,7 +28,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"INSERT INTO ListItem (ListId,ItemId,Amount,Volume,Unit,ShelfLife) VALUES(@ListId,@ItemId,@Amount,@Volume,@Unit,@ShelfLife)";
+                command.CommandText = @"INSERT INTO ListItems (ListId,ItemId,Amount,Volume,Unit,ShelfLife) VALUES(@ListId,@ItemId,@Amount,@Volume,@Unit,@ShelfLife)";
                 
                 var listParam = command.CreateParameter();
                 listParam.ParameterName = "@ListId";
@@ -81,7 +81,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"DELETE FROM ListItem Where ListId = @ListId AND ItemId = @ItemId AND Amount = @Amount AND Volume = @Volume AND Unit = @Unit";
+                command.CommandText = @"DELETE FROM ListItems Where ListId = @ListId AND ItemId = @ItemId AND Amount = @Amount AND Volume = @Volume AND Unit = @Unit";
                 
                 var listParam = command.CreateParameter();
                 listParam.ParameterName = "@ListId";
@@ -120,7 +120,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"SELECT * From ListItem";
+                command.CommandText = @"SELECT * From ListItems";
                 return ToList(command);
             }
         }
@@ -134,7 +134,7 @@ namespace DataAccessLayer.Repository
         {
             using (var command = Context.CreateCommand())
             {
-                command.CommandText = @"SELECT * FROM ListItem WHERE ListId = @ListId";
+                command.CommandText = @"SELECT * FROM ListItems WHERE ListId = @ListId";
                 var param = command.CreateParameter();
                 param.ParameterName = "@ListId";
                 param.Value = list.ListId;

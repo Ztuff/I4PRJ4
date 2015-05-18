@@ -41,7 +41,7 @@ namespace SmartFridgeApplication
         Popup popup = new Popup();
         StackPanel Panel = new StackPanel();
         private EventTimer eventT;
-        
+
         private SyncStatus syncStatus = SyncStatus.Synced;
         public CtrlTemplate CtrlTemp = new CtrlTemplate();
 
@@ -64,15 +64,6 @@ namespace SmartFridgeApplication
             popup.StaysOpen = false;
         }
 
-        void test_add_new_notifications()
-        {
-            //ONLY FOR TESTING NOTIFICATIONS:
-            //Notifications.Add(new Notification("Test notification 1", DateTime.Now){ID = 1});
-            //Notifications.Add(new Notification("Test notification 2", DateTime.Now){ID = 2});
-            //Notifications.Add(new Notification("Test notification 3", DateTime.Now){ID = 3});
-            //ABOVE ONLY FOR TESTING NOTIFICATIONS
-        }
-
         void timer_Tick(object sender, EventArgs e)
         {
             clock.Update();
@@ -85,7 +76,7 @@ namespace SmartFridgeApplication
 
         public void UpdateNotificationsAmount()
         {
-            Dispatcher.Invoke(()=> TextBoxNotifications.Content = CtrlTemp._bll.Notifications.Count.ToString());
+            Dispatcher.Invoke(() => TextBoxNotifications.Content = CtrlTemp._bll.Notifications.Count.ToString());
             UpdateNotificationsButton();
         }
 
@@ -97,10 +88,10 @@ namespace SmartFridgeApplication
             int count = 0;
             Dispatcher.Invoke(() => count = CtrlTemp._bll.Notifications.Count);
 
-           if (count == 0)
-           {
+            if (count == 0)
+            {
                 Dispatcher.Invoke(() => popup.IsOpen = false);
-           }
+            }
         }
 
         private void BackButton_Clicked(object sender, RoutedEventArgs e)
@@ -136,7 +127,7 @@ namespace SmartFridgeApplication
             eventT.SyncSecondsElapsed = 0;
             eventT.TriggerSyncing();
             TrySync();
-            
+
         }
 
         private void TrySync()
@@ -149,13 +140,12 @@ namespace SmartFridgeApplication
 
         private void Syncing()
         {
-            try
+            if (eventT.TriggerSyncing())
             {
-                eventT.TriggerSyncing();
                 syncStatus = SyncStatus.Synced;
                 Dispatcher.Invoke(ChangeSyncImage);
             }
-            catch (Exception)
+            else
             {
                 syncStatus = SyncStatus.Desynced;
                 Dispatcher.Invoke(ChangeSyncImage);
@@ -190,7 +180,7 @@ namespace SmartFridgeApplication
         {
             Button button = sender as Button;
 
-            
+
             /*
             TextBlock popupText = new TextBlock();
             popupText.Text = "Popup Text";
@@ -199,7 +189,7 @@ namespace SmartFridgeApplication
             */
             AddNotificationsToPanel(CtrlTemp._bll.Notifications, Panel);
 
-            
+
             popup.Child = Panel;
 
             popup.PlacementTarget = button;
@@ -254,7 +244,7 @@ namespace SmartFridgeApplication
 
         private void DeleteNotification(object parameter)
         {
-            int notificationID = (int) parameter;
+            int notificationID = (int)parameter;
             var NotificationForDeletion = CtrlTemp._bll.Notifications.Single(o => o.ID == notificationID);
             CtrlTemp._bll.Notifications.Remove(NotificationForDeletion);
             AddNotificationsToPanel(CtrlTemp._bll.Notifications, Panel);

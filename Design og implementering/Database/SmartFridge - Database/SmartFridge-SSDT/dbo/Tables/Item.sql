@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[Items] (
     [ItemId] INT IDENTITY (1, 1) NOT NULL,
     [ItemName] NVARCHAR(MAX) NOT NULL, 
-    [StandardVolume] INT NULL, 
-    [StandardUnit] NVARCHAR(MAX) NULL, 
+    [StdVolume] INT NULL, 
+    [StdUnit] NVARCHAR(MAX) NULL, 
     CONSTRAINT [pk_Item] PRIMARY KEY CLUSTERED ([ItemId] ASC)
 );
 
