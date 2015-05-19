@@ -41,7 +41,7 @@
         <br />
         <label>Holdbarhedsdato</label>
         <br/>
-        @Html.TextBox("Shelflife", dataSource.ShelfLife, new{@type = "date", @autocomplete = "on"})
+        @Html.TextBox("Shelflife", dataSource.ShelfLife.ToString("dd-mm-yyyy"), new{@type = "date", @autocomplete = "on"})
         <br/>
 
 

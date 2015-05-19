@@ -57,7 +57,7 @@ namespace SmartFridge_WebApplication.Controllers
 
             foreach (var list in _dbLists)
             {
-                if (list == TempData.Peek("CurrentListToEdit"))
+                if (list.ListName == TempData.Peek("CurrentListToEdit"))
                 {
                     _currentList = list;
                 }
