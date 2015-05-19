@@ -2,14 +2,23 @@
 
 namespace SmartFridge_WebDAL
 {
-    //Facade for the DAL.
+    /// <summary>
+    /// Facade interface for the DAL.
+    /// </summary>
     public interface ISmartFridgeDALFacade
     {
-        //Creates a UoW. Only allows one instance, so if UoW is in use, throws exception.
+        /// <summary>
+        /// Creates a Unit of Work. Only allows one instance, so if UoW is in use, throws exception.
+        /// </summary>
+        /// <returns></returns>
         IUnitOfWork GetUnitOfWork();
-        //Disposes the UnitOfWork. If no UoW was created, throw exception.
+        /// <summary>
+        /// Disposes the UnitOfWork. If no UoW was created, throw exception.
+        /// </summary>
         void DisposeUnitOfWork();
-        //Name of Database for the app.
+        /// <summary>
+        /// Name of Database for the app.
+        /// </summary>
         string DatabaseName { get; set; }
     }
 }
