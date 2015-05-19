@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Net.Mime;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
-using System.Web.WebPages;
 using SmartFridge_WebDAL;
 using SmartFridge_WebModels;
 using ListItem = SmartFridge_WebModels.ListItem;
@@ -48,16 +42,16 @@ namespace SmartFridge_WebApplication.Controllers
             _dbLists = uow.ListRepo.GetAll().ToList();
             _dal.DisposeUnitOfWork();
             _types.Add(new SelectListItem { Text = "Varetype", Value = "Varetype", Selected = true});
+            int value = 0; 
             foreach (var item in _dbItems)
             {
-                int value = 0;
                 _types.Add(new SelectListItem { Text = item.ItemName, Value = value.ToString() });
                 value++;
             }
 
             foreach (var list in _dbLists)
             {
-                if (list.ListName == TempData.Peek("CurrentListToEdit"))
+                if (list.ListName == TempData.Peek("CurrentListToEdit").ToString())
                 {
                     _currentList = list;
                 }

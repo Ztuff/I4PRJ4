@@ -345,7 +345,7 @@ namespace BusinessLogicLayer
                                         dbListItem.Volume == newGuiItem.Size)
                                     {
                                         int currentAmount = dbListItem.Amount;
-                                        ListItem updatedListItem = new ListItem(((int)newGuiItem.Amount),
+                                        ListItem updatedListItem = new ListItem(((int)newGuiItem.Amount + currentAmount),
                                                                (int)newGuiItem.Size,
                                                                newGuiItem.Unit,
                                                                dbListItem.List,
