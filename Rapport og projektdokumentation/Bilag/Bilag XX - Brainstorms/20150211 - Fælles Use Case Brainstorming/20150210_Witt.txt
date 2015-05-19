@@ -1,0 +1,48 @@
+Fordeling af arbejde
+	- Database
+	- Funktionalitet
+	- GUI - Køleskab		Det vil jeg
+	- GUI - Web				Det vil jeg
+Opgaver til næste gang
+	- Brainstorm
+		- Use-cases - Se nedenstående prioriteringer
+			- Web
+			- KøleGUI
+		- Prioritering af tingene
+			- Lokal DB op at køre
+				-DB over hvad der er i køleskabet
+				-DB over hvad der mangler - Indkøbsliste
+				-Man skal kunne:
+					-Tilføje
+					-Fjerne
+					-Se alle vare
+						-Navn
+						-Liste over holdbarhedsdato. Det der er for gammelt øverst
+			- Lokal GUI
+				-Tilføj til mangler
+					- Vare
+						-Navn
+						-Holdbarhedsdato
+				-Tilføj til ER i køleskab
+				-Slet - fra Mangler og Er i køleskab
+					-Vare
+				-Se hvad der er i køleskabet
+				-Alarm når noget er for gammelt
+			- Web GUI
+				-Se hvad der er i køleskabet
+				-Liste over hvor langt noget kan holde sig
+					-Det der snarest bliver gammelt er øverst
+		- Hvad vi gerne vil lave - Mig-GUI
+		- Mindre nødvendige tilføjelser
+			-Synkronisere med ekstern Database.
+			-PASSWORD på web
+			-Bruger på Lokal - Så kan man se hvem der har sagt der skal købes mælk
+			-Slå opskrifter op
+				-Eventuelt fra database
+			-Alarm når noget er for gammelt
+			-Tilføj og fjern vare fra WEB
+			-Scanner
+	- Redmine - Kontakt IT
+	 - Kan vi få et Scrum Board på readmine
+	- Mødeindkaldelse
+	- Samarbejdsaftale
