@@ -18,7 +18,6 @@ namespace UserControlLibrary
     {
         private CtrlTemplate _ctrlTemp;
         public string ListType;
-        public CtrlTemplate CtrlTemp { get; set; }
         // IData fakeData = new FakeData();        // Vi skal have fjernet fakes fra alt andet end tests - hurtigst muligt!
         // skal bruges i stedet for fake når READ virker fra Rep-laget 
         GUIItem selectedItemOld = new GUIItem();
