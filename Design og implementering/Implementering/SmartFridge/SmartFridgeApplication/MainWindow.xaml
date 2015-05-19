@@ -46,7 +46,6 @@
                     </Button.Background>
                 </Button>
             </DockPanel>
-            <Label Content="Title" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
             <DockPanel HorizontalAlignment="Right">
                 <TextBlock Name="DateBlock" Text="{Binding Path=Date}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4,0"></TextBlock>
                 <TextBlock Name="TimeBlock" Text="{Binding Path=Time}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4,0"></TextBlock>
@@ -63,42 +62,6 @@
             </Button>
         </Grid>
 
-        <Grid DockPanel.Dock="Right" Margin="0,150,0,10">
-            <DockPanel HorizontalAlignment="Right" VerticalAlignment="Top">
-                <Button Content="Wittler" Margin="0,0,0,10" RenderTransformOrigin="0.5,0.5" DockPanel.Dock="Top">
-                    <Button.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-90"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Button.RenderTransform>
-                </Button>
-                <Button Content="Mat" DockPanel.Dock="Top" Margin="0,0,0,10" RenderTransformOrigin="0.5,0.5">
-                    <Button.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-90"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Button.RenderTransform>
-                </Button>
-                <Button Content="Stuff" DockPanel.Dock="Top" Margin="0,0,0,10" RenderTransformOrigin="0.5,0.5">
-                    <Button.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-90"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Button.RenderTransform>
-                </Button>
-
-            </DockPanel>
-        </Grid>
-
         <Grid DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1920" Height="1080" Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1451*"/>
@@ -107,9 +70,6 @@
             <Grid x:Name="ItemListGrid" HorizontalAlignment="Center" Height="720" VerticalAlignment="Center" Width="1280" Grid.ColumnSpan="2" Margin="320,180">
                 <Border BorderThickness="1" Background="#19000000"/>
             </Grid>
-            <Button Content="TestHome" HorizontalAlignment="Left" Margin="364,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButton_Home_Clicked"/>
-            <Button Content="TestBack" HorizontalAlignment="Left" Margin="488,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButton_Back_Clicked"/>
-            <Button Content="TestForward" HorizontalAlignment="Left" Margin="611,155,0,0" VerticalAlignment="Top" Width="75" Click="TestButton_Forward_Clicked"/>
             <TextBlock Name="TestTimeBlock" Text="{Binding Path=Time}" HorizontalAlignment="Left" Margin="900,158,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
             <TextBlock Name="TestDateBlock" Text="{Binding Path=Date}" HorizontalAlignment="Left" Margin="742,158,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
             <Label Name="TestTimeLabel" HorizontalAlignment="Left" Margin="1018,153,0,0" VerticalAlignment="Top"/>

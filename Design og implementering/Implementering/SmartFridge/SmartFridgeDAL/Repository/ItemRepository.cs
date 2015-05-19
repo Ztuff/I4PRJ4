@@ -37,6 +37,7 @@ namespace DataAccessLayer.Repository
                 var unitParam = command.CreateParameter();
                 unitParam.ParameterName = "@StdUnit";
                 unitParam.Value = item.StdUnit;
+
                 command.Parameters.Add(unitParam);
                 item.ItemId = (int)command.ExecuteScalar();
             }

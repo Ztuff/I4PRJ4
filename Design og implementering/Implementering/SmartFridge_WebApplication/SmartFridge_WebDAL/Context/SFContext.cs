@@ -3,6 +3,9 @@ using SmartFridge_WebModels;
 
 namespace SmartFridge_WebDAL.Context
 {
+    /// <summary>
+    /// Entity Framework DbContext for SmartFridge.
+    /// </summary>
     public class SFContext : DbContext
     {
 

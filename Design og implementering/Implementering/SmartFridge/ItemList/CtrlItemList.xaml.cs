@@ -18,9 +18,6 @@ namespace UserControlLibrary
     {
         private CtrlTemplate _ctrlTemp;
         public string ListType;
-        public CtrlTemplate CtrlTemp { get; set; }
-        // IData fakeData = new FakeData();        // Vi skal have fjernet fakes fra alt andet end tests - hurtigst muligt!
-        // skal bruges i stedet for fake når READ virker fra Rep-laget 
         GUIItem selectedItemOld = new GUIItem();
         GUIItem selectedItem = new GUIItem(); //(GUIItem)DataGridItems.SelectedItem;
         ObservableCollection<GUIItem> GUIItems;
@@ -93,6 +90,7 @@ namespace UserControlLibrary
                 SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
                 if (selectedItem.ShelfLife != null)
                     SelectedBestBeforeTB.SelectedDate = selectedItem.ShelfLife.Value;
+                
                 BtnEdit.Background = new ImageBrush { ImageSource = TryFindResource("ImgEdit") as ImageSource };
                 BtnInc.Background = new ImageBrush { ImageSource = TryFindResource("ImgAdd") as ImageSource };
                 BtnDec.Background = new ImageBrush { ImageSource = TryFindResource("ImgRemove") as ImageSource };
@@ -273,6 +271,7 @@ namespace UserControlLibrary
             SelectedUnitCB.IsReadOnly = false;
             SelectedUnitCB.Opacity = 100;
             SelectedBestBeforeTB.Opacity = 100;
+            SelectedBestBeforeTB.IsEnabled = true;
             BtnAccept.IsEnabled = true;
             BtnAccept.Opacity = 100;
             BtnCancel.IsEnabled = true;
@@ -291,7 +290,8 @@ namespace UserControlLibrary
             SelectedUnitTB.Opacity = 0;
             SelectedUnitCB.IsReadOnly = true;
             SelectedUnitCB.Opacity = 0;
-            SelectedBestBeforeTB.Opacity = 0;
+            SelectedBestBeforeTB.Opacity = 100;
+            SelectedBestBeforeTB.IsEnabled = false;
             BtnAccept.IsEnabled = false;
             BtnAccept.Opacity = 0;
             BtnCancel.IsEnabled = false;

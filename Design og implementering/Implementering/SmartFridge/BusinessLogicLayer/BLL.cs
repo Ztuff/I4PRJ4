@@ -114,7 +114,7 @@ namespace BusinessLogicLayer
                                 guiItem.Amount = (uint)dbListItem.Amount;
                                 guiItem.Unit = dbListItem.Unit;
                                 guiItem.Size = (uint)dbListItem.Volume;
-
+                                guiItem.ShelfLife = dbListItem.ShelfLife;
                                 guiItems.Add(guiItem);
                             }
                         }
@@ -173,7 +173,8 @@ namespace BusinessLogicLayer
                                     Type = dbItem.ItemName,
                                     Size = (uint)listItem.Volume,
                                     Unit = listItem.Unit,
-                                    ID = listItem.ItemId
+                                    ID = listItem.ItemId,
+                                    ShelfLife = listItem.ShelfLife
 
                                 };
                                 list.ItemList.Add(guiItem);
@@ -345,7 +346,7 @@ namespace BusinessLogicLayer
                                         dbListItem.Volume == newGuiItem.Size)
                                     {
                                         int currentAmount = dbListItem.Amount;
-                                        ListItem updatedListItem = new ListItem(((int)newGuiItem.Amount),
+                                        ListItem updatedListItem = new ListItem(((int)newGuiItem.Amount + currentAmount),
                                                                (int)newGuiItem.Size,
                                                                newGuiItem.Unit,
                                                                dbListItem.List,

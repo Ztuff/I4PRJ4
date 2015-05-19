@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="NSubstitute">
       <HintPath>..\packages\NSubstitute.1.8.1.0\lib\net45\NSubstitute.dll</HintPath>
     </Reference>
@@ -37,6 +43,7 @@
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SmartFridgeDALFacadeUnitTests.cs" />
+    <Compile Include="UnitOfWorkUnitTests.cs" />
     <Compile Include="WittUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -56,6 +65,14 @@
     <ProjectReference Include="..\SmartFridge_WebApplication\SmartFridge_WebApplication.csproj">
       <Project>{c67437f1-7332-479a-bf71-50c8fa64c7f5}</Project>
       <Name>SmartFridge_WebApplication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartFridge_WebDAL\SmartFridge_WebDAL.csproj">
+      <Project>{e3102637-728f-45ce-8e4f-49554ad23514}</Project>
+      <Name>SmartFridge_WebDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartFridge_WebModels\SmartFridge_WebModels.csproj">
+      <Project>{af9f7fe5-bb34-45f0-ac65-a6e1460cede2}</Project>
+      <Name>SmartFridge_WebModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
