@@ -20,6 +20,12 @@ namespace SmartFridge_WebApplication.Controllers
         private static List<ListItem> _dbListItems;
         private static List<List> _dbLists; 
 
+        /// <summary>
+        /// Funktionen henter den Item listen fra DAL laget og ligger items ind 
+        /// i 'model' som skal vises i Viewet.
+        /// </summary>
+        /// <param name="ListToEdit"></param>
+        /// <returns></returns>
         public ActionResult ListView(string ListToEdit)
         {
             currentList = ListToEdit;
@@ -56,7 +62,12 @@ namespace SmartFridge_WebApplication.Controllers
 
             return View(model);
         }
-
+        /// <summary>
+        /// Funktionen sammenligner parameteren GUIItem med de items der ligger i modelen. Findes det item der ledes efter sendes det videre
+        /// til EditItem controlleren og EditItemViewet bliver vidst. Findes det ikke returneres LisViewet.
+        /// </summary>
+        /// <param name="itemToEdit"></param>
+        /// <returns></returns>
         public ActionResult ToEditItem(GUIItem itemToEdit)
         {
             foreach (var item in model)
@@ -69,7 +80,14 @@ namespace SmartFridge_WebApplication.Controllers
            // return RedirectToAction("ListView","LisView");
             return RedirectToAction("EditItem", "EditItem", itemToEdit);
         }
-
+        /// <summary>
+        /// Funktionen sammenligner parameteren GUIItem med de items der ligger i modelen. Findes det item der ledes efter
+        /// bliver det fjernet fra listen med GUIItems. Da listen ligger i en IEnumerable konverteres den til en Liste
+        /// hvorefter itemToDelete bliver fjernet fra listen, og den nye liste bliver lagt i model igen.
+        /// LisView returneres.
+        /// </summary>
+        /// <param name="itemToDelete"></param>
+        /// <returns></returns>
         public ActionResult DeleteSelectedItem(GUIItem itemToDelete)
         {
             foreach (var item in model)
