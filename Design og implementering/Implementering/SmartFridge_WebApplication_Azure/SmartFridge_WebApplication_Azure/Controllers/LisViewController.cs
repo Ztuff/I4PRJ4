@@ -105,6 +105,13 @@ namespace SmartFridge_WebApplication.Controllers
                             uow.ItemRepo.Delete(dbitem);
                         }
                     }
+                    foreach (var dblistitem in _dbListItems)
+                    {
+                        if (dblistitem.ItemId == itemToDelete.Id)
+                        {
+                            uow.ListItemRepo.Delete(dblistitem);
+                        } 
+                    }
                 }
             }
           _dal.DisposeUnitOfWork();
