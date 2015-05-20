@@ -17,11 +17,11 @@ namespace UserControlLibrary
     public partial class CtrlItemList : UserControl
     {
         private CtrlTemplate _ctrlTemp;
-        public string ListType;
-        GUIItem selectedItemOld = new GUIItem();
-        GUIItem selectedItem = new GUIItem(); //(GUIItem)DataGridItems.SelectedItem;
-        ObservableCollection<GUIItem> GUIItems;
-        List<string> unitNames = new List<string>();
+        private string ListType;
+        private GUIItem selectedItemOld = new GUIItem();
+        private GUIItem selectedItem = new GUIItem(); //(GUIItem)DataGridItems.SelectedItem;
+        private ObservableCollection<GUIItem> GUIItems;
+        private List<string> unitNames = new List<string>();
 
         public CtrlItemList(string listType, CtrlTemplate ctrlTemp)
         {
