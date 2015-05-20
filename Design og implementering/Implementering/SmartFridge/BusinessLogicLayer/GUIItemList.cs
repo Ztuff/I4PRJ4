@@ -4,6 +4,9 @@ using InterfacesAndDTO;
 
 namespace BusinessLogicLayer
 {
+    /// <summary>
+    /// List with guiItems, ID and name
+    /// </summary>
     public class GUIItemList
     {
         public int ID { get; private set; }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace InterfacesAndDTO
 {
+    /// <summary>
+    /// Notification class for outdated items
+    /// </summary>
     public class Notification
     {
         public string Message; //Message to display to user in GUI

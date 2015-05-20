@@ -52,6 +52,10 @@
     <Compile Include="Migrations\201505091352427_Initial.Designer.cs">
       <DependentUpon>201505091352427_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505200951178_Added PK to ListItem.cs" />
+    <Compile Include="Migrations\201505200951178_Added PK to ListItem.Designer.cs">
+      <DependentUpon>201505200951178_Added PK to ListItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Context\SFContext.cs" />
@@ -69,6 +73,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505091352427_Initial.resx">
       <DependentUpon>201505091352427_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505200951178_Added PK to ListItem.resx">
+      <DependentUpon>201505200951178_Added PK to ListItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

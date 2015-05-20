@@ -28,7 +28,7 @@ namespace SmartFridge_WebDAL.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ListItem>().HasKey(li => new { li.ListId, li.ItemId });
+            modelBuilder.Entity<ListItem>().HasKey(li => new { li.ListId, li.ItemId, li.Amount, li.Volume, li.ShelfLife });
 
             modelBuilder.Entity<ListItem>()
                 .HasRequired(li => li.List)

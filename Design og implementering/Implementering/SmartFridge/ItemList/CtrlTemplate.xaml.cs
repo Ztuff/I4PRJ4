@@ -5,6 +5,7 @@ namespace UserControlLibrary
 {
 
     /// <summary>
+    /// Logic that controls all UserControls
     /// Interaction logic for CtrlTemplate.xaml
     /// </summary>
     public partial class CtrlTemplate : UserControl
@@ -15,7 +16,9 @@ namespace UserControlLibrary
         private int NavigationHistoryCollectionPosition;
         private int NavigationHistoryCollectionOriginalPosition;
         public readonly BLL _bll = new BLL();
-
+        /// <summary>
+        /// Sets a collection history for navigation. Size = 10
+        /// </summary>
         public CtrlTemplate()
         {
             InitializeComponent();
@@ -31,6 +34,10 @@ namespace UserControlLibrary
             NavigationHistoryCollectionOriginalPosition = NavigationHistoryCollectionPosition;
         }
 
+        /// <summary>
+        /// Changes the usercontrol in grid
+        /// </summary>
+        /// <param name="uc"></param>
         public void ChangeGridContent(UserControl uc)
         {
             _uc = uc;
@@ -65,7 +72,9 @@ namespace UserControlLibrary
            CtrlTempGrid.Children.Add(additem);*/
             #endregion
         }
-
+        /// <summary>
+        /// loads previous UC
+        /// </summary>
         public void NavigateBack()
         {
             if (NavigationHistoryCollectionPosition == 0 && NavigationHistoryCollectionOriginalPosition != 9 && (NavigationHistoryCollection[9]) != null)
@@ -85,7 +94,9 @@ namespace UserControlLibrary
             CtrlTempGrid.Children.Clear();
             CtrlTempGrid.Children.Add(NavigationHistoryCollection[NavigationHistoryCollectionPosition]);
         }
-
+        /// <summary>
+        /// Loads UC navigated back from
+        /// </summary>
         public void NavigateForward()
         {
             if (NavigationHistoryCollectionPosition == 9 && NavigationHistoryCollectionOriginalPosition != 9 && (NavigationHistoryCollection[0]) != null)

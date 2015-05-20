@@ -9,31 +9,31 @@
         <ResourceDictionary Source="pack://application:,,,/ResourcesDictionary;component/Dictionary.xaml"/>
     </UserControl.Resources>
     <Grid Margin="0,0,0,0">
-        <ComboBox x:Name="ComboBoxVaretype" HorizontalAlignment="Left" Margin="130,41,0,0" VerticalAlignment="Top" Width="23" Height="23" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="True" MaxDropDownHeight ="150" DropDownClosed="ComboBoxVaretype_OnDropDownClosed"/>
-        <TextBox x:Name="TextBoxVareType" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" Text="Varetype" Width="120" VerticalAlignment="Top" MaxLines="1" TextAlignment="Right" LostFocus="TextBoxVareType_OnLostFocus"/>
-        <Label Content="Varetype" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Label Content="Antal" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBoxAntal" HorizontalAlignment="Left" Height="23" Margin="10,100,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" MaxLines="1" TextAlignment="Right" LostFocus="TextBoxAntal_LostFocus"/>
-        <Label Content="Volumen" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBoxVolumen" HorizontalAlignment="Left" Height="23" Margin="10,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" MaxLines="1" TextAlignment="Right" Text="0"/>
-        <TextBox x:Name="TextBoxVolumenEnhed" HorizontalAlignment="Left" Height="23" Margin="135,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" MaxLines="1" TextAlignment="Right"/>
-        <Button x:Name="PlusButton" Content="+" HorizontalAlignment="Left" Margin="130,89,0,0" VerticalAlignment="Top" Width="23" Height="23" BorderThickness="1" Click="PlusButton_Click"/>
-        <ListBox x:Name="ListBoxItems" HorizontalAlignment="Left" Height="669" Margin="364,41,0,0" VerticalAlignment="Top" Width="906"/>
-        <Button Style="{DynamicResource NoChromeButton}" x:Name="AddButton" Content="" HorizontalAlignment="Left" Margin="10,274,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="AddButton_Click" BorderBrush="{x:Null}">
+        <ComboBox x:Name="ComboBoxVaretype" HorizontalAlignment="Left" Margin="189,41,0,0" VerticalAlignment="Top" Width="24" Height="28" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="True" MaxDropDownHeight ="150" DropDownClosed="ComboBoxVaretype_OnDropDownClosed" FontSize="18"/>
+        <TextBox x:Name="TextBoxVareType" HorizontalAlignment="Left" Height="28" Margin="10,41,0,0" TextWrapping="Wrap" Text="Varetype" Width="179" VerticalAlignment="Top" MaxLines="1" TextAlignment="Right" LostFocus="TextBoxVareType_OnLostFocus" FontSize="18"/>
+        <Label Content="Varetype" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Content="Antal" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <TextBox x:Name="TextBoxAntal" HorizontalAlignment="Left" Height="28" Margin="10,129,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" MaxLines="1" TextAlignment="Right" LostFocus="TextBoxAntal_LostFocus" FontSize="18"/>
+        <Label Content="Volumen" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <TextBox x:Name="TextBoxVolumen" HorizontalAlignment="Left" Height="28" Margin="10,223,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" MaxLines="1" TextAlignment="Right" Text="0" FontSize="18"/>
+        <TextBox x:Name="TextBoxVolumenEnhed" HorizontalAlignment="Left" Height="28" Margin="135,223,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" MaxLines="1" TextAlignment="Right" FontSize="18"/>
+        <Button x:Name="PlusButton" Content="+" HorizontalAlignment="Left" Margin="130,110,0,0" VerticalAlignment="Top" Width="33" Height="33" BorderThickness="1" Click="PlusButton_Click" FontSize="18"/>
+        <ListBox x:Name="ListBoxItems" HorizontalAlignment="Left" Height="636" Margin="364,54,0,0" VerticalAlignment="Top" Width="906" FontSize="22"/>
+        <Button Style="{DynamicResource NoChromeButton}" x:Name="AddButton" Content="" HorizontalAlignment="Left" Margin="10,336,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="AddButton_Click" BorderBrush="{x:Null}">
             <Button.Background>
                 <ImageBrush ImageSource="{StaticResource ImgAdd}"/>
             </Button.Background>
         </Button>
-        <Button Style="{DynamicResource NoChromeButton}" x:Name="AddExitButton" Content="" HorizontalAlignment="Left" Margin="120,274,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="AddExitButton_Click" BorderBrush="{x:Null}">
+        <Button Style="{DynamicResource NoChromeButton}" x:Name="AddExitButton" Content="" HorizontalAlignment="Left" Margin="120,336,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="AddExitButton_Click" BorderBrush="{x:Null}">
             <Button.Background>
                 <ImageBrush ImageSource="{StaticResource ImgAddAndExit}"/>
             </Button.Background>
         </Button>
-        <Button x:Name="MinusButton" Content="-" HorizontalAlignment="Left" Margin="130,112,0,0" VerticalAlignment="Top" Width="23" Height="23" BorderThickness="1" Click="MinusButton_Click"/>
-        <Label Content="Nyligt Tilføjede Varer" HorizontalAlignment="Left" Margin="364,10,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="ComboBoxUnit" HorizontalAlignment="Left" Margin="177,159,0,0" VerticalAlignment="Top" Width="23" Height="23" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="True" MaxDropDownHeight ="150" DropDownClosed="ComboBoxUnit_OnDropDownClosed"/>
-        <Label Content="Holdbarhedsdato" HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="TextBoxShelfLife" HorizontalAlignment="Left" Margin="10,218,0,0" VerticalAlignment="Top" Width="190"/>
+        <Button x:Name="MinusButton" Content="-" HorizontalAlignment="Left" Margin="130,143,0,0" VerticalAlignment="Top" Width="33" Height="33" BorderThickness="1" Click="MinusButton_Click" FontSize="18"/>
+        <Label Content="Nyligt Tilføjede Varer" HorizontalAlignment="Left" Margin="364,10,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <ComboBox x:Name="ComboBoxUnit" HorizontalAlignment="Left" Margin="177,223,0,0" VerticalAlignment="Top" Width="23" Height="28" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="True" MaxDropDownHeight ="150" DropDownClosed="ComboBoxUnit_OnDropDownClosed" FontSize="18"/>
+        <Label Content="Holdbarhedsdato" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <DatePicker x:Name="TextBoxShelfLife" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="190" FontSize="18"/>
 
 
     </Grid>
