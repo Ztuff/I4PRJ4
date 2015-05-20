@@ -90,6 +90,7 @@ namespace SmartFridge_WebApplication.Controllers
         /// <returns></returns>
         public ActionResult DeleteSelectedItem(GUIItem itemToDelete)
         {
+            var uow = _dal.GetUnitOfWork();
             foreach (var item in model)
             {
                 if (item.Type == itemToDelete.Type && item.Amount == itemToDelete.Amount && item.Size == itemToDelete.Size && item.Unit == itemToDelete.Unit)
@@ -97,8 +98,16 @@ namespace SmartFridge_WebApplication.Controllers
                     List<GUIItem> tempList = model.ToList();
                     tempList.Remove(itemToDelete);
                     model = tempList;
+                    foreach (var dbitem in _dbItems)
+                    {
+                        if (dbitem.ItemName == itemToDelete.Type)
+                        {
+                            uow.ItemRepo.Delete(dbitem);
+                        }
+                    }
                 }
             }
+          _dal.DisposeUnitOfWork();
             return RedirectToAction("ListView", "LisView");
         }
     }
