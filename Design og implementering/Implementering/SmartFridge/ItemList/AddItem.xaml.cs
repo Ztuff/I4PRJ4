@@ -20,6 +20,11 @@ namespace UserControlLibrary
         public string _currentList;
         private CtrlTemplate _ctrlTemp;
 
+        /// <summary>
+        /// Sets local attributes
+        /// </summary>
+        /// <param name="currentList"></param>
+        /// <param name="ctrlTemp"></param>
         public AddItem(string currentList, CtrlTemplate ctrlTemp)
         {
             _currentList = currentList;
@@ -33,6 +38,11 @@ namespace UserControlLibrary
 
         #region OtherMethods
 
+        /// <summary>
+        /// returns guiItem from its name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         private GUIItem GetTypeItemFromName(string name)
         {
             foreach (var item in types)
@@ -42,7 +52,12 @@ namespace UserControlLibrary
             }
             return new GUIItem();
         }
-
+        
+        /// <summary>
+        /// Sets first letter to uppercase in string
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         static string UppercaseFirst(string s)
         {
             // Check for empty string.
@@ -54,12 +69,20 @@ namespace UserControlLibrary
             return char.ToUpper(s[0]) + s.Substring(1);
         }
 
+        /// <summary>
+        /// calls create new item when add is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             AddNewItem(CreateNewItem());
         }
 
-        //Eksempel på BusinessLogicLayer
+        /// <summary>
+        /// Creates new item based on input fields
+        /// </summary>
+        /// <returns></returns>
         private GUIItem CreateNewItem()
         {
             if (TextBoxShelfLife.SelectedDate == null)
@@ -67,7 +90,10 @@ namespace UserControlLibrary
             return _ctrlTemp._bll.CreateNewItem(TextBoxVareType.Text, Convert.ToUInt32(TextBoxAntal.Text),
                 Convert.ToUInt32(TextBoxVolumen.Text), TextBoxVolumenEnhed.Text, TextBoxShelfLife.SelectedDate.Value);
         }
-
+        /// <summary>
+        /// Adds new item to view and collection
+        /// </summary>
+        /// <param name="item"></param>
         private void AddNewItem(GUIItem item)
         {
             foreach (var i in newItems)
@@ -83,7 +109,10 @@ namespace UserControlLibrary
 
             ListBoxItems.Items.Refresh();
         }
-
+        /// <summary>
+        /// Update Text boxes From Type
+        /// </summary>
+        /// <param name="item"></param>
         private void UpdateTextboxesFromType(GUIItem item)
         {
             if (item != null)
@@ -98,25 +127,39 @@ namespace UserControlLibrary
         #endregion
 
         #region ControlMethods
-
+        /// <summary>
+        /// Calls create new item, and exit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddExitButton_Click(object sender, RoutedEventArgs e)
         {
             AddNewItem(CreateNewItem());
             Exit();
         }
-
+        /// <summary>
+        /// Calls BLL to add all new items and returns to list view
+        /// </summary>
         private void Exit()
         {
             _ctrlTemp._bll.AddItemsToTable(_currentList, newItems);
             _ctrlTemp.ChangeGridContent(new CtrlItemList(_currentList, _ctrlTemp));
         }
-
+        /// <summary>
+        /// Increments amount of selected item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PlusButton_Click(object sender, RoutedEventArgs e)
         {
             amount++;
             TextBoxAntal.Text = amount.ToString();
         }
-
+        /// <summary>
+        /// Decrements amount of selected item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MinusButton_Click(object sender, RoutedEventArgs e)
         {
             amount--;
@@ -124,7 +167,11 @@ namespace UserControlLibrary
                 amount = 1;
             TextBoxAntal.Text = amount.ToString();
         }
-
+        /// <summary>
+        /// Sets amount to 1 if it was 0
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxAntal_LostFocus(object sender, RoutedEventArgs e)
         {
             try
@@ -140,7 +187,11 @@ namespace UserControlLibrary
                 TextBoxAntal.Text = amount.ToString();
             }
         }
-
+        /// <summary>
+        /// /// Sets type and checks if it already exists
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxVareType_OnLostFocus(object sender, RoutedEventArgs e)
         {
             TextBoxVareType.Text = UppercaseFirst(TextBoxVareType.Text);
@@ -148,7 +199,11 @@ namespace UserControlLibrary
             if (item.Type != null)
                 UpdateTextboxesFromType(item);
         }
-
+        /// <summary>
+        /// Sets type textbox based on selected from dropdown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBoxVaretype_OnDropDownClosed(object sender, EventArgs e)
         {
             if (ComboBoxVaretype.SelectedItem != null)
@@ -160,7 +215,11 @@ namespace UserControlLibrary
                 UpdateTextboxesFromType(temp);
             }
         }
-
+        /// <summary>
+        /// Sets unit textbox based on selected from dropdown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBoxUnit_OnDropDownClosed(object sender, EventArgs e)
         {
             if (ComboBoxUnit.SelectedItem != null)
@@ -170,7 +229,11 @@ namespace UserControlLibrary
         }
 
         #endregion
-
+        /// <summary>
+        /// Sets volume to 1 if it was 0
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxVolumen_OnLostFocus(object sender, RoutedEventArgs e)
         {
             uint volumen = 0;
