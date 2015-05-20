@@ -38,7 +38,7 @@ namespace SmartFridge.Tests.Unit
             Assert.AreEqual(amount, item.Amount);
             Assert.AreEqual(size, item.Size);
             Assert.AreEqual(unit, item.Unit);
-            Assert.AreEqual(year3000, item.ShelfLife.Value.Date);
+            Assert.AreEqual(year3000, item.ShelfLife.Date);
         }
 
         [Test]

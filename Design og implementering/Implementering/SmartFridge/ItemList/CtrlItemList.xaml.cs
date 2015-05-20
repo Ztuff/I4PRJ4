@@ -89,7 +89,9 @@ namespace UserControlLibrary
                 SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
                 SelectedSize.Text = "Størrelse: " + selectedItem.Size.ToString() + " " + selectedItem.Unit;
                 if (selectedItem.ShelfLife != null)
-                    SelectedBestBeforeTB.SelectedDate = selectedItem.ShelfLife.Value;
+                    SelectedBestBeforeTB.SelectedDate = selectedItem.ShelfLife;
+                if (selectedItem.ShelfLife.Date.Year == 9999)
+                    SelectedBestBeforeTB.SelectedDate = null; //Not a hack!
                 
                 BtnEdit.Background = new ImageBrush { ImageSource = TryFindResource("ImgEdit") as ImageSource };
                 BtnInc.Background = new ImageBrush { ImageSource = TryFindResource("ImgAdd") as ImageSource };

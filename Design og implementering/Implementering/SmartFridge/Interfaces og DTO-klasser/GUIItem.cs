@@ -25,7 +25,7 @@ namespace InterfacesAndDTO
         public uint Amount { get; set; }
         public uint Size { get; set; }
         public string Unit { get; set; }
-        public DateTime? ShelfLife { get; set; }
+        public DateTime ShelfLife { get; set; }
         public int ID { get; set; }
 
         public override string ToString()

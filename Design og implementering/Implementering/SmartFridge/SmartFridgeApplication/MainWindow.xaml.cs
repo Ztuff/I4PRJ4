@@ -70,8 +70,6 @@ namespace SmartFridgeApplication
             DateTime d;
 
             d = DateTime.Now;
-            TestDateLabel.Content = d.Date;
-            TestTimeLabel.Content = d.ToLongTimeString();
         }
 
         public void UpdateNotificationsAmount()
