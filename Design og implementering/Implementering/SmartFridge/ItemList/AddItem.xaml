@@ -18,7 +18,7 @@
         <TextBox x:Name="TextBoxVolumen" HorizontalAlignment="Left" Height="28" Margin="10,223,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" MaxLines="1" TextAlignment="Right" Text="0" FontSize="18"/>
         <TextBox x:Name="TextBoxVolumenEnhed" HorizontalAlignment="Left" Height="28" Margin="135,223,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" MaxLines="1" TextAlignment="Right" FontSize="18"/>
         <Button x:Name="PlusButton" Content="+" HorizontalAlignment="Left" Margin="130,110,0,0" VerticalAlignment="Top" Width="33" Height="33" BorderThickness="1" Click="PlusButton_Click" FontSize="18"/>
-        <ListBox x:Name="ListBoxItems" HorizontalAlignment="Left" Height="669" Margin="364,41,0,0" VerticalAlignment="Top" Width="906" FontSize="22"/>
+        <ListBox x:Name="ListBoxItems" HorizontalAlignment="Left" Height="636" Margin="364,54,0,0" VerticalAlignment="Top" Width="906" FontSize="22"/>
         <Button Style="{DynamicResource NoChromeButton}" x:Name="AddButton" Content="" HorizontalAlignment="Left" Margin="10,336,0,0" VerticalAlignment="Top" Width="80" Height="80" Click="AddButton_Click" BorderBrush="{x:Null}">
             <Button.Background>
                 <ImageBrush ImageSource="{StaticResource ImgAdd}"/>
@@ -30,7 +30,7 @@
             </Button.Background>
         </Button>
         <Button x:Name="MinusButton" Content="-" HorizontalAlignment="Left" Margin="130,143,0,0" VerticalAlignment="Top" Width="33" Height="33" BorderThickness="1" Click="MinusButton_Click" FontSize="18"/>
-        <Label Content="Nyligt Tilføjede Varer" HorizontalAlignment="Left" Margin="364,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Nyligt Tilføjede Varer" HorizontalAlignment="Left" Margin="364,10,0,0" VerticalAlignment="Top" FontSize="22"/>
         <ComboBox x:Name="ComboBoxUnit" HorizontalAlignment="Left" Margin="177,223,0,0" VerticalAlignment="Top" Width="23" Height="28" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="True" MaxDropDownHeight ="150" DropDownClosed="ComboBoxUnit_OnDropDownClosed" FontSize="18"/>
         <Label Content="Holdbarhedsdato" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" FontSize="18"/>
         <DatePicker x:Name="TextBoxShelfLife" HorizontalAlignment="Left" Margin="10,290,0,0" VerticalAlignment="Top" Width="190" FontSize="18"/>
