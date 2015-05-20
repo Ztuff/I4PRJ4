@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace InterfacesAndDTO
 {
+    /// <summary>
+    /// Class that symbols all the data the user needs to know about an item
+    /// </summary>
     public class GUIItem
     {
         public GUIItem()
