@@ -23,6 +23,11 @@ namespace UserControlLibrary
         private ObservableCollection<GUIItem> GUIItems;
         private List<string> unitNames = new List<string>();
 
+        /// <summary>
+        /// Sets view and local variables
+        /// </summary>
+        /// <param name="listType"></param>
+        /// <param name="ctrlTemp"></param>
         public CtrlItemList(string listType, CtrlTemplate ctrlTemp)
         {
             InitializeComponent();
@@ -40,7 +45,9 @@ namespace UserControlLibrary
             //DataGridItems.Items
             DataGridItems_SelectionChanged(null, null);
         }
-
+        /// <summary>
+        /// Sets data for items in gridview
+        /// </summary>
         private void LoadItemData()
         {
             DataGridItems.AutoGenerateColumns = false;
@@ -78,7 +85,11 @@ namespace UserControlLibrary
 
             //LabelItemList.Content =GUIItems[0].ItemType;
         }
-
+        /// <summary>
+        /// Loads data for selected item to boxes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DataGridItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             /*Item*/
@@ -107,7 +118,11 @@ namespace UserControlLibrary
         }
 
         #region Buttons
-
+        /// <summary>
+        /// Increments amount 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonInc_Click(object sender, RoutedEventArgs e)
         {
             selectedItem = (GUIItem)DataGridItems.SelectedItem;
@@ -129,7 +144,11 @@ namespace UserControlLibrary
             GUIItems = _ctrlTemp._bll.WatchItems; //Reloader vores guiItems så de passer med DB
             DataGridItems.Items.Refresh();
         }
-
+        /// <summary>
+        /// Decrements amount 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnDec_Click(object sender, RoutedEventArgs e)
         {
             selectedItem = (GUIItem)DataGridItems.SelectedItem;
@@ -163,7 +182,11 @@ namespace UserControlLibrary
             GUIItems = _ctrlTemp._bll.WatchItems; //Reloader vores guiItems så de passer med DB
             DataGridItems.Items.Refresh();
         }
-
+        /// <summary>
+        /// Shows boxes for editing selected item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
 
@@ -194,7 +217,11 @@ namespace UserControlLibrary
                 BtnDec.IsEnabled = false;
             }
         }
-
+        /// <summary>
+        /// Deletes selected item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
 
@@ -205,7 +232,11 @@ namespace UserControlLibrary
             DataGridItems.SelectedIndex = 0;
 
         }
-
+        /// <summary>
+        /// Hides edit boxes and discards changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             SelectedItemTB.Text = selectedItem.Type;
@@ -218,7 +249,11 @@ namespace UserControlLibrary
             BtnDec.IsEnabled = true;
             HideButtonsAndTextboxes();
         }
-
+        /// <summary>
+        /// Controls input values and updates item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAccept_Click(object sender, RoutedEventArgs e)
         {
             foreach (char c in SelectedAmountTB.Text)
@@ -259,7 +294,9 @@ namespace UserControlLibrary
         }
 
         #endregion
-
+        /// <summary>
+        /// Shows editing input boxes and buttons
+        /// </summary>
         private void ShowButtonsAndTextboxes()
         {
             SelectedItemTB.IsReadOnly = false;
@@ -279,7 +316,9 @@ namespace UserControlLibrary
             BtnCancel.IsEnabled = true;
             BtnCancel.Opacity = 100;
         }
-
+        /// <summary>
+        /// Shows input fields and buttons
+        /// </summary>
         private void HideButtonsAndTextboxes()
         {
             SelectedItemTB.IsReadOnly = true;
@@ -299,7 +338,11 @@ namespace UserControlLibrary
             BtnCancel.IsEnabled = false;
             BtnCancel.Opacity = 0;
         }
-
+        /// <summary>
+        /// Sets unit text from dropdown 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectedUnitCB_OnDropDownClosed(object sender, EventArgs e)
         {
             if (SelectedUnitCB.SelectedItem != null)
@@ -308,16 +351,23 @@ namespace UserControlLibrary
             }
         }
 
+        /// <summary>
+        /// Returns unit names
+        /// </summary>
         private void GetUnitNames()
         {
-            unitNames.Add("L");
-            unitNames.Add("DL");
-            unitNames.Add("CL");
-            unitNames.Add("ML");
-            unitNames.Add("KG");
-            unitNames.Add("G");
+            unitNames.Add("l");
+            unitNames.Add("dl");
+            unitNames.Add("cl");
+            unitNames.Add("ml");
+            unitNames.Add("kg");
+            unitNames.Add("g");
         }
-
+        /// <summary>
+        /// changes UC to add items
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAddItem_Click(object sender, RoutedEventArgs e)
         {
             _ctrlTemp.ChangeGridContent(new AddItem(ListType, _ctrlTemp));
