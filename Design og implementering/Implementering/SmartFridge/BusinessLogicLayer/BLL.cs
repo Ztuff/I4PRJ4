@@ -13,6 +13,9 @@ using InterfacesAndDTO;
 
 namespace BusinessLogicLayer
 {
+    /// <summary>
+    /// Binds user interaction logic with DAL logic
+    /// </summary>
     public class BLL
     {
         private IConnectionFactory _connectionFactory = new AppConnectionFactory("SmartFridgeConn");
@@ -26,7 +29,9 @@ namespace BusinessLogicLayer
         private List<ListItem> _dblistItems;
         public List<Notification> Notifications = new List<Notification>();
 
-
+        /// <summary>
+        /// Sets context and repositories
+        /// </summary>
         public BLL()
         {
             Context = new AdoNetContext(_connectionFactory);
@@ -34,7 +39,10 @@ namespace BusinessLogicLayer
             _listRepository = new ListRepository(Context);
             _listItemRepository = new ListItemRepository(Context);
         }
-
+        /// <summary>
+        /// Deletes item from db based on its name
+        /// </summary>
+        /// <param name="type"></param>
         public void DeleteItemWithType(string type)
         {
             using (var uow = Context.CreateUnitOfWork())
@@ -50,7 +58,9 @@ namespace BusinessLogicLayer
                 uow.SaveChanges();
             }
         }
-
+        /// <summary>
+        /// Units
+        /// </summary>
         public readonly ObservableCollection<string> UnitNames = new ObservableCollection<string>()
         {
             "l",
@@ -60,7 +70,9 @@ namespace BusinessLogicLayer
             "kg",
             "g"
         };
-
+        /// <summary>
+        /// Types
+        /// </summary>
         public ObservableCollection<GUIItem> Types
         {
             get
@@ -81,7 +93,9 @@ namespace BusinessLogicLayer
                 return guiItems;
             }
         }
-
+        /// <summary>
+        /// Creates list of GUIItems shown
+        /// </summary>
         public ObservableCollection<GUIItem> WatchItems
         {
             get
@@ -126,7 +140,9 @@ namespace BusinessLogicLayer
                 return guiItems;
             }
         }
-
+        /// <summary>
+        /// Creates list in db
+        /// </summary>
         private void CreateList()
         {
             using (var uow = Context.CreateUnitOfWork())
@@ -138,7 +154,9 @@ namespace BusinessLogicLayer
             }
             LoadFromDB();
         }
-
+        /// <summary>
+        /// Loads all data from db into class attributes
+        /// </summary>
         public void LoadFromDB()
         {
             List<List> lists = new List<List>();
@@ -185,7 +203,11 @@ namespace BusinessLogicLayer
             }
 
         }
-
+        /// <summary>
+        /// Returns GUIItemList based on listname
+        /// </summary>
+        /// <param name="ListName"></param>
+        /// <returns></returns>
         public GUIItemList GetList(string ListName)
         {
             foreach (var guiItemList in Lists)
@@ -195,7 +217,11 @@ namespace BusinessLogicLayer
             }
             return null;
         }
-
+        /// <summary>
+        /// Controls items shelf-life and returns list with notifications for old items
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
         public List<Notification> CheckShelfLife(GUIItemList items)
         {
             var list = new List<Notification>();
@@ -214,6 +240,12 @@ namespace BusinessLogicLayer
             return list;
         }
 
+        /// <summary>
+        /// Compares 2 GuiItems
+        /// </summary>
+        /// <param name="item1"></param>
+        /// <param name="item2"></param>
+        /// <returns></returns>
         public bool Compare(GUIItem item1, GUIItem item2)
         {
             if (item1.Amount == item2.Amount)
@@ -226,6 +258,15 @@ namespace BusinessLogicLayer
             return false;
         }
 
+        /// <summary>
+        /// Creates new item based on parameters
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="amount"></param>
+        /// <param name="size"></param>
+        /// <param name="unit"></param>
+        /// <param name="shelfLife"></param>
+        /// <returns></returns>
         public GUIItem CreateNewItem(string type, uint amount, uint size, string unit, DateTime shelfLife)
         {
             GUIItem item = new GUIItem();
@@ -236,7 +277,12 @@ namespace BusinessLogicLayer
             item.ShelfLife = shelfLife;
             return item;
         }
-
+        /// <summary>
+        /// Maps GUIItems to db item, ListItem and list. If specific GUIItem exists it corrects the amount. else
+        /// it adds the corresponding to the db
+        /// </summary>
+        /// <param name="currentListName"></param>
+        /// <param name="newGuiItems"></param>
         public void AddItemsToTable(string currentListName, ObservableCollection<GUIItem> newGuiItems)
         {
 
@@ -399,7 +445,11 @@ namespace BusinessLogicLayer
         {
             return null;
         }*/
-
+        /// <summary>
+        /// Controls the GUIItem Type to see if such and Item exists in db
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         private bool IsNewItem(GUIItem item)
         {
             foreach (var dbItem in _dbItems)
@@ -409,7 +459,10 @@ namespace BusinessLogicLayer
             }
             return true;
         }
-
+        /// <summary>
+        /// Deletes corresponding databse elements based on the GUIItem
+        /// </summary>
+        /// <param name="GUIitemToDelete"></param>
         public void DeleteItem(GUIItem GUIitemToDelete)
         {
             GUIItemList currentGuiItemList = null;
@@ -444,6 +497,11 @@ namespace BusinessLogicLayer
                 uow.SaveChanges();
             }
         }
+        /// <summary>
+        /// Deletes old Item and adds new item with updated values
+        /// </summary>
+        /// <param name="oldItem"></param>
+        /// <param name="newItem"></param>
         public void ChangeItem(GUIItem oldItem, GUIItem newItem)
         {
             GUIItemList currentGuiItemList = null;
@@ -494,7 +552,10 @@ namespace BusinessLogicLayer
             //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
         }
         
-
+        /// <summary>
+        /// If new items added to STDList, it compares STDList to Fridge and adds the difference to Shop-List
+        /// </summary>
+        /// <param name="ListWithNewItem"></param>
         public void STDToShopListControl(string ListWithNewItem)
         {
             if (ListWithNewItem == "Køleskab" || ListWithNewItem == "Indkøbsliste") { return; }
