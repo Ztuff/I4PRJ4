@@ -15,7 +15,7 @@ public class ListItem
     public int Amount { get; set; }
     public int Volume { get; set; }
     public string Unit { get; set; }
-    public DateTime? ShelfLife { get; set; }
+    public DateTime ShelfLife { get; set; }
 
     private List _list;
     private int _listId;
@@ -66,13 +66,14 @@ public class ListItem
         Unit = unit;
     }
 
-    public ListItem(int amount, int volume, string unit, List list, Item item)
+    public ListItem(int amount, int volume, string unit, List list, Item item, DateTime shelfLife)
     {
         Amount = amount;
         Volume = volume;
         Unit = unit;
         List = list;
         Item = item;
+        ShelfLife = shelfLife;
     }
 }
 

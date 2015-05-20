@@ -54,7 +54,6 @@ namespace UserControlLibrary
             return char.ToUpper(s[0]) + s.Substring(1);
         }
 
-
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             AddNewItem(CreateNewItem());
@@ -63,9 +62,10 @@ namespace UserControlLibrary
         //Eksempel på BusinessLogicLayer
         private GUIItem CreateNewItem()
         {
-            
+            if (TextBoxShelfLife.SelectedDate == null)
+                TextBoxShelfLife.SelectedDate = new DateTime(9999, 1, 1);
             return _ctrlTemp._bll.CreateNewItem(TextBoxVareType.Text, Convert.ToUInt32(TextBoxAntal.Text),
-                Convert.ToUInt32(TextBoxVolumen.Text), TextBoxVolumenEnhed.Text, TextBoxShelfLife.SelectedDate);
+                Convert.ToUInt32(TextBoxVolumen.Text), TextBoxVolumenEnhed.Text, TextBoxShelfLife.SelectedDate.Value);
         }
 
         private void AddNewItem(GUIItem item)

@@ -203,7 +203,7 @@ namespace BusinessLogicLayer
             {
                 if (item.ShelfLife != null)
                 {
-                    if (item.ShelfLife.Value.Date <= DateTime.Now)
+                    if (item.ShelfLife.Date <= DateTime.Now)
                     { //The item is seen as 'expired' when we're on the same day as its expiration date
                         string message = item.Type + " blev for gammel d. " + DateTime.Now.Date;
                         list.Add(new Notification(message, DateTime.Now, item.ID));
@@ -226,7 +226,7 @@ namespace BusinessLogicLayer
             return false;
         }
 
-        public GUIItem CreateNewItem(string type, uint amount, uint size, string unit, DateTime? shelfLife)
+        public GUIItem CreateNewItem(string type, uint amount, uint size, string unit, DateTime shelfLife)
         {
             GUIItem item = new GUIItem();
             item.Type = type;
@@ -350,21 +350,23 @@ namespace BusinessLogicLayer
                                                                (int)newGuiItem.Size,
                                                                newGuiItem.Unit,
                                                                dbListItem.List,
-                                                               dbItem);
+                                                               dbItem,
+                                                               newGuiItem.ShelfLife);
 
                                         _listItemRepository.Delete(dbListItem);
                                         _listItemRepository.Insert(updatedListItem);
                                     }
-                                    // Forskellig unit, forskellig Size/volume. Vi tilføjer et det nye ListItem
+                                    // Forskellig unit, forskellig Size/volume, forskellig shelflife - Vi tilføjer et det nye ListItem
                                     if (dbItem.ItemId == dbListItem.Item.ItemId &&
                                         dbListItem.List.ListId == currentGuiItemList.ID &&
-                                        (dbListItem.Unit != newGuiItem.Unit || dbListItem.Volume != newGuiItem.Size))
+                                        (dbListItem.Unit != newGuiItem.Unit || dbListItem.Volume != newGuiItem.Size || dbListItem.ShelfLife != newGuiItem.ShelfLife))
                                     {
                                         ListItem updatedListItem = new ListItem(((int)newGuiItem.Amount),
                                                                                    (int)newGuiItem.Size,
                                                                                    newGuiItem.Unit,
                                                                                    dbListItem.List,
-                                                                                   dbItem);
+                                                                                   dbItem,
+                                                                                   newGuiItem.ShelfLife);
                                         _listItemRepository.Insert(updatedListItem);
 
                                     }
@@ -478,7 +480,8 @@ namespace BusinessLogicLayer
                                                                 (int)newItem.Size,
                                                                 newItem.Unit,
                                                                 dbListItem.List,
-                                                                dbListItem.Item);
+                                                                dbListItem.Item,
+                                                                newItem.ShelfLife);
 
                         _listItemRepository.Delete(dbListItem);
                         _listItemRepository.Insert(updatedListItem);
@@ -490,29 +493,7 @@ namespace BusinessLogicLayer
             }
             //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
         }
-        /*  #region ChangeItem - Old
-          public void ChangeItem(GUIItem oldItem, GUIItem newItem)
-          {
-              using (var uow = Context.CreateUnitOfWork())
-              {
-                  foreach (var ListItemToEdit in _dblistItems)
-                  {
-                      if (ListItemToEdit.Item.ItemName == oldItem.Type && ListItemToEdit.Unit == oldItem.Unit && (uint)ListItemToEdit.Volume == oldItem.Size && ListItemToEdit.Amount == oldItem.Amount)
-                      {
-
-                          ListItemToEdit.Item.ItemName = newItem.Type;
-                          ListItemToEdit.Unit = newItem.Unit;
-                          ListItemToEdit.Volume = (int)newItem.Size;
-                          ListItemToEdit.Amount = (int)newItem.Amount;
-                          _listItemRepository.Update(ListItemToEdit);
-                          uow.SaveChanges();
-                          break;
-                      }
-                  }
-
-              }
-              //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
-          } #endregion*/
+        
 
         public void STDToShopListControl(string ListWithNewItem)
         {

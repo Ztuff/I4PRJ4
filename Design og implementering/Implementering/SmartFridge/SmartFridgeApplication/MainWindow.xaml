@@ -70,10 +70,6 @@
             <Grid x:Name="ItemListGrid" HorizontalAlignment="Center" Height="720" VerticalAlignment="Center" Width="1280" Grid.ColumnSpan="2" Margin="320,180">
                 <Border BorderThickness="1" Background="#19000000"/>
             </Grid>
-            <TextBlock Name="TestTimeBlock" Text="{Binding Path=Time}" HorizontalAlignment="Left" Margin="900,158,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
-            <TextBlock Name="TestDateBlock" Text="{Binding Path=Date}" HorizontalAlignment="Left" Margin="742,158,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
-            <Label Name="TestTimeLabel" HorizontalAlignment="Left" Margin="1018,153,0,0" VerticalAlignment="Top"/>
-            <Label Name="TestDateLabel" HorizontalAlignment="Left" Margin="1124,153,0,0" VerticalAlignment="Top"/>
 
 
 

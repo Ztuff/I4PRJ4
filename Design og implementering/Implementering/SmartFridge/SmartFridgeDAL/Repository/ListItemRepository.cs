@@ -156,7 +156,7 @@ namespace DataAccessLayer.Repository
             listItem.Volume = (int)record["Volume"];
             listItem.Unit = (string)record["Unit"];
             if(listItem.ShelfLife != null)
-                listItem.ShelfLife = (DateTime?)record["ShelfLife"];
+                listItem.ShelfLife = (DateTime)record["ShelfLife"];
         }
 
         /// <summary>
