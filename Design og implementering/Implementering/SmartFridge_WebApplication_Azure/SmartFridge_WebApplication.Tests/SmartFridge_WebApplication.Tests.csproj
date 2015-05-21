@@ -45,6 +45,11 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddItemControllerUnitTest.cs" />
+    <Compile Include="HomeControllerUnitTests.cs" />
+    <Compile Include="LisViewControllerUnitTest.cs" />
     <Compile Include="SmartFridgeDALFacadeUnitTests.cs" />
     <Compile Include="UnitOfWorkUnitTests.cs" />
     <Compile Include="WittUnitTest.cs" />
@@ -65,6 +73,10 @@
     <ProjectReference Include="..\SmartFridge_WebApplication\SmartFridge_WebApplication.csproj">
       <Project>{c67437f1-7332-479a-bf71-50c8fa64c7f5}</Project>
       <Name>SmartFridge_WebApplication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartFridge_WebApplication_Azure\SmartFridge_WebApplication_Azure.csproj">
+      <Project>{1ff70fad-7fd8-4774-b4bd-d6154c332023}</Project>
+      <Name>SmartFridge_WebApplication_Azure</Name>
     </ProjectReference>
     <ProjectReference Include="..\SmartFridge_WebDAL\SmartFridge_WebDAL.csproj">
       <Project>{e3102637-728f-45ce-8e4f-49554ad23514}</Project>

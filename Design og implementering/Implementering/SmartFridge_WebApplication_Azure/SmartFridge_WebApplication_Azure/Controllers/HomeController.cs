@@ -15,10 +15,5 @@ namespace SmartFridge_WebApplication.Controllers
         {
             return View();
         }
-
-
-
-
-
     }
 }
