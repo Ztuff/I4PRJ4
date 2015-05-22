@@ -285,7 +285,7 @@ namespace UserControlLibrary
             _ctrlTemp._bll.ChangeItem(selectedItemOld, selectedItem); //Calling BLL change through CtrlTemplate
             GUIItems = _ctrlTemp._bll.WatchItems; //Reloader vores guiItems så de passer med DB
 
-            DataGridItems.Items.Refresh();
+            DataGridItems.ItemsSource = GUIItems;
             BtnInc.Opacity = 100;
             BtnInc.IsEnabled = true;
             BtnDec.Opacity = 100;
