@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using SmartFridge_WebDAL;
 using SmartFridge_WebModels;
+using SmartFridge_Cache;
 using ListItem = SmartFridge_WebModels.ListItem;
 
 namespace SmartFridge_WebApplication.Controllers
@@ -12,15 +13,10 @@ namespace SmartFridge_WebApplication.Controllers
     public class EditItemController : Controller
     {
         private static GUIItem _oldItem = new GUIItem();
-        private static List _currentList;
-        private static ISmartFridgeDALFacade _dal;
         private static List<SelectListItem> _units;
         private static List<SelectListItem> _types;
-        private static List<Item> _dbItems;
-        private static List<ListItem> _dbListItems;
-        private static List<List> _dbLists;
 
-        private GUIItem _updatedItem = new GUIItem();
+        private GUIItem _updatedGUIItem = new GUIItem();
 
         //
         // GET: /EditItem/
@@ -29,33 +25,11 @@ namespace SmartFridge_WebApplication.Controllers
         {
 
             _oldItem = oldItem;
-            /*_currentList = currentList;
-            _dal = dal;*/
-            _dal = new SmartFridgeDALFacade();
-
-            _oldItem = oldItem;
-            _dal = new SmartFridgeDALFacade("SmartFridgeDb");
-
             _types = new List<SelectListItem>();
-            var uow = _dal.GetUnitOfWork();
-            _dbItems = uow.ItemRepo.GetAll().ToList();
-            _dbListItems = uow.ListItemRepo.GetAll().ToList();
-            _dbLists = uow.ListRepo.GetAll().ToList();
-            _dal.DisposeUnitOfWork();
             _types.Add(new SelectListItem { Text = "Varetype", Value = "Varetype", Selected = true });
-            foreach (var item in _dbItems)
+            foreach (var item in Cache.DbItems)
             {
                 _types.Add(new SelectListItem { Text = item.ItemName, Value = item.ItemName });
-            }
-
-            foreach (var list in _dbLists)
-            {
-                if (list.ListName == TempData.Peek("CurrentListToEdit").ToString())
-                {
-                    _currentList = list;
-                    TempData.Keep("CurrentListToEdit");
-                    break;
-                }
             }
             _units = new List<SelectListItem>(){new SelectListItem{Text = "l", Value = "l"},
                                                 new SelectListItem{Text = "dl", Value = "dl"},
@@ -92,7 +66,7 @@ namespace SmartFridge_WebApplication.Controllers
         {
             Item itemWithError = new Item();
             string date = collection["Shelflife"];
-            _updatedItem = new GUIItem(
+            _updatedGUIItem = new GUIItem(
                 collection["Type"],
                 Convert.ToUInt32(collection["Amount"]),
                 Convert.ToUInt32(collection["Volume"]),
@@ -100,13 +74,13 @@ namespace SmartFridge_WebApplication.Controllers
                 );
             if (date.Length == 0)
             {
-                _updatedItem.ShelfLife = default(DateTime);
+                _updatedGUIItem.ShelfLife = default(DateTime);
             }
             else
             {
-                _updatedItem.ShelfLife = Convert.ToDateTime(collection["Shelflife"]);
+                _updatedGUIItem.ShelfLife = Convert.ToDateTime(collection["Shelflife"]);
             }
-            foreach (var item in _dbItems)
+            foreach (var item in Cache.DbItems)
             {
                 if (item.ItemName == _oldItem.Type)
                 {
@@ -114,54 +88,115 @@ namespace SmartFridge_WebApplication.Controllers
                     break;
                 }
             }
-            var uow = _dal.GetUnitOfWork();
-            foreach (var listItem in _dbListItems)
+            var uow = Cache.DalFacade.GetUnitOfWork();
+            foreach (var listItem in Cache.CurrentListItems)
             {
-                if (listItem.Item.ItemId == _oldItem.Id && listItem.List.ListId == _currentList.ListId)
+                if (listItem.Item.ItemId == _oldItem.ItemId)
                 {
-                    listItem.Amount = Convert.ToInt32(_updatedItem.Amount);
-                    listItem.Volume = Convert.ToInt32(_updatedItem.Size);
-                    listItem.Unit = _updatedItem.Unit;
-                    if (listItem.Item.ItemName != _updatedItem.Type)
+                    if ((listItem.Item.ItemName == _updatedGUIItem.Type))
                     {
-                        foreach (var item in _dbItems)
+                        listItem.Amount = Convert.ToInt32(_updatedGUIItem.Amount);
+                        listItem.Volume = Convert.ToInt32(_updatedGUIItem.Size);
+                        listItem.Unit = _updatedGUIItem.Unit;
+                        uow.ListItemRepo.Update(listItem);
+                        uow.SaveChanges();
+                        Cache.DalFacade.DisposeUnitOfWork();
+                        return RedirectToAction("ListView", "LisView");
+                    }
+                    else
+                    {
+                        foreach (var item in Cache.DbItems)
                         {
-                            if (item.ItemName == _updatedItem.Type)
+                            if (item.ItemName == _updatedGUIItem.Type)
                             {
-                                listItem.Item = item;
-                                itemWithError = null;
-                                foreach (var duplicateItem in _dbListItems)
+                                foreach (var originalListItem in Cache.CurrentListItems)
                                 {
-                                    if (duplicateItem.Item.ItemId == listItem.Item.ItemId && //Tjek på om der allerede eksistere en tilsavrende vare
-                                        duplicateItem.List.ListId == listItem.List.ListId && //gør der det opdateres den eksisterende vares antal
-                                        duplicateItem.Unit == listItem.Unit &&               //med antallet fra den opdaterede vare og den 
-                                        duplicateItem.Volume == listItem.Volume &&           //opdaterede vare slettes
-                                        duplicateItem.ShelfLife == listItem.ShelfLife)
-
+                                    if (originalListItem.ItemId == item.ItemId && //Tjek på om der allerede eksistere en tilsavrende vare
+                                        originalListItem.Unit == _updatedGUIItem.Unit && //gør der det opdateres den eksisterende vares antal
+                                        originalListItem.Volume == _updatedGUIItem.Size && //med antallet fra den opdaterede vare og den 
+                                        originalListItem.ShelfLife == _updatedGUIItem.ShelfLife)//opdaterede vare slettes
                                     {
-                                        duplicateItem.Amount += listItem.Amount;
-                                        uow.ListItemRepo.Update(duplicateItem);
-                                        uow.ListItemRepo.Delete(listItem);
+                                        originalListItem.Amount = originalListItem.Amount + (int)_updatedGUIItem.Amount;
+                                        uow.ListItemRepo.Update(originalListItem);
+
+                                        /*uow.ListItemRepo.Delete(uow.ListItemRepo.Find(l => l.ItemId == listItem.ItemId &&
+                                                                          l.ListId == listItem.ListId &&
+                                                                          l.Unit == listItem.Unit &&
+                                                                          l.Amount == listItem.Amount &&
+                                                                          l.ShelfLife == listItem.ShelfLife &&
+                                                                          l.Volume == listItem.Volume));*/
                                         uow.SaveChanges();
-                                        _dal.DisposeUnitOfWork();
+                                        Cache.DalFacade.DisposeUnitOfWork();
 
                                         return RedirectToAction("ListView", "LisView");
                                     }
+
                                 }
                             }
+                            else
+                            {
+                                itemWithError.ItemName = _updatedGUIItem.Type;
+                                uow.ItemRepo.Update(itemWithError);
+                                listItem.Amount = Convert.ToInt32(_updatedGUIItem.Amount);
+                                listItem.Volume = Convert.ToInt32(_updatedGUIItem.Size);
+                                listItem.Unit = _updatedGUIItem.Unit;
+                                uow.ListItemRepo.Update(listItem);
+                                uow.SaveChanges();
+                                Cache.DalFacade.DisposeUnitOfWork();
+                                return RedirectToAction("ListView", "LisView");
+                            }
                         }
-                        if (itemWithError != null)
-                        {
-                            itemWithError.ItemName = _updatedItem.Type;
-                            uow.ItemRepo.Update(itemWithError);
-                        }
+                        return RedirectToAction("ListView", "LisView");
                     }
-                    uow.ListItemRepo.Update(listItem);
-                    break;
+                    //           if (listItem.Item.ItemName != _updatedItem.Type)
+                    //           {
+                    //               foreach (var item in Cache.DbItems)
+                    //               {
+                    //                   if (item.ItemName == _updatedItem.Type)
+                    //                   {
+                    //                       itemWithError = null;
+                    //                       foreach (var duplicateListItem in Cache.CurrentListItems)
+                    //                       {
+                    //                           if (duplicateListItem.ItemId == item.ItemId && //Tjek på om der allerede eksistere en tilsavrende vare
+                    //                               duplicateListItem.ListId == listItem.ListId && //gør der det opdateres den eksisterende vares antal
+                    //                               duplicateListItem.Unit == listItem.Unit &&               //med antallet fra den opdaterede vare og den 
+                    //                               duplicateListItem.Volume == listItem.Volume &&           //opdaterede vare slettes
+                    //                               duplicateListItem.ShelfLife == listItem.ShelfLife)
+
+                    //                           {
+                    //                               duplicateListItem.Amount = duplicateListItem.Amount + listItem.Amount;
+                    ////                               uow.ListItemRepo.Update(duplicateListItem);
+
+                    //                               uow.ListItemRepo.Delete(uow.ListItemRepo.Find(l => l.ItemId == listItem.ItemId &&
+                    //                                                                 l.ListId == listItem.ListId &&
+                    //                                                                 l.Unit == listItem.Unit &&
+                    //                                                                 l.Amount == listItem.Amount &&
+                    //                                                                 l.ShelfLife == listItem.ShelfLife &&
+                    //                                                                 l.Volume == listItem.Volume));
+                    //                               uow.SaveChanges();
+                    //                               Cache.DalFacade.DisposeUnitOfWork();
+
+                    //                               return RedirectToAction("ListView", "LisView");
+                    //                           }
+                    //                       }
+                    //                       listItem.Item = item;
+                    //                   }
+                    //               }
+                    //               if (itemWithError != null)
+                    //               {
+                    //                   itemWithError.ItemName = _updatedItem.Type;
+                    //                   uow.ItemRepo.Update(itemWithError);
+                    //               }
+                    //         }
+                    //           listItem.Amount = Convert.ToInt32(_updatedItem.Amount);
+                    //           listItem.Volume = Convert.ToInt32(_updatedItem.Size);
+                    //           listItem.Unit = _updatedItem.Unit;
+                    //           uow.ListItemRepo.Update(listItem);
+                    //           break;
                 }
             }
-            uow.SaveChanges();
-            _dal.DisposeUnitOfWork();
+            //uow.SaveChanges();
+            //Cache.DalFacade.DisposeUnitOfWork();
 
             return RedirectToAction("ListView", "LisView");
         }

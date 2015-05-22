@@ -8,17 +8,13 @@ using System.Web.Mvc;
 using System.Web.Helpers;
 using SmartFridge_WebDAL;
 using SmartFridge_WebModels;
+using SmartFridge_Cache;
 
 namespace SmartFridge_WebApplication.Controllers
 {
     public class LisViewController : Controller
     {
-        public string currentList;
         private static IEnumerable<GUIItem> model = new List<GUIItem>(); 
-        private static ISmartFridgeDALFacade _dal;
-        private static List<Item> _dbItems;
-        private static List<ListItem> _dbListItems;
-        private static List<List> _dbLists; 
 
         /// <summary>
         /// Funktionen henter den Item listen fra DAL laget og ligger items ind 
@@ -26,36 +22,31 @@ namespace SmartFridge_WebApplication.Controllers
         /// </summary>
         /// <param name="ListToEdit"></param>
         /// <returns></returns>
-        public ActionResult ListView(string ListToEdit)
+        public ActionResult ListView()
         {
-            currentList = ListToEdit;
-            TempData["CurrentListToEdit"] = ListToEdit;
-			TempData.Keep();
+            Cache.CurrentList = Cache.CurrentList;
             List<GUIItem> tempData = new List<GUIItem>();
-            _dal = new SmartFridgeDALFacade("SmartFridgeDb");
-            var uow = _dal.GetUnitOfWork();
-            _dbItems = uow.ItemRepo.GetAll().ToList();
-            _dbListItems = uow.ListItemRepo.GetAll().ToList();
-            _dbLists = uow.ListRepo.GetAll().ToList();
-            _dal.DisposeUnitOfWork();
+            //foreach (var item in _dbItems)
+            //{
+            //    tempData.Add(new GUIItem(item.ItemName,0,(uint)item.StdVolume,item.StdUnit){ItemId = item.ItemId});
+            //}
 
-            foreach (var item in _dbItems)
-            {
-                tempData.Add(new GUIItem(item.ItemName,0,(uint)item.StdVolume,item.StdUnit){Id = item.ItemId});
-            }
-            foreach (var item in _dbListItems)
-            {
-                int i = 0;
-                if (item.ItemId == tempData[i].Id)
+            if(Cache.CurrentListItems.Any())
+            { 
+                foreach (var listItem in Cache.CurrentListItems)
                 {
-                    tempData[i].Amount = (uint)item.Amount;
-                    tempData[i].Size = (uint)item.Volume;
-                    //tempData[i].ShelfLife = item.ShelfLife; //Nullable DateTime vs DateTime
-                    tempData[i].Unit = item.Unit;
-
+                    foreach (var item in Cache.DbItems)
+                    {
+                        if(item.ItemId == listItem.ItemId)
+                        { 
+                            GUIItem temp = new GUIItem(item.ItemName, (uint)listItem.Amount, (uint)listItem.Volume, listItem.Unit){ItemId = item.ItemId};
+                            tempData.Add(temp);
+                        }
+                        
+                    }
                 }
-                i++;
             }
+
             model = tempData; 
             //model = new List<GUIItem>() { new GUIItem("KONTENT'SSSSS", 1, 1, "Reference"), new GUIItem("TreadsSS!", 2, 3, "Reference") { ShelfLife = new DateTime(2017, 6, 2) } }; //Til test
 
@@ -90,7 +81,7 @@ namespace SmartFridge_WebApplication.Controllers
         /// <returns></returns>
         public ActionResult DeleteSelectedItem(GUIItem itemToDelete)
         {
-            var uow = _dal.GetUnitOfWork();
+            var uow = Cache.DalFacade.GetUnitOfWork();
             foreach (var item in model)
             {
                 if (item.Type == itemToDelete.Type && item.Amount == itemToDelete.Amount && item.Size == itemToDelete.Size && item.Unit == itemToDelete.Unit)
@@ -98,23 +89,23 @@ namespace SmartFridge_WebApplication.Controllers
                     List<GUIItem> tempList = model.ToList();
                     tempList.Remove(itemToDelete);
                     model = tempList;
-                    foreach (var dbitem in _dbItems)
+                    foreach (var dblistitem in Cache.CurrentListItems)
                     {
-                        if (dbitem.ItemName == itemToDelete.Type)
+                        if (dblistitem.ItemId == item.ItemId)
                         {
-                            uow.ItemRepo.Delete(dbitem);
-                        }
-                    }
-                    foreach (var dblistitem in _dbListItems)
-                    {
-                        if (dblistitem.ItemId == itemToDelete.Id)
-                        {
-                            uow.ListItemRepo.Delete(dblistitem);
+                            //uow.ListItemRepo.Delete(uow.ListItemRepo.Find(l => l.ItemId == 9));
+                            uow.ListItemRepo.Delete(uow.ListItemRepo.Find(l => l.ItemId == dblistitem.ItemId &&
+                                                                          l.ListId == dblistitem.ListId &&
+                                                                          l.Unit == dblistitem.Unit &&
+                                                                          l.Amount == dblistitem.Amount &&
+                                                                          l.ShelfLife == dblistitem.ShelfLife &&
+                                                                          l.Volume == dblistitem.Volume));
                         } 
                     }
                 }
             }
-          _dal.DisposeUnitOfWork();
+            uow.SaveChanges();
+            Cache.DalFacade.DisposeUnitOfWork();
             return RedirectToAction("ListView", "LisView");
         }
     }

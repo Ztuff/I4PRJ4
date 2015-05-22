@@ -7,6 +7,7 @@ using Microsoft.Ajax.Utilities;
 using SmartFridge_WebDAL;
 using SmartFridge_WebDAL.Context;
 using SmartFridge_WebModels;
+using SmartFridge_Cache;
 
 namespace SmartFridge_WebApplication.Controllers
 {
@@ -14,37 +15,35 @@ namespace SmartFridge_WebApplication.Controllers
     {
         //
         // GET: /AddItem/
-        static public string currentListName;
-        static private int currentListID;
-        static private List CurrentListEntity;
+        //static public string currentListName;
+        //static private int currentListID;
+        //static private List CurrentListEntity;
         static private List<GUIItem> newGuiItems = new List<GUIItem>();
         static private List<SelectListItem> ListGuiItemTypes = new List<SelectListItem>();
         static private IEnumerable<GUIItem> model;
         static private List<Item> ListItemTypes = new List<Item>();
 
-        private ISmartFridgeDALFacade dalFacade = new SmartFridgeDALFacade("SmartFridgeDb");
-
 
         public ActionResult AddItem()
         {
-            string testing = TempData.Peek("CurrentListToEdit").ToString();
+            //string testing = TempData.Peek("CurrentListToEdit").ToString();
             //currentList = TempData["CurrentListToEdit"].ToString();
-            var uow = dalFacade.GetUnitOfWork();
+            var uow = Cache.DalFacade.GetUnitOfWork();
+            
+            //if (TempData.Peek("CurrentListToEdit") != null)
+            //{
+            //    //Bliver nødt til at hente fra TempData og gemme ned lokalt, da LINQ statements ikke supporterer
+            //    //direkte sysyem. kald... Kaster en system.notsupported exception
+            //    currentListName = TempData.Peek("CurrentListToEdit").ToString(); //Skal slettes når der er forbindelse til db
+            //    List actualList = uow.ListRepo.Find(l => l.ListName == currentListName);
 
-            if (TempData.Peek("CurrentListToEdit") != null)
-            {
-                //Bliver nødt til at hente fra TempData og gemme ned lokalt, da LINQ statements ikke supporterer
-                //direkte sysyem. kald... Kaster en system.notsupported exception
-                currentListName = TempData.Peek("CurrentListToEdit").ToString(); //Skal slettes når der er forbindelse til db
-                List actualList = uow.ListRepo.Find(l => l.ListName == currentListName);
-
-                if (actualList != null)
-                {
-                    currentListID = actualList.ListId;
-                    currentListName = actualList.ListName;
-                    CurrentListEntity = actualList;
-                }
-            }
+            //    if (actualList != null)
+            //    {
+            //        currentListID = actualList.ListId;
+            //        currentListName = actualList.ListName;
+            //        CurrentListEntity = actualList;
+            //    }
+            //}
             
             //Test
             //ListItemTypes.Add(new Item("Is"));
@@ -53,6 +52,7 @@ namespace SmartFridge_WebApplication.Controllers
             //ListItemTypes.Add(new Item("Kage"));
             //ListItemTypes = uow.ItemRepo.GetAll(); //Apparently not legal to do
 
+            ListGuiItemTypes.Add(new SelectListItem { Text = "Varetype", Value = "Varetype", Selected = true });
             foreach (var guiItemTypes in uow.ItemRepo.GetAll()) 
             {
                 ListGuiItemTypes.Add(new SelectListItem { Text = guiItemTypes.ItemName });
@@ -61,7 +61,7 @@ namespace SmartFridge_WebApplication.Controllers
             ViewBag.ListNewGuiItems = ListGuiItemTypes;
 
             uow.SaveChanges();
-            dalFacade.DisposeUnitOfWork();
+            Cache.DalFacade.DisposeUnitOfWork();
             return View(model);
         }
 
@@ -132,7 +132,6 @@ namespace SmartFridge_WebApplication.Controllers
             #endregion
         }
 
-
         //[HttpPost]
         //public ActionResult addItemAndExit(string Varetype, string Antal, string Volume, string Enhed, string Holdbarhedsdato)
         //{
@@ -154,7 +153,7 @@ namespace SmartFridge_WebApplication.Controllers
             if (newGuiItems.Count == 0) {return null;} //Hvis der ikke er tilføjet nogle items, returnerer vi
 
             //Kobel de tilføjede items fra listen til databasen
-            var uow = dalFacade.GetUnitOfWork();
+            var uow = Cache.DalFacade.GetUnitOfWork();
 
             foreach (var newGuiItem in newGuiItems)
             {
@@ -162,12 +161,12 @@ namespace SmartFridge_WebApplication.Controllers
                 Item dbItem = uow.ItemRepo.Find(l => l.ItemName == newGuiItem.Type);
                 if (dbItem == null)
                 {
-                    dbItem = new Item(newGuiItem.Type);
+                    dbItem = new Item(newGuiItem.Type){StdUnit = newGuiItem.Unit, StdVolume = (int)newGuiItem.Size};
                     uow.ItemRepo.Add(dbItem);
                 }
 
                 //Searching for ListItem in DB
-                ListItem dbListItem = uow.ListItemRepo.Find(l => l.List.ListName == currentListName &&
+                ListItem dbListItem = uow.ListItemRepo.Find(l => l.List.ListName == Cache.CurrentList.ListName &&
                                                                  l.Item.ItemName == newGuiItem.Type &&
                                                                  l.Unit == newGuiItem.Unit &&
                                                                  l.Volume == newGuiItem.Size &&
@@ -183,21 +182,23 @@ namespace SmartFridge_WebApplication.Controllers
                     dbListItem.Amount = (int)newGuiItem.Amount;
                     dbListItem.Volume = (int)newGuiItem.Size;
                     dbListItem.Unit = newGuiItem.Unit;
-                    dbListItem.ListId = currentListID;
-                    dbListItem.List = CurrentListEntity;                    
+                    dbListItem.ListId = Cache.CurrentList.ListId;
+                    //dbListItem.List = Cache.CurrentList;                    
                     dbListItem.ItemId = dbItem.ItemId;
                     dbListItem.Item = dbItem;
-
+                    
                     uow.ListItemRepo.Add(dbListItem); 
                 }                                                           
                              
             }
 
-            //uow.SaveChanges();
-            dalFacade.DisposeUnitOfWork();
+            uow.SaveChanges();
+            Cache.DalFacade.DisposeUnitOfWork();
 
           //  return View("~/Views/LisView/ListView.cshtml", new { ListToEdit = currentListName });
-            return RedirectToAction("ListView", "LisView", new { ListToEdit = currentListName });
+            newGuiItems = new List<GUIItem>();
+            model = newGuiItems;
+            return RedirectToAction("ListView", "LisView");
 
 
             #region FromWPF
