@@ -18,7 +18,7 @@
             <TextBox Name="SelectedItemTB"  Margin="10,20,439,558"/>
             <TextBlock x:Name="SelectedAmount" Margin="20,62,0,0" TextWrapping="Wrap" Text="Antal:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16"/>
             <TextBox Name="SelectedAmountTB"  Margin="65,64,501,527"></TextBox>
-            <TextBlock x:Name="SelectedSize" Margin="20,88,0,0" TextWrapping="Wrap" Text="Størrelse:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBlock x:Name="SelectedSize" Margin="20,88,0,0" TextWrapping="Wrap" Text="Volumen:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16"/>
             <TextBox Name="SelectedSizeTB" Margin="90,90,454,501"/>
             <TextBox x:Name="SelectedUnitTB" HorizontalAlignment="Left" Height="19" Margin="186,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" MaxLines="1" TextAlignment="Right"/>
             <ComboBox x:Name="SelectedUnitCB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="23" Height="19" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="True" MaxDropDownHeight ="150" Margin="228,90,0,0" DropDownClosed="SelectedUnitCB_OnDropDownClosed"/>
