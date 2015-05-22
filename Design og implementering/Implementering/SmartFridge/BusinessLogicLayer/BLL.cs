@@ -364,7 +364,7 @@ namespace BusinessLogicLayer
                                     Unit = newGuiItem.Unit,
                                     Volume = (int)newGuiItem.Size,
                                     ShelfLife = newGuiItem.ShelfLife
-                                    
+
                                 };
 
                                 _listItemRepository.Insert(listItem);
@@ -516,42 +516,78 @@ namespace BusinessLogicLayer
             {
                 foreach (var dbListItem in _dblistItems)
                 {
+                    //Find den item vi gerne vil lave om
                     if (dbListItem.Item.ItemName == oldItem.Type &&
                         dbListItem.Unit == oldItem.Unit &&
                         (uint)dbListItem.Volume == oldItem.Size &&
                         dbListItem.Amount == oldItem.Amount &&
                         dbListItem.ListId == currentGuiItemList.ID)
                     {
-                        if (oldItem.Type != newItem.Type) //Hvis der skal ændres i dens Item (og ikke kun i listItem)
+                        ListItem updatedListItem = new ListItem((int)newItem.Amount,
+                            (int)newItem.Size,
+                            newItem.Unit,
+                            dbListItem.List,
+                            dbListItem.Item,
+                            newItem.ShelfLife);
+
+                        if (oldItem.Type != newItem.Type) //If they're not the same type of item...
                         {
-                            foreach (var dbItem in _dbItems)
+
+                            bool itemIsNew = false;
+                            if (IsNewItem(newItem)) //Check if it's a new 'Item'
                             {
-                                if (dbItem.ItemName == oldItem.Type)
+                                itemIsNew = true;
+                                var dbItem = new Item(newItem.Type, (int)newItem.Size, newItem.Unit);
+                                _itemRepository.Insert(dbItem);
+                                updatedListItem.Item = dbItem;
+                                //The item repository doesn't update until 'uow.SaveChanges' is run, so we'll have to set it here
+                            }
+                            if (!itemIsNew)
+                            {
+                                foreach (var dbItem in _dbItems) //If it's not a entirely new item, we'll use this
                                 {
-                                    dbItem.ItemName = newItem.Type;
-                                    _itemRepository.Update(dbItem);
+                                    if (dbItem.ItemName.Equals(newItem.Type))
+                                    {
+                                        updatedListItem.Item = dbItem;
+                                    }
                                 }
                             }
+
+                            //Now let's see if we can add it to an already existing item on this list...
+                            bool itemAddedToExistingItem = false;
+                            foreach (var dblistitem2 in _dblistItems)
+                            {
+                                if (dblistitem2.Item.ItemName == newItem.Type &&
+                                    dblistitem2.Unit == newItem.Unit &&
+                                    (uint)dblistitem2.Volume == newItem.Size &&
+                                    dblistitem2.ListId == currentGuiItemList.ID)
+                                {
+                                    //If an equal item already exists, just add the amount to it
+                                    _listItemRepository.Delete(dbListItem);  // combining two items into one means deleting both of them...
+                                    _listItemRepository.Delete(dblistitem2);
+                                    var test = dblistitem2.Amount;
+                                    dblistitem2.Amount = dblistitem2.Amount + (int)newItem.Amount;
+                                    _listItemRepository.Insert(dblistitem2); //...and adding one new
+                                    uow.SaveChanges();
+                                    itemAddedToExistingItem = true;
+                                    break;
+                                }
+                            }
+
+
+                            if (!itemAddedToExistingItem)
+                            {
+                                _listItemRepository.Delete(dbListItem);
+                                _listItemRepository.Insert(updatedListItem);
+                                uow.SaveChanges();
+                            }
+                            break;
                         }
-
-                        ListItem updatedListItem = new ListItem((int)newItem.Amount,
-                                                                (int)newItem.Size,
-                                                                newItem.Unit,
-                                                                dbListItem.List,
-                                                                dbListItem.Item,
-                                                                newItem.ShelfLife);
-
-                        _listItemRepository.Delete(dbListItem);
-                        _listItemRepository.Insert(updatedListItem);
-                        uow.SaveChanges();
-                        break;
                     }
                 }
-
             }
-            //evt throw exception her - eller lav returtype om til bool og returnér false hvis det gik dårligt...eller noget i den dur
         }
-        
+
         /// <summary>
         /// If new items added to STDList, it compares STDList to Fridge and adds the difference to Shop-List
         /// </summary>
