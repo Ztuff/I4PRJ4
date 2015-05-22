@@ -14,7 +14,7 @@ namespace SmartFridge_WebApplication.Controllers
     public class LisViewController : Controller
     {
         public string currentList;
-        private IEnumerable<GUIItem> model = new List<GUIItem>(); 
+        private static IEnumerable<GUIItem> model = new List<GUIItem>(); 
         private static ISmartFridgeDALFacade _dal;
         private static List<Item> _dbItems;
         private static List<ListItem> _dbListItems;
@@ -41,7 +41,7 @@ namespace SmartFridge_WebApplication.Controllers
 
             foreach (var item in _dbItems)
             {
-                tempData.Add(new GUIItem(item.ItemName,0,(uint)item.StdVolume,item.StdUnit));
+                tempData.Add(new GUIItem(item.ItemName,0,(uint)item.StdVolume,item.StdUnit){Id = item.ItemId});
             }
             foreach (var item in _dbListItems)
             {
