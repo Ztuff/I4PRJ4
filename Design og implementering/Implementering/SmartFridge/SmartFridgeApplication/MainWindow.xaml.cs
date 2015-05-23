@@ -103,18 +103,18 @@ namespace SmartFridgeApplication
             //Temp.ChangeGridContent(Temp.Parent);
         }
 
-        private void TestButton_Home_Clicked(object sender, RoutedEventArgs e)
+        private void Button_Home_Clicked(object sender, RoutedEventArgs e)
         {
             //    PrevUserControl = (GridContent) Enum.Parse(typeof(GridContent), Temp.Name);
             CtrlTemp.ChangeGridContent(new CtrlShowListSelection(CtrlTemp));
         }
 
-        private void TestButton_Back_Clicked(object sender, RoutedEventArgs e)
+        private void Button_Back_Clicked(object sender, RoutedEventArgs e)
         {
             CtrlTemp.NavigateBack();
         }
 
-        private void TestButton_Forward_Clicked(object sender, RoutedEventArgs e)
+        private void Button_Forward_Clicked(object sender, RoutedEventArgs e)
         {
             CtrlTemp.NavigateForward();
         }
