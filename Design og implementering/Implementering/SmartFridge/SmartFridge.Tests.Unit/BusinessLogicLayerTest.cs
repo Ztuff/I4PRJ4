@@ -90,10 +90,6 @@ namespace SmartFridge.Tests.Unit
         }
 
         [Test]
-        //Integrationstest
-        //Forudsætninger: 
-        // - At der er en database
-        // - At der er en liste der hedder 'Køleskab'
         public void AddItemsToTable_1NewItem_SameItemAddedToKøleskab()
         {
             var items = new ObservableCollection<GUIItem>();
@@ -125,10 +121,6 @@ namespace SmartFridge.Tests.Unit
         }
 
         [Test]
-        //Integrationstest
-        //Forudsætninger: 
-        // - At der er en database
-        // - At der er en liste der hedder 'Køleskab'
         public void AddItemsToTable_2NewItems_SameItemAddedsToKøleskab()
         {
             //public void AddItemsToTable(string currentListName, ObservableCollection<GUIItem> newItems)
