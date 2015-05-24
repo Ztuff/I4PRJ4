@@ -25,17 +25,17 @@
                         <ImageBrush ImageSource="{StaticResource ImgCancel}"/>
                     </Button.Background>
                 </Button>
-                <Button Style="{DynamicResource NoChromeButton}" x:Name="BackButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Back_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}" >
+                <Button Style="{DynamicResource NoChromeButton}" x:Name="BackButton" Focusable="False" DockPanel.Dock="Left" Click="Button_Back_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}" >
                     <Button.Background>
                         <ImageBrush ImageSource="{StaticResource ImgBackward}"/>
                     </Button.Background>
                 </Button>
-                <Button Style="{DynamicResource NoChromeButton}" x:Name="ForwardButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Forward_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                <Button Style="{DynamicResource NoChromeButton}" x:Name="ForwardButton" Focusable="False" DockPanel.Dock="Left" Click="Button_Forward_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
                     <Button.Background>
                         <ImageBrush ImageSource="{StaticResource ImgForward}"/>
                     </Button.Background>
                 </Button>
-                <Button Style="{DynamicResource NoChromeButton}" x:Name="HomeButton" Focusable="False" DockPanel.Dock="Left" Click="TestButton_Home_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
+                <Button Style="{DynamicResource NoChromeButton}" x:Name="HomeButton" Focusable="False" DockPanel.Dock="Left" Click="Button_Home_Clicked" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}" BorderBrush="{x:Null}">
                     <Button.Background>
                         <ImageBrush ImageSource="{StaticResource ImgHome}"/>
                     </Button.Background>
