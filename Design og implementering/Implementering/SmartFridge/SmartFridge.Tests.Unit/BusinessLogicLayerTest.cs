@@ -95,7 +95,7 @@ namespace SmartFridge.Tests.Unit
             var items = new ObservableCollection<GUIItem>();
             var rnd = new Random();
             string type = rnd.Next(int.MinValue, int.MaxValue).ToString();
-            items.Add(new GUIItem(type, 5, 1, "Unit"));
+            items.Add(new GUIItem(type, 5, 1, "Unit"){ShelfLife = DateTime.Now});
             string listName = "Køleskab";
             uut.AddItemsToTable(listName, items);
 
@@ -130,7 +130,7 @@ namespace SmartFridge.Tests.Unit
             for (int i = 0; i < 2; i++)
             {
                 string type = rnd.Next(int.MinValue, int.MaxValue).ToString();
-                items.Add(new GUIItem(type, 5, 1, "Unit"));
+                items.Add(new GUIItem(type, 5, 1, "Unit"){ShelfLife = DateTime.Now});
             }
             string listName = "Køleskab";
             uut.AddItemsToTable(listName, items);
