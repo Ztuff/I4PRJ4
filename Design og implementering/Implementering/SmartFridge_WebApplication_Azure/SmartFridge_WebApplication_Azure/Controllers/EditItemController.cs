@@ -201,5 +201,18 @@ namespace SmartFridge_WebApplication.Controllers
             return RedirectToAction("ListView", "LisView");
         }
 
+        public static void selectedUnit(GUIItem guiItem)
+        {
+            foreach (var unit in _units)
+            {
+                if (unit.Text == guiItem.Unit)
+                {
+                    unit.Selected = true;
+                    break;
+                }
+            }
+            
+        }
+
     }
 }
