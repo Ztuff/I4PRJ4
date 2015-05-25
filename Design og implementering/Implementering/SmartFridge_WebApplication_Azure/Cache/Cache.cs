@@ -8,12 +8,17 @@ using SmartFridge_WebModels;
 
 namespace SmartFridge_Cache
 {
+    /// <summary>
+    /// Cache opgave er at indeholde den data der går igen for hvert view og indeholder derfor kun statiske attributter. 
+    /// Dette er foruden alle de pågældende ListItems,List og Items tilkoblet denne liste, også en statisk udgave af 
+    /// ISmartFridgeDALFacade som samtlige controllers skal gøre brug af, for at få adgang til databasen.
+    /// </summary>
     public class Cache
     {
         /// <summary>
-        /// Sets the current list, and loads all the relevant ListItems for this list.
-        /// Also loads all Items from the database, since these are used in both
-        /// EditItem and AddItem.
+        /// CurrentList indeholder den liste der er valgt.
+        /// Når den bliver sat, hentes alle ListItems tilkoblet denne liste, og referencer til disse gemmes i CurrentListItems.
+        /// Alle Items hentes ligeledes fra databasen.
         /// </summary>
         public static List CurrentList { get { return _currentList; }
             set

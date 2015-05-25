@@ -22,10 +22,11 @@ namespace SmartFridge_WebApplication.Controllers
         //
         // GET: /EditItem/
         /// <summary>
-        /// This function might be regarded as the views constructor, since it initializes everything the view needs.
+        /// Ligger den item, der skal redigeres i ViewData, og indlæser alle Items fra cachen, 
+        /// samt laver en liste over de mulige enheder, til brug i viewet
         /// </summary>
-        /// <param name="oldGuiItem">The item that if needed will be updated</param>
-        /// <returns>Returns the EditItemView</returns>
+        /// <param name="oldGuiItem">Det GUIItem, der skal opdateres</param>
+        /// <returns>Returnere EditItem viewet</returns>
         public ActionResult EditItem(GUIItem oldGuiItem)
         {
 
@@ -60,12 +61,13 @@ namespace SmartFridge_WebApplication.Controllers
 
         }
         /// <summary>
-        /// Updates the selected item. If the item is updated in such a way that Type, ShelfLife, unit and size are similar to an already existing item,
-        /// the amount of the existing item becomes the sum of its previous amount and the amount of the updated item. If this is the case the updated 
-        /// item will be deleted.
+        /// Henter alle input fra viewets inputfelter og opdateret det valgte GUIItem
+        /// Eksistere der allerede et tilsvarende GUIItem tælles dettes amount op, og
+        /// Den overskydende GUIItem slettes, ellers opdateres GUIItemet blot med de
+        /// nye informationer
         /// </summary>
-        /// <param name="collection"> Collection of input from HTML form</param>
-        /// <returns> Returns a redirect to the ListView</returns>
+        /// <param name="collection"> En collection af al input data fra Viewet</param>
+        /// <returns> Returnere til ListView</returns>
         [HttpPost]
         public ActionResult UpdateItem(FormCollection collection) //Mangler tjek på om den pågældene list item eksistere i forvejen
         {
@@ -209,9 +211,8 @@ namespace SmartFridge_WebApplication.Controllers
         }
 
         /// <summary>
-        /// Finds the selected items unit in the _units list and sets it as the selected.
-        /// This function makes certain that it is the unit of the selected item that is
-        /// displayed in the unit dropdown menu in the view.
+        /// Finder den valgte vares enhed i listen over enheder og sætte denne
+        /// som den valgte.
         /// </summary>
         /// <param name="guiItem">The item that needs editing</param>
         public static void selectedUnit(GUIItem guiItem)
@@ -228,9 +229,11 @@ namespace SmartFridge_WebApplication.Controllers
         }
 
         /// <summary>
-        /// This functions deletes an old ListItem and inserts a new one, with an Item that did not exist in the database.
+        /// I tilfælde af at typen er blevet opdateret til en, der ikke eksistere i databasen i forvejen
+        /// Bruges denne funktion til at slette det eksisterende ListItem, og indsætte et nyt med en ny
+        /// Item, der også sættes ind i databasen.
         /// </summary>
-        /// <param name="listItemToDelete">The old item that needs to be deleted</param>
+        /// <param name="listItemToDelete">Det Listitem, der skal slettes</param>
         private void DeleteAndInsert(ListItem listItemToDelete)
         {
             ListItem newListItem = new ListItem((int)_updatedGUIItem.Amount, 
@@ -251,10 +254,12 @@ namespace SmartFridge_WebApplication.Controllers
         }
 
         /// <summary>
-        /// This functions deletes an old ListItem and inserts a new one, with an Item that already was in the database.
+        /// I tilfælde af at typen opdateres til en allerede eksisterende varetype, der ikke
+        /// er på listen, bruges denne funktion til at slette det gamle ListItem, og indsætte
+        /// det opdaterede med den nye Item reference.
         /// </summary>
-        /// <param name="listItemToDelete">The old item that needs to be deleted</param>
-        /// <param name="existingItem">The already existing item in the database</param>
+        /// <param name="listItemToDelete">TDet Listitem, der skal slettes</param>
+        /// <param name="existingItem">Det i forvejen eksisterende Item i databasen</param>
         private void DeleteAndInsert(ListItem listItemToDelete, Item existingItem)
         {
             ListItem newListItem = new ListItem((int)_updatedGUIItem.Amount, 
