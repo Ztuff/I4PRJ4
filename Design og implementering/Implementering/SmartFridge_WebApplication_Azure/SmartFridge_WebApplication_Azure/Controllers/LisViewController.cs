@@ -17,8 +17,7 @@ namespace SmartFridge_WebApplication.Controllers
         private static IEnumerable<GUIItem> model = new List<GUIItem>(); 
 
         /// <summary>
-        /// Funktionen henter den Item listen fra DAL laget og ligger items ind 
-        /// i 'model' som skal vises i Viewet.
+        /// Henter alle listItems fra Cache ind, og opdaterer modellen, som bliver vist i viewet
         /// </summary>
         /// <param name="ListToEdit"></param>
         /// <returns></returns>
@@ -54,16 +53,15 @@ namespace SmartFridge_WebApplication.Controllers
             return View(model);
         }
         /// <summary>
-        /// Funktionen sammenligner parameteren GUIItem med de items der ligger i modelen. Findes det item der ledes efter sendes det videre
-        /// til EditItem controlleren og EditItemViewet bliver vidst. Findes det ikke returneres LisViewet.
+        /// Funktionen sammenligner parameteren GUIItem med de items der ligger i modelen.
         /// </summary>
         /// <param name="itemToEdit"></param>
-        /// <returns></returns>
+        /// <returns>EditItem viewet med det GUIitem der skal redigeres</returns>
         public ActionResult ToEditItem(GUIItem itemToEdit)
         {
             foreach (var item in model)
             {
-                if (item.Type == itemToEdit.Type/* && item.Amount == itemToEdit.Amount && item.Size == itemToEdit.Size && item.Unit == itemToEdit.Unit*/)
+                if (item.Type == itemToEdit.Type)/* && item.Amount == itemToEdit.Amount && item.Size == itemToEdit.Size && item.Unit == itemToEdit.Unit*/
                 {
                      return RedirectToAction("EditItem","EditItem", item);
                 }
@@ -75,10 +73,9 @@ namespace SmartFridge_WebApplication.Controllers
         /// Funktionen sammenligner parameteren GUIItem med de items der ligger i modelen. Findes det item der ledes efter
         /// bliver det fjernet fra listen med GUIItems. Da listen ligger i en IEnumerable konverteres den til en Liste
         /// hvorefter itemToDelete bliver fjernet fra listen, og den nye liste bliver lagt i model igen.
-        /// LisView returneres.
         /// </summary>
         /// <param name="itemToDelete"></param>
-        /// <returns></returns>
+        /// <returns>ListView hvor listen med GUIItems nu er opdateret</returns>
         public ActionResult DeleteSelectedItem(GUIItem itemToDelete)
         {
             var uow = Cache.DalFacade.GetUnitOfWork();
