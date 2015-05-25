@@ -15,19 +15,43 @@ namespace SmartFridge_WebApplication.Controllers
     {
         //
         // GET: /AddItem/
+        //static public string currentListName;
+        //static private int currentListID;
+        //static private List CurrentListEntity;
         static private List<GUIItem> newGuiItems = new List<GUIItem>();
         static private List<SelectListItem> ListGuiItemTypes = new List<SelectListItem>();
         static private IEnumerable<GUIItem> model;
         static private List<Item> ListItemTypes = new List<Item>();
 
-        /// <summary>
-        /// Loader alle Items fra databsen, for at hente alle typerne ind i varetype drop down.
-        /// Og sætter viewet
-        /// </summary>
-        /// <returns>addItem view</returns>
+
         public ActionResult AddItem()
         {
+            //string testing = TempData.Peek("CurrentListToEdit").ToString();
+            //currentList = TempData["CurrentListToEdit"].ToString();
             var uow = Cache.DalFacade.GetUnitOfWork();
+            
+            //if (TempData.Peek("CurrentListToEdit") != null)
+            //{
+            //    //Bliver nødt til at hente fra TempData og gemme ned lokalt, da LINQ statements ikke supporterer
+            //    //direkte sysyem. kald... Kaster en system.notsupported exception
+            //    currentListName = TempData.Peek("CurrentListToEdit").ToString(); //Skal slettes når der er forbindelse til db
+            //    List actualList = uow.ListRepo.Find(l => l.ListName == currentListName);
+
+            //    if (actualList != null)
+            //    {
+            //        currentListID = actualList.ListId;
+            //        currentListName = actualList.ListName;
+            //        CurrentListEntity = actualList;
+            //    }
+            //}
+            
+            //Test
+            //ListItemTypes.Add(new Item("Is"));
+            //ListItemTypes.Add(new Item("Vingummi"));
+            //ListItemTypes.Add(new Item("Chokolade"));
+            //ListItemTypes.Add(new Item("Kage"));
+            //ListItemTypes = uow.ItemRepo.GetAll(); //Apparently not legal to do
+
             ListGuiItemTypes.Add(new SelectListItem { Text = "Varetype", Value = "Varetype", Selected = true });
             foreach (var guiItemTypes in uow.ItemRepo.GetAll()) 
             {
@@ -40,21 +64,11 @@ namespace SmartFridge_WebApplication.Controllers
             Cache.DalFacade.DisposeUnitOfWork();
             return View(model);
         }
-        /// <summary>
-        /// Henter alle dataene indtastet i inputfelterterne. Hvis et GUIItem med samme værdier allerede er tilføjet
-        /// ligges den nye amount blot til det allerede eksisterende GUIItem. Ellers laves et nyt og tilføjes til
-        /// listen med nyligt tilføjede items.
-        /// </summary>
-        /// <param name="Varetype"></param>
-        /// <param name="Antal"></param>
-        /// <param name="Volume"></param>
-        /// <param name="Enhed"></param>
-        /// <param name="Holdbarhedsdato"></param>
-        /// <param name="ItemImgClicked"></param>
-        /// <returns>Hvis der er trykket på tilføj og afslut returneres exit funktionen, ellers returneres et partialview med den opdaterede GUIItem liste</returns>
+
         [HttpPost]
         public ActionResult addNewItem(string Varetype, string Antal, string Volume, string Enhed, string Holdbarhedsdato, string ItemImgClicked)
         {
+            
             DateTime dblistItemDateTime = new DateTime();
             if (Holdbarhedsdato.Length == 0)
             {
@@ -117,7 +131,7 @@ namespace SmartFridge_WebApplication.Controllers
 
             #endregion
         }
-        #region Outdated addItemAndExit
+
         //[HttpPost]
         //public ActionResult addItemAndExit(string Varetype, string Antal, string Volume, string Enhed, string Holdbarhedsdato)
         //{
@@ -132,13 +146,7 @@ namespace SmartFridge_WebApplication.Controllers
 
         //    #endregion
         //}
-        #endregion
 
-        /// <summary>
-        /// Mapper GUIItems fra GUIItem listen med nyligt tilføjede vare, til Item, List og List Item i repository.
-        /// Herefter gemmes ændringerne, og de tilføjes til databasen
-        /// </summary>
-        /// <returns>LisView</returns>
         [HttpPost]
         public ActionResult Exit()
         {
@@ -175,6 +183,7 @@ namespace SmartFridge_WebApplication.Controllers
                     dbListItem.Volume = (int)newGuiItem.Size;
                     dbListItem.Unit = newGuiItem.Unit;
                     dbListItem.ListId = Cache.CurrentList.ListId;
+                    //dbListItem.List = Cache.CurrentList;                    
                     dbListItem.ItemId = dbItem.ItemId;
                     dbListItem.Item = dbItem;
                     
