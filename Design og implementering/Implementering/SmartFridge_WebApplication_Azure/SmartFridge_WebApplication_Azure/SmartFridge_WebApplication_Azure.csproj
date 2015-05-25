@@ -163,7 +163,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Content\WebApiConfig.cs" />
     <Compile Include="Controllers\AddItemController.cs" />
     <Compile Include="Controllers\EditItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
