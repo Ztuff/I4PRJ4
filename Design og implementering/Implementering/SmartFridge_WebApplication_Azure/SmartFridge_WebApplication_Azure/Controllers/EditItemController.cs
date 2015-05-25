@@ -21,7 +21,11 @@ namespace SmartFridge_WebApplication.Controllers
 
         //
         // GET: /EditItem/
-
+        /// <summary>
+        /// This function might be regarded as the views constructor, since it initializes everything the view needs.
+        /// </summary>
+        /// <param name="oldGuiItem">The item that if needed will be updated</param>
+        /// <returns>Returns the EditItemView</returns>
         public ActionResult EditItem(GUIItem oldGuiItem)
         {
 
@@ -204,7 +208,12 @@ namespace SmartFridge_WebApplication.Controllers
             return RedirectToAction("ListView", "LisView");
         }
 
-
+        /// <summary>
+        /// Finds the selected items unit in the _units list and sets it as the selected.
+        /// This function makes certain that it is the unit of the selected item that is
+        /// displayed in the unit dropdown menu in the view.
+        /// </summary>
+        /// <param name="guiItem">The item that needs editing</param>
         public static void selectedUnit(GUIItem guiItem)
         {
             foreach (var unit in _units)
@@ -218,6 +227,10 @@ namespace SmartFridge_WebApplication.Controllers
 
         }
 
+        /// <summary>
+        /// This functions deletes an old ListItem and inserts a new one, with an Item that did not exist in the database.
+        /// </summary>
+        /// <param name="listItemToDelete">The old item that needs to be deleted</param>
         private void DeleteAndInsert(ListItem listItemToDelete)
         {
             ListItem newListItem = new ListItem((int)_updatedGUIItem.Amount, 
@@ -236,6 +249,12 @@ namespace SmartFridge_WebApplication.Controllers
             uow.SaveChanges();
             Cache.DalFacade.DisposeUnitOfWork();
         }
+
+        /// <summary>
+        /// This functions deletes an old ListItem and inserts a new one, with an Item that already was in the database.
+        /// </summary>
+        /// <param name="listItemToDelete">The old item that needs to be deleted</param>
+        /// <param name="existingItem">The already existing item in the database</param>
         private void DeleteAndInsert(ListItem listItemToDelete, Item existingItem)
         {
             ListItem newListItem = new ListItem((int)_updatedGUIItem.Amount, 

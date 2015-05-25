@@ -10,6 +10,11 @@ namespace SmartFridge_Cache
 {
     public class Cache
     {
+        /// <summary>
+        /// Sets the current list, and loads all the relevant ListItems for this list.
+        /// Also loads all Items from the database, since these are used in both
+        /// EditItem and AddItem.
+        /// </summary>
         public static List CurrentList { get { return _currentList; }
             set
             {
