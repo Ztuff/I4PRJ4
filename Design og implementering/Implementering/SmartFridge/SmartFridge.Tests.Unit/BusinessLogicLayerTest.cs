@@ -15,13 +15,13 @@ namespace SmartFridge.Tests.Unit
     [TestFixture]
     public class BusinessLogicLayerTest
     {
+        //NB: Tests only work if your ListItems and Items tables are CLEARED!!
         public BLL uut;
         [SetUp]
         public void SetUp()
         {
-            //NB: Tests only work if your ListItems and Items tables are CLEARED!!
             uut = new BLL();
-            uut.CurrentList = "Køleskab"; //High coupling...
+            uut.CurrentList = "Køleskab";
             var items = uut.WatchItems;
         }
 

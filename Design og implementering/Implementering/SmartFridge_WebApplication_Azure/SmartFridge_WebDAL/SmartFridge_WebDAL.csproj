@@ -56,6 +56,14 @@
     <Compile Include="Migrations\201505200951178_Added PK to ListItem.Designer.cs">
       <DependentUpon>201505200951178_Added PK to ListItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505250937354_Removed superkey.cs" />
+    <Compile Include="Migrations\201505250937354_Removed superkey.Designer.cs">
+      <DependentUpon>201505250937354_Removed superkey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505251053166_Changed nullable DateTime to DateTime in models.cs" />
+    <Compile Include="Migrations\201505251053166_Changed nullable DateTime to DateTime in models.Designer.cs">
+      <DependentUpon>201505251053166_Changed nullable DateTime to DateTime in models.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Context\SFContext.cs" />
@@ -76,6 +84,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505200951178_Added PK to ListItem.resx">
       <DependentUpon>201505200951178_Added PK to ListItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505250937354_Removed superkey.resx">
+      <DependentUpon>201505250937354_Removed superkey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505251053166_Changed nullable DateTime to DateTime in models.resx">
+      <DependentUpon>201505251053166_Changed nullable DateTime to DateTime in models.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

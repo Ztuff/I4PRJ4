@@ -39,7 +39,7 @@ namespace SmartFridge_WebApplication.Controllers
                     {
                         if(item.ItemId == listItem.ItemId)
                         { 
-                            GUIItem temp = new GUIItem(item.ItemName, (uint)listItem.Amount, (uint)listItem.Volume, listItem.Unit){ItemId = item.ItemId};
+                            GUIItem temp = new GUIItem(item.ItemName, (uint)listItem.Amount, (uint)listItem.Volume, listItem.Unit){ItemId = item.ItemId, ShelfLife = listItem.ShelfLife};
                             tempData.Add(temp);
                         }
                         
