@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
@@ -109,6 +110,7 @@ namespace BusinessLogicLayer
                     temp.Add(list.Name);
                 }
 
+                //If the list doesn't exist:
                 if (!temp.Contains(CurrentList))
                 {
                     CreateList();
@@ -143,6 +145,7 @@ namespace BusinessLogicLayer
         /// <summary>
         /// Creates list in db
         /// </summary>
+        [ExcludeFromCodeCoverage]
         private void CreateList()
         {
             using (var uow = Context.CreateUnitOfWork())
@@ -401,6 +404,7 @@ namespace BusinessLogicLayer
 
                                         _listItemRepository.Delete(dbListItem);
                                         _listItemRepository.Insert(updatedListItem);
+                                        break;
                                     }
                                     // Forskellig unit, forskellig Size/volume, forskellig shelflife - Vi tilføjer et det nye ListItem
                                     if (dbItem.ItemId == dbListItem.Item.ItemId &&
@@ -414,6 +418,7 @@ namespace BusinessLogicLayer
                                                                                    dbItem,
                                                                                    newGuiItem.ShelfLife);
                                         _listItemRepository.Insert(updatedListItem);
+                                        break;
 
                                     }
                                 }
@@ -570,6 +575,7 @@ namespace BusinessLogicLayer
                                     _listItemRepository.Insert(dblistitem2); //...and adding one new
                                     uow.SaveChanges();
                                     itemAddedToExistingItem = true;
+                                    LoadFromDB();
                                     break;
                                 }
                             }
@@ -580,6 +586,7 @@ namespace BusinessLogicLayer
                                 _listItemRepository.Delete(dbListItem);
                                 _listItemRepository.Insert(updatedListItem);
                                 uow.SaveChanges();
+                                LoadFromDB();
                             }
                             break;
                         }
@@ -597,8 +604,8 @@ namespace BusinessLogicLayer
             if (ListWithNewItem == "Køleskab" || ListWithNewItem == "Indkøbsliste") { return; }
             if (ListWithNewItem == "Standard-beholdning")
             {
-                List<ListItem> har = new List<ListItem>();
-                List<ListItem> skalAltidHave = new List<ListItem>();
+                List<ListItem> fridge = new List<ListItem>();
+                List<ListItem> standardCapacity = new List<ListItem>();
                 //Kan ikke gå fra list til vores listItem.
                 //Bliver nødt til at lede alle listItems igennem og finde dem der tilhører
                 //den rigtige liste.
@@ -609,18 +616,18 @@ namespace BusinessLogicLayer
                     {
                         if (dbListItem.List.ListName == "Køleskab")
                         {
-                            har.Add(dbListItem);
+                            fridge.Add(dbListItem);
                         }
                         else if (dbListItem.List.ListName == "Standard-beholdning")
                         {
-                            skalAltidHave.Add(dbListItem);
+                            standardCapacity.Add(dbListItem);
                         }
                     }
                 }
-                List<ListItem> mangler = new List<ListItem>(skalAltidHave);
-                foreach (var STDListItem in skalAltidHave) //Sammenligner de to lister, og ser bort fra det vi har
+                List<ListItem> difference = new List<ListItem>(standardCapacity);
+                foreach (var STDListItem in standardCapacity) //Sammenligner de to lister, og ser bort fra det vi har
                 {
-                    foreach (var ownedListItem in har)
+                    foreach (var ownedListItem in fridge)
                     {   //Hvis vi har det item vi mangler, retter vi enten amount eller ser bort fra det ListItem
                         if (ownedListItem.Item.ItemName == STDListItem.Item.ItemName &&
                             ownedListItem.Unit == STDListItem.Unit &&
@@ -628,7 +635,7 @@ namespace BusinessLogicLayer
                         {
                             if (ownedListItem.Amount >= STDListItem.Amount)
                             {
-                                mangler.Remove(STDListItem);
+                                difference.Remove(STDListItem);
                             }
                             if (ownedListItem.Amount <= STDListItem.Amount)
                             {
@@ -638,12 +645,12 @@ namespace BusinessLogicLayer
                     }
                 }
                 ObservableCollection<GUIItem> ItemsToAdd = new ObservableCollection<GUIItem>();
-                foreach (var STDListItem in mangler)
+                foreach (var STDListItem in difference)
                 {
                     GUIItem ItemToAdd = new GUIItem(STDListItem.Item.ItemName,
                                                     (uint)STDListItem.Amount,
                                                     (uint)STDListItem.Volume,
-                                                    STDListItem.Unit);
+                                                    STDListItem.Unit){ShelfLife = DateTime.MaxValue};
                     ItemsToAdd.Add(ItemToAdd);
                 }
                 CurrentList = "Indkøbsliste"; //Sætter at den liste vi skal til at tilføje til hedder Indkøbsliste

@@ -62,14 +62,12 @@
     <Compile Include="BusinessLogicLayerTest.cs" />
     <Compile Include="AdoNetUnitOfWorkIntegrationTest.cs" />
     <Compile Include="AppConnectionFactoryIntegrationTest.cs" />
-    <Compile Include="CtrlItemListTest.cs" />
-    <Compile Include="CtrlShowListSelectionTest.cs" />
+    <Compile Include="GUIItemTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <Compile Include="CtrlTemplateUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
