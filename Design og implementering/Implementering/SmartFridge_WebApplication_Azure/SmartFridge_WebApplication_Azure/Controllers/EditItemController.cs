@@ -67,7 +67,7 @@ namespace SmartFridge_WebApplication.Controllers
         {
             Item oldDbItem = new Item();
             //Loader de nye værdier og gemmer i et GUIItem
-            string date = collection["Shelflife"];
+            string date = collection["date"];
             _updatedGUIItem = new GUIItem(
                 collection["Type"],
                 Convert.ToUInt32(collection["Amount"]),
@@ -76,11 +76,11 @@ namespace SmartFridge_WebApplication.Controllers
                 );
             if (date.Length == 0)
             {
-                _updatedGUIItem.ShelfLife = default(DateTime);
+                _updatedGUIItem.ShelfLife = DateTime.MaxValue;
             }
             else
             {
-                _updatedGUIItem.ShelfLife = Convert.ToDateTime(collection["Shelflife"]);
+                _updatedGUIItem.ShelfLife = Convert.ToDateTime(date);
             }
             //Finder det Item der svarer til typen på det GUIItem der skal ændres
             foreach (var item in Cache.DbItems)
@@ -136,29 +136,13 @@ namespace SmartFridge_WebApplication.Controllers
                                     }
 
                                 }
-                                //Hvis der eksisterer et Item der svarer til Typen af det nye redigerede Item, men der IKKE eksisterer et ListItem på denne liste af den nye ItemType
-                                //listItem.ItemId = item.ItemId;
-                                //listItem.Amount = Convert.ToInt32(_updatedGUIItem.Amount);
-                                //listItem.Volume = Convert.ToInt32(_updatedGUIItem.Size);
-                                //listItem.Unit = _updatedGUIItem.Unit;
-                                //listItem.ShelfLife = _updatedGUIItem.ShelfLife;
-                                //uow.ListItemRepo.Update(listItem);
-                                //uow.SaveChanges();
+
                                 Cache.DalFacade.DisposeUnitOfWork();
                                 DeleteAndInsert(listItem,item);
                                 return RedirectToAction("ListView", "LisView");
                             }
                         }
-                        //Hvis det nye redigerede GUIItem er af en type der ikke allerede eksisterede opretter vi et nyt item  
 
-                        //oldDbItem.ItemName = _updatedGUIItem.Type;
-                        //uow.ItemRepo.Update(oldDbItem);
-                        //listItem.Amount = Convert.ToInt32(_updatedGUIItem.Amount);
-                        //listItem.Volume = Convert.ToInt32(_updatedGUIItem.Size);
-                        //listItem.Unit = _updatedGUIItem.Unit;
-                        //listItem.ItemId = new int();
-                        //uow.ListItemRepo.Update(listItem);
-                        //uow.SaveChanges();
                         Cache.DalFacade.DisposeUnitOfWork();
                         DeleteAndInsert(listItem);
                         return RedirectToAction("ListView", "LisView");
