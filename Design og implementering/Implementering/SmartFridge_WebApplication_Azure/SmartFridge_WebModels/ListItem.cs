@@ -7,7 +7,7 @@ namespace SmartFridge_WebModels
         public int Amount { get; set; }
         public int Volume { get; set; }
         public string Unit { get; set; }
-        public DateTime? ShelfLife { get; set; }
+        public DateTime ShelfLife { get; set; }
 
         public List List { get; set; }
         public int ListId { get; set; }
@@ -21,7 +21,7 @@ namespace SmartFridge_WebModels
             
         }
 
-        public ListItem(int amount, int volume, string unit, DateTime? shelfLife)
+        public ListItem(int amount, int volume, string unit, DateTime shelfLife)
         {
             Amount = amount;
             Volume = volume;
@@ -29,7 +29,7 @@ namespace SmartFridge_WebModels
             ShelfLife = shelfLife;
         }
 
-        public ListItem(int amount, int volume, string unit, DateTime? shelfLife, List list, Item item)
+        public ListItem(int amount, int volume, string unit, DateTime shelfLife, List list, Item item)
         {
             Amount = amount;
             Volume = volume;
