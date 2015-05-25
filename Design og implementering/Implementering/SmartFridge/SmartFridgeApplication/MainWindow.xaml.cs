@@ -41,6 +41,7 @@ namespace SmartFridgeApplication
         Popup popup = new Popup();
         StackPanel Panel = new StackPanel();
         private EventTimer eventT;
+        private bool Closed = false;
 
         private SyncStatus syncStatus = SyncStatus.Synced;
         public CtrlTemplate CtrlTemp = new CtrlTemplate();
@@ -108,6 +109,7 @@ namespace SmartFridgeApplication
             CtrlTemp.NavigateForward();
         }
 
+
         private void SyncButton_OnClick(object sender, RoutedEventArgs e)
         {
 
@@ -127,6 +129,8 @@ namespace SmartFridgeApplication
 
         private void Syncing()
         {
+            if (Closed)
+                return;
             if (eventT.TriggerSyncing())
             {
                 syncStatus = SyncStatus.Synced;
@@ -160,7 +164,13 @@ namespace SmartFridgeApplication
             var Closing = MessageBox.Show("Er du sikker på du vil lukke applikationen?", "Luk", MessageBoxButton.YesNo);
 
             if (Closing == MessageBoxResult.Yes)
+            {
+                Closed = true;
+                eventT.SyncSecondsElapsed = 0;
+                eventT.TriggerSyncing();
+                TrySync();
                 Close();
+            }
         }
 
         private void NotificationsButton_OnClick(object sender, RoutedEventArgs e)
