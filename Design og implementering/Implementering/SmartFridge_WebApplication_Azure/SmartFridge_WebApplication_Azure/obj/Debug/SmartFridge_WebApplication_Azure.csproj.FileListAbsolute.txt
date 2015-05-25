@@ -243,3 +243,5 @@ D:\Dokumenter\IHA IKT\4. Semester\I4PRJ4\Design og implementering\Implementering
 D:\Dokumenter\IHA IKT\4. Semester\I4PRJ4\Design og implementering\Implementering\SmartFridge_WebApplication_Azure\SmartFridge_WebApplication_Azure\obj\Debug\SmartFridge_WebApplication_Azure.pdb
 D:\Dokumenter\IHA IKT\4. Semester\I4PRJ4\Design og implementering\Implementering\SmartFridge_WebApplication_Azure\SmartFridge_WebApplication_Azure\bin\Cache.dll
 D:\Dokumenter\IHA IKT\4. Semester\I4PRJ4\Design og implementering\Implementering\SmartFridge_WebApplication_Azure\SmartFridge_WebApplication_Azure\bin\Cache.pdb
+D:\IHA\4. Semester\I4PRJ4\Design og implementering\Implementering\SmartFridge_WebApplication_Azure\SmartFridge_WebApplication_Azure\bin\Cache.dll
+D:\IHA\4. Semester\I4PRJ4\Design og implementering\Implementering\SmartFridge_WebApplication_Azure\SmartFridge_WebApplication_Azure\bin\Cache.pdb

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using SmartFridge_WebDAL;
 using SmartFridge_WebModels;
 using SmartFridge_Cache;
@@ -12,7 +13,7 @@ namespace SmartFridge_WebApplication.Controllers
 {
     public class EditItemController : Controller
     {
-        private static GUIItem _oldItem = new GUIItem();
+        private static GUIItem _oldGuiItem = new GUIItem();
         private static List<SelectListItem> _units;
         private static List<SelectListItem> _types;
 
@@ -21,10 +22,10 @@ namespace SmartFridge_WebApplication.Controllers
         //
         // GET: /EditItem/
 
-        public ActionResult EditItem(GUIItem oldItem)
+        public ActionResult EditItem(GUIItem oldGuiItem)
         {
 
-            _oldItem = oldItem;
+            _oldGuiItem = oldGuiItem;
             _types = new List<SelectListItem>();
             _types.Add(new SelectListItem { Text = "Varetype", Value = "Varetype", Selected = true });
             foreach (var item in Cache.DbItems)
@@ -37,7 +38,7 @@ namespace SmartFridge_WebApplication.Controllers
                                                 new SelectListItem{Text = "kg", Value = "kg"},
                                                 new SelectListItem{Text = "g", Value = "g"},
                                                 new SelectListItem{Text = "stk", Value = "stk"}};
-            ViewData.Add("oldItem", _oldItem);
+            ViewData.Add("oldItem", _oldGuiItem);
             ViewBag.types = _types;
             ViewBag.units = _units;
             return View();
@@ -64,7 +65,8 @@ namespace SmartFridge_WebApplication.Controllers
         [HttpPost]
         public ActionResult UpdateItem(FormCollection collection) //Mangler tjek på om den pågældene list item eksistere i forvejen
         {
-            Item itemWithError = new Item();
+            Item oldDbItem = new Item();
+    //Loader de nye værdier og gemmer i et GUIItem
             string date = collection["Shelflife"];
             _updatedGUIItem = new GUIItem(
                 collection["Type"],
@@ -80,20 +82,21 @@ namespace SmartFridge_WebApplication.Controllers
             {
                 _updatedGUIItem.ShelfLife = Convert.ToDateTime(collection["Shelflife"]);
             }
+            //Finder det Item der svarer til typen på det GUIItem der skal ændres
             foreach (var item in Cache.DbItems)
             {
-                if (item.ItemName == _oldItem.Type)
+                if (item.ItemName == _oldGuiItem.Type)
                 {
-                    itemWithError = item;
+                    oldDbItem = item;
                     break;
                 }
             }
             var uow = Cache.DalFacade.GetUnitOfWork();
-            foreach (var listItem in Cache.CurrentListItems)
+            foreach (var listItem in Cache.CurrentListItems) //Leder alle ListItems på denne liste igennem for at finde det ListItem som bliver redigeret
             {
-                if (listItem.Item.ItemId == _oldItem.ItemId)
+                if (listItem.Item.ItemId == oldDbItem.ItemId)//Hvis ListItem har samme typeID som det gamle dbItem
                 {
-                    if ((listItem.Item.ItemName == _updatedGUIItem.Type))
+                    if ((listItem.Item.ItemName == _updatedGUIItem.Type)) // Hvis ListItem også er af samme type som det nye redigerede GUIItem, ændrer vi værdierne
                     {
                         listItem.Amount = Convert.ToInt32(_updatedGUIItem.Amount);
                         listItem.Volume = Convert.ToInt32(_updatedGUIItem.Size);
@@ -104,20 +107,20 @@ namespace SmartFridge_WebApplication.Controllers
                         Cache.DalFacade.DisposeUnitOfWork();
                         return RedirectToAction("ListView", "LisView");
                     }
-                    else
+                    else //Hvis typen er blevet ændret.
                     {
-                        foreach (var item in Cache.DbItems)
+                        foreach (var item in Cache.DbItems)//leder alle Items igennem for at se om GUIItem er en ny type, eller om der allerede eksisterer en ItemType                            
                         {
-                            if (item.ItemName == _updatedGUIItem.Type)
+                            if (item.ItemName == _updatedGUIItem.Type)//Hvis item er af samme type som det nye redigerede GUIItem ser vi om der eksisterer et ListItem, med samme type som det nye redigerede GUIITem                        
                             {
-                                foreach (var originalListItem in Cache.CurrentListItems)
+                                foreach (var originalListItem in Cache.CurrentListItems)//Leder alle ListItems igennem igen, for at se om et listItem med den nye type findes
                                 {
-                                    if (originalListItem.ItemId == item.ItemId && //Tjek på om der allerede eksistere en tilsavrende vare
-                                        originalListItem.Unit == _updatedGUIItem.Unit && //gør der det opdateres den eksisterende vares antal
-                                        originalListItem.Volume == _updatedGUIItem.Size && //med antallet fra den opdaterede vare og den 
-                                        originalListItem.ShelfLife == _updatedGUIItem.ShelfLife)//opdaterede vare slettes
+                                    if (originalListItem.ItemId == item.ItemId &&   //Tjek på om der allerede eksistere en tilsavrende vare
+                                        originalListItem.Unit == _updatedGUIItem.Unit &&    //gør der det opdateres den eksisterende vares antal
+                                        originalListItem.Volume == _updatedGUIItem.Size &&  //med antallet fra den opdaterede vare og den 
+                                        originalListItem.ShelfLife == _updatedGUIItem.ShelfLife)    //opdaterede vare slettes
                                     {
-                                        originalListItem.Amount = originalListItem.Amount + (int)_updatedGUIItem.Amount;
+                                        originalListItem.Amount = originalListItem.Amount + (int) _updatedGUIItem.Amount;
                                         uow.ListItemRepo.Update(originalListItem);
 
                                         /*uow.ListItemRepo.Delete(uow.ListItemRepo.Find(l => l.ItemId == listItem.ItemId &&
@@ -133,7 +136,7 @@ namespace SmartFridge_WebApplication.Controllers
                                     }
 
                                 }
-
+                                //Hvis der eksisterer et Item der svarer til Typen af det nye redigerede Item, men der IKKE eksisterer et ListItem på denne liste af den nye ItemType
                                 listItem.ItemId = item.ItemId;
                                 listItem.Amount = Convert.ToInt32(_updatedGUIItem.Amount);
                                 listItem.Volume = Convert.ToInt32(_updatedGUIItem.Size);
@@ -142,23 +145,26 @@ namespace SmartFridge_WebApplication.Controllers
                                 uow.ListItemRepo.Update(listItem);
                                 uow.SaveChanges();
                                 Cache.DalFacade.DisposeUnitOfWork();
-
+                                return RedirectToAction("ListView", "LisView");
                             }
-                            else
-                            {
-                                itemWithError.ItemName = _updatedGUIItem.Type;
-                                uow.ItemRepo.Update(itemWithError);
+                        }
+                                 //Hvis det nye redigerede GUIItem er af en type der ikke allerede eksisterede opretter vi et nyt item                           
+                                //oldDbItem.ItemName = _updatedGUIItem.Type;
+                        Item newItem = new Item(_updatedGUIItem.Type);
+                                //uow.ItemRepo.Update(oldDbItem);
                                 listItem.Amount = Convert.ToInt32(_updatedGUIItem.Amount);
                                 listItem.Volume = Convert.ToInt32(_updatedGUIItem.Size);
                                 listItem.Unit = _updatedGUIItem.Unit;
+                                listItem.Item = newItem;
                                 uow.ListItemRepo.Update(listItem);
                                 uow.SaveChanges();
                                 Cache.DalFacade.DisposeUnitOfWork();
                                 return RedirectToAction("ListView", "LisView");
-                            }
+                            
                         }
                         return RedirectToAction("ListView", "LisView");
                     }
+                    #region OldVersion
                     //           if (listItem.Item.ItemName != _updatedItem.Type)
                     //           {
                     //               foreach (var item in Cache.DbItems)
@@ -204,13 +210,15 @@ namespace SmartFridge_WebApplication.Controllers
                     //           listItem.Unit = _updatedItem.Unit;
                     //           uow.ListItemRepo.Update(listItem);
                     //           break;
+                    //}}
+                    //uow.SaveChanges();
+                    //Cache.DalFacade.DisposeUnitOfWork();
+                    #endregion
                 }
-            }
-            //uow.SaveChanges();
-            //Cache.DalFacade.DisposeUnitOfWork();
-
+            //Hvis der ikke eksisterer et ListItem. Vi burde aldrig komme herned
             return RedirectToAction("ListView", "LisView");
-        }
+            }          
+            
 
         public static void selectedUnit(GUIItem guiItem)
         {
