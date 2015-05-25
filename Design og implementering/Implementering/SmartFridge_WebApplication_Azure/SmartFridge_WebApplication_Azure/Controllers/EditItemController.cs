@@ -98,6 +98,7 @@ namespace SmartFridge_WebApplication.Controllers
                         listItem.Amount = Convert.ToInt32(_updatedGUIItem.Amount);
                         listItem.Volume = Convert.ToInt32(_updatedGUIItem.Size);
                         listItem.Unit = _updatedGUIItem.Unit;
+                        listItem.ShelfLife = _updatedGUIItem.ShelfLife;
                         uow.ListItemRepo.Update(listItem);
                         uow.SaveChanges();
                         Cache.DalFacade.DisposeUnitOfWork();
@@ -132,6 +133,16 @@ namespace SmartFridge_WebApplication.Controllers
                                     }
 
                                 }
+
+                                listItem.ItemId = item.ItemId;
+                                listItem.Amount = Convert.ToInt32(_updatedGUIItem.Amount);
+                                listItem.Volume = Convert.ToInt32(_updatedGUIItem.Size);
+                                listItem.Unit = _updatedGUIItem.Unit;
+                                listItem.ShelfLife = _updatedGUIItem.ShelfLife;
+                                uow.ListItemRepo.Update(listItem);
+                                uow.SaveChanges();
+                                Cache.DalFacade.DisposeUnitOfWork();
+
                             }
                             else
                             {
