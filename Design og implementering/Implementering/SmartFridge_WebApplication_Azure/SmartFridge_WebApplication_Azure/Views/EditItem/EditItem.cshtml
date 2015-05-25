@@ -11,6 +11,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     GUIItem dataSource = ViewData["olditem"] as GUIItem;
     EditItemController.selectedUnit(dataSource);
+    string ShelfLifeString = dataSource.ShelfLife.Year + "-";
+    if (dataSource.ShelfLife.Month.ToString().Length == 1) { ShelfLifeString += "0" + dataSource.ShelfLife.Month + "-"; } else { ShelfLifeString += dataSource.ShelfLife.Month + "-"; }
+    if (dataSource.ShelfLife.Day.ToString().Length == 1) { ShelfLifeString += "0" + dataSource.ShelfLife.Day; } else { ShelfLifeString += dataSource.ShelfLife.Day; }
+    
 }
 
 
@@ -43,8 +47,9 @@
         <br />
         <label>Holdbarhedsdato</label>
         <br/>
-        @Html.TextBox("Shelflife", dataSource.ShelfLife.ToString("dd-mm-yyyy"), new{@type = "date", @autocomplete = "on"})
+        @Html.TextBox("date", dataSource.ShelfLife.ToString("yyyy-MM-dd"), new { type = "date" })
         <br/>
+        
 
 
         <input type="image" src="~/Images/OK.png" alt="Submit" class="AddImg" />

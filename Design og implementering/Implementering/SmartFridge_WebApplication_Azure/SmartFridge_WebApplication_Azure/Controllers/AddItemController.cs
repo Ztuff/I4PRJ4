@@ -72,7 +72,7 @@ namespace SmartFridge_WebApplication.Controllers
             DateTime dblistItemDateTime = new DateTime();
             if (Holdbarhedsdato.Length == 0)
             {
-                dblistItemDateTime = default(DateTime);
+                dblistItemDateTime = DateTime.MaxValue;
             }
             else
             {
