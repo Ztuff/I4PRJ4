@@ -18,11 +18,13 @@ namespace SmartFridge_WebApplication.Tests
     public class AddItemControllerUnitTest
     {
         private AddItemController uut;
+        private ISmartFridgeDALFacade dalfacade = Substitute.For<ISmartFridgeDALFacade>();
+        ListItem globalTeslListItem = new ListItem();
         [SetUp]
         public void Setup()
         {
             uut = new AddItemController();
-            var dalfacade = Substitute.For<ISmartFridgeDALFacade>();
+            
             Cache.DalFacade = dalfacade;
             var currentList = new SmartFridge_WebModels.List("TestList") { ListId = 0 };
             Cache.CurrentList = currentList;
@@ -31,39 +33,62 @@ namespace SmartFridge_WebApplication.Tests
             dalfacade.GetUnitOfWork().ListRepo.GetAll().Returns(new List<SmartFridge_WebModels.List>() { currentList });
             dalfacade.GetUnitOfWork().ItemRepo.GetAll().Returns(new List<Item> { item });
             dalfacade.GetUnitOfWork().ListItemRepo.GetAll().Returns(new List<ListItem>() { listitem });
-        }
-
-        [Test]
-        public void addNewItem_Add1ItemAndExit_LisViewReturned()
-        {
-            RedirectToRouteResult result = uut.addNewItem("TestItem", "1", "1", "l", "06-09-1993", "Exit") as RedirectToRouteResult;
-            Assert.That(result.RouteValues.Values.ElementAt(1), Is.EqualTo("LisView"));
-        }
-
-        [Test]
-        public void addNewItem_Add1ItemAndDontExit_AddItemReturned()
-        {
-            var result = uut.addNewItem("TestItem", "1", "1", "l", "06-09-1993", "no") as PartialViewResult;
-            Assert.That(result.ViewName,Is.EqualTo("AddItem"));
+            globalTeslListItem = listitem;
         }
 
         [Test]
         public void AddItem_TestLoadingCorrectModel_ReturnCorrectModel()
         {
 
-            var additem = uut.AddItem() as ViewResult;
-            Assert.AreEqual(null, additem);
+            var actResult = uut.AddItem() as ViewResult;
+            Assert.That(actResult.ViewName, Is.EqualTo(""));
+        }
+
+        [Test]
+        public void addNewItem_Add1ItemAndDontExit_AddItemReturned()
+        {
+            var result = uut.addNewItem("TestItem", "1", "1", "l", "06-09-1993", "Add") as PartialViewResult;
+            Assert.That(result.ViewName, Is.EqualTo("~/Views/AddItem/AddItem.cshtml"));
+        }
+
+        [Test]
+        public void addNewItem_Add2ItemsAndMergeAmount_AddItemReturned()
+        {
+            uut.addNewItem("TestItem", "1", "1", "l", "06-09-1993", "Add");
+            var result = uut.addNewItem("TestItem", "1", "1", "l", "06-09-1993", "Add") as PartialViewResult;
+            Assert.That(result, Is.EqualTo(null));
+        }
+
+        [Test]
+        public void addNewItem_Add2ItemsAndDontMergeAmount_AddItemReturned()
+        {
+            uut.addNewItem("TestItem", "1", "1", "l", "06-09-1993", "Add");
+            var result = uut.addNewItem("TestItem2", "2", "2", "2", "04-06-1993", "Add") as PartialViewResult;
+            Assert.That(result.ViewName, Is.EqualTo("~/Views/AddItem/AddItem.cshtml"));
+        }
+
+        [Test]
+        public void addNewItem_Add1ItemAndExit_LisViewReturned()
+        {
+
+            RedirectToRouteResult result = uut.addNewItem("TestItem", "1", "1", "l", "", "Exit") as RedirectToRouteResult;
+            Assert.That(result.RouteValues["action"], Is.EqualTo("ListView"));
+
         }
 
         [Test]
         public void Exit_NoNewItems_ReturnNull()
         {
-            var obj = new AddItemController();
-
-            RedirectToRouteResult result = obj.Exit() as RedirectToRouteResult;
-
-            // Assert.Throws<NullReferenceException>(() => obj.Exit());
+            var result = uut.Exit() as RedirectToRouteResult;
             Assert.AreEqual(result, null);
+        }
+
+        [Test]
+        public void Exit_NewItemAlreadyExistsMergeAmount()
+        {
+            dalfacade.GetUnitOfWork().ListItemRepo.Find(null).ReturnsForAnyArgs(globalTeslListItem);
+            var result = uut.addNewItem("TestItem", "1", "1", "l", "", "Exit") as RedirectToRouteResult;
+            Assert.That(result.RouteValues["action"], Is.EqualTo("ListView"));
         }
     }
 }

@@ -54,20 +54,20 @@ namespace SmartFridge_WebApplication.Tests
             EditItemController.selectedUnit(new GUIItem("TestGUIItem", 1, 1, "F"));
         }
 
-        [Test]
-        public void UpdateItem_Item_ItemUpdated()
-        {
-            var actResult = uut.EditItem(new GUIItem("test", 1, 1, "l"));
-                        _updatedGUIItem = new GUIItem(
-                collection["Type"],
-                Convert.ToUInt32(collection["Amount"]),
-                Convert.ToUInt32(collection["Volume"]),
-                collection["units"]
-                );
-            FormCollection collection = new FormCollection();
-            collection.Add(new NameValueCollection(){"Type",});
-            uut.UpdateItem()
-        }
+        //[Test]
+        //public void UpdateItem_Item_ItemUpdated()
+        //{
+        //    var actResult = uut.EditItem(new GUIItem("test", 1, 1, "l"));
+        //                _updatedGUIItem = new GUIItem(
+        //        collection["Type"],
+        //        Convert.ToUInt32(collection["Amount"]),
+        //        Convert.ToUInt32(collection["Volume"]),
+        //        collection["units"]
+        //        );
+        //    FormCollection collection = new FormCollection();
+        //    collection.Add(new NameValueCollection(){"Type",});
+        //    uut.UpdateItem()
+        //}
   
     }
 }
