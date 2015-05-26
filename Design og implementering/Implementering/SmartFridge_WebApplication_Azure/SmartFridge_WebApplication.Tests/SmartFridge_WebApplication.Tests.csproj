@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddItemControllerUnitTest.cs" />
+    <Compile Include="CacheUnitTests.cs" />
     <Compile Include="HomeControllerUnitTests.cs" />
     <Compile Include="LisViewControllerUnitTest.cs" />
     <Compile Include="SmartFridgeDALFacadeUnitTests.cs" />
