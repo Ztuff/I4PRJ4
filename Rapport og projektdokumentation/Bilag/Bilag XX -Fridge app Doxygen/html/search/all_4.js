@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['adonetuow',['AdoNetUoW',['../namespace_data_access_layer_1_1_ado_net_uo_w.html',1,'DataAccessLayer']]],
+  ['connection',['Connection',['../namespace_data_access_layer_1_1_connection.html',1,'DataAccessLayer']]],
+  ['dataaccesslayer',['DataAccessLayer',['../namespace_data_access_layer.html',1,'']]],
+  ['date',['Date',['../class_smart_fridge_application_1_1_clock.html#aeb236bf966f4d46f5bf2289451b8a7c4',1,'SmartFridgeApplication::Clock']]],
+  ['dbsync',['DbSync',['../class_data_access_layer_1_1_sync_1_1_db_sync.html',1,'DataAccessLayer::Sync']]],
+  ['dbsync',['DbSync',['../class_data_access_layer_1_1_sync_1_1_db_sync.html#abd9d7e61ff1aff197b6236f34aa6c5db',1,'DataAccessLayer::Sync::DbSync']]],
+  ['dbsync_2ecs',['DbSync.cs',['../_db_sync_8cs.html',1,'']]],
+  ['delete',['Delete',['../class_data_access_layer_1_1_repository_1_1_item_repository.html#a65fa2026cef8b6a5330ac38d640e46ea',1,'DataAccessLayer.Repository.ItemRepository.Delete()'],['../class_data_access_layer_1_1_repository_1_1_list_item_repository.html#a67e10836d6adf016b831351e1f83d15d',1,'DataAccessLayer.Repository.ListItemRepository.Delete()'],['../class_data_access_layer_1_1_repository_1_1_list_repository.html#a30b7593f79b57804a4bfb88dac31a05d',1,'DataAccessLayer.Repository.ListRepository.Delete()'],['../class_data_access_layer_1_1_repository_1_1_repository.html#affb148f86f5798bb0e6d990132ba4b70',1,'DataAccessLayer.Repository.Repository.Delete()']]],
+  ['deleteitem',['DeleteItem',['../class_business_logic_layer_1_1_b_l_l.html#a43ee3a728aa9050da5d784fb55ec6020',1,'BusinessLogicLayer::BLL']]],
+  ['deleteitemwithtype',['DeleteItemWithType',['../class_business_logic_layer_1_1_b_l_l.html#ac825556b0f250efa4853aaf4122bde15',1,'BusinessLogicLayer::BLL']]],
+  ['deletenotificationcommand',['DeleteNotificationCommand',['../class_smart_fridge_application_1_1_main_window.html#ae0a3130c65f3d87357cba3b8caf6ff57',1,'SmartFridgeApplication::MainWindow']]],
+  ['desynced',['Desynced',['../class_smart_fridge_application_1_1_main_window.html#a05f3c0edfe5c1db6581144d7ffe2e1b5abd45ff4d887ad14fe80b6a5bbf3e94db',1,'SmartFridgeApplication::MainWindow']]],
+  ['dispose',['Dispose',['../class_data_access_layer_1_1_ado_net_uo_w_1_1_ado_net_context.html#a858bfe469e48f7ea12aed51fa4a1e601',1,'DataAccessLayer.AdoNetUoW.AdoNetContext.Dispose()'],['../class_data_access_layer_1_1_ado_net_uo_w_1_1_ado_net_unit_of_work.html#af7c236d28e673735b5e89c0027dc8c2c',1,'DataAccessLayer.AdoNetUoW.AdoNetUnitOfWork.Dispose()']]],
+  ['dispose_5fcalled_5fcalledfakeconndispose',['Dispose_Called_CalledFakeConnDispose',['../class_smart_fridge_1_1_tests_1_1_unit_1_1_ado_net_context_integration_test.html#ab07685c60ff6cbd3ab14684266da01d6',1,'SmartFridge::Tests::Unit::AdoNetContextIntegrationTest']]],
+  ['dispose_5fcalled_5fdoesdispose',['Dispose_Called_DoesDispose',['../class_smart_fridge_1_1_tests_1_1_unit_1_1_ado_net_unit_of_work_integration_test.html#a6272b38a3ac64ee4642e41009b640852',1,'SmartFridge::Tests::Unit::AdoNetUnitOfWorkIntegrationTest']]],
+  ['dispose_5fcalled_5fdoesrollback',['Dispose_Called_DoesRollback',['../class_smart_fridge_1_1_tests_1_1_unit_1_1_ado_net_unit_of_work_integration_test.html#af656f244bc98afecb682db7bd5ea1b35',1,'SmartFridge::Tests::Unit::AdoNetUnitOfWorkIntegrationTest']]],
+  ['dispose_5fcalledtwiceandtransactionisnull_5fdoesnotrollbacktwice',['Dispose_CalledTwiceAndTransactionIsNull_DoesNotRollBackTwice',['../class_smart_fridge_1_1_tests_1_1_unit_1_1_ado_net_unit_of_work_integration_test.html#a519efaa2d431f66191dd700a6049bc2e',1,'SmartFridge::Tests::Unit::AdoNetUnitOfWorkIntegrationTest']]],
+  ['dispose_5fcreateuutinusingscope_5fcallsdisposewhenoutofscope',['Dispose_CreateUutInUsingScope_CallsDisposeWhenOutOfScope',['../class_smart_fridge_1_1_tests_1_1_unit_1_1_ado_net_context_integration_test.html#a93e39aefaf028667e9718b26ac3604c5',1,'SmartFridge::Tests::Unit::AdoNetContextIntegrationTest']]],
+  ['repository',['Repository',['../namespace_data_access_layer_1_1_repository.html',1,'DataAccessLayer']]],
+  ['sync',['Sync',['../namespace_data_access_layer_1_1_sync.html',1,'DataAccessLayer']]]
+];
