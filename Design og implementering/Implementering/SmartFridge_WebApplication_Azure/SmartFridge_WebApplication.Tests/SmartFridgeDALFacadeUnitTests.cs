@@ -8,7 +8,7 @@ using NUnit.Framework;
 using SmartFridge_WebDAL;
 using SmartFridge_WebDAL.UnitOfWork;
 
-namespace DAL.Tests.Unit
+namespace SmartFridge_WebApplication.Tests
 {
     [TestFixture]
     class SmartFridgeDALFacadeUnitTests

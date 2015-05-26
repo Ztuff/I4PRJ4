@@ -9,7 +9,7 @@ using NSubstitute;
 using SmartFridge_WebDAL.Context;
 using SmartFridge_WebDAL.UnitOfWork;
 
-namespace DAL.Tests.Unit
+namespace SmartFridge_WebApplication.Tests
 {
     [TestFixture]
     class UnitOfWorkUnitTests

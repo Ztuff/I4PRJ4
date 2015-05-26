@@ -50,6 +50,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -70,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cache\SmartFridge_Cache.csproj">
+      <Project>{4f0f3255-05c1-4cb8-a654-64f82f6cf77d}</Project>
+      <Name>SmartFridge_Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SmartFridge_WebApplication\SmartFridge_WebApplication.csproj">
       <Project>{c67437f1-7332-479a-bf71-50c8fa64c7f5}</Project>
       <Name>SmartFridge_WebApplication</Name>

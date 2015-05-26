@@ -236,6 +236,12 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="System.Web.WebPages.Deployment.dll" />
+    <Content Include="System.Web.WebPages.Deployment.xml" />
+    <Content Include="System.Web.WebPages.dll" />
+    <Content Include="System.Web.WebPages.Razor.dll" />
+    <Content Include="System.Web.WebPages.Razor.xml" />
+    <Content Include="System.Web.WebPages.xml" />
     <Content Include="Views\Shared\Images\Add.png" />
     <Content Include="Views\Shared\Images\AddAndExit.png" />
     <Content Include="Views\Shared\Images\AddItem.png" />

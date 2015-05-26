@@ -29,7 +29,6 @@ namespace SmartFridge_WebApplication.Controllers
             //{
             //    tempData.Add(new GUIItem(item.ItemName,0,(uint)item.StdVolume,item.StdUnit){ItemId = item.ItemId});
             //}
-
             if(Cache.CurrentListItems.Any())
             { 
                 foreach (var listItem in Cache.CurrentListItems)
@@ -40,16 +39,12 @@ namespace SmartFridge_WebApplication.Controllers
                         { 
                             GUIItem temp = new GUIItem(item.ItemName, (uint)listItem.Amount, (uint)listItem.Volume, listItem.Unit){ItemId = item.ItemId, ShelfLife = listItem.ShelfLife};
                             tempData.Add(temp);
-                        }
-                        
+                        }           
                     }
                 }
             }
-
             model = tempData; 
             //model = new List<GUIItem>() { new GUIItem("KONTENT'SSSSS", 1, 1, "Reference"), new GUIItem("TreadsSS!", 2, 3, "Reference") { ShelfLife = new DateTime(2017, 6, 2) } }; //Til test
-
-
             return View(model);
         }
         /// <summary>
