@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['properties',['Properties',['../namespace_smart_fridge_application_1_1_properties.html',1,'SmartFridgeApplication']]],
+  ['savechanges',['SaveChanges',['../class_data_access_layer_1_1_ado_net_uo_w_1_1_ado_net_unit_of_work.html#ab0e745a79b59077fcca74e220c576b9a',1,'DataAccessLayer.AdoNetUoW.AdoNetUnitOfWork.SaveChanges()'],['../interface_data_access_layer_1_1_ado_net_uo_w_1_1_i_unit_of_work.html#a2ae11a8831b3a796f9b42222d2eed170',1,'DataAccessLayer.AdoNetUoW.IUnitOfWork.SaveChanges()']]],
+  ['savechanges_5fcalled_5fdoescommit',['SaveChanges_Called_DoesCommit',['../class_smart_fridge_1_1_tests_1_1_unit_1_1_ado_net_unit_of_work_integration_test.html#a008a72692782080b8e59a6e0baa6cf85',1,'SmartFridge::Tests::Unit::AdoNetUnitOfWorkIntegrationTest']]],
+  ['savechanges_5fcalledtwice_5fthrowsinvalidoperationexception',['SaveChanges_CalledTwice_ThrowsInvalidOperationException',['../class_smart_fridge_1_1_tests_1_1_unit_1_1_ado_net_unit_of_work_integration_test.html#ab0735dfcbe859564d5c6542a2480532f',1,'SmartFridge::Tests::Unit::AdoNetUnitOfWorkIntegrationTest']]],
+  ['setpropertyvalue',['SetPropertyValue',['../class_xaml_generated_namespace_1_1_generated_internal_type_helper.html#ade0f04c0f7b18dd5b170e071d5534d38',1,'XamlGeneratedNamespace::GeneratedInternalTypeHelper']]],
+  ['settings_2edesigner_2ecs',['Settings.Designer.cs',['../_smart_fridge_application_2_properties_2_settings_8_designer_8cs.html',1,'']]],
+  ['settings_2edesigner_2ecs',['Settings.Designer.cs',['../_item_list_2_properties_2_settings_8_designer_8cs.html',1,'']]],
+  ['settings_2edesigner_2ecs',['Settings.Designer.cs',['../_resources_dictionary_2_properties_2_settings_8_designer_8cs.html',1,'']]],
+  ['setup',['SetUp',['../class_smart_fridge_1_1_tests_1_1_unit_1_1_business_logic_layer_test.html#a181cf5d719f14c167e77f3f6cca9c8a3',1,'SmartFridge.Tests.Unit.BusinessLogicLayerTest.SetUp()'],['../class_smart_fridge_1_1_tests_1_1_unit_1_1_g_u_i_item_test.html#a693d1bd6b24cfc9175398470a1ef2fe8',1,'SmartFridge.Tests.Unit.GUIItemTest.SetUp()'],['../class_smart_fridge_1_1_tests_1_1_unit_1_1_ado_net_context_integration_test.html#a48f2cc63ecc19e18d1b2175d0e66229f',1,'SmartFridge.Tests.Unit.AdoNetContextIntegrationTest.Setup()'],['../class_smart_fridge_1_1_tests_1_1_unit_1_1_ado_net_unit_of_work_integration_test.html#a7c63fd68dd1a112d974c9655e0b28a6b',1,'SmartFridge.Tests.Unit.AdoNetUnitOfWorkIntegrationTest.Setup()']]],
+  ['shelflife',['ShelfLife',['../class_interfaces_and_d_t_o_1_1_g_u_i_item.html#ae87fa32198034641e2e13827faaf03e6',1,'InterfacesAndDTO.GUIItem.ShelfLife()'],['../class_list_item.html#abd4867baa2ae5fca9055270af2598793',1,'ListItem.ShelfLife()']]],
+  ['size',['Size',['../class_interfaces_and_d_t_o_1_1_g_u_i_item.html#a66b843dc4561f377ce14822badc24a15',1,'InterfacesAndDTO::GUIItem']]],
+  ['smartfridge',['SmartFridge',['../namespace_smart_fridge.html',1,'']]],
+  ['smartfridgeapplication',['SmartFridgeApplication',['../namespace_smart_fridge_application.html',1,'']]],
+  ['stdtoshoplistcontrol',['STDToShopListControl',['../class_business_logic_layer_1_1_b_l_l.html#ae0c3b1d7dadb74b5cd8fb9a0cfb61364',1,'BusinessLogicLayer::BLL']]],
+  ['stdtoshoplistcontrol_5fmilkonstdlistandinfridge_5fnothingchanged',['STDToShopListControl_MilkOnSTDListAndInFridge_NothingChanged',['../class_smart_fridge_1_1_tests_1_1_unit_1_1_business_logic_layer_test.html#ad8a5a63157fab48d5a79382446c938ec',1,'SmartFridge::Tests::Unit::BusinessLogicLayerTest']]],
+  ['stdtoshoplistcontrol_5fmilkonstdlistbutnotinfridge_5fmilkinshoppinglist',['STDToShopListControl_MilkOnSTDListButNotInFridge_MilkInShoppingList',['../class_smart_fridge_1_1_tests_1_1_unit_1_1_business_logic_layer_test.html#a15ae87ca66a1702dbad341c22c4e9a95',1,'SmartFridge::Tests::Unit::BusinessLogicLayerTest']]],
+  ['stdtoshoplistcontrol_5funrecognizablelistinserted_5fexceptionthrown',['STDToShopListControl_UnrecognizableListInserted_ExceptionThrown',['../class_smart_fridge_1_1_tests_1_1_unit_1_1_business_logic_layer_test.html#a09ce113f3a6503a84f1465211fe535d9',1,'SmartFridge::Tests::Unit::BusinessLogicLayerTest']]],
+  ['stdunit',['StdUnit',['../class_item.html#a14360b3a93f3937e0691d9dfe566e1f9',1,'Item']]],
+  ['stdvolume',['StdVolume',['../class_item.html#a26d5dd3f45d2ebfdde52f36daf4e8caf',1,'Item']]],
+  ['sync',['Sync',['../class_data_access_layer_1_1_sync_1_1_db_sync.html#af9f4a2e54a1cb25b4ff31afab5b03926',1,'DataAccessLayer::Sync::DbSync']]],
+  ['synced',['Synced',['../class_smart_fridge_application_1_1_main_window.html#a05f3c0edfe5c1db6581144d7ffe2e1b5a5befab0dde764b6dd8b24a34dc30afa7',1,'SmartFridgeApplication::MainWindow']]],
+  ['syncing',['Syncing',['../class_smart_fridge_application_1_1_main_window.html#a05f3c0edfe5c1db6581144d7ffe2e1b5a7e1907b268e3b1261c98c5bf7a368fe5',1,'SmartFridgeApplication::MainWindow']]],
+  ['syncsecondselapsed',['SyncSecondsElapsed',['../class_smart_fridge_application_1_1_event_timer.html#acb1026ecbf2a6bbdeb79a9abee53c02b',1,'SmartFridgeApplication::EventTimer']]],
+  ['tests',['Tests',['../namespace_smart_fridge_1_1_tests.html',1,'SmartFridge']]],
+  ['unit',['Unit',['../namespace_smart_fridge_1_1_tests_1_1_unit.html',1,'SmartFridge::Tests']]]
+];
