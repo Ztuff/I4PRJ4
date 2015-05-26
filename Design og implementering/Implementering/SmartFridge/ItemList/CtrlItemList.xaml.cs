@@ -19,7 +19,7 @@ namespace UserControlLibrary
         private CtrlTemplate _ctrlTemp;
         private string ListType;
         private GUIItem selectedItemOld = new GUIItem();
-        private GUIItem selectedItem = new GUIItem(); //(GUIItem)DataGridItems.SelectedItem;
+        private GUIItem selectedItem = new GUIItem(); 
         private ObservableCollection<GUIItem> GUIItems;
         private List<string> unitNames = new List<string>();
 
@@ -34,15 +34,13 @@ namespace UserControlLibrary
             _ctrlTemp = ctrlTemp;
             ListType = listType;
             LabelItemList.Content = ListType;
-            //  GUIItems = fakeData.GetItemsFromTable(ListType);
             _ctrlTemp._bll.CurrentList = ListType;
-            GUIItems = _ctrlTemp._bll.WatchItems;//kan ikke hente data før READ er fikset
+            GUIItems = _ctrlTemp._bll.WatchItems;
             LoadItemData();
             GetUnitNames();
             SelectedUnitCB.ItemsSource = unitNames;
             HideButtonsAndTextboxes();
             DataGridItems.SelectedIndex = 0;
-            //DataGridItems.Items
             DataGridItems_SelectionChanged(null, null);
         }
         /// <summary>
@@ -69,21 +67,15 @@ namespace UserControlLibrary
             unit.Header = "Enhed";
             unit.Binding = new Binding("Unit");
             DataGridItems.Columns.Add(unit);
-            // name.Width = DataGridItems.ActualWidth - amount.ActualWidth - size.ActualWidth - unit.ActualWidth;
-            // Vi ser lige på at lave en dynamisk bredde på Navn
-            // Midlertidig løsning:
-            // name.Width = 195;
             DataGridItems.Columns[0].Width = 70;
             DataGridItems.Columns[1].Width = 292;
             DataGridItems.Columns[2].Width = 70;
             DataGridItems.Columns[3].Width = 90;
             DataGridItems.Columns[4].Width = 70;
-            //DataGridItems.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; //VIRKER IKKE!
 
 
 
 
-            //LabelItemList.Content =GUIItems[0].ItemType;
         }
         /// <summary>
         /// Loads data for selected item to boxes
@@ -102,7 +94,7 @@ namespace UserControlLibrary
                 if (selectedItem.ShelfLife != null)
                     SelectedBestBeforeTB.SelectedDate = selectedItem.ShelfLife;
                 if (selectedItem.ShelfLife.Date.Year == 9999)
-                    SelectedBestBeforeTB.SelectedDate = null; //Not a hack!
+                    SelectedBestBeforeTB.SelectedDate = null;
                 
                 BtnEdit.Background = new ImageBrush { ImageSource = TryFindResource("ImgEdit") as ImageSource };
                 BtnInc.Background = new ImageBrush { ImageSource = TryFindResource("ImgAdd") as ImageSource };
@@ -141,7 +133,7 @@ namespace UserControlLibrary
                 SelectedAmount.Text = "Antal: " + selectedItem.Amount.ToString();
                 _ctrlTemp._bll.ChangeItem(selectedItemOld, selectedItem);
             }
-            GUIItems = _ctrlTemp._bll.WatchItems; //Reloader vores guiItems så de passer med DB
+            GUIItems = _ctrlTemp._bll.WatchItems;
             DataGridItems.Items.Refresh();
         }
         /// <summary>
@@ -193,7 +185,6 @@ namespace UserControlLibrary
             selectedItem = (GUIItem)DataGridItems.SelectedItem;
             if (selectedItem != null)
             {
-                //selectedItemOld = selectedItem;
 
                 selectedItemOld.Type = selectedItem.Type;
                 selectedItemOld.Unit = selectedItem.Unit;
@@ -209,7 +200,6 @@ namespace UserControlLibrary
                 SelectedAmountTB.DataContext = selectedItem.Amount;
                 SelectedSizeTB.DataContext = selectedItem.Size;
                 SelectedUnitTB.DataContext = selectedItem.Unit;
-                //SelectedBestBeforeTB.DataContext = selectedItem.BestBefore;
 
                 BtnInc.Opacity = 50;
                 BtnInc.IsEnabled = false;

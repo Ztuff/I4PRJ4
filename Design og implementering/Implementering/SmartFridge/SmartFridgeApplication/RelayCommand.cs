@@ -7,6 +7,10 @@ using System.Windows.Input;
 
 namespace SmartFridgeApplication
 {
+    /// <summary>
+    /// Relaycommand by Josh Smith. Used to delete notifications
+    /// http://stackoverflow.com/a/2588145/1069200
+    /// </summary>
     public class RelayCommand : ICommand
     {
         private readonly Action<object> _action;
@@ -33,10 +37,7 @@ namespace SmartFridgeApplication
             _action(parameter);
         }
 
-        /// <summary>
-        /// Relaycommand by Josh Smith
-        /// http://stackoverflow.com/a/2588145/1069200
-        /// </summary>
+        
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }

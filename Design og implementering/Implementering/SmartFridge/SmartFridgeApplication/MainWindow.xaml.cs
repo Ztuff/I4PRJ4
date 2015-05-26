@@ -46,7 +46,6 @@ namespace SmartFridgeApplication
         private SyncStatus syncStatus = SyncStatus.Synced;
         public CtrlTemplate CtrlTemp = new CtrlTemplate();
 
-        // public GridContent PrevUserControl;
         public MainWindow()
         {
             InitializeComponent();
@@ -55,8 +54,6 @@ namespace SmartFridgeApplication
             timer.Interval = TimeSpan.FromSeconds(1); //Timer ticks every 1 second
             timer.Tick += timer_Tick; //Event that is called everytime the timer ticks
             timer.Start();
-            //DateBlock.DataContext = clock.Date;
-            //TimeBlock.DataContext = clock.Time;
             CtrlTemp._bll.CurrentList = "Køleskab";
             var items = CtrlTemp._bll.WatchItems;
             eventT = new EventTimer(this, 30);
@@ -95,7 +92,6 @@ namespace SmartFridgeApplication
 
         private void Button_Home_Clicked(object sender, RoutedEventArgs e)
         {
-            //    PrevUserControl = (GridContent) Enum.Parse(typeof(GridContent), Temp.Name);
             CtrlTemp.ChangeGridContent(new CtrlShowListSelection(CtrlTemp));
         }
 
@@ -177,13 +173,6 @@ namespace SmartFridgeApplication
         {
             Button button = sender as Button;
 
-
-            /*
-            TextBlock popupText = new TextBlock();
-            popupText.Text = "Popup Text";
-            popupText.Background = Brushes.LightBlue;
-            popupText.Foreground = Brushes.Blue;
-            */
             AddNotificationsToPanel(CtrlTemp._bll.Notifications, Panel);
 
 

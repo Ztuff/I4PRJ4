@@ -11,7 +11,6 @@ namespace UserControlLibrary
     public partial class CtrlTemplate : UserControl
     {
         private UserControl _uc;
-        //public List<UserControl> NavigationHistoryCollection { get; private set; }
         public UserControl[] NavigationHistoryCollection { get; private set; }
         private int NavigationHistoryCollectionPosition;
         private int NavigationHistoryCollectionOriginalPosition;
@@ -30,7 +29,7 @@ namespace UserControlLibrary
 
             NavigationHistoryCollection = new UserControl[10]; //Opretter Navigation History list
             NavigationHistoryCollection[0] = _uc;
-            NavigationHistoryCollectionPosition = 0; //Sæter navigationspilen til at pege på start-up siden
+            NavigationHistoryCollectionPosition = 0; //Sætter navigationspilen til at pege på start-up siden
             NavigationHistoryCollectionOriginalPosition = NavigationHistoryCollectionPosition;
         }
 
