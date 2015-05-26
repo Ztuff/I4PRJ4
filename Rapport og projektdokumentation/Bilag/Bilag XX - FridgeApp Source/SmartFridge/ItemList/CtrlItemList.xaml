@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="UserControlLibrary.CtrlItemList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1280">
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/ResourcesDictionary;component/Dictionary.xaml"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid Name="ItemInfoGrid"  Margin="630,100,10,10" Grid.ColumnSpan="2">
+            <Border BorderBrush="Black" BorderThickness="2" Margin="-10,0,10,0">
+
+
+            </Border>
+            <Label x:Name="SelectedItemType" Content="Overskrift" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="28"/>
+            <TextBox Name="SelectedItemTB"  Margin="10,20,439,558"/>
+            <TextBlock x:Name="SelectedAmount" Margin="20,62,0,0" TextWrapping="Wrap" Text="Antal:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBox Name="SelectedAmountTB"  Margin="65,64,501,527"></TextBox>
+            <TextBlock x:Name="SelectedSize" Margin="20,88,0,0" TextWrapping="Wrap" Text="Volumen:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16"/>
+            <TextBox Name="SelectedSizeTB" Margin="90,90,454,501"/>
+            <TextBox x:Name="SelectedUnitTB" HorizontalAlignment="Left" Height="19" Margin="186,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" MaxLines="1" TextAlignment="Right"/>
+            <ComboBox x:Name="SelectedUnitCB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="23" Height="19" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="True" MaxDropDownHeight ="150" Margin="228,90,0,0" DropDownClosed="SelectedUnitCB_OnDropDownClosed"/>
+            <TextBlock x:Name="SelectedBestBefore" Margin="20,114,0,0" TextWrapping="Wrap" Text="Mindst holdbar til:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="16"/>
+            <DatePicker x:Name="SelectedBestBeforeTB" HorizontalAlignment="Left" Margin="154,114,0,0" VerticalAlignment="Top" Width="120"/>
+
+            <Button Style="{DynamicResource NoChromeButton}" x:Name="BtnEdit" Content="" Focusable="False" Margin="0,20,20,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" FontSize="20" Click="BtnEdit_Click" BorderBrush="{x:Null}">
+                <Button.Background>
+                    <ImageBrush ImageSource="{StaticResource ImgEdit}"/>
+                </Button.Background>
+            </Button>
+            <Button Style="{DynamicResource NoChromeButton}" x:Name="BtnInc" Margin="0,115,20,0" VerticalAlignment="Top" Focusable="False"  HorizontalAlignment="Right" Width="75" Height="75" Click="ButtonInc_Click" Foreground="{x:Null}" BorderBrush="{x:Null}">
+                <Button.Background>
+                    <ImageBrush ImageSource="{StaticResource ImgAdd}"/>
+                </Button.Background>
+            </Button>
+            <Button Style="{DynamicResource NoChromeButton}" x:Name="BtnDec" Margin="0,210,20,0" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Height="75" Click="BtnDec_Click" BorderThickness="1" BorderBrush="{x:Null}">
+                <Button.Background>
+                    <ImageBrush ImageSource="{StaticResource ImgRemove}"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+        <DataGrid x:Name="DataGridItems" HorizontalAlignment="Left" Margin="10,100,0,10" Width="600" FontSize="20" SelectionChanged="DataGridItems_SelectionChanged" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{DynamicResource NoChromeButton}" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Height="32" Width="32" Click="BtnDelete_Click" BorderBrush="{x:Null}">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="{StaticResource ImgTrash}"/>
+                                </Button.Background>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label x:Name="LabelItemList" Content="Listetype" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="40" HorizontalAlignment="Center"/>
+        <Button Style="{DynamicResource NoChromeButton}" Name="BtnCancel"  Content="" HorizontalAlignment="Left" Margin="671,257,0,0" VerticalAlignment="Top" Width="75" Height="75" Click="BtnCancel_Click" BorderBrush="{x:Null}">
+            <Button.Background>
+                <ImageBrush ImageSource="{StaticResource ImgCancel}"/>
+            </Button.Background>
+        </Button>
+        <Button Style="{DynamicResource NoChromeButton}" Name="BtnAccept" Content="" HorizontalAlignment="Left" Margin="775,257,0,0" VerticalAlignment="Top" Width="75" Height="75" Click="BtnAccept_Click" BorderBrush="{x:Null}">
+            <Button.Background>
+                <ImageBrush ImageSource="{StaticResource ImgOK}"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="BtnAddItem" Style="{DynamicResource NoChromeButton}" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="75" Width="75" Click="BtnAddItem_Click" BorderBrush="{x:Null}">
+            <Button.Background>
+                <ImageBrush ImageSource="{StaticResource ImgAddItem}"/>
+            </Button.Background>
+        </Button>
+
+    </Grid>
+</UserControl>
