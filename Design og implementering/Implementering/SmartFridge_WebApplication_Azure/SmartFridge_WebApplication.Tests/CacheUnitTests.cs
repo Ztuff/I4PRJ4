@@ -25,8 +25,6 @@ namespace SmartFridge_WebApplication.Tests
         {
             var dalfacade = Substitute.For<ISmartFridgeDALFacade>();
             Cache.DalFacade = dalfacade;
-           // currentList = new SmartFridge_WebModels.List("TestList"){ListId = 0};
-            //Item item = new Item("TestType") {ItemId = 1};
             listitem = new ListItem(1, 1, "l", default(DateTime), currentList, item) { ItemId = item.ItemId };
             dalfacade.GetUnitOfWork().ListRepo.GetAll().Returns(new List<List>() {currentList});
             dalfacade.GetUnitOfWork().ItemRepo.GetAll().Returns(new List<Item> {item});
@@ -50,7 +48,7 @@ namespace SmartFridge_WebApplication.Tests
         [Test]
         public void CurrentListSet_CorrectList()
         {
-                        Cache.CurrentList = currentList;
+            Cache.CurrentList = currentList;
             Assert.AreEqual(currentList, Cache.CurrentList);
         }
     }

@@ -155,56 +155,7 @@ namespace SmartFridge_WebApplication.Controllers
                     }
                     return RedirectToAction("ListView", "LisView");
                 }
-                #region OldVersion
-                //           if (listItem.Item.ItemName != _updatedItem.Type)
-                //           {
-                //               foreach (var item in Cache.DbItems)
-                //               {
-                //                   if (item.ItemName == _updatedItem.Type)
-                //                   {
-                //                       itemWithError = null;
-                //                       foreach (var duplicateListItem in Cache.CurrentListItems)
-                //                       {
-                //                           if (duplicateListItem.ItemId == item.ItemId && //Tjek på om der allerede eksistere en tilsavrende vare
-                //                               duplicateListItem.ListId == listItem.ListId && //gør der det opdateres den eksisterende vares antal
-                //                               duplicateListItem.Unit == listItem.Unit &&               //med antallet fra den opdaterede vare og den 
-                //                               duplicateListItem.Volume == listItem.Volume &&           //opdaterede vare slettes
-                //                               duplicateListItem.ShelfLife == listItem.ShelfLife)
 
-                //                           {
-                //                               duplicateListItem.Amount = duplicateListItem.Amount + listItem.Amount;
-                ////                               uow.ListItemRepo.Update(duplicateListItem);
-
-                //                               uow.ListItemRepo.Delete(uow.ListItemRepo.Find(l => l.ItemId == listItem.ItemId &&
-                //                                                                 l.ListId == listItem.ListId &&
-                //                                                                 l.Unit == listItem.Unit &&
-                //                                                                 l.Amount == listItem.Amount &&
-                //                                                                 l.ShelfLife == listItem.ShelfLife &&
-                //                                                                 l.Volume == listItem.Volume));
-                //                               uow.SaveChanges();
-                //                               Cache.DalFacade.DisposeUnitOfWork();
-
-                //                               return RedirectToAction("ListView", "LisView");
-                //                           }
-                //                       }
-                //                       listItem.Item = item;
-                //                   }
-                //               }
-                //               if (itemWithError != null)
-                //               {
-                //                   itemWithError.ItemName = _updatedItem.Type;
-                //                   uow.ItemRepo.Update(itemWithError);
-                //               }
-                //         }
-                //           listItem.Amount = Convert.ToInt32(_updatedItem.Amount);
-                //           listItem.Volume = Convert.ToInt32(_updatedItem.Size);
-                //           listItem.Unit = _updatedItem.Unit;
-                //           uow.ListItemRepo.Update(listItem);
-                //           break;
-                //}}
-                //uow.SaveChanges();
-                //Cache.DalFacade.DisposeUnitOfWork();
-                #endregion
             }
             //Hvis der ikke eksisterer et ListItem. Vi burde aldrig komme herned
             return RedirectToAction("ListView", "LisView");

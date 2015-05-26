@@ -25,10 +25,6 @@ namespace SmartFridge_WebApplication.Controllers
         {
             Cache.CurrentList = Cache.CurrentList;
             List<GUIItem> tempData = new List<GUIItem>();
-            //foreach (var item in _dbItems)
-            //{
-            //    tempData.Add(new GUIItem(item.ItemName,0,(uint)item.StdVolume,item.StdUnit){ItemId = item.ItemId});
-            //}
             if(Cache.CurrentListItems.Any())
             { 
                 foreach (var listItem in Cache.CurrentListItems)
@@ -44,7 +40,6 @@ namespace SmartFridge_WebApplication.Controllers
                 }
             }
             model = tempData; 
-            //model = new List<GUIItem>() { new GUIItem("KONTENT'SSSSS", 1, 1, "Reference"), new GUIItem("TreadsSS!", 2, 3, "Reference") { ShelfLife = new DateTime(2017, 6, 2) } }; //Til test
             return View(model);
         }
         /// <summary>
@@ -61,7 +56,6 @@ namespace SmartFridge_WebApplication.Controllers
                      return RedirectToAction("EditItem","EditItem", item);
                 }
             }
-           // return RedirectToAction("ListView","LisView");
             return RedirectToAction("EditItem", "EditItem", itemToEdit);
         }
         /// <summary>
@@ -85,7 +79,6 @@ namespace SmartFridge_WebApplication.Controllers
                     {
                         if (dblistitem.ItemId == item.ItemId)
                         {
-                            //uow.ListItemRepo.Delete(uow.ListItemRepo.Find(l => l.ItemId == 9));
                             uow.ListItemRepo.Delete(uow.ListItemRepo.Find(l => l.ItemId == dblistitem.ItemId &&
                                                                           l.ListId == dblistitem.ListId &&
                                                                           l.Unit == dblistitem.Unit &&

@@ -51,10 +51,6 @@
       <Project>{af9f7fe5-bb34-45f0-ac65-a6e1460cede2}</Project>
       <Name>SmartFridge_WebModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WorkerRole1\WorkerRole1.csproj">
-      <Project>{8c4c8a9d-6a3e-4368-a7df-a3d032490bc3}</Project>
-      <Name>WorkerRole1</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

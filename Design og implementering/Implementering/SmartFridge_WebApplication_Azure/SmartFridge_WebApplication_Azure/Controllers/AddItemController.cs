@@ -93,46 +93,12 @@ namespace SmartFridge_WebApplication.Controllers
                 return Exit(); 
             }
 
-            //test
-            //newGuiItems.Add(new GUIItem("Tester", 1, 6, "l"));
 
              model = newGuiItems;
              ViewBag.ListNewGuiItems = ListGuiItemTypes;
              return PartialView("~/Views/AddItem/AddItem.cshtml",model);
 
-            #region FromWPF             
-
-            /*foreach (var i in newItems)
-            {
-                if (i.Type.Equals(item.Type))
-                {
-                    i.Amount += item.Amount;
-                    ListBoxItems.Items.Refresh();
-                    return;
-                }
-            }
-            newItems.Add(item);
-
-            ListBoxItems.Items.Refresh();*/
-
-            #endregion
         }
-        #region Outdated addItemAndExit
-        //[HttpPost]
-        //public ActionResult addItemAndExit(string Varetype, string Antal, string Volume, string Enhed, string Holdbarhedsdato)
-        //{
-        //    addNewItem(Varetype, Antal, Volume, Enhed, Holdbarhedsdato,"Add");
-        //    Exit();
-        //    return null;
-
-        //    #region FromWPF
-
-        //    /*AddNewItem(CreateNewItem());
-        //    Exit();*/
-
-        //    #endregion
-        //}
-        #endregion
 
         /// <summary>
         /// Mapper GUIItems fra GUIItem listen med nyligt tilføjede vare, til Item, List og List Item i repository.
@@ -186,18 +152,10 @@ namespace SmartFridge_WebApplication.Controllers
             uow.SaveChanges();
             Cache.DalFacade.DisposeUnitOfWork();
 
-          //  return View("~/Views/LisView/ListView.cshtml", new { ListToEdit = currentListName });
             newGuiItems = new List<GUIItem>();
             model = newGuiItems;
             return RedirectToAction("ListView", "LisView");
 
-
-            #region FromWPF
-
-            /*_ctrlTemp._bll.AddItemsToTable(_currentList, newItems);
-            _ctrlTemp.ChangeGridContent(new CtrlItemList(_currentList, _ctrlTemp));*/
-
-            #endregion
         }
     }
 }
