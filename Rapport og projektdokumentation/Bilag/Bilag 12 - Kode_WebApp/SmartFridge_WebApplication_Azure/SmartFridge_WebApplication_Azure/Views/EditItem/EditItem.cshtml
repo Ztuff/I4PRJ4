@@ -1,0 +1,67 @@
+﻿@using SmartFridge_WebApplication.Controllers
+@using SmartFridge_WebModels
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.js">
+</script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js">
+</script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js">
+</script>
+@{
+    ViewBag.Title = "EditItem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    GUIItem dataSource = ViewData["olditem"] as GUIItem;
+    EditItemController.selectedUnit(dataSource);
+    string ShelfLifeString = dataSource.ShelfLife.Year + "-";
+    if (dataSource.ShelfLife.Month.ToString().Length == 1) { ShelfLifeString += "0" + dataSource.ShelfLife.Month + "-"; } else { ShelfLifeString += dataSource.ShelfLife.Month + "-"; }
+    if (dataSource.ShelfLife.Day.ToString().Length == 1) { ShelfLifeString += "0" + dataSource.ShelfLife.Day; } else { ShelfLifeString += dataSource.ShelfLife.Day; }
+    
+}
+
+
+<div class="NewItem">
+    @using (Html.BeginForm("UpdateItem", "EditItem"))
+    {
+        <label>VareType</label>
+        <br />
+        @Html.TextBox("Type", dataSource.Type, new
+        {
+            @id = "VaretypeText"
+        })
+        @Html.DropDownList("types", (List<SelectListItem>)ViewBag.types , new
+           {
+               @id = "VaretypeDropDown"
+           })
+        <br />
+        <label>Antal</label>
+        <br />
+        @Html.TextBox("Amount", dataSource.Amount, new { @type = "number", @min = 0 })
+        @*<table>
+                <tr><td><button>+</button></td></tr>
+                <tr><td><button>-</button></td></tr>
+            </table>*@
+        <br />
+        <label>Volumen</label>
+        <br />
+        @Html.TextBox("Volume", dataSource.Size, new { @type = "number", @min = 0 })
+        @Html.DropDownList("units")
+        <br />
+        <label>Holdbarhedsdato</label>
+        <br/>
+        @Html.TextBox("date", dataSource.ShelfLife.ToString("yyyy-MM-dd"), new { type = "date" })
+        <br/>
+        
+
+
+        <input type="image" src="~/Images/OK.png" alt="Submit" class="AddImg" />
+    }
+    @using (Html.BeginForm("ListView", "LisView"))
+    {
+        <input type="image" src="~/Images/Cancel.png" alt="Submit" class="AddImg" />
+    }
+
+
+</div>
+
+@section scripts {
+    <script src="~/scripts/addItemScripts.js"></script>
+}

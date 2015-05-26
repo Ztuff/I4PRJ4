@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "SmartFridge Web Application";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("SetCurrentList", "Home"))
+{
+    <input type="image" src="~/Images/Fridge.png" alt="Submit" value="Køleskab" name="ListToEdit"/>
+    <input type="image" src="~/Images/List.png" alt="Submit" value="Indkøbsliste" name="ListToEdit" />
+    <input type="image" src="~/Images/Standard.png" alt="Submit" value="Standard-beholdning" name="ListToEdit" />
+}
+
+
+

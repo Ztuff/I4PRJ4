@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="AzureCloudService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="WorkerRole1">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=cloudserviceforlibrarys;AccountKey=hEndMuAI9lbASWu1PS7KKLBrRYlW2jSFkFa5PCSIUgOCyTkJ2DtcUib87OjDluxp9R61sbENMywn+X0UEE+6HA==" />
+    </ConfigurationSettings>
+  </Role>
+</ServiceConfiguration>

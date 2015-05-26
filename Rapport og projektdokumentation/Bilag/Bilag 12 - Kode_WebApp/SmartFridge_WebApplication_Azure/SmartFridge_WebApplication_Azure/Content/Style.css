@@ -1,0 +1,87 @@
+﻿body {
+    font-family: Verdana, Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 300%;
+}
+
+#wrapper {
+    margin: 0 auto;
+    width: 80%;
+    background-color: grey;
+    text-align: center;
+}
+
+header {
+    font-weight: bold;
+    padding: 1%;
+    text-align: left;
+}
+
+
+footer {
+    font-size: 10px;
+    text-align: center;
+    padding: 1%;
+}
+
+#content {
+    text-align: center;
+    padding: 5%;
+}
+
+button {
+    background: transparent;
+    border: none;
+}
+
+.MenuImg {
+    width: 5%;
+    height: auto;
+}
+
+.RowImg {
+    width: 4em;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.NewItem {
+    text-align: left;
+    /*float: left;*/
+}
+
+.AddedItems {
+    margin-left: 0px;
+    text-align: left;
+}
+
+.AddImg {
+    width: 5em;
+    margin: 0 auto 0 auto;
+}
+
+.column {
+    width: 1%;
+}
+
+tbody {
+    height: 5em;
+    text-align: center;
+}
+
+td {
+    padding: 0 1.5em 0 1.5em
+}
+
+.oddRow {
+    background-color: white;
+}
+
+.evenRow {
+    background-color: lightgray;
+}

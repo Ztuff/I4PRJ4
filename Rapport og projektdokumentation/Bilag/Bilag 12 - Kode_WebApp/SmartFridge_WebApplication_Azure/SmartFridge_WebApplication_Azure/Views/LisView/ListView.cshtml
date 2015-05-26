@@ -1,0 +1,94 @@
+﻿@using System.Diagnostics
+@using SmartFridge_WebModels
+@model IEnumerable<SmartFridge_WebModels.GUIItem>
+@{
+    ViewBag.Title = "ListView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var grid = new WebGrid(Model, defaultSort: "null");
+    
+    IEnumerable<WebGridColumn> cols =
+            new List<WebGridColumn> {
+                new WebGridColumn{
+                    Format =
+                        @<text>
+                            <a href="@Url.Action("ToEditItem", "LisView", new GUIItem(item.Type, item.Amount, item.Size, item.Unit))"><img src="~/Images/Edit.png" class="RowImg" /></a>
+                            @*<a href='#' class="display edit-btn">
+                            @using (Html.BeginForm("EditItem", "EditItem"))
+                            {
+                                <input type="image" src="~/Images/Edit.png" alt="Submit" class="RowImg"/>
+                            }
+                        </a>*@
+                         </text>
+                },
+                new WebGridColumn{
+                    Format =
+                        @<text>
+                            <a href="@Url.Action("DeleteSelectedItem", "LisView", new GUIItem(item.Type, item.Amount, item.Size, item.Unit))"><img src="~/Images/Trash.png" class="RowImg" /></a>
+                            @*<a href='#' class="display edit-btn">
+                            @using (Html.BeginForm("EditItem", "EditItem"))
+                            {
+                                <input type="image" src="~/Images/Trash.png" alt="Submit" class="RowImg" />
+                            }
+                        </a>*@
+                         </text>
+                },
+                 new WebGridColumn{
+                    Header="Type",
+                    Format = @<text>
+                        <span class="display">
+                            <label id="lblType">@item.Type</label>
+                        </span>
+                    </text>
+                },
+                new WebGridColumn{
+                    Header="Amount",
+                    Format = @<text>
+                        <span class="display">
+                            <label id="lblAmount">@item.Amount</label>
+                        </span>
+                    </text>
+                },
+                new WebGridColumn{
+                    Header="Size",
+                    Format = @<text>
+                        <span class="display">
+                            <label id="lblSize">@item.Size</label>
+                        </span>
+                    </text>
+                },
+               
+                new WebGridColumn{
+                    Header="Unit",
+                    Format = @<text>
+                        <span class="display">
+                            <label id="lblUnit">@item.Unit</label>
+                        </span>
+                    </text>
+                },
+                 new WebGridColumn{
+                    Header="Holdbarhedsdato",
+                    Format = @<text>
+                        <span class="display">
+                            <label id="lblShelfLife">@item.ShelfLife.ToString("dd-MM-yyyy")</label>
+                        </span>
+                    </text>
+                }
+            };
+}
+
+
+@using (Html.BeginForm("AddItem", "AddItem"))
+{
+    <input type="image" src="~/Images/AddItem.png" alt="Submit" class="MenuImg" />
+}
+
+@*@using (Html.BeginForm("EditItem", "EditItem"))
+{
+    <input type="image" src="~/Images/Edit.png" alt="Submit" class="MenuImg" />
+}*@
+
+
+<div align="center">
+    @grid.GetHtml(columns:cols, 
+            rowStyle:"oddRow", alternatingRowStyle:"evenRow")
+</div>
