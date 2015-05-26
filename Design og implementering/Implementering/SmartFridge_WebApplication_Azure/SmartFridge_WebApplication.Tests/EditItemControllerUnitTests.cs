@@ -28,10 +28,10 @@ namespace SmartFridge_WebApplication.Tests
             Cache.DalFacade = dalfacade;
             SmartFridge_WebModels.List currentList = new SmartFridge_WebModels.List("TestList"){ListId = 0};
             Cache.CurrentList = currentList;
-            Item item = new Item("TestType") {ItemId = 1};
+            Item item = new Item("test") {ItemId = 1};
             ListItem listitem = new ListItem(1, 1, "l", default(DateTime), null, item){ItemId = item.ItemId};
+            Cache.CurrentListItems.Add(listitem);
             Cache.DbItems.Add(item);
-            dalfacade.GetUnitOfWork().ListItemRepo.GetAll().Returns(new List<ListItem>() {listitem});
         }
 
         [Test]
@@ -54,20 +54,116 @@ namespace SmartFridge_WebApplication.Tests
             EditItemController.selectedUnit(new GUIItem("TestGUIItem", 1, 1, "F"));
         }
 
-        //[Test]
-        //public void UpdateItem_Item_ItemUpdated()
-        //{
-        //    var actResult = uut.EditItem(new GUIItem("test", 1, 1, "l"));
-        //                _updatedGUIItem = new GUIItem(
-        //        collection["Type"],
-        //        Convert.ToUInt32(collection["Amount"]),
-        //        Convert.ToUInt32(collection["Volume"]),
-        //        collection["units"]
-        //        );
-        //    FormCollection collection = new FormCollection();
-        //    collection.Add(new NameValueCollection(){"Type",});
-        //    uut.UpdateItem()
-        //}
+        [Test]
+        public void UpdateItem_Item_EverythingButTypeAndNoShelfLifeUpdated()
+        {
+            uut.EditItem(new GUIItem("test", 1, 1, "l"));
+            FormCollection collection = new FormCollection();
+            collection.Add("Type","test");
+            collection.Add("Amount", "3");
+            collection.Add("Volume", "2");
+            collection.Add("units", "kg");
+            collection.Add("date", "");
+            var actResult = uut.UpdateItem(collection) as RedirectToRouteResult;
+
+            Assert.That(actResult.RouteValues["action"], Is.EqualTo("ListView"));                
+        }
+
+        [Test]
+        public void UpdateItem_Item_EverythingButTypeUpdated()
+        {
+            uut.EditItem(new GUIItem("test", 1, 1, "l"){ShelfLife = default(DateTime)});
+            FormCollection collection = new FormCollection();
+            collection.Add("Type", "test");
+            collection.Add("Amount", "3");
+            collection.Add("Volume", "2");
+            collection.Add("units", "kg");
+            collection.Add("date", "26-05-2015");
+            var actResult = uut.UpdateItem(collection) as RedirectToRouteResult;
+
+            Assert.That(actResult.RouteValues["action"], Is.EqualTo("ListView"));
+        }
+
+        [Test]
+        public void UpdateItem_OnlyTypeUpdatedExistingListItem()
+        {
+            Cache.DbItems.Add(new Item("UpdatedTest") { ItemId = 2 });
+            Cache.CurrentListItems.Add(new ListItem(2,3,"kg", new DateTime(2015,05,26)){ItemId = 2, Item = new Item(){ItemId = 2}});
+            uut.EditItem(new GUIItem("test", 1, 1, "l") { ShelfLife = default(DateTime) });
+            FormCollection collection = new FormCollection();
+            collection.Add("Type", "UpdatedTest");
+            collection.Add("Amount", "2");
+            collection.Add("Volume", "3");
+            collection.Add("units", "kg");
+            collection.Add("date", "26-05-2015");
+            var actResult = uut.UpdateItem(collection) as RedirectToRouteResult;
+
+            Assert.That(actResult.RouteValues["action"], Is.EqualTo("ListView"));
+        }
+
+        [Test]
+        public void UpdateItem_OnlyTypeUpdatedNotExistingListItem()
+        {
+            Cache.DbItems.Add(new Item("UpdatedTest") { ItemId = 2 });
+            uut.EditItem(new GUIItem("test", 1, 1, "l") { ShelfLife = default(DateTime) });
+            FormCollection collection = new FormCollection();
+            collection.Add("Type", "UpdatedTest");
+            collection.Add("Amount", "1");
+            collection.Add("Volume", "1");
+            collection.Add("units", "l");
+            collection.Add("date", "01-01-0001");
+            var actResult = uut.UpdateItem(collection) as RedirectToRouteResult;
+
+            Assert.That(actResult.RouteValues["action"], Is.EqualTo("ListView"));
+        }
+
+        [Test]
+        public void UpdateItem_OnlyTypeUpdatedNonExistantItem()
+        {
+            uut.EditItem(new GUIItem("test", 1, 1, "l") { ShelfLife = default(DateTime) });
+            FormCollection collection = new FormCollection();
+            collection.Add("Type", "UpdatedTest");
+            collection.Add("Amount", "1");
+            collection.Add("Volume", "1");
+            collection.Add("units", "l");
+            collection.Add("date", "01-01-0001");
+            var actResult = uut.UpdateItem(collection) as RedirectToRouteResult;
+
+            Assert.That(actResult.RouteValues["action"], Is.EqualTo("ListView"));
+        }
+
+        [Test]
+        public void UpdateItem_NoListItemsToUpdate()
+        {
+            Cache.CurrentList = new SmartFridge_WebModels.List();
+            Cache.CurrentListItems.Add(new ListItem(){Item = new Item(){ItemId = -1}});
+            FormCollection collection = new FormCollection();
+            collection.Add("Type", "UpdatedTest");
+            collection.Add("Amount", "1");
+            collection.Add("Volume", "1");
+            collection.Add("units", "l");
+            collection.Add("date", "01-01-0001");
+            var actResult = uut.UpdateItem(collection) as RedirectToRouteResult;
+
+            Assert.That(actResult.RouteValues["action"], Is.EqualTo("ListView"));
+        }
+
+        [Test]
+        public void UpdateItem_NoDbItems()
+        {
+            Cache.CurrentList = new SmartFridge_WebModels.List();
+            Cache.DbItems.Add(new Item());
+            uut.EditItem(new GUIItem("test", 1, 1, "l"));
+            FormCollection collection = new FormCollection();
+            collection.Add("Type", "test");
+            collection.Add("Amount", "3");
+            collection.Add("Volume", "2");
+            collection.Add("units", "kg");
+            collection.Add("date", "");
+            var actResult = uut.UpdateItem(collection) as RedirectToRouteResult;
+
+            Assert.That(actResult.RouteValues["action"], Is.EqualTo("ListView")); 
+        }
   
     }
 }
