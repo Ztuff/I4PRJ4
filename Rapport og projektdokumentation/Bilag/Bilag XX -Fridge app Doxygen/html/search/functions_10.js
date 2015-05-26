@@ -1,5 +1,0 @@
-var searchData=
-[
-  ['update',['Update',['../class_smart_fridge_application_1_1_clock.html#abdefd5676afce164e287c81b5e2390c1',1,'SmartFridgeApplication.Clock.Update()'],['../class_data_access_layer_1_1_repository_1_1_item_repository.html#a3d4a58ab944f21b9811aacca199e1bd2',1,'DataAccessLayer.Repository.ItemRepository.Update()'],['../class_data_access_layer_1_1_repository_1_1_list_item_repository.html#a4a3eefe2f19d1b0015adba501c838021',1,'DataAccessLayer.Repository.ListItemRepository.Update()'],['../class_data_access_layer_1_1_repository_1_1_list_repository.html#ab6e28878d8d9297345bafaeea64950bc',1,'DataAccessLayer.Repository.ListRepository.Update()'],['../class_data_access_layer_1_1_repository_1_1_repository.html#a5066f091b714fa7529e79db78c1797e4',1,'DataAccessLayer.Repository.Repository.Update()']]],
-  ['updatenotificationsamount',['UpdateNotificationsAmount',['../class_smart_fridge_application_1_1_main_window.html#a88b0660fa630e28ece54e899af24957a',1,'SmartFridgeApplication::MainWindow']]]
-];
